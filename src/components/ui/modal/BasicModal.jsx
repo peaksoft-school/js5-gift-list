@@ -1,11 +1,12 @@
-import { Modal, Typography, Box, styled } from '@mui/material'
+import { Modal, Box } from '@mui/material'
+import styled from 'styled-components'
 
 function BasicModal({ open, onClose, title, children }) {
     return (
         <Modal open={open} onClose={onClose}>
             <Box sx={style}>
-                <StyleHeaderTitle variant="h4">{title}</StyleHeaderTitle>
-                {children}
+                <StyleHeaderTitle>{title}</StyleHeaderTitle>
+                <div>{children}</div>
             </Box>
         </Modal>
     )
@@ -13,7 +14,7 @@ function BasicModal({ open, onClose, title, children }) {
 
 export default BasicModal
 
-const StyleHeaderTitle = styled(Typography)`
+const StyleHeaderTitle = styled.h4`
     width: 195px;
     height: 32px;
     font-family: 'Inter';
@@ -23,6 +24,7 @@ const StyleHeaderTitle = styled(Typography)`
     line-height: 32px;
     color: #23262f;
 `
+
 const style = {
     position: 'absolute',
     top: '50%',
