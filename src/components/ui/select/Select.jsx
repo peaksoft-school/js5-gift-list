@@ -1,16 +1,22 @@
-import Select from 'react-select'
+import Selects from 'react-select'
 import styled from 'styled-components'
 
-const AddSelect = ({ placeholder, category, options, ...props }) => {
+const Select = ({ placeholder, category, options, ...props }) => {
     const colourStyles = {
-        control: (styles) => ({
-            ...styles,
+        control: (style, { isFocused }) => ({
+            ...style,
             backgroundColor: 'white',
+            borderRadius: '6px',
+            boxShadow: 'none',
+            borderColor: isFocused ? '#8639B5;' : style.borderColor,
+            '&:hover': {
+                borderColor: isFocused ? '#8639B5;' : style.borderColor,
+            },
         }),
         option: (styles, { isSelected, isFocused }) => {
             return {
                 ...styles,
-                backgroundColor: isSelected && 'rgba(134, 57, 181, 0.4);',
+                backgroundColor: isSelected && 'rgba(189, 68, 205, 0.4);',
                 ':hover': {
                     ...styles[':hover'],
                     backgroundColor: isFocused && 'rgba(134, 57, 181, 0.2);',
@@ -19,12 +25,16 @@ const AddSelect = ({ placeholder, category, options, ...props }) => {
         },
         placeholder: (provided) => ({
             ...provided,
-            fontSize: '16px',
+            fontFamily: 'Inter;',
+            fontStyle: 'normal;',
+            fontWeight: '300;',
+            fontSize: '16px;',
+            lineHeight: '19px;',
         }),
     }
     return (
         <SelectDiv>
-            <label htmlFor={category}>{category}</label>
+            <Label htmlFor={category}>{category}</Label>
             <StyleSelect
                 placeholder={placeholder}
                 options={options}
@@ -35,7 +45,7 @@ const AddSelect = ({ placeholder, category, options, ...props }) => {
     )
 }
 
-export default AddSelect
+export default Select
 
 const SelectDiv = styled.div`
     width: 396px;
@@ -46,21 +56,21 @@ const SelectDiv = styled.div`
         display: none;
     }
 
-    & label {
-        color: #464444;
-        font-family: 'Inter';
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 15px;
-        margin-bottom: 20px;
-    }
-
     & Select::placeholder {
         color: #8d949e;
         font-size: 16px;
     }
 `
-const StyleSelect = styled(Select)`
+const Label = styled.label`
+    color: #464444;
+    font-family: 'Inter';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 20px;
+`
+const StyleSelect = styled(Selects)`
     width: 396px;
     height: 35px;
     margin-top: 6px;
