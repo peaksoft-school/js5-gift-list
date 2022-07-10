@@ -1,12 +1,5 @@
-import Button from './components/ui/Button'
-
 function App() {
-    return (
-        <div className="App">
-            gift list
-            <Button />
-        </div>
-    )
+    return <div className="App">gift list</div>
 }
 
 export default App

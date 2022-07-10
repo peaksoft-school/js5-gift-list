@@ -2,36 +2,31 @@ import React from 'react'
 
 import styled from '@emotion/styled'
 
-const Button = ({
-    width,
-    heigth,
-    backgroundColor,
-    radius,
-    color,
-    border,
-    children,
-}) => {
-    return (
-        <Buttons
-            width={width}
-            heigth={heigth}
-            backgroundColor={backgroundColor}
-            radius={radius}
-            color={color}
-            border={border}
-        >
-            {children}
-        </Buttons>
-    )
+const Button = ({ children, ...props }) => {
+    return <Buttons {...props}>{children}</Buttons>
 }
 
 export default Button
 
-const Buttons = styled('button')`
-    color: ${(props) => props.color};
-    border-radius: ${(props) => props.radius};
-    background-color: ${(props) => props.backgroundColor};
-    height: ${(props) => props.heigth};
-    width: ${(props) => props.width};
-    border: ${(props) => props.border};
-`
+const Buttons = styled('button')((props) => ({
+    color: props.color || '#FFFFFF',
+    borderRadius: props.radius || '6px',
+    backgroundColor: props.backgroundColor || '#8639B5',
+    height: props.heigth || '37px',
+    width: props.width || '232px',
+    border: props.border || 'none',
+    fontFamily: props.fontFamily || 'Inter',
+    fontSize: props.fontSize || '16px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&:hover': {
+        ...props.hover,
+    },
+    '&:active': {
+        ...props.active,
+    },
+    '&:disabled': {
+        ...props.disabled,
+    },
+}))
