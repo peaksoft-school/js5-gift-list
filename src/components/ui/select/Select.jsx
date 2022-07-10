@@ -1,7 +1,7 @@
 import Selects from 'react-select'
 import styled from 'styled-components'
 
-const Select = ({ placeholder, category, options, ...props }) => {
+const Select = ({ placeholder, label, options, ...props }) => {
     const colourStyles = {
         control: (style, { isFocused }) => ({
             ...style,
@@ -35,7 +35,7 @@ const Select = ({ placeholder, category, options, ...props }) => {
     }
     return (
         <SelectDiv>
-            <Label htmlFor={category}>{category}</Label>
+            <Label htmlFor={label}>{label}</Label>
             <StyleSelect
                 placeholder={placeholder}
                 options={options}
