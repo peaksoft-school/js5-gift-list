@@ -8,6 +8,7 @@ const Select = ({ placeholder, category, options, ...props }) => {
             backgroundColor: 'white',
             borderRadius: '6px',
             boxShadow: 'none',
+            border: `${props.border}`,
             borderColor: isFocused ? '#8639B5;' : style.borderColor,
             '&:hover': {
                 borderColor: isFocused ? '#8639B5;' : style.borderColor,
@@ -71,8 +72,8 @@ const Label = styled.label`
     margin-bottom: 20px;
 `
 const StyleSelect = styled(Selects)`
-    width: 396px;
-    height: 35px;
+    width: ${(props) => (props.width ? props.width : '396px')};
+    height: ${(props) => (props.height ? props.height : '35px')};
     margin-top: 6px;
     border: 1px solid #bdbdbd;
     border-radius: 6px;
