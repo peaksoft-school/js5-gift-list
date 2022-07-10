@@ -29,21 +29,24 @@ const Cart = styled.div`
     border-radius: 8px;
     margin: 30px 30px;
     padding: 15px;
+    & .red :hover {
+        background-color: black;
+    }
     &.red {
-        background: #ffebeb;
+        background-color: #ffebeb;
         border: 1px solid #bc2c2c;
     }
     &.green {
-        background: #eafbe7;
+        background-color: #eafbe7;
         border: 1px solid #c6f0c2;
     }
     &.blue {
-        background: #ebeff7;
+        background-color: #ebeff7;
         border: 1px solid #375bb0;
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
     }
     &.orange {
-        background: #fff3d8;
+        background-color: #fff3d8;
         border: 1px solid #ed9e44;
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
     }
