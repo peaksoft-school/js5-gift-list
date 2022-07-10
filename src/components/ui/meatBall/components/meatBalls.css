@@ -1,0 +1,18 @@
+.ball {
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    background-color: #595656
+}
+
+.ball :hover {
+    background-color: rgb(62, 62, 62);
+}
+
+.balls {
+    width: 19.5px;
+    height: 4.5px;
+    border: 1px solid;
+    display: flex;
+    justify-content: space-around;
+}
