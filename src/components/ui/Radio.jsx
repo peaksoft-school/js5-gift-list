@@ -7,7 +7,7 @@ function Radio({ children, ...props }) {
                 <Input type="radio" name="simple" {...props} />
                 <Span> </Span>
             </Label>
-            {children}
+            <label htmlFor="">{children}</label>
         </Div>
     )
 }
