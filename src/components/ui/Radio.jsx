@@ -1,13 +1,18 @@
 import styled from 'styled-components'
 
-function Radio({ children, ...props }) {
+function Radio({ onChange, cheked, label }) {
     return (
         <Div>
             <Label>
-                <Input type="radio" name="simple" {...props} />
+                <Input
+                    type="radio"
+                    name="simple"
+                    onChange={onChange}
+                    cheked={cheked}
+                />
                 <Span> </Span>
             </Label>
-            <label htmlFor="">{children}</label>
+            {label}
         </Div>
     )
 }
