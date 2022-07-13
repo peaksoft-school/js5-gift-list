@@ -3,9 +3,8 @@ import React, { forwardRef } from 'react'
 import styled from '@emotion/styled'
 import OutlinedInput from '@mui/material/OutlinedInput'
 
-const Input = forwardRef((props) => {
-    const { type, placholder, name, id, onchange, ref, value, width, height } =
-        props
+const Input = forwardRef((props, ref) => {
+    const { type, placholder, name, id, onchange, value, width, height } = props
     return (
         <StyledTextField
             type={type}

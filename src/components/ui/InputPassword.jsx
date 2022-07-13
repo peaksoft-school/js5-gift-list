@@ -8,8 +8,8 @@ import InputAdornment from '@mui/material/InputAdornment'
 import { ReactComponent as ClosedEyes } from '../../assets/icons/closedEyes.svg'
 import { ReactComponent as OpenedEyes } from '../../assets/icons/openedEyes.svg'
 
-const InputPassword = forwardRef((props) => {
-    const { ref, placeholder, name, value, onChange, id } = props
+const InputPassword = forwardRef((props, ref) => {
+    const { placeholder, name, value, onChange, id } = props
     const [textOrPassword, setValues] = React.useState(false)
 
     const handleClickShowPassword = () => {
