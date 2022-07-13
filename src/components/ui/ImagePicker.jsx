@@ -13,7 +13,7 @@ const ImagePicker = ({ onChange }) => {
         setIcons('')
     }
 
-    const ImagePacerHandler = () => {
+    const imageHandler = () => {
         const image = URL.createObjectURL(refs.current.files[0])
 
         setIcons(image)
@@ -26,7 +26,7 @@ const ImagePicker = ({ onChange }) => {
             <Input
                 id="file"
                 ref={refs}
-                onChange={ImagePacerHandler}
+                onChange={imageHandler}
                 type="file"
                 accept="image/jpeg,image/png,image/gif"
             />
