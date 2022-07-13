@@ -14,7 +14,7 @@ const PageLayout = ({ children }) => {
         <Layout>
             <>
                 <NavbarWrapper>
-                    <SaitBar>
+                    <SideBar>
                         <TextGift>GIFT LIST</TextGift>
                         <NavWrapper>
                             {RolePaths[role].map((item) => {
@@ -31,7 +31,7 @@ const PageLayout = ({ children }) => {
                                 )
                             })}
                         </NavWrapper>
-                    </SaitBar>
+                    </SideBar>
                 </NavbarWrapper>
                 <div>
                     <Header />
@@ -45,9 +45,9 @@ const PageLayout = ({ children }) => {
 export default PageLayout
 const Layout = styled('div')`
     display: grid;
-    grid-template-columns: 290px 1046px;
+    grid-template-columns: 284px 1067px;
 `
-const SaitBar = styled('div')`
+const SideBar = styled('div')`
     background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
     position: fixed;
     width: 290px;
@@ -64,8 +64,7 @@ const TextGift = styled('h2')`
     margin-bottom: 34px;
 `
 const Content = styled('main')`
-    background: #f7f8fa;
-    margin-top: 86px;
+    margin-top: 80px;
 `
 
 const NavbarWrapper = styled('div')``

@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg'
 
-import MenuAccaunt from './Menu'
+import MenuAccaunt from './MenuAccaount'
 
 const Header = () => {
     return (
@@ -20,7 +20,7 @@ const Header = () => {
 
 export default Header
 const Headers = styled('header')`
-    width: 100%;
+    width: 1146px;
     height: 86px;
     margin-left: 290px;
     display: flex;
