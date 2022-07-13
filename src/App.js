@@ -1,12 +1,18 @@
+import React from 'react'
 import Notification from './components/ui/notification/Notification'
+
+import MainRouter from './routes/MainRouter'
+import AllRoutes from './routes/Routes'
 
 function App() {
     return (
-        <div>
+        <div className="App">
+            <MainRouter />
+            <AllRoutes />
             <Notification
-                message="Спасибо что сообщили нам об этом"
-                title=""
+                title="Error"
                 className="error"
+                message="Text of problem"
             />
         </div>
     )
