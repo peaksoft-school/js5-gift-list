@@ -1,95 +1,81 @@
-import styled from 'styled-components'
-import close from '../../../assets/images/close.png'
+import { ToastContainer, toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 const Notification = (props) => {
-    const { className, icon, title, message } = props
+    const { className, title, message } = props
+    const options = {
+        position: 'top-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+            height: '120px',
+            width: '390px',
+            display: 'flex',
+            justifyContent: 'space-around',
+        },
+    }
+    const showNotification = () => {
+        if (className === 'success') {
+            options.style.backgroundColor = '#C6F0C2'
+            options.style.color = '#328048'
+            toast.success(
+                <>
+                    <p>{title}</p>
+                    <p>{message}</p>
+                </>,
+                options
+            )
+        } else if (className === 'warning') {
+            options.style = { backgroundColor: '#FFF3D8', color: '#ED9E44' }
+            toast.warn(
+                <>
+                    <p>{title}</p>
+                    <p>{message}</p>
+                </>,
+                options
+            )
+        } else if (className === 'info') {
+            options.style = { backgroundColor: '#EBEFF7', color: '#375BB0' }
+            toast.info(
+                <>
+                    <p>{title}</p>
+                    <p>{message}</p>
+                </>,
+                options
+            )
+        } else if (className === 'error') {
+            options.style = { backgroundColor: '#FFEBEB', color: '#BC2C2C' }
+            toast.error(
+                <>
+                    <p>{title}</p>
+                    <p>{message}</p>
+                </>,
+                options
+            )
+        }
+    }
+
+    showNotification()
     return (
-        <Cart className={className}>
-            <Notificate>
-                <Div>
-                    <Img src={icon} alt="icon of status" />
-                    <Span>{title}</Span>
-                </Div>
-                <Close src={close} />
-            </Notificate>
-            <MessageDiv>
-                <Message>{message}</Message>
-            </MessageDiv>
-        </Cart>
+        <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            toastStyle={{ height: '200px' }}
+            theme="colored"
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+        />
     )
 }
 
 export default Notification
-const Cart = styled.div`
-    width: 500px;
-    height: 93px;
-    border-radius: 8px;
-    gap: 16px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
-    border-radius: 8px;
-    margin: 30px 30px;
-    padding: 15px;
-    & .red :hover {
-        background-color: black;
-    }
-    &.red {
-        background-color: #ffebeb;
-        border: 1px solid #bc2c2c;
-    }
-    &.green {
-        background-color: #eafbe7;
-        border: 1px solid #c6f0c2;
-    }
-    &.blue {
-        background-color: #ebeff7;
-        border: 1px solid #375bb0;
-        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
-    }
-    &.orange {
-        background-color: #fff3d8;
-        border: 1px solid #ed9e44;
-        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.16);
-    }
-    & span {
-        font-family: system-ui;
-    }
-`
-
-const Div = styled.div`
-    display: flex;
-    justify-content: left;
-    width: 60%;
-`
-
-const Notificate = styled('div')`
-    display: flex;
-    justify-content: space-between;
-    padding: 0px;
-`
-
-const Span = styled.span`
-    font-size: 14px;
-    margin-left: 10px;
-`
-
-const Close = styled.img`
-    width: 12px;
-    height: 12px;
-    border: 1px;
-`
-
-const Img = styled.img`
-    width: 20px;
-    height: auto;
-`
-
-const Message = styled.span`
-    padding: 5px;
-    'font-size':75% ;
-`
-
-const MessageDiv = styled.div`
-    width: 80%;
-    margin: 0;
-    'text-align':left ;
-`

@@ -1,9 +1,13 @@
-import AllNotification from './components/ui/AllNotification'
+import Notification from './components/ui/notification/Notification'
 
 function App() {
     return (
         <div>
-            <AllNotification />
+            <Notification
+                message="Спасибо что сообщили нам об этом"
+                title=""
+                className="error"
+            />
         </div>
     )
 }
