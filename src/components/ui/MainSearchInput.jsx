@@ -91,7 +91,7 @@ export default function MainSearchInput({
                     onClick={onClick}
                 />
 
-                {/* <StyledIconButton /> */}
+                <StyledIconButton />
                 {arr.map((elem) => {
                     return (
                         <CustomSelect
@@ -137,6 +137,7 @@ const PaperForm = styled(Paper)`
 `
 
 const MuiInputBase = styled(InputBase)`
+    width: 743px;
     height: 17px;
     margin: -20px;
     font-style: normal;
@@ -148,10 +149,6 @@ const MuiInputBase = styled(InputBase)`
     letter-spacing: 0.02em;
     color: #8d949e;
     flex: auto;
-    input::-webkit-search-cancel-button  { 
- -webkit-appearance : color: red ; 
-
-}
 `
 
 const MuiSearchIcon = styled(SearchIcon)`
@@ -204,11 +201,11 @@ const StyledContentTitle = styled('span')`
     letter-spacing: 0.2px;
     color: #020202;
 `
-// const StyledIconButton = styled(IconButton)`
-//     color: #8639b5;
-//     background-color: red;
-//     border: 5px solid yellow;
-// `
+const StyledIconButton = styled(IconButton)`
+    color: #8639b5;
+    background-color: red;
+    border: 5px solid yellow;
+`
 const StyledAvatar = styled(Avatar)`
     width: 35px;
     height: 35px;
