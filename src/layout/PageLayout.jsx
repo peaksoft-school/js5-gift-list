@@ -45,12 +45,12 @@ const PageLayout = ({ children }) => {
 export default PageLayout
 const Layout = styled('div')`
     display: grid;
-    grid-template-columns: 284px 1067px;
+    grid-template-columns: 288px 1067px;
 `
 const SideBar = styled('div')`
     background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
     position: fixed;
-    width: 290px;
+    width: 294px;
     height: 100%;
     box-sizing: border-box;
     margin-top: -8px;

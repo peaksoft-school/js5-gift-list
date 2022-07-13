@@ -9,7 +9,9 @@ import MenuAccaunt from './MenuAccaount'
 const Header = () => {
     return (
         <Headers>
-            <HeaderInput type="text" />
+            <InputDiv>
+                <HeaderInput type="text" />
+            </InputDiv>
             <WarningSpan>
                 <WarningIcon />
             </WarningSpan>
@@ -22,10 +24,10 @@ export default Header
 const Headers = styled('header')`
     width: 1146px;
     height: 86px;
-    margin-left: 290px;
+    margin-left: 294px;
     display: flex;
     align-items: center;
-
+    padding-left: 20px;
     position: fixed;
     top: 0;
     left: 0;
@@ -36,9 +38,11 @@ const Headers = styled('header')`
 const HeaderInput = styled('input')`
     width: 740px;
     height: 19px;
-
-    margin-left: 30px;
 `
 const WarningSpan = styled('span')`
     margin-left: 30px;
+`
+const InputDiv = styled('div')`
+    display: flex;
+    flex-direction: column;
 `
