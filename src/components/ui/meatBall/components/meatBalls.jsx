@@ -40,7 +40,7 @@ export default function MeatBalls(props) {
             >
                 {props.navigations.map((el) => (
                     <MenuItem key={el.id}>
-                        <Img src={el.icon} alt="navigations" />
+                        <Img src={el.icon} alt="navigation items" />
                         {el.title}
                     </MenuItem>
                 ))}
