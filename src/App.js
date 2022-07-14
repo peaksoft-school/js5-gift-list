@@ -1,16 +1,34 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
+import icos from './assets/images/анонимно.png'
+import MeatBalls from './components/ui/meatBall/components/meatBalls'
 import Notification from './components/ui/notification/Notification'
-
-import MainRouter from './routes/MainRouter'
-import AllRoutes from './routes/Routes'
 
 function App() {
     const [show, setShow] = useState(false)
+    const navigations = [
+        {
+            title: 'Заблокировать',
+            id: 2,
+            icon: icos,
+            clickItem: () => console.log('сlicked 1'),
+        },
+        {
+            title: 'Заблокировать',
+            id: 3,
+            icon: icos,
+            clickItem: () => console.log('сlicked 2'),
+        },
+        {
+            title: 'Заблокировать',
+            id: 4,
+            icon: icos,
+            clickItem: () => console.log('сlicked 3'),
+        },
+    ]
     return (
         <div className="App">
-            <MainRouter />
-            <AllRoutes />
+            <MeatBalls navigations={navigations} />
             {show && (
                 <Notification
                     title="Error"
