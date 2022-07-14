@@ -8,10 +8,7 @@ import MenuAccaunt from './MenuAccaount'
 const Header = () => {
     return (
         <Headers>
-            <InputDiv>
-                {/* <MainSearchInput /> */}
-                input
-            </InputDiv>
+            <InputDiv>{/* <MainSearchInput /> */}</InputDiv>
             <WarningSpan>
                 <WarningIcon />
             </WarningSpan>

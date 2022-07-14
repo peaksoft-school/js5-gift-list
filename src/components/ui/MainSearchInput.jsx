@@ -12,20 +12,19 @@ export default function MainSearchInput({
         return user.name.toLowerCase().includes(value.toLowerCase())
     })
 
-    let content = <p>Такого пользователя не существует</p>
-
-    if (!filteredUser) {
-        return content
+    const renderSearchResults = () => {
+        if (!filteredUser) {
+            return <p>Такого пользователя не существует</p>
+        }
+        return filteredUser.map((user) => {
+            return (
+                <StyledUserDiv key={user.id}>
+                    <StyledAvatar alt="Remy Sharp" src={user.img} />
+                    <StyledSpan>{user.name}</StyledSpan>
+                </StyledUserDiv>
+            )
+        })
     }
-    filteredUser.map((user) => {
-        // eslint-disable-next-line no-return-assign
-        return (content = (
-            <StyledUserDiv key={user.id}>
-                <StyledAvatar alt="Remy Sharp" src={user.img} />
-                <StyledSpan>{user.name}</StyledSpan>
-            </StyledUserDiv>
-        ))
-    })
 
     return (
         <>
@@ -45,7 +44,9 @@ export default function MainSearchInput({
                     <ResultDiv>
                         <StyledTitle>Результаты поиска</StyledTitle>
                         <hr />
-                        <StyledContentTitle>{content}</StyledContentTitle>
+                        <StyledContentTitle>
+                            {renderSearchResults()}
+                        </StyledContentTitle>
                     </ResultDiv>
                 )}
             </ResultContainer>
