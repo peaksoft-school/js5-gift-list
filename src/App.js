@@ -1,14 +1,13 @@
 import React from 'react'
 
-// import MainRouter from './routes/MainRouter'
-// import AllRoutes from './routes/Routes'
-
-import ImagePicker from './components/ui/ImagePicker'
+import MainRouter from './routes/MainRouter'
+import AllRoutes from './routes/Routes'
 
 function App() {
     return (
         <div className="App">
-            <ImagePicker />
+            <MainRouter />
+            <AllRoutes />
         </div>
     )
 }
