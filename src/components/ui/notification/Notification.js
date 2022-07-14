@@ -2,7 +2,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Notification = (props) => {
-    const { className, title, message } = props
+    const { status, title, message } = props
     const options = {
         position: 'top-right',
         autoClose: 2000,
@@ -18,49 +18,45 @@ const Notification = (props) => {
             justifyContent: 'space-around',
         },
     }
-    const showNotification = () => {
-        if (className === 'success') {
-            options.style.backgroundColor = '#C6F0C2'
-            options.style.color = '#328048'
-            toast.success(
-                <>
-                    <p>{title}</p>
-                    <p>{message}</p>
-                </>,
-                options
-            )
-        } else if (className === 'warning') {
-            options.style = { backgroundColor: '#FFF3D8', color: '#ED9E44' }
-            toast.warn(
-                <>
-                    <p>{title}</p>
-                    <p>{message}</p>
-                </>,
-                options
-            )
-        } else if (className === 'info') {
-            options.style = { backgroundColor: '#EBEFF7', color: '#375BB0' }
-            toast.info(
-                <>
-                    <p>{title}</p>
-                    <p>{message}</p>
-                </>,
-                options
-            )
-        } else if (className === 'error') {
-            options.style = { backgroundColor: '#FFEBEB', color: '#BC2C2C' }
-            toast.error(
-                <>
-                    <p>{title}</p>
-                    <p>{message}</p>
-                </>,
-                options
-            )
-        }
+    if (status === 'success') {
+        options.style.backgroundColor = '#C6F0C2'
+        options.style.color = '#328048'
+        toast.success(
+            <>
+                <p>{title}</p>
+                <p>{message}</p>
+            </>,
+            options
+        )
+    } else if (status === 'warning') {
+        options.style = { backgroundColor: '#FFF3D8', color: '#ED9E44' }
+        toast.warn(
+            <>
+                <p>{title}</p>
+                <p>{message}</p>
+            </>,
+            options
+        )
+    } else if (status === 'info') {
+        options.style = { backgroundColor: '#EBEFF7', color: '#375BB0' }
+        toast.info(
+            <>
+                <p>{title}</p>
+                <p>{message}</p>
+            </>,
+            options
+        )
+    } else if (status === 'error') {
+        options.style = { backgroundColor: '#FFEBEB', color: '#BC2C2C' }
+        toast.error(
+            <>
+                <p>{title}</p>
+                <p>{message}</p>
+            </>,
+            options
+        )
     }
-    if (props.isShow) {
-        showNotification()
-    }
+
     return (
         <ToastContainer
             position="top-right"

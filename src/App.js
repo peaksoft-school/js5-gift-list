@@ -7,20 +7,18 @@ import AllRoutes from './routes/Routes'
 
 function App() {
     const [show, setShow] = useState(false)
-    const showNotification = () => {
-        setShow(true)
-    }
     return (
         <div className="App">
             <MainRouter />
             <AllRoutes />
-            <Notification
-                isShow={show}
-                title="Error"
-                className="error"
-                message="Text of problem"
-            />
-            <Button onClick={showNotification}>Show Notification</Button>
+            {show && (
+                <Notification
+                    title="Error"
+                    status="error"
+                    message="Text of problem"
+                />
+            )}
+            <Button onClick={() => setShow(true)}>Show Notification</Button>
         </div>
     )
 }
