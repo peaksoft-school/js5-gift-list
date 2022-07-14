@@ -1,12 +1,18 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 
 import styled, { css } from 'styled-components'
 
 import File from '../../assets/icons/ImageFile.svg'
 
-const ImagePicker = ({ onChange }) => {
+const ImagePicker = ({ onChange, newFile }) => {
     const refs = useRef()
     const [icons, setIcons] = useState()
+    useEffect(() => {
+        if (newFile) {
+            const Image = URL.createObjectURL(newFile)
+            setIcons(Image)
+        }
+    }, [newFile])
 
     const deleteImageHandler = () => {
         refs.current.value = ''
