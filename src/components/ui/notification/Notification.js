@@ -18,7 +18,6 @@ const Notification = (props) => {
             justifyContent: 'space-around',
         },
     }
-
     const showNotification = () => {
         if (className === 'success') {
             options.style.backgroundColor = '#C6F0C2'
@@ -59,7 +58,9 @@ const Notification = (props) => {
             )
         }
     }
-    props.showNotifications(showNotification)
+    if (props.isShow) {
+        showNotification()
+    }
     return (
         <ToastContainer
             position="top-right"
