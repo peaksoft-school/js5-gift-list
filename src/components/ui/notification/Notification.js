@@ -18,43 +18,24 @@ const Notification = (props) => {
             justifyContent: 'space-around',
         },
     }
+    const content = (
+        <>
+            <p>{title}</p> <p>{message}</p>
+        </>
+    )
     if (status === 'success') {
         options.style.backgroundColor = '#C6F0C2'
         options.style.color = '#328048'
-        toast.success(
-            <>
-                <p>{title}</p>
-                <p>{message}</p>
-            </>,
-            options
-        )
+        toast.success(content, options)
     } else if (status === 'warning') {
         options.style = { backgroundColor: '#FFF3D8', color: '#ED9E44' }
-        toast.warn(
-            <>
-                <p>{title}</p>
-                <p>{message}</p>
-            </>,
-            options
-        )
+        toast.warn(content, options)
     } else if (status === 'info') {
         options.style = { backgroundColor: '#EBEFF7', color: '#375BB0' }
-        toast.info(
-            <>
-                <p>{title}</p>
-                <p>{message}</p>
-            </>,
-            options
-        )
+        toast.info(content, options)
     } else if (status === 'error') {
         options.style = { backgroundColor: '#FFEBEB', color: '#BC2C2C' }
-        toast.error(
-            <>
-                <p>{title}</p>
-                <p>{message}</p>
-            </>,
-            options
-        )
+        toast.error(content, options)
     }
 
     return (

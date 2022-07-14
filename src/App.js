@@ -31,9 +31,9 @@ function App() {
             <MeatBalls navigations={navigations} />
             {show && (
                 <Notification
-                    title="Error"
-                    status="error"
-                    message="Text of problem"
+                    title="Success"
+                    status="success"
+                    message="Something....."
                 />
             )}
             <Button onClick={() => setShow(true)}>Show Notification</Button>
