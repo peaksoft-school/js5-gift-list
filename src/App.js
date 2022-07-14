@@ -44,5 +44,5 @@ function App() {
 export default App
 
 const Button = styled.button`
-    margin-left: 300px;
+    margin-left: 310px;
 `
