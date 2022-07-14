@@ -1,55 +1,5 @@
 import SearchIcon from '@mui/icons-material/Search'
-import { Paper, InputBase, IconButton, styled, Avatar } from '@mui/material'
-
-import CustomSelect from './select/CustomSelect'
-
-export const arr = [
-    {
-        category: 'Состояние',
-        placeholder: 'Выберите категорию',
-        options: [
-            { value: 'Все', label: 'Все' },
-            { value: 'Б/У', label: 'Б/У' },
-            { value: 'Новое', label: 'Новое' },
-        ],
-    },
-    {
-        category: 'Категория',
-        placeholder: 'Укажите подкатегорию',
-        options: [
-            { value: 'Электpоника', label: 'Электроника' },
-            { value: 'Одежда', label: 'Одежда' },
-            { value: 'Школа', label: 'Школа' },
-            { value: 'Дом и Сад', label: 'Дом и Сад' },
-            { value: 'Обувь', label: 'Обувь' },
-            { value: 'Транспорт', label: 'Транспорт' },
-        ],
-    },
-    {
-        category: 'Подкатегория',
-        placeholder: 'Укажите состояние',
-        options: [
-            { value: 'Электроника', label: 'Электроника' },
-            { value: 'Одежда', label: 'Одежда' },
-            { value: 'Школа', label: 'Школа' },
-            { value: 'Дом и Сад', label: 'Дом и Сад' },
-            { value: 'Обувь', label: 'Обувь' },
-            { value: 'Транспорт', label: 'Транспорт' },
-        ],
-    },
-    {
-        category: 'Страна',
-        placeholder: 'Укажите состояние',
-        options: [
-            { value: 'Кыргызстан', label: 'Кыргызстан' },
-            { value: 'Айзербайджан', label: 'Айзербайджан' },
-            { value: 'Россия', label: 'Россия' },
-            { value: 'Казахстан', label: 'Казахстан' },
-            { value: 'Узбекистан', label: 'Узбекистан' },
-            { value: 'Таджикистан', label: 'Таджикистан' },
-        ],
-    },
-]
+import { InputBase, IconButton, styled, Avatar } from '@mui/material'
 
 export default function MainSearchInput({
     USERS,
@@ -79,30 +29,18 @@ export default function MainSearchInput({
 
     return (
         <>
-            <PaperForm component="form">
-                <IconButton aria-label="menu">
+            <StyledForm>
+                <IconButton>
                     <MuiSearchIcon />
                 </IconButton>
                 <MuiInputBase
                     placeholder="Введите имя"
-                    type="search"
                     value={value}
                     onChange={onChange}
                     onClick={onClick}
                 />
-
-                <StyledIconButton />
-                {arr.map((elem) => {
-                    return (
-                        <CustomSelect
-                            key={elem.category}
-                            name={elem.category}
-                            options={elem.options}
-                        />
-                    )
-                })}
-            </PaperForm>
-            <Div>
+            </StyledForm>
+            <ResultContainer>
                 {value.trim().length >= 1 && open && (
                     <ResultDiv>
                         <StyledTitle>Результаты поиска</StyledTitle>
@@ -110,17 +48,20 @@ export default function MainSearchInput({
                         <StyledContentTitle>{content}</StyledContentTitle>
                     </ResultDiv>
                 )}
-            </Div>
+            </ResultContainer>
         </>
     )
 }
 
 const ResultDiv = styled('div')`
-    background-color: aqua;
+    background-color: #f4f6f6;
     border-radius: 8px;
+    position: absolute;
+    top: 65px;
+    width: 823px;
 `
 
-const PaperForm = styled(Paper)`
+const StyledForm = styled('form')`
     box-sizing: border-box;
     display: flex;
     justify-content: flex-end;
@@ -157,7 +98,7 @@ const MuiSearchIcon = styled(SearchIcon)`
     padding: 10px;
 `
 
-const Div = styled('div')`
+const ResultContainer = styled('div')`
     height: 100%;
     width: 821px;
     background-color: white;
@@ -201,11 +142,7 @@ const StyledContentTitle = styled('span')`
     letter-spacing: 0.2px;
     color: #020202;
 `
-const StyledIconButton = styled(IconButton)`
-    color: #8639b5;
-    background-color: red;
-    border: 5px solid yellow;
-`
+
 const StyledAvatar = styled(Avatar)`
     width: 35px;
     height: 35px;

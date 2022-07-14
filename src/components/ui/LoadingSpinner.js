@@ -11,6 +11,3 @@ export default function LoadingSpinner() {
         </Stack>
     )
 }
-// const LoadingDiv = styled('div')`
-//     margin: 0 auto;
-// `
