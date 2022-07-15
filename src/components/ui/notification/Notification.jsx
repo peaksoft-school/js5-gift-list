@@ -2,15 +2,23 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const Notification = (props) => {
-    const { status, options } = props
+    const { status } = props
+    const style = {
+        height: '120px',
+        width: '390px',
+    }
     if (status === 'success') {
-        options.style = { backgroundColor: '#C6F0C2', color: '#328048' }
+        style.backgroundColor = '#C6F0C2'
+        style.color = '#328048'
     } else if (status === 'warning') {
-        options.style = { backgroundColor: '#FFF3D8', color: '#ED9E44' }
+        style.backgroundColor = '#FFF3D8'
+        style.color = '#ED9E44'
     } else if (status === 'info') {
-        options.style = { backgroundColor: '#EBEFF7', color: '#375BB0' }
+        style.backgroundColor = '#EBEFF7'
+        style.color = '#375BB0'
     } else if (status === 'error') {
-        options.style = { backgroundColor: '#FFEBEB', color: '#BC2C2C' }
+        style.backgroundColor = '#FFEBEB'
+        style.color = '#BC2C2C'
     }
 
     return (
@@ -25,7 +33,8 @@ const Notification = (props) => {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            options={options}
+            style={{ width: '400px' }}
+            toastStyle={style}
         />
     )
 }
