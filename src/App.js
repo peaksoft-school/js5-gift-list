@@ -1,4 +1,3 @@
-// import { toast } from 'react-toastify'
 import styled from 'styled-components'
 
 import icos from './assets/images/анонимно.png'
@@ -33,11 +32,6 @@ function App() {
                 <p>Запрос выполнен успешно!!</p> <p>Message of status</p>
             </>
         )
-        // toast.success(
-        //     <>
-        //         <p>Success!!</p> <p>Message of status</p>
-        //     </>
-        // )
     }
     return (
         <div className="App">
