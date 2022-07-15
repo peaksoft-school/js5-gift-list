@@ -36,7 +36,7 @@ function App() {
     return (
         <div className="App">
             <MeatBalls navigations={navigations} />
-            <Notification status="success" />
+            <Notification />
             <Button onClick={showNotification}>Show Notification</Button>
         </div>
     )
