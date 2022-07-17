@@ -47,7 +47,6 @@ const Button = ({
     variant,
     onclick,
     startIcon,
-    hover,
     active,
     disabled,
 }) => {
@@ -56,7 +55,6 @@ const Button = ({
             styles={BUTTON_VARIANTS[variant]}
             startIcon={startIcon}
             onclick={onclick}
-            hover={hover}
             active={active}
             disabled={disabled}
         >
@@ -83,9 +81,6 @@ const StyledButton = styled(MuiButton)`
     font-weight: 600;
     font-size: 16px;
     border-radius: 6px;
-    &:hover {
-        ${(props) => props.hover}
-    }
     &:active {
         ${(props) => props.active}
     }
