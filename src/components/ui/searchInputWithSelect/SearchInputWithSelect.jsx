@@ -2,14 +2,19 @@ import React, { useState } from 'react'
 
 import styled from 'styled-components'
 
-import { titleOfCategory } from '../../../utils/constants/constants'
-
 import SearchInput from './SearchInput'
 import SearchSelect from './SearchSelect'
 
-const SearchInputwithSelect = ({ onChange, selectHandler }) => {
+const SearchInputwithSelect = ({ options }) => {
     const [isActived, setISActived] = useState(false)
     const [isFocused, setIsFocused] = useState('')
+    const [value, setValue] = useState({
+        searchText: '',
+        state: null,
+        category: null,
+        subCategory: null,
+        country: null,
+    })
 
     const onActiveHandler = (e) => {
         setISActived(!isActived)
@@ -21,19 +26,74 @@ const SearchInputwithSelect = ({ onChange, selectHandler }) => {
             setIsFocused('')
         }
     }
+    const getValue = (obj) => {
+        if (obj.type === 'state') {
+            setValue((prev) => {
+                return {
+                    ...prev,
+                    state: obj.text,
+                }
+            })
+        } else if (obj.type === 'category') {
+            setValue((prev) => {
+                return {
+                    ...prev,
+                    category: obj.text,
+                }
+            })
+        } else if (obj.type === 'subCategory') {
+            setValue((prev) => {
+                return {
+                    ...prev,
+                    subCategory: obj.text,
+                }
+            })
+        } else if (obj.type === 'country') {
+            setValue((prev) => {
+                return {
+                    ...prev,
+                    country: obj.text,
+                }
+            })
+        } else {
+            setValue((prev) => {
+                return {
+                    ...prev,
+                    searchText: obj.searchText,
+                }
+            })
+        }
+    }
     return (
         <StyleDiv onClick={onActiveHandler} primary={isActived}>
-            <SearchInput onChange={onChange} />
+            <SearchInput onChange={getValue} />
             <SelectContainer>
-                {titleOfCategory?.map((elem) => {
-                    return (
-                        <SearchSelect
-                            category={elem.category}
-                            options={elem?.options}
-                            onChange={selectHandler}
-                        />
-                    )
-                })}
+                <SearchSelect
+                    options={options}
+                    onChange={getValue}
+                    value={value.state}
+                    type="state"
+                    category="Состояние"
+                />
+                <SearchSelect
+                    options={options}
+                    onChange={getValue}
+                    value={value.category}
+                    type="category"
+                    category="Категория"
+                />
+                <SearchSelect
+                    options={options}
+                    onChange={getValue}
+                    type="subCategory"
+                    category="Подкатегория"
+                />
+                <SearchSelect
+                    options={options}
+                    onChange={getValue}
+                    type="country"
+                    category="Страна"
+                />
             </SelectContainer>
         </StyleDiv>
     )

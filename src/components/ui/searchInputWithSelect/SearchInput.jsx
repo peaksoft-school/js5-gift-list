@@ -5,11 +5,13 @@ import Union from '../../../assets/icons/Union.svg'
 const SearchInput = ({ onChange }) => {
     return (
         <InputBlock>
-            <IconSearch src={Union} alt="" />
+            <IconSearch src={Union} alt="icon" />
             <StyleInput
                 type="search"
                 placeholder="Поиск"
-                onChange={(event) => onChange(event.target.value)}
+                onChange={(event) =>
+                    onChange({ searchText: event.target.value })
+                }
             />
         </InputBlock>
     )

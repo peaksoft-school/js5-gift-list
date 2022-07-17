@@ -1,5 +1,6 @@
 import icos from './assets/images/анонимно.png'
 import MeatBalls from './components/ui/meatBall/components/meatBalls'
+import SearchInputwithSelect from './components/ui/searchInputWithSelect/SearchInputWithSelect'
 
 function App() {
     const navigations = [
@@ -25,6 +26,7 @@ function App() {
     return (
         <div className="App">
             <MeatBalls navigations={navigations} />
+            <SearchInputwithSelect />
         </div>
     )
 }

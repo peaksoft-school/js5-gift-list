@@ -63,18 +63,3 @@ export const RolePaths = {
         },
     ],
 }
-
-export const titleOfCategory = [
-    {
-        category: 'Состояние',
-    },
-    {
-        category: 'Категория',
-    },
-    {
-        category: 'Подкатегория',
-    },
-    {
-        category: 'Страна',
-    },
-]
