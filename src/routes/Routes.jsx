@@ -6,19 +6,19 @@ import { Routes, Route } from 'react-router-dom'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import PageLayout from '../layout/PageLayout'
 
-const Lenta = lazy(() => import('../components/company/users/Lenta'))
-const WissList = lazy(() => import('../components/company/users/WissList'))
-const Complaints = lazy(() => import('../components/company/admin/Complaints'))
-const Mailing = lazy(() => import('../components/company/admin/Mailing'))
-const Users = lazy(() => import('../components/company/admin/Users'))
-const Bookeds = lazy(() => import('../components/company/users/Bookeds'))
-const Charity = lazy(() => import('../components/company/users/Charity'))
-const MyHalidays = lazy(() => import('../components/company/users/MyHalidays'))
+const Lenta = lazy(() => import('../components/users/Lenta'))
+const WissList = lazy(() => import('../components/users/WissList'))
+const Complaints = lazy(() => import('../components/admin/Complaints'))
+const Mailing = lazy(() => import('../components/admin/Mailing'))
+const Users = lazy(() => import('../components/admin/Users'))
+const Bookeds = lazy(() => import('../components/users/Bookeds'))
+const Charity = lazy(() => import('../components/users/Charity'))
+const MyHalidays = lazy(() => import('../components/users/MyHalidays'))
 // eslint-disable-next-line prettier/prettier
 const CharityUsers = lazy(() =>
-    import('../components/company/admin/CharityUsers')
+    import('../components/admin/CharityUsers')
 )
-const Friends = lazy(() => import('../components/company/users/Friends'))
+const Friends = lazy(() => import('../components/users/Friends'))
 const AllRoutes = () => {
     return (
         <PageLayout>
