@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styled from 'styled-components'
 
 import SearchInput from './SearchInput'
 import SearchSelect from './SearchSelect'
 
-const SearchInputwithSelect = ({ options }) => {
+const SearchInputwithSelect = ({
+    stateOption,
+    category,
+    subCategory,
+    country,
+    onChange,
+}) => {
     const [isActived, setISActived] = useState(false)
     const [isFocused, setIsFocused] = useState('')
     const [value, setValue] = useState({
-        searchText: '',
-        state: null,
-        category: null,
-        subCategory: null,
-        country: null,
+        searchInput: '',
+        state: '',
+        category: '',
+        subCategory: '',
+        country: '',
     })
 
     const onActiveHandler = (e) => {
@@ -26,72 +32,56 @@ const SearchInputwithSelect = ({ options }) => {
             setIsFocused('')
         }
     }
-    const getValue = (obj) => {
-        if (obj.type === 'state') {
-            setValue((prev) => {
-                return {
-                    ...prev,
-                    state: obj.text,
-                }
-            })
-        } else if (obj.type === 'category') {
-            setValue((prev) => {
-                return {
-                    ...prev,
-                    category: obj.text,
-                }
-            })
-        } else if (obj.type === 'subCategory') {
-            setValue((prev) => {
-                return {
-                    ...prev,
-                    subCategory: obj.text,
-                }
-            })
-        } else if (obj.type === 'country') {
-            setValue((prev) => {
-                return {
-                    ...prev,
-                    country: obj.text,
-                }
-            })
-        } else {
-            setValue((prev) => {
-                return {
-                    ...prev,
-                    searchText: obj.searchText,
-                }
-            })
-        }
+
+    useEffect(() => {
+        onChange(value)
+    }, [value])
+
+    const changeHandler = (fieldName, newValue) => {
+        setValue((prev) => {
+            return {
+                ...prev,
+                [fieldName]: newValue,
+            }
+        })
     }
+
     return (
         <StyleDiv onClick={onActiveHandler} primary={isActived}>
-            <SearchInput onChange={getValue} />
+            <SearchInput onChange={changeHandler} value={value} />
             <SelectContainer>
                 <SearchSelect
-                    options={options}
-                    onChange={getValue}
+                    valueKey="id"
+                    labelKey="name"
+                    options={stateOption}
+                    onChange={(newVaal) => changeHandler('state', newVaal)}
                     value={value.state}
-                    type="state"
                     category="Состояние"
                 />
                 <SearchSelect
-                    options={options}
-                    onChange={getValue}
+                    valueKey="id"
+                    labelKey="name"
+                    options={category}
+                    onChange={(newVaal) => changeHandler('category', newVaal)}
                     value={value.category}
-                    type="category"
                     category="Категория"
                 />
                 <SearchSelect
-                    options={options}
-                    onChange={getValue}
-                    type="subCategory"
+                    valueKey="id"
+                    labelKey="name"
+                    options={subCategory}
+                    onChange={(newVaal) =>
+                        changeHandler('subCategory', newVaal)
+                    }
+                    value={value.subCategory}
                     category="Подкатегория"
                 />
                 <SearchSelect
-                    options={options}
-                    onChange={getValue}
-                    type="country"
+                    valueKey="id"
+                    labelKey="name"
+                    options={country}
+                    onChange={(newVaal) => changeHandler('country', newVaal)}
+                    value={value.country}
                     category="Страна"
                 />
             </SelectContainer>

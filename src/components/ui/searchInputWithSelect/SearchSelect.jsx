@@ -6,16 +6,14 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import { styled } from '@mui/material/styles'
 
-const SearchSelect = ({ options, category, onChange, type }) => {
+const SearchSelect = ({ options, category, onChange, labelKey, valueKey }) => {
     const [values, setValues] = useState('')
     const [text, settext] = useState(false)
     const [px, setPx] = useState('')
+
     const handleChange = (event) => {
         setValues(event.target.value)
-        onChange({
-            type,
-            text: event.target.value,
-        })
+        onChange(event.target.value)
         settext(true)
     }
     useEffect(() => {
@@ -62,10 +60,13 @@ const SearchSelect = ({ options, category, onChange, type }) => {
                     value={values}
                     onChange={handleChange}
                 >
-                    {options?.map((elem) => {
+                    {options.map((elem) => {
                         return (
-                            <MenuOptions value={elem.value} key={elem.value}>
-                                {elem.value}
+                            <MenuOptions
+                                value={elem[valueKey]}
+                                key={elem[valueKey]}
+                            >
+                                {elem[labelKey]}
                             </MenuOptions>
                         )
                     })}

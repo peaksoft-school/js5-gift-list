@@ -10,7 +10,7 @@ const SearchInput = ({ onChange }) => {
                 type="search"
                 placeholder="Поиск"
                 onChange={(event) =>
-                    onChange({ searchText: event.target.value })
+                    onChange('searchInput', event.target.value)
                 }
             />
         </InputBlock>
