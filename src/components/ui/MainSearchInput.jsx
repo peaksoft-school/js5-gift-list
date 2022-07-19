@@ -8,18 +8,21 @@ export default function MainSearchInput({
     value,
     onClick,
 }) {
+    const userProfileHandler = () => {
+        console.log('profile')
+    }
     const renderSearchResults = () => {
-        if (!options) {
-            return <p>Такого пользователя не существует</p>
+        if (options.length > 0) {
+            return options.map((user) => {
+                return (
+                    <StyledUserDiv key={user.id} onClick={userProfileHandler}>
+                        <StyledAvatar alt="Remy Sharp" src={user.img} />
+                        <StyledSpan>{user.name}</StyledSpan>
+                    </StyledUserDiv>
+                )
+            })
         }
-        return options.map((user) => {
-            return (
-                <StyledUserDiv key={user.id}>
-                    <StyledAvatar alt="Remy Sharp" src={user.img} />
-                    <StyledSpan>{user.name}</StyledSpan>
-                </StyledUserDiv>
-            )
-        })
+        return <p>Такого пользователя не существует</p>
     }
 
     return (
@@ -108,6 +111,7 @@ const StyledTitle = styled('p')`
 
 const StyledSpan = styled('span')`
     padding: 5px;
+    cursor: pointer;
 `
 
 const StyledUserDiv = styled('div')`
