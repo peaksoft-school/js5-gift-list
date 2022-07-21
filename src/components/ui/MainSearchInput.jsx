@@ -1,21 +1,12 @@
 import SearchIcon from '@mui/icons-material/Search'
 import { InputBase, IconButton, Paper, styled, Avatar } from '@mui/material'
 
-export default function MainSearchInput({
-    options,
-    onChange,
-    open,
-    value,
-    onClick,
-}) {
-    const userProfileHandler = () => {
-        console.log('profile')
-    }
+export default function MainSearchInput({ options, onChange, value, onClick }) {
     const renderSearchResults = () => {
         if (options.length > 0) {
             return options.map((user) => {
                 return (
-                    <StyledUserDiv key={user.id} onClick={userProfileHandler}>
+                    <StyledUserDiv key={user.id} onClick={() => onClick(user)}>
                         <StyledAvatar alt="Remy Sharp" src={user.img} />
                         <StyledSpan>{user.name}</StyledSpan>
                     </StyledUserDiv>
@@ -38,7 +29,7 @@ export default function MainSearchInput({
                     onClick={onClick}
                 />
             </StyledFormPaper>
-            {value.trim().length >= 1 && open && (
+            {value.trim().length >= 1 && (
                 <ResultDiv>
                     <StyledTitle>Результаты поиска</StyledTitle>
                     <hr />
@@ -56,7 +47,7 @@ const ResultDiv = styled('div')`
     border-radius: 8px;
     position: absolute;
     height: auto;
-    top: 65px;
+    top: 69px;
     width: 823px;
 `
 
