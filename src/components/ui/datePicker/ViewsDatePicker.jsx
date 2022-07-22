@@ -16,7 +16,7 @@ const theme = createTheme({
     },
 })
 
-const ViewsDatePicker = ({ onChange, value, label }) => {
+const ViewsDatePicker = ({ onChange, value, label, placeholder }) => {
     const dateChangeHandler = (event) => {
         onChange(event.target.value)
     }
@@ -36,7 +36,7 @@ const ViewsDatePicker = ({ onChange, value, label }) => {
                                 helperText={null}
                                 inputProps={{
                                     ...params.inputProps,
-                                    placeholder: 'Укажите дату праздника',
+                                    placeholder: { placeholder },
                                 }}
                             />
                         )}
