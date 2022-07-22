@@ -16,14 +16,14 @@ const theme = createTheme({
     },
 })
 
-const ViewsDatePicker = ({ onChange, value }) => {
+const ViewsDatePicker = ({ onChange, value, label }) => {
     const dateChangeHandler = (event) => {
         onChange(event.target.value)
     }
 
     return (
         <Div>
-            <Label htmlFor="дата праздника">Дата праздника</Label>
+            <Label htmlFor={label}>{label}</Label>
 
             <LocalizationProvider locale={ru} dateAdapter={AdapterDateFns}>
                 <ThemeProvider theme={theme}>
