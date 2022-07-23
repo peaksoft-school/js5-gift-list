@@ -6,11 +6,16 @@ import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-const navigations = [
-    { id: '1', icon: editIcon, title: 'Редактировать' },
-    { id: '2', icon: deleteIcon, title: 'Удалить' },
-]
-export default function MyHolidaysCard({ img, title, date, onClick }) {
+export default function MyHolidaysCard({ img, title, date }) {
+    const navigations = [
+        {
+            id: '1',
+            icon: editIcon,
+            title: 'Редактировать',
+            clickItem: () => {},
+        },
+        { id: '2', icon: deleteIcon, title: 'Удалить', clickItem: () => {} },
+    ]
     return (
         <StyledCard>
             <StyledCardMedia alt="green iguana" image={img} />
@@ -19,7 +24,7 @@ export default function MyHolidaysCard({ img, title, date, onClick }) {
             </HolidayTitleDiv>
             <StyledFooter>
                 <StyledDate>{date}</StyledDate>
-                <MeatBalls navigations={navigations} onClick={onClick} />
+                <MeatBalls navigations={navigations} />
             </StyledFooter>
         </StyledCard>
     )
@@ -54,7 +59,7 @@ const StyledFooter = styled('div')`
     margin-top: 14px;
 `
 const StyledDate = styled('span')`
-    font-family: inter;
+    font-family: Inter;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
