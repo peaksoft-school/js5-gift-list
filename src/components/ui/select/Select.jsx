@@ -1,4 +1,4 @@
-import Selects from 'react-select'
+import { Selects } from 'react-select'
 import styled from 'styled-components'
 
 const Select = ({ placeholder, label, options, ...props }) => {
