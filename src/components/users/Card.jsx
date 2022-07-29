@@ -10,8 +10,8 @@ import CardMedia from '@mui/material/CardMedia'
 import addInMyGifts from '../../assets/icons/addInMyGifts.svg'
 import toBookanonymously from '../../assets/icons/toBookanonymously.svg'
 import toBooking from '../../assets/icons/toBooking.svg'
-import пожаловаться from '../../assets/icons/пожаловаться.svg'
-import снятьбронь from '../../assets/icons/снять бронь.svg'
+import reportIcon from '../../assets/icons/reportIcon.svg'
+import cacelBooking from '../../assets/icons/cacelBooking.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 import ReportModal from './ReportModal'
@@ -47,7 +47,7 @@ export default function Card({
             clickItem: () => {},
         },
         {
-            icon: пожаловаться,
+            icon: reportIcon,
             title: 'Пожаловаться',
             id: '4',
             clickItem: click,
@@ -61,13 +61,13 @@ export default function Card({
             clickItem: () => {},
         },
         {
-            icon: снятьбронь,
+            icon: cacelBooking,
             title: 'снять бронь',
             id: '2',
             clickItem: toBookHandler,
         },
         {
-            icon: пожаловаться,
+            icon: reportIcon,
             title: 'Пожаловаться',
             id: '4',
             clickItem: click,
