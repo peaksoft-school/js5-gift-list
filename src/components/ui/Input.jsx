@@ -24,7 +24,7 @@ export default Input
 
 const StyledTextField = styled(OutlinedInput)((props) => ({
     boxSizing: 'border-box',
-    fontFamily: 'Inter',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: '300',
     fontSize: '16px',

@@ -1,4 +1,4 @@
-import { Selects } from 'react-select'
+import Selects from 'react-select'
 import styled from 'styled-components'
 
 const Select = ({ placeholder, label, options, ...props }) => {
@@ -26,11 +26,12 @@ const Select = ({ placeholder, label, options, ...props }) => {
         },
         placeholder: (provided) => ({
             ...provided,
-            fontFamily: 'Inter;',
+            fontFamily: 'Inter, sans-serif',
             fontStyle: 'normal;',
             fontWeight: '300;',
             fontSize: '16px;',
             lineHeight: '19px;',
+            color: '#bfc0c4',
         }),
     }
     return (
@@ -50,9 +51,8 @@ export default Select
 
 const SelectDiv = styled.div`
     width: 396px;
-    height: 56px;
+    /* height: 56px; */
     padding-bottom: 20px;
-
     & .css-1okebmr-indicatorSeparator {
         display: none;
     }
@@ -64,7 +64,7 @@ const SelectDiv = styled.div`
 `
 const Label = styled.label`
     color: #464444;
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 12px;
@@ -75,7 +75,6 @@ const StyleSelect = styled(Selects)`
     width: ${(props) => (props.width ? props.width : '396px')};
     height: ${(props) => (props.height ? props.height : '35px')};
     margin-top: 6px;
-    border: 1px solid #bdbdbd;
     border-radius: 6px;
     font-family: 'Inter';
     font-style: normal;
