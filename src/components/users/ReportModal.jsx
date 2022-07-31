@@ -1,12 +1,10 @@
-// import { useState } from 'react'
-
 import styled from '@emotion/styled'
 
 import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
 import Radio from '../ui/Radio'
 
-const ReportModal = ({ open, onClose }) => {
+const ReportModal = ({ open, onClose, onChange }) => {
     const radio = [
         { title: 'Жестокость и шокирующий контент', id: '1' },
         { title: 'Проявление ненависти', id: '2' },
@@ -19,6 +17,9 @@ const ReportModal = ({ open, onClose }) => {
         { title: 'Сцены порнографического характера', id: '6' },
         { title: 'Прочее', id: '7' },
     ]
+    const getValue = (e) => {
+        onChange(e)
+    }
     return (
         <BasicModal open={open} onClose={onClose}>
             <Wrapper>
@@ -28,7 +29,11 @@ const ReportModal = ({ open, onClose }) => {
                 </ReportSpan>
                 <Div>
                     {radio.map((el) => (
-                        <Radio key={el.id} label={el.title} />
+                        <Radio
+                            onChange={() => getValue(el)}
+                            key={el.id}
+                            label={el.title}
+                        />
                     ))}
                 </Div>
                 <WrapperButton>

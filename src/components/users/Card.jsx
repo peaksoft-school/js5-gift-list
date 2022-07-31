@@ -8,10 +8,10 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 
 import addInMyGifts from '../../assets/icons/addInMyGifts.svg'
+import cacelBooking from '../../assets/icons/cancelBooking.svg'
+import reportIcon from '../../assets/icons/reportIcon.svg'
 import toBookanonymously from '../../assets/icons/toBookanonymously.svg'
 import toBooking from '../../assets/icons/toBooking.svg'
-import reportIcon from '../../assets/icons/reportIcon.svg'
-import cacelBooking from '../../assets/icons/cacelBooking.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 import ReportModal from './ReportModal'
@@ -26,6 +26,7 @@ export default function Card({
     holiday,
     giftName,
     avatarInBooking,
+    onChange,
 }) {
     const navigationFirst = [
         {
@@ -50,7 +51,7 @@ export default function Card({
             icon: reportIcon,
             title: 'Пожаловаться',
             id: '4',
-            clickItem: click,
+            clickItem: openClick,
         },
     ]
     const navigationSecond = [
@@ -70,22 +71,21 @@ export default function Card({
             icon: reportIcon,
             title: 'Пожаловаться',
             id: '4',
-            clickItem: click,
+            clickItem: openClick,
         },
     ]
 
-    const [open, setState] = useState(false)
+    const [open, setOpen] = useState(false)
     const [booking, setTobooking] = useState(false)
-    console.log(booking)
 
     function toBookHandler() {
         setTobooking((prev) => !prev)
     }
-    function click() {
-        setState((prev) => !prev)
+    function openClick() {
+        setOpen((prev) => !prev)
     }
     const onCloseModal = () => {
-        setState((prev) => !prev)
+        setOpen((prev) => !prev)
     }
     const navigation = booking ? navigationSecond : navigationFirst
     return (
@@ -113,7 +113,11 @@ export default function Card({
                     <StyledText>{toBook}</StyledText>
                 </Wrapper>
                 <MeatBalls navigations={navigation} />
-                <ReportModal open={open} onClose={onCloseModal} />
+                <ReportModal
+                    open={open}
+                    onClose={onCloseModal}
+                    onChange={onChange}
+                />
             </StyledCardContentSecond>
         </StyledCard>
     )
