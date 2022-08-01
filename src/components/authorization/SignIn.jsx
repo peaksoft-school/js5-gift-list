@@ -4,12 +4,20 @@ import styled from '@emotion/styled'
 
 import Exit from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
+import { useInput } from '../../hooks/UseInput'
 import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 import InputPassword from '../ui/InputPassword'
 
 const SingIn = () => {
+    const {
+        value: emailValue,
+        isValid: emailIsValid,
+        hasError: emailIsValidHasError,
+        valueChangeHandler: emailChangeHandler,
+        inputBlurHandler: emailBlurHandler,
+    } = useInput()
     return (
         <BasicModal open>
             <SignInForm>
@@ -18,7 +26,14 @@ const SingIn = () => {
                     <img src={Exit} alt="" />
                 </InputDiv>
                 <InputDivForm>
-                    <Input type="email" placeholder="Email" />
+                    <Input
+                        value={emailValue}
+                        onchange={emailChangeHandler}
+                        onBlur={emailBlurHandler}
+                        type="email"
+                        placholder="Email"
+                    />
+                    {emailIsValidHasError && <p>@ no</p>}
                     <InputPassword type="password" placeholder="Пароль" />
                     <DivRemember>
                         <input type="checkbox" />
