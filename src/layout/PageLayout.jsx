@@ -1,15 +1,19 @@
 import React from 'react'
 
 import { styled } from '@mui/material'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { NavLink } from 'react-router-dom'
 
 import { RolePaths } from '../utils/constants/constants'
 
 import Header from './Header'
 
-const role = 'USER'
+let role
 
 const PageLayout = ({ children }) => {
+    const newRole = useSelector((state) => state.signUp.items)
+    // eslint-disable-next-line no-return-assign
+    newRole.map((el) => (role = el.role))
     return (
         <Layout>
             <>

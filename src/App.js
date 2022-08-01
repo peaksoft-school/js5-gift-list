@@ -1,10 +1,9 @@
-import BasicModal from './components/ui/BasicModal'
+import SingUp from './components/authorization/SingUp'
 
 function App() {
     return (
         <div className="App">
-            gift list
-            <BasicModal>bilal</BasicModal>
+            <SingUp />
         </div>
     )
 }

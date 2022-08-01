@@ -45,7 +45,8 @@ const BUTTON_VARIANTS = {
 const Button = ({
     children,
     variant,
-    onclick,
+    onClick,
+    type,
     startIcon,
     active,
     disabled,
@@ -54,8 +55,9 @@ const Button = ({
         <StyledButton
             styles={BUTTON_VARIANTS[variant]}
             startIcon={startIcon}
-            onclick={onclick}
+            onClick={onClick}
             active={active}
+            type={type}
             disabled={disabled}
         >
             {children}
@@ -76,7 +78,7 @@ const StyledButton = styled(MuiButton)`
     justify-content: center;
     align-items: center;
     padding: 10px;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
