@@ -9,6 +9,7 @@ const Input = forwardRef((props, ref) => {
         placholder,
         name,
         onBlur,
+        validation,
         id,
         onchange,
         value,
@@ -22,6 +23,7 @@ const Input = forwardRef((props, ref) => {
             name={name}
             id={id}
             onBlur={onBlur}
+            validation={validation}
             onChange={onchange}
             ref={ref}
             value={value}
@@ -44,4 +46,6 @@ const StyledTextField = styled(OutlinedInput)((props) => ({
     alignItems: 'center',
     width: props.width || '482px',
     height: props.height || '35px',
+    backgroundColor: props.validation ? '#fddddd;' : '',
+    border: props.validation ? ' 1px solid #b40e0e; ' : '',
 }))
