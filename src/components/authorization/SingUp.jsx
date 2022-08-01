@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { styled } from '@mui/material/styles'
 import { useDispatch } from 'react-redux/es/exports'
+import { useNavigate } from 'react-router-dom'
 
 import { appFetch } from '../../api/CustomFetch'
 import ExitIcon from '../../assets/icons/ExitModal.svg'
@@ -17,6 +18,7 @@ import InputPassword from '../ui/InputPassword'
 const SingUp = () => {
     const [checkboxState, setCheckboxState] = useState(false)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {
         value: firstName,
         isValid: enteredFirstNameIsValid,
@@ -84,6 +86,8 @@ const SingUp = () => {
                     mailingList: checkboxState,
                 },
             })
+            navigate('/login')
+            console.log(response.jwt)
             dispatch(
                 actionsignUp.baseSignUp({
                     id: response.id,
