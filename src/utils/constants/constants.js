@@ -63,3 +63,9 @@ export const RolePaths = {
         },
     ],
 }
+
+export const arr = [
+    { value: 'Все', label: 'Все' },
+    { value: 'Б/У', label: 'Б/У' },
+    { value: 'Новое', label: 'Новое' },
+]

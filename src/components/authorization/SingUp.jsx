@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import { styled } from '@mui/material/styles'
 import { useDispatch } from 'react-redux/es/exports'
-import { useNavigate } from 'react-router-dom'
 
 import { appFetch } from '../../api/CustomFetch'
 import ExitIcon from '../../assets/icons/ExitModal.svg'
@@ -15,10 +14,9 @@ import Button from '../ui/Button'
 import Input from '../ui/Input'
 import InputPassword from '../ui/InputPassword'
 
-const SingUp = () => {
+const SignUp = () => {
     const [checkboxState, setCheckboxState] = useState(false)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const {
         value: firstName,
         isValid: enteredFirstNameIsValid,
@@ -53,7 +51,7 @@ const SingUp = () => {
         hasError: passwordTwoInputHasError,
         valueChangeHandler: passwordTwoChangeHanlder,
         inputBlurHandler: passwordTwoBlurHandler,
-    } = useInput((value) => value === enteredPassword)
+    } = useInput((value) => value === enteredPassword && value.length >= 6)
 
     const submitHandler = async (e) => {
         e.preventDefault()
@@ -86,8 +84,13 @@ const SingUp = () => {
                     mailingList: checkboxState,
                 },
             })
-            navigate('/login')
-            console.log(response.jwt)
+            const users = {
+                id: response.id,
+                jwt: response.jwt,
+                role: response.role,
+            }
+            const json = JSON.stringify(users)
+            localStorage.setItem('sign up', json)
             dispatch(
                 actionsignUp.baseSignUp({
                     id: response.id,
@@ -97,11 +100,6 @@ const SingUp = () => {
             )
         }
     }
-    // eslint-disable-next-line no-unused-vars
-    // const clickHandler = async () => {
-    //     const data = await appFetch()
-    //     console.log(data)
-    // }
 
     return (
         <BasicModal open>
@@ -209,7 +207,7 @@ const SingUp = () => {
     )
 }
 
-export default SingUp
+export default SignUp
 
 const ContainerRegistration = styled('form')`
     background: #fcfcfd;

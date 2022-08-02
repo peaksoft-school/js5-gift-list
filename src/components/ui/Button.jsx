@@ -46,9 +46,9 @@ const Button = ({
     children,
     variant,
     onClick,
-    type,
     startIcon,
     active,
+    type,
     disabled,
 }) => {
     return (

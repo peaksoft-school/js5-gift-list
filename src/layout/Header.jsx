@@ -1,17 +1,14 @@
-import React from 'react'
-
 import styled from '@emotion/styled'
 
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg'
+// import MainSearchInput from '../components/ui/MainSearchInput'
 
 import MenuAccaunt from './MenuAccaount'
 
 const Header = () => {
     return (
         <Headers>
-            <InputDiv>
-                <HeaderInput type="text" />
-            </InputDiv>
+            <InputDiv>{/* <MainSearchInput /> */}</InputDiv>
             <WarningSpan>
                 <WarningIcon />
             </WarningSpan>
@@ -31,14 +28,10 @@ const Headers = styled('header')`
     position: fixed;
     top: 0;
     left: 0;
-
     background: #ffffff;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.03);
 `
-const HeaderInput = styled('input')`
-    width: 740px;
-    height: 19px;
-`
+
 const WarningSpan = styled('span')`
     margin-left: 30px;
 `
