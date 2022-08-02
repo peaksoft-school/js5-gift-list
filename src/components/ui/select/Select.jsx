@@ -1,10 +1,13 @@
-import { Selects } from 'react-select'
+import Selects from 'react-select'
 import styled from 'styled-components'
+
+import { arr } from '../../../utils/constants/constants'
 
 const Select = ({ placeholder, label, options, ...props }) => {
     const colourStyles = {
         control: (style, { isFocused }) => ({
             ...style,
+            display: 'flex',
             backgroundColor: 'white',
             borderRadius: '6px',
             boxShadow: 'none',
@@ -17,6 +20,8 @@ const Select = ({ placeholder, label, options, ...props }) => {
         option: (styles, { isSelected, isFocused }) => {
             return {
                 ...styles,
+                display: 'grid',
+                // gridTemplateRows: '20px',
                 backgroundColor: isSelected && 'rgba(189, 68, 205, 0.4);',
                 ':hover': {
                     ...styles[':hover'],
@@ -26,19 +31,21 @@ const Select = ({ placeholder, label, options, ...props }) => {
         },
         placeholder: (provided) => ({
             ...provided,
-            fontFamily: 'Inter;',
-            fontStyle: 'normal;',
-            fontWeight: '300;',
-            fontSize: '16px;',
-            lineHeight: '19px;',
+            fontFamily: 'Inter , sans-serif',
+            fontStyle: 'normal',
+            fontWeight: '300',
+            fontSize: '16px',
+            lineHeight: '19px',
+            color: '#b8b9bb',
         }),
     }
     return (
         <SelectDiv>
             <Label htmlFor={label}>{label}</Label>
             <StyleSelect
+                style={{ display: 'flex' }}
                 placeholder={placeholder}
-                options={options}
+                options={arr}
                 styles={colourStyles}
                 {...props}
             />
@@ -52,7 +59,8 @@ const SelectDiv = styled.div`
     width: 396px;
     height: 56px;
     padding-bottom: 20px;
-
+    /* display: grid; */
+    /* grid-template-columns: 1px 1px 1px; */
     & .css-1okebmr-indicatorSeparator {
         display: none;
     }
@@ -61,6 +69,10 @@ const SelectDiv = styled.div`
         color: #8d949e;
         font-size: 16px;
     }
+    /* & Select option {
+        display: grid;
+        grid-template-columns: 1px 1px 1px;
+    } */
 `
 const Label = styled.label`
     color: #464444;

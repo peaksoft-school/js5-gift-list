@@ -16,11 +16,7 @@ const theme = createTheme({
     },
 })
 
-const ViewsDatePicker = ({ onChange, value, label, placeholder }) => {
-    const dateChangeHandler = (event) => {
-        onChange(event.target.value)
-    }
-
+const ViewsDatePicker = ({ onChange, value, label, placeholder, width }) => {
     return (
         <Div>
             <Label htmlFor={label}>{label}</Label>
@@ -29,14 +25,15 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder }) => {
                 <ThemeProvider theme={theme}>
                     <DatePicker
                         value={value}
-                        onChange={dateChangeHandler}
+                        onChange={onChange}
                         renderInput={(params) => (
                             <StyledTextField
+                                width={width}
                                 {...params}
                                 helperText={null}
                                 inputProps={{
                                     ...params.inputProps,
-                                    placeholder: { placeholder },
+                                    placeholder: `${placeholder}`,
                                 }}
                             />
                         )}
@@ -78,12 +75,11 @@ const StyledTextField = styled(TextField)((props) => ({
     },
 }))
 
-const Label = styled('label')`
-    padding: 0px;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 15px;
-    color: #464444;
-`
+const Label = styled('label')((props) => ({
+    padding: '0px',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: props.fontSize || '12px',
+    lineHeight: '15px',
+    color: ' #464444',
+}))

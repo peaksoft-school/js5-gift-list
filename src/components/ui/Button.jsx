@@ -13,6 +13,17 @@ const BUTTON_VARIANTS = {
             backgroundColor: '#8639B5',
         },
     },
+    addButton: {
+        color: '#FFFFFF',
+        backgroundColor: '#8639B5',
+        height: '39px',
+        width: '224px',
+        paddingLeft: '18.7px',
+        paddingRight: '24px',
+        '&:hover': {
+            backgroundColor: '#8639B5',
+        },
+    },
     outlined: {
         color: '#8D949E',
         border: '1px solid #8D949E',
@@ -45,7 +56,7 @@ const BUTTON_VARIANTS = {
 const Button = ({
     children,
     variant,
-    onclick,
+    onClick,
     startIcon,
     active,
     disabled,
@@ -54,7 +65,7 @@ const Button = ({
         <StyledButton
             styles={BUTTON_VARIANTS[variant]}
             startIcon={startIcon}
-            onclick={onclick}
+            onClick={onClick}
             active={active}
             disabled={disabled}
         >
@@ -76,11 +87,13 @@ const StyledButton = styled(MuiButton)`
     justify-content: center;
     align-items: center;
     padding: 10px;
-    font-family: Inter;
+    font-family: 'Inter' sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
+    line-height: 19px;
     border-radius: 6px;
+    text-transform: none;
     &:active {
         ${(props) => props.active}
     }

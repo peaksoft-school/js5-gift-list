@@ -6,16 +6,17 @@ import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-export default function MyHolidaysCard({ img, title, date }) {
+export default function MyHolidaysCard({ img, title, date, onOpen }) {
     const navigations = [
         {
             id: '1',
             icon: editIcon,
             title: 'Редактировать',
-            clickItem: () => {},
+            clickItem: onOpen,
         },
         { id: '2', icon: deleteIcon, title: 'Удалить', clickItem: () => {} },
     ]
+
     return (
         <StyledCard>
             <StyledCardMedia alt="green iguana" image={img} />
