@@ -62,6 +62,7 @@ const StyledFormPaper = styled(Paper)`
     height: 40px;
     border: 1px solid #bdbdbd;
     border-radius: 8px;
+
     &:hover {
         border: 2px solid #8639b5;
     }
