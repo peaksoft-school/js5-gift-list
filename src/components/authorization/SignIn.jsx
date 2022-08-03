@@ -17,24 +17,51 @@ const SingIn = () => {
         hasError: emailIsValidHasError,
         valueChangeHandler: emailChangeHandler,
         inputBlurHandler: emailBlurHandler,
-    } = useInput()
+    } = useInput((value) => value.includes('@'))
+    const {
+        value: passwordValue,
+        isValid: passwordIsValid,
+        hasError: passwordIsValidHasError,
+        valueChangeHandler: passwordChangeHandler,
+        inputBlurHandler: passwordBlurHandler,
+    } = useInput((value) => value.length >= 6)
+    const submitHandler = (e) => {
+        e.preventDefault()
+        if (!emailIsValid && !passwordIsValid) {
+            // eslint-disable-next-line no-useless-return
+            return
+        }
+    }
     return (
         <BasicModal open>
-            <SignInForm>
+            <SignInForm onSubmit={submitHandler}>
                 <InputDiv>
                     <h4>Вход</h4>
                     <img src={Exit} alt="" />
                 </InputDiv>
                 <InputDivForm>
                     <Input
+                        validation={emailIsValidHasError}
                         value={emailValue}
                         onchange={emailChangeHandler}
                         onBlur={emailBlurHandler}
                         type="email"
                         placholder="Email"
                     />
-                    {emailIsValidHasError && <p>@ no</p>}
-                    <InputPassword type="password" placeholder="Пароль" />
+                    {emailIsValidHasError && (
+                        <ErrorValidation>@ no</ErrorValidation>
+                    )}
+                    <InputPassword
+                        validation={passwordIsValidHasError}
+                        value={passwordValue}
+                        onChange={passwordChangeHandler}
+                        onBlur={passwordBlurHandler}
+                        type="password"
+                        placeholder="Пароль"
+                    />
+                    {passwordIsValidHasError && (
+                        <ErrorValidation>password 6</ErrorValidation>
+                    )}
                     <DivRemember>
                         <input type="checkbox" />
                         <p>Запимнить меня</p>
@@ -181,4 +208,10 @@ const ToComeInDiv = styled('div')`
         line-height: 16px;
         color: #3772ff;
     }
+`
+const ErrorValidation = styled('p')`
+    margin: 0;
+    padding: 0;
+    font-size: 17px;
+    color: #b40e0e;
 `
