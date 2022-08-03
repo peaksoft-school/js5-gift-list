@@ -1,5 +1,5 @@
-import * as React from 'react'
-
+// import * as React from 'react'
+//
 import {
     // Avatar,
     Card,
@@ -9,8 +9,9 @@ import {
     Button,
     Typography,
 } from '@mui/material'
+import { Link } from 'react-router-dom'
 
-import abc from '../../../assets/icons/1.png'
+import { ReactComponent as Abc } from '../../../assets/icons/facebook.svg'
 import AddButton from '../../ui/Button'
 
 const FriendProfile = () => {
@@ -53,10 +54,12 @@ const FriendProfile = () => {
                             </div>
                         </CardContent>
                         <CardActions>
-                            <span>
-                                <abc />
-                            </span>
+                            <Link to="https://www.instagram.com/">
+                                <Abc />
+                                <p>aaaaaaaaaaa</p>
+                            </Link>
                             <Button size="small">Learn More</Button>
+                            <p>aaaaaaaaaaa</p>
                         </CardActions>
                     </Card>
                 </div>
