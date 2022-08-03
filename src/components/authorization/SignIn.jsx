@@ -2,6 +2,7 @@ import React from 'react'
 
 import styled from '@emotion/styled'
 
+import { appFetch } from '../../api/CustomFetch'
 import Exit from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
 import { useInput } from '../../hooks/UseInput'
@@ -25,11 +26,22 @@ const SingIn = () => {
         valueChangeHandler: passwordChangeHandler,
         inputBlurHandler: passwordBlurHandler,
     } = useInput((value) => value.length >= 6)
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault()
         if (!emailIsValid && !passwordIsValid) {
             // eslint-disable-next-line no-useless-return
             return
+        }
+        if (emailValue.trim() !== '' && passwordValue.trim() !== '') {
+            const response = await appFetch({
+                method: 'POST',
+                url: 'api/public/login',
+                body: {
+                    email: emailValue,
+                    password: passwordValue,
+                },
+            })
+            console.log(response)
         }
     }
     return (
