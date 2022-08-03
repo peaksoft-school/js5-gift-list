@@ -184,7 +184,6 @@ const StyledSpan = styled('span')`
 
 const StyledTabPanel = styled(TabPanel)`
     position: absolute;
-    /* margin-top: 38px; */
     margin-left: -30px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);

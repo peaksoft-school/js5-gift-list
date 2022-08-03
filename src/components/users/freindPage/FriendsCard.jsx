@@ -34,7 +34,6 @@ const StyledContainer = styled('div')`
     align-items: center;
     width: 260px;
     height: 256px;
-    /* border: 0.5px solid #797979; */
     border: 1px solid #f2f0f0;
     border-radius: 8px;
     margin-bottom: 22px;
@@ -65,11 +64,7 @@ const StyledNumberSpan = styled('span')`
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* text-align: center; */
     letter-spacing: 0.02em;
-    /* margin-right: 94px; */
     color: #020202;
 `
 const StyledTitle = styled('p')`
@@ -78,19 +73,13 @@ const StyledTitle = styled('p')`
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
-    /* margin-right: 26px; */
-    /* text-align: center; */
     letter-spacing: 0.02em;
     text-transform: capitalize;
-
     color: #606060;
 `
 const StyledDiv = styled('div')`
-    /* display: grid;
-    grid-template-columns: 60px 60px; */
     width: 150px;
     display: flex;
     justify-content: space-between;
     text-align: center;
-    /* border: 1px solid green; */
 `
