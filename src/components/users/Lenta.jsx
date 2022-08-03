@@ -1,13 +1,7 @@
 import React from 'react'
 
-import Profile from './Profile'
-
 const Lenta = () => {
-    return (
-        <div>
-            <Profile />
-        </div>
-    )
+    return <div>lenta</div>
 }
 
 export default Lenta
