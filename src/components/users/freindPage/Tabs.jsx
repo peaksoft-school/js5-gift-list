@@ -61,20 +61,23 @@ export default function Tabs({ options }) {
                     })}
                 </StyledTabPanel>
                 <StyledTabPanel value="2">
-                    {options.requestToFriends.map((el) => {
-                        return (
-                            <FriendsCard
-                                name={el.name}
-                                id={el.id}
-                                key={el.id}
-                                navigate={() => {
-                                    handleInnerPage(el.id)
-                                }}
-                                amountOfHolidays={el.amountOfHolidays}
-                                amountOfWishes={el.amountOfWishes}
-                            />
-                        )
-                    })}
+                    <StyledDivRequestToFriends>
+                        {options.requestToFriends.map((el) => {
+                            return (
+                                <FriendsCard
+                                    name={el.name}
+                                    id={el.id}
+                                    key={el.id}
+                                    navigate={() => {
+                                        handleInnerPage(el.id)
+                                    }}
+                                    amountOfHolidays={el.amountOfHolidays}
+                                    amountOfWishes={el.amountOfWishes}
+                                    variant="2"
+                                />
+                            )
+                        })}
+                    </StyledDivRequestToFriends>
                 </StyledTabPanel>
             </TabContext>
         </StyledBoxContainer>
@@ -86,7 +89,13 @@ const StyledBoxContainer = styled(Box)`
     height: 100%;
     background: #f7f8fa;
 `
-
+const StyledDivRequestToFriends = styled('div')`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-column-gap: 14px;
+    grid-row-gap: 20px;
+`
 const StyledTabList = styled(TabList)`
     & .MuiTabs-indicator {
         display: none;

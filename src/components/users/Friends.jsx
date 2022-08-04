@@ -13,7 +13,9 @@ const Friends = () => {
     return (
         <MainDiv>
             <StyledMainTitle>Друзья</StyledMainTitle>
-            <Tabs options={options} />
+            <StyledDivTab>
+                <Tabs options={options} />
+            </StyledDivTab>
         </MainDiv>
     )
 }
@@ -21,9 +23,10 @@ const Friends = () => {
 export default Friends
 const MainDiv = styled('div')`
     width: 1086px;
-    height: 100%;
+    height: 1224px;
     margin-top: 73px;
-    margin-left: 30px;
+    margin-left: 20px;
+    background-color: #f4f6f6;
 `
 
 const StyledMainTitle = styled('span')`
@@ -37,4 +40,7 @@ const StyledMainTitle = styled('span')`
     letter-spacing: 0.2px;
     color: #020202;
     margin-bottom: 33px;
+`
+const StyledDivTab = styled('div')`
+    margin-left: 10px;
 `

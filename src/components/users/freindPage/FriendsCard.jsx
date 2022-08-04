@@ -1,5 +1,7 @@
 import { styled, Avatar } from '@mui/material'
 
+import Button from '../../ui/Button'
+
 const FriendsCard = ({
     amountOfWishes,
     img,
@@ -7,10 +9,11 @@ const FriendsCard = ({
     amountOfHolidays,
     id,
     navigate,
+    variant,
 }) => {
     return (
-        <StyledContainer id={id} onClick={navigate}>
-            <StyledAvatar src={img} alt="photo" />
+        <StyledContainer id={id} variant={variant}>
+            <StyledAvatar src={img} alt="photo" onClick={navigate} />
             <StyledNameOfFriend>{name}</StyledNameOfFriend>
             <StyledDiv>
                 <div>
@@ -22,27 +25,56 @@ const FriendsCard = ({
                     <StyledTitle>Праздников</StyledTitle>
                 </div>
             </StyledDiv>
+            {variant === '2' && (
+                <StyledDiv1>
+                    <Button>Принять заявку</Button>
+                    <Button variant="outlined">Отклонить</Button>
+                </StyledDiv1>
+            )}
         </StyledContainer>
     )
 }
 export default FriendsCard
 
-const StyledContainer = styled('div')`
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 260px;
-    height: 256px;
-    border: 1px solid #f2f0f0;
-    border-radius: 8px;
-    margin-bottom: 22px;
-    background: linear-gradient(
-        to bottom,
-        rgba(134, 57, 181, 0.2) 30%,
-        white 30% 100%
-    );
+const StyledDiv1 = styled('div')`
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 1px;
+    grid-row-gap: 12px;
+    button {
+        width: 225px;
+        height: 35px;
+        font-family: 'Inter', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 15px;
+        text-align: center;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
 `
+
+const StyledContainer = styled('div')(({ variant }) => ({
+    borderRadius: '8px',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '260px',
+    height: '256px',
+    background:
+        'linear-gradient(to bottom, rgba(134, 57, 181, 0.2) 30%, white 30% 100%)',
+    ...(variant === '2' && {
+        width: '260px',
+        height: '357px',
+        display: 'flex',
+        flexDirection: 'column',
+        background:
+            'linear-gradient(to bottom, rgba(134, 57, 181, 0.2) 21.5%, white 21.5% 100%)',
+    }),
+}))
 const StyledAvatar = styled(Avatar)`
     width: 130px;
     height: 130px;
