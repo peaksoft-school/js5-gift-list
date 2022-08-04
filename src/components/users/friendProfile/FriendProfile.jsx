@@ -2,21 +2,24 @@
 //
 import {
     // Avatar,
-    Card,
+    // Card,
     CardActions,
     CardContent,
     CardMedia,
-    Button,
     Typography,
+    styled,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-import { ReactComponent as Abc } from '../../../assets/icons/facebook.svg'
-import AddButton from '../../ui/Button'
+import { ReactComponent as Facebook } from '../../../assets/icons/facebook.svg'
+import { ReactComponent as Instagram } from '../../../assets/icons/instagram.svg'
+import { ReactComponent as Telegram } from '../../../assets/icons/telegram.svg'
+import { ReactComponent as Wk } from '../../../assets/icons/wk.svg'
+import Button from '../../ui/Button'
 
 const FriendProfile = () => {
     return (
-        <div>
+        <div style={{ border: '2px solid green' }}>
             <h4>Мои друзья/ Аида Каримова</h4>
             <div
                 style={{
@@ -27,45 +30,84 @@ const FriendProfile = () => {
             >
                 <div>
                     surot
-                    <Card sx={{ maxWidth: 345 }}>
-                        <CardMedia
-                            component="img"
-                            height="140"
+                    <StyledCard>
+                        <StyledCardMedia
                             image="https://drakemall-files-new.s3.eu-central-1.amazonaws.com/Totoro%20F-cjn62uqi702zt01s6g9cm57nw.png"
                             alt="green iguana"
                         />
                         <CardContent>
-                            <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="div"
-                            >
-                                Аида Каримова
-                            </Typography>
+                            <StyledTypography>Аида Каримова</StyledTypography>
                             <div>
-                                <AddButton
+                                <Button
                                     variant="addButton"
                                     onClick={() => {
                                         console.log('add')
                                     }}
                                 >
                                     Добавить в друзья
-                                </AddButton>
+                                </Button>
+
+                                {/* <Button>Принять заявку</Button>
+                                <Button variant="outlined">Отклонить</Button>
+                                <Button variant="outlined">
+                                    Удалить из друзей
+                                </Button> */}
                             </div>
                         </CardContent>
                         <CardActions>
                             <Link to="https://www.instagram.com/">
-                                <Abc />
-                                <p>aaaaaaaaaaa</p>
+                                <Facebook />
                             </Link>
-                            <Button size="small">Learn More</Button>
-                            <p>aaaaaaaaaaa</p>
+                            <Link to="./">
+                                <Instagram />
+                            </Link>
+                            <Link to="./">
+                                <Telegram />
+                            </Link>
+                            <Link to="./">
+                                <Wk />
+                            </Link>
                         </CardActions>
-                    </Card>
+                    </StyledCard>
                 </div>
-                <div>inf</div>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <h4>Основная информация</h4>
+                    <span>
+                        <p>Город:</p>
+                        <h6>Бишкек</h6>
+                        <p>Email:</p>
+                        <h6>Aika1998@gmail.com</h6>
+                    </span>
+                    <span>
+                        <p>Город:</p>
+                        <h6>Бишкек</h6>
+                        <p>Email:</p>
+                        <h6>Aika1998@gmail.com</h6>
+                    </span>
+                </div>
             </div>
         </div>
     )
 }
 export default FriendProfile
+
+const StyledCard = styled('div')`
+    /* outline-style: none; */
+`
+const StyledCardMedia = styled(CardMedia)`
+    width: 187px;
+    height: 190px;
+    border-radius: 8px;
+    border: 1px solid gray;
+`
+const StyledTypography = styled(Typography)`
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2px;
+    color: #020202;
+`
