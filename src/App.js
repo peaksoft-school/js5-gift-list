@@ -1,11 +1,10 @@
-import MainRouter from './routes/MainRouter'
-import AllRoutes from './routes/Routes'
+import Card from './components/users/Card'
 
 function App() {
     return (
         <div className="App">
-            <AllRoutes />
-            <MainRouter />
+            gift list
+            <Card variant="board" />
         </div>
     )
 }
