@@ -6,9 +6,9 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 
-import deleteIcon from '../../assets/icons/deleteIcon.svg'
-import editIcon from '../../assets/icons/editIcon.svg'
-import MeatBalls from '../ui/meatBall/components/meatBalls'
+import deleteIcon from '../../../assets/icons/deleteIcon.svg'
+import editIcon from '../../../assets/icons/editIcon.svg'
+import MeatBalls from '../../ui/meatBall/components/meatBalls'
 
 const navigation = [
     { icon: editIcon, title: 'Редактировать', id: '1' },
@@ -16,11 +16,21 @@ const navigation = [
 ]
 
 export default function GiftCard(props) {
-    const { variant, image, nameGift, avatar, holiday, date, toBook, onClick } =
-        props
+    const {
+        variant,
+        image,
+        nameGift,
+        avatar,
+        holiday,
+        date,
+        toBook,
+        onClick,
+        navigate,
+    } = props
     return (
         <StyledCard variants={variant}>
             <StyledCardMedia
+                onClick={navigate}
                 variants={variant}
                 component="img"
                 image={image}

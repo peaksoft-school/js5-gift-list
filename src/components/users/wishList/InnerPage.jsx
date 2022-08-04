@@ -9,19 +9,15 @@ const InnerPage = ({
     date,
     nameGift,
     aboutGift,
+    image,
+    avatar,
 }) => {
     return (
         <WrapperAll>
-            <Img
-                src="https://www.iphones.ru/wp-content/uploads/2021/12/A157665E-DC08-4962-AA22-2F4E75AC076B.jpeg"
-                alt="image"
-            />
+            <Img src={image} alt="image" />
             <WrapperDiv>
                 <User>
-                    <StyledAvatar
-                        src="https://n1s2.starhit.ru/6a/46/ae/6a46aeed947a183d67d1bc48211151bf/445x460_0_6a5d57baf3fab914fdfcc2cc563ed893@480x496_0xac120003_4430520541578509619.jpg"
-                        alt="avatar"
-                    />
+                    <StyledAvatar src={avatar} alt="avatar" />
                     <UserName>{userName}</UserName>
                     <ToBooking>{toBook}</ToBooking>
                 </User>

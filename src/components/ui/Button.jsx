@@ -54,7 +54,7 @@ const Button = ({
         <StyledButton
             styles={BUTTON_VARIANTS[variant]}
             startIcon={startIcon}
-            onclick={onclick}
+            onClick={onclick}
             active={active}
             disabled={disabled}
         >

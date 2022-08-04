@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
 
-import ViewsDatePicker from '../ui/datePicker/ViewsDatePicker'
-import ImagePicker from '../ui/ImagePicker'
-import Input from '../ui/Input'
-import Select from '../ui/select/Select'
-import Textarea from '../ui/Textarea'
+import Button from '../../ui/Button'
+import ViewsDatePicker from '../../ui/datePicker/ViewsDatePicker'
+import ImagePicker from '../../ui/ImagePicker'
+import Input from '../../ui/Input'
+import Select from '../../ui/select/Select'
+import Textarea from '../../ui/Textarea'
 
 const EditInnerPage = () => {
     const option = [
@@ -50,6 +51,10 @@ const EditInnerPage = () => {
                     placeholder="Введите описание подарка"
                     label="Описание подарка"
                 />
+                <WrapperButton>
+                    <Button variant="outlined">Отмена</Button>
+                    <Button variant="contained">Добавить</Button>
+                </WrapperButton>
             </WrapperEdit>
         </WrapperAll>
     )
@@ -105,4 +110,22 @@ const WrapperSelects = styled('div')`
 `
 const DivDatePicker = styled('div')`
     padding-top: 3px;
+`
+const WrapperButton = styled('div')`
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 56px;
+    button {
+        width: 113px;
+        height: 37px;
+        font-family: 'Inter', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        margin-left: 16px;
+        padding: 10px 26px 10px 26px;
+        /* color: #8d949e;
+        border: 1px solid #8d949e; */
+    }
 `
