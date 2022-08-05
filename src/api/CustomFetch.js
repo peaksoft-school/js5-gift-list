@@ -7,6 +7,7 @@ export const appFetch = async (data) => {
             method: data.method || 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${data.token ? data.token : ''}`,
             },
         }
 

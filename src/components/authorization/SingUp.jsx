@@ -3,12 +3,11 @@ import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useDispatch } from 'react-redux/es/exports'
 
-import { appFetch } from '../../api/CustomFetch'
 import ExitIcon from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
-import signInWithGoogle from '../../firebase/Firebase'
 import { useInput } from '../../hooks/useInput'
-import { actionsignUp } from '../../store/slices/SignUpSlice'
+import { GoogleAuthorization } from '../../store/slices/GoogleAuthorization'
+import { signUp } from '../../store/slices/SignUpActions'
 import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
@@ -17,6 +16,7 @@ import InputPassword from '../ui/InputPassword'
 const SignUp = () => {
     const [checkboxState, setCheckboxState] = useState(false)
     const dispatch = useDispatch()
+
     const {
         value: firstName,
         isValid: enteredFirstNameIsValid,
@@ -73,34 +73,20 @@ const SignUp = () => {
             enteredPasswordTwo.trim() !== '' &&
             enteredPassword === enteredPasswordTwo
         ) {
-            const response = await appFetch({
-                method: 'POST',
-                url: 'api/public/register',
-                body: {
-                    firstName,
-                    lastName,
-                    email: enteredEmail,
-                    password: enteredPassword,
-                    mailingList: checkboxState,
-                },
-            })
-            const users = {
-                id: response.id,
-                jwt: response.jwt,
-                role: response.role,
+            const userData = {
+                firstName,
+                lastName,
+                email: enteredEmail,
+                password: enteredPassword,
+                mailingList: checkboxState,
             }
-            const json = JSON.stringify(users)
-            localStorage.setItem('sign up', json)
-            dispatch(
-                actionsignUp.baseSignUp({
-                    id: response.id,
-                    jwt: response.jwt,
-                    role: response.role,
-                })
-            )
+
+            dispatch(signUp(userData))
         }
     }
-
+    const GoogleHandler = () => {
+        dispatch(GoogleAuthorization())
+    }
     return (
         <BasicModal open>
             <ContainerRegistration onSubmit={submitHandler}>
@@ -109,74 +95,86 @@ const SignUp = () => {
                     <img src={ExitIcon} alt="" />
                 </RegistrationDiv>
                 <RegistrationInputDiv>
-                    <Input
-                        validation={firstNameInputHasError}
-                        value={firstName}
-                        onchange={firstNameChangeHanlder}
-                        onBlur={firstNameBlurHandler}
-                        name="firstName"
-                        type="text"
-                        placeholder="Имя"
-                    />
-                    {firstNameInputHasError && (
-                        <ErrorValidation>
-                            Name must not be empty
-                        </ErrorValidation>
-                    )}
-                    <Input
-                        validation={lastNameInputHasError}
-                        value={lastName}
-                        onchange={lastNameChangeHanlder}
-                        onBlur={lastNameBlurHandler}
-                        name="lastName"
-                        type="text"
-                        placeholder="Фамилия"
-                    />
-                    {lastNameInputHasError && (
-                        <ErrorValidation>
-                            last Name must not be empty
-                        </ErrorValidation>
-                    )}
+                    <InputDiv>
+                        <Input
+                            validation={firstNameInputHasError}
+                            value={firstName}
+                            onchange={firstNameChangeHanlder}
+                            onBlur={firstNameBlurHandler}
+                            name="firstName"
+                            type="text"
+                            placeholder="Имя"
+                        />
+                        {firstNameInputHasError && (
+                            <ErrorValidation>
+                                Name must not be empty
+                            </ErrorValidation>
+                        )}
+                    </InputDiv>
+                    <InputDiv>
+                        <Input
+                            validation={lastNameInputHasError}
+                            value={lastName}
+                            onchange={lastNameChangeHanlder}
+                            onBlur={lastNameBlurHandler}
+                            name="lastName"
+                            type="text"
+                            placeholder="Фамилия"
+                        />
+                        {lastNameInputHasError && (
+                            <ErrorValidation>
+                                last Name must not be empty
+                            </ErrorValidation>
+                        )}
+                    </InputDiv>
+                    <InputDiv>
+                        <Input
+                            validation={emailInputHasError}
+                            value={enteredEmail}
+                            onchange={emailChangeHanlder}
+                            onBlur={emailBlurHandler}
+                            name="email"
+                            type="email"
+                            placeholder="Email"
+                        />
+                        {emailInputHasError && (
+                            <ErrorValidation>
+                                Please enter valid email
+                            </ErrorValidation>
+                        )}
+                    </InputDiv>
+                    <InputDiv>
+                        <InputPassword
+                            value={enteredPassword}
+                            onChange={passwordChangeHanlder}
+                            onBlur={passwordBlurHandler}
+                            name="password"
+                            type="password"
+                            validation={passwordInputHasError}
+                            placeholder="Введите пароль"
+                        />
+                        {passwordInputHasError && (
+                            <ErrorValidation>
+                                please enter valid 6
+                            </ErrorValidation>
+                        )}
+                    </InputDiv>
+                    <InputDiv>
+                        {' '}
+                        <InputPassword
+                            value={enteredPasswordTwo}
+                            onChange={passwordTwoChangeHanlder}
+                            onBlur={passwordTwoBlurHandler}
+                            name="passwordTwo"
+                            type="password"
+                            validation={passwordTwoInputHasError}
+                            placeholder="Повторите пароль"
+                        />
+                        {passwordTwoInputHasError && (
+                            <ErrorValidation>error</ErrorValidation>
+                        )}
+                    </InputDiv>
 
-                    <Input
-                        validation={emailInputHasError}
-                        value={enteredEmail}
-                        onchange={emailChangeHanlder}
-                        onBlur={emailBlurHandler}
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                    />
-                    {emailInputHasError && (
-                        <ErrorValidation>
-                            Please enter valid email
-                        </ErrorValidation>
-                    )}
-
-                    <InputPassword
-                        value={enteredPassword}
-                        onChange={passwordChangeHanlder}
-                        onBlur={passwordBlurHandler}
-                        name="password"
-                        type="password"
-                        validation={passwordInputHasError}
-                        placeholder="Введите пароль"
-                    />
-                    {passwordInputHasError && (
-                        <ErrorValidation>please enter valid 6</ErrorValidation>
-                    )}
-                    <InputPassword
-                        value={enteredPasswordTwo}
-                        onChange={passwordTwoChangeHanlder}
-                        onBlur={passwordTwoBlurHandler}
-                        name="passwordTwo"
-                        type="password"
-                        validation={passwordTwoInputHasError}
-                        placeholder="Повторите пароль"
-                    />
-                    {passwordTwoInputHasError && (
-                        <ErrorValidation>error</ErrorValidation>
-                    )}
                     <CheckboxDiv>
                         <input
                             onClick={() => setCheckboxState(!checkboxState)}
@@ -194,7 +192,7 @@ const SignUp = () => {
                         <Or>или</Or>
                         <Line2 />
                     </OrDiv>
-                    <GoogleDiv onClick={signInWithGoogle}>
+                    <GoogleDiv onClick={GoogleHandler}>
                         <img src={Google} alt="" /> Зарегистрироваться с Google
                     </GoogleDiv>
                     <ToComeInDiv>
@@ -214,18 +212,21 @@ const ContainerRegistration = styled('form')`
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-
-    gap: 32px;
+    font-family: 'Inter', sans-serif;
 `
 const RegistrationDiv = styled('div')`
     display: flex;
     width: 482px;
     justify-content: space-between;
     height: 32px;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif;
 `
 
 const Registration = styled('h4')`
     margin-top: 0px;
+
+    font-family: 'Inter', sans-serif;
 `
 const RegistrationInputDiv = styled('div')`
     display: grid;
@@ -240,9 +241,6 @@ const CheckboxDiv = styled('div')`
     line-height: 16px;
     color: #87898e;
     font-family: 'Inter', sans-serif;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
 `
 const OrDiv = styled('div')`
     display: flex;
@@ -267,6 +265,7 @@ const GoogleDiv = styled('div')`
     align-items: center;
     /* padding: 16px 10px; */
     gap: 16px;
+    cursor: pointer;
 
     width: 482px;
     height: 39px;
@@ -322,6 +321,11 @@ const ToComeInDiv = styled('div')`
 const ErrorValidation = styled('p')`
     margin: 0;
     padding: 0;
-    font-size: 17px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
     color: #b40e0e;
+    text-align: end;
+`
+const InputDiv = styled('div')`
+    height: 40px;
 `

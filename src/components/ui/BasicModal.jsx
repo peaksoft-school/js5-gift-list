@@ -18,11 +18,8 @@ const StyleBox = styled(Box)`
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 24px 32px;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
     font-weight: 500;
     font-size: 24px;
-    line-height: 32px;
     color: #23262f;
     background-color: white;
     border-radius: 10px;

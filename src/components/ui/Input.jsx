@@ -5,7 +5,7 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 
 const Input = forwardRef((props, ref) => {
     const {
-        type,
+        // type,
         placeholder,
         name,
         id,
@@ -15,11 +15,12 @@ const Input = forwardRef((props, ref) => {
         value,
         width,
         height,
+        ...other
     } = props
     return (
         <StyledTextField
-            validation={validation}
-            type={type}
+            error={validation}
+            // type={type}
             placeholder={placeholder}
             name={name}
             id={id}
@@ -29,6 +30,7 @@ const Input = forwardRef((props, ref) => {
             value={value}
             width={width}
             height={height}
+            {...other}
         />
     )
 })
@@ -47,6 +49,4 @@ const StyledTextField = styled(OutlinedInput)((props) => ({
     alignItems: 'center',
     width: props.width || '482px',
     height: props.height || '35px',
-    backgroundColor: props.validation ? '#fddddd;' : '',
-    border: props.validation ? ' 1px solid #b40e0e; ' : '',
 }))

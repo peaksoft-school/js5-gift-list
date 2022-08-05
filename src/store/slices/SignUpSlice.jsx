@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
-    items: [],
+const initialState = { user: JSON.parse(localStorage.getItem('sign up')) } || {
+    user: {
+        id: null,
+        jwt: null,
+        role: null,
+        email: null,
+    },
 }
 const signUpSlice = createSlice({
     name: 'signUp',
@@ -9,11 +14,10 @@ const signUpSlice = createSlice({
     reducers: {
         baseSignUp(state, action) {
             const newItem = action.payload
-            state.items.push({
-                id: newItem.id,
-                jwt: newItem.jwt,
-                role: newItem.role,
-            })
+            state.user.id = newItem.id
+            state.user.jwt = newItem.jwt
+            state.user.role = newItem.role
+            state.user.email = newItem.email
         },
     },
 })

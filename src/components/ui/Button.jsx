@@ -24,6 +24,7 @@ const BUTTON_VARIANTS = {
         backgroundColor: '#8639B5',
         width: '482px',
         height: '37px',
+        textTransform: 'none',
         '&:hover': {
             backgroundColor: '#8639B5',
         },
@@ -33,6 +34,7 @@ const BUTTON_VARIANTS = {
         background: '#F1F1F1',
         width: '482px',
         height: '37px',
+        fontFamily: 'Inter, sans-serif',
     },
     singInButton: {
         color: '#FFFFFF',
@@ -50,6 +52,7 @@ const Button = ({
     active,
     type,
     disabled,
+    ...other
 }) => {
     return (
         <StyledButton
@@ -59,6 +62,7 @@ const Button = ({
             active={active}
             type={type}
             disabled={disabled}
+            {...other}
         >
             {children}
         </StyledButton>
