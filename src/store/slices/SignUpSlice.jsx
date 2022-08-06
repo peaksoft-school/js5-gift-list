@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = { user: JSON.parse(localStorage.getItem('sign up')) } || {
+import { GIFTLIST_AUTH } from '../../utils/constants/constants'
+
+const initialState = {
+    user: JSON.parse(localStorage.getItem(GIFTLIST_AUTH)),
+} || {
     user: {
         id: null,
         jwt: null,

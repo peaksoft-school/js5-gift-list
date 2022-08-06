@@ -9,7 +9,7 @@ const Input = forwardRef((props, ref) => {
         placeholder,
         name,
         id,
-        validation,
+        error,
         onBlur,
         onchange,
         value,
@@ -19,8 +19,7 @@ const Input = forwardRef((props, ref) => {
     } = props
     return (
         <StyledTextField
-            error={validation}
-            // type={type}
+            error={error}
             placeholder={placeholder}
             name={name}
             id={id}

@@ -13,7 +13,7 @@ const InputPassword = forwardRef((props, ref) => {
         placeholder,
         name,
         value,
-        validation,
+        error,
         onBlur,
         onChange,
         id,
@@ -36,7 +36,7 @@ const InputPassword = forwardRef((props, ref) => {
             placeholder={placeholder}
             onChange={onChange}
             ref={ref}
-            error={validation}
+            error={error}
             id={id}
             onBlur={onBlur}
             name={name}

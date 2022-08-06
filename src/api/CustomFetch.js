@@ -1,5 +1,7 @@
+import store from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
+const { signUp } = store.getState()
 // eslint-disable-next-line consistent-return
 export const appFetch = async (data) => {
     try {
@@ -7,7 +9,7 @@ export const appFetch = async (data) => {
             method: data.method || 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${data.token ? data.token : ''}`,
+                Authorization: `Bearer ${signUp.user.jwt || ''}`,
             },
         }
 

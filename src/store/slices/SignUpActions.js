@@ -1,4 +1,5 @@
 import { appFetch } from '../../api/CustomFetch'
+import { GIFTLIST_AUTH } from '../../utils/constants/constants'
 
 import { actionsignUp } from './SignUpSlice'
 
@@ -16,7 +17,7 @@ export const signUp = (userData) => {
                 role: response.role,
             }
             const json = JSON.stringify(users)
-            localStorage.setItem('sign up', json)
+            localStorage.setItem(GIFTLIST_AUTH, json)
             dispatch(
                 actionsignUp.baseSignUp({
                     id: response.id,

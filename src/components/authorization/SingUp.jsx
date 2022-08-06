@@ -84,7 +84,7 @@ const SignUp = () => {
             dispatch(signUp(userData))
         }
     }
-    const GoogleHandler = () => {
+    const googleHandler = () => {
         dispatch(GoogleAuthorization())
     }
     return (
@@ -97,7 +97,7 @@ const SignUp = () => {
                 <RegistrationInputDiv>
                     <InputDiv>
                         <Input
-                            validation={firstNameInputHasError}
+                            error={firstNameInputHasError}
                             value={firstName}
                             onchange={firstNameChangeHanlder}
                             onBlur={firstNameBlurHandler}
@@ -113,7 +113,7 @@ const SignUp = () => {
                     </InputDiv>
                     <InputDiv>
                         <Input
-                            validation={lastNameInputHasError}
+                            error={lastNameInputHasError}
                             value={lastName}
                             onchange={lastNameChangeHanlder}
                             onBlur={lastNameBlurHandler}
@@ -129,7 +129,7 @@ const SignUp = () => {
                     </InputDiv>
                     <InputDiv>
                         <Input
-                            validation={emailInputHasError}
+                            error={emailInputHasError}
                             value={enteredEmail}
                             onchange={emailChangeHanlder}
                             onBlur={emailBlurHandler}
@@ -150,7 +150,7 @@ const SignUp = () => {
                             onBlur={passwordBlurHandler}
                             name="password"
                             type="password"
-                            validation={passwordInputHasError}
+                            error={passwordInputHasError}
                             placeholder="Введите пароль"
                         />
                         {passwordInputHasError && (
@@ -167,7 +167,7 @@ const SignUp = () => {
                             onBlur={passwordTwoBlurHandler}
                             name="passwordTwo"
                             type="password"
-                            validation={passwordTwoInputHasError}
+                            error={passwordTwoInputHasError}
                             placeholder="Повторите пароль"
                         />
                         {passwordTwoInputHasError && (
@@ -192,7 +192,7 @@ const SignUp = () => {
                         <Or>или</Or>
                         <Line2 />
                     </OrDiv>
-                    <GoogleDiv onClick={GoogleHandler}>
+                    <GoogleDiv onClick={googleHandler}>
                         <img src={Google} alt="" /> Зарегистрироваться с Google
                     </GoogleDiv>
                     <ToComeInDiv>
