@@ -1,9 +1,9 @@
 import store from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
-const { signUp } = store.getState()
 // eslint-disable-next-line consistent-return
 export const appFetch = async (data) => {
+    const { signUp } = store.getState()
     try {
         const requestOptions = {
             method: data.method || 'GET',

@@ -4,7 +4,7 @@ import { GIFTLIST_AUTH } from '../../utils/constants/constants'
 
 import { actionsignUp } from './SignUpSlice'
 
-export const GoogleAuthorization = () => {
+export const googleAuthorization = () => {
     return async (dispatch) => {
         try {
             const user = await signInWithGoogle()

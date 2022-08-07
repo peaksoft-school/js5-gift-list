@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux/es/exports'
 import ExitIcon from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
 import { useInput } from '../../hooks/useInput'
-import { GoogleAuthorization } from '../../store/slices/GoogleAuthorization'
+import { googleAuthorization } from '../../store/slices/GoogleAuthorization'
 import { signUp } from '../../store/slices/SignUpActions'
 import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
@@ -85,7 +85,7 @@ const SignUp = () => {
         }
     }
     const googleHandler = () => {
-        dispatch(GoogleAuthorization())
+        dispatch(googleAuthorization())
     }
     return (
         <BasicModal open>
