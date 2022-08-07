@@ -5,28 +5,38 @@ import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+import { useNavigate } from 'react-router-dom'
 
 import deleteIcon from '../../../assets/icons/deleteIcon.svg'
 import editIcon from '../../../assets/icons/editIcon.svg'
 import MeatBalls from '../../ui/meatBall/components/meatBalls'
 
-const navigation = [
-    { icon: editIcon, title: 'Редактировать', id: '1' },
-    { icon: deleteIcon, title: 'удалить', id: '2' },
-]
-
 export default function GiftCard(props) {
     const {
         variant,
+        id,
         image,
         nameGift,
         avatar,
         holiday,
         date,
         toBook,
-        onClick,
         navigate,
     } = props
+    console.log(id)
+    const navigateEdit = useNavigate()
+    const navigation = [
+        {
+            icon: editIcon,
+            title: 'Редактировать',
+            id: '1',
+            clickItem: toEditPage,
+        },
+        { icon: deleteIcon, title: 'удалить', id: '2' },
+    ]
+    function toEditPage() {
+        navigateEdit(`${id}/edit`)
+    }
     return (
         <StyledCard variants={variant}>
             <StyledCardMedia
@@ -48,7 +58,10 @@ export default function GiftCard(props) {
                         <StyledText>{toBook}</StyledText>
                     </WrapperToBooking>
                     <WrapperMeatBalls variants={variant}>
-                        <MeatBalls navigations={navigation} onClick={onClick} />
+                        <MeatBalls
+                            navigations={navigation}
+                            // onClick={() => toEditPage('edit')}
+                        />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>
             </Wrapper>

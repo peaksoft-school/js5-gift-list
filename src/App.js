@@ -1,10 +1,15 @@
-import Card from './components/users/Card'
+import MainRouter from './routes/MainRouter'
+import AllRoutes from './routes/Routes'
+import { URL_BASE } from './utils/constants/Url'
 
 function App() {
+    fetch(`${URL_BASE}api/holiday`)
+        .then((res) => res.json())
+        .then((data) => console.log(data))
     return (
-        <div className="App">
-            gift list
-            <Card variant="board" />
+        <div style={{ background: '#F7F8FA' }}>
+            <MainRouter />
+            <AllRoutes />
         </div>
     )
 }

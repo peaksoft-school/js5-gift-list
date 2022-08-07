@@ -21,7 +21,6 @@ const ImagePicker = ({ onChange, newFile }) => {
 
     const imageHandler = () => {
         const image = URL.createObjectURL(refs.current.files[0])
-
         setIcons(image)
         onChange(refs.current.files[0])
     }

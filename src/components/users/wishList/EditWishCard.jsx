@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import styled from '@emotion/styled'
 
 import Button from '../../ui/Button'
@@ -7,16 +9,53 @@ import Input from '../../ui/Input'
 import Select from '../../ui/select/Select'
 import Textarea from '../../ui/Textarea'
 
-const EditInnerPage = () => {
+const EditWishCard = (props) => {
     const option = [
-        { value: 'Праздник', label: 'Праздник' },
-        { value: 'Праздник', label: 'Праздникll' },
-        { value: 'Праздник', label: 'Празднlkkик' },
+        { value: 'Праздник1', label: 'Праздник1' },
+        { value: 'Праздник2', label: 'Праздник2' },
+        { value: 'Праздник3', label: 'Праздник3' },
     ]
 
+    const [image, setImage] = useState(
+        'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80'
+    )
+    const [nameGift, setnameGift] = useState(props.data.nameGift)
+    const [link, setLink] = useState(props.data.link)
+    const [date, setDate] = useState(props.data.date)
+    const [select, setSelect] = useState('')
+    const [textarea, setTextarea] = useState(props.data.aboutGift)
+    console.log(select)
+
+    const editImageHandler = (file) => {
+        setImage(file)
+    }
+    console.log(image)
+
+    const nameGiftHandler = (e) => {
+        setnameGift(e.target.value)
+    }
+    const LinkHandler = (e) => {
+        setLink(e.target.value)
+    }
+    const DateHandler = (date) => {
+        setDate(date)
+    }
+    // const selectHandler = (e) => {
+    //     setSelect(e.target.value)
+    // }
+    const onChangeTextarea = (e) => {
+        setTextarea(e.target.value)
+    }
+    // const [nameGift, setNameGift] = useState('')
+    // useEffect(() => {
+    //     if (props.data.nameGift) {
+    //         setNameGift(props.data.nameGift)
+    //     }
+    // }, [props.data.nameGift])
+    // console.log(props.data.aboutGift)
     return (
         <WrapperAll>
-            <ImagePicker />
+            <ImagePicker onChange={editImageHandler} />
             <WrapperEdit>
                 <H2>Добавление желаемого подарка</H2>
                 <WrapperLabels>
@@ -27,10 +66,14 @@ const EditInnerPage = () => {
                     <Input
                         width="396px"
                         placholder="Введите название подарка"
+                        value={nameGift}
+                        onChange={nameGiftHandler}
                     />
                     <Input
                         width="396px"
                         placholder="Вставьте ссылку на подарок"
+                        value={link}
+                        onChange={LinkHandler}
                     />
                 </WrapperInputs>
                 <WrapperSelects>
@@ -38,18 +81,22 @@ const EditInnerPage = () => {
                         placeholder="Выберите праздник"
                         options={option}
                         label="Праздник"
+                        onChange={(e) => setSelect(e.value)}
                     />
                     <DivDatePicker>
                         <ViewsDatePicker
-                            value={null}
+                            value={date}
                             placeholder="Укажите дату праздника"
                             label="Дата праздника"
+                            onChange={DateHandler}
                         />
                     </DivDatePicker>
                 </WrapperSelects>
                 <Textarea
                     placeholder="Введите описание подарка"
                     label="Описание подарка"
+                    value={textarea}
+                    onChange={onChangeTextarea}
                 />
                 <WrapperButton>
                     <Button variant="outlined">Отмена</Button>
@@ -59,7 +106,8 @@ const EditInnerPage = () => {
         </WrapperAll>
     )
 }
-export default EditInnerPage
+
+export default EditWishCard
 
 const WrapperAll = styled('div')`
     padding: 20px;
@@ -125,7 +173,5 @@ const WrapperButton = styled('div')`
         line-height: 17px;
         margin-left: 16px;
         padding: 10px 26px 10px 26px;
-        /* color: #8d949e;
-        border: 1px solid #8d949e; */
     }
 `

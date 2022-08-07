@@ -4,8 +4,9 @@ import styled from '@emotion/styled'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 import LoadingSpinner from '../components/ui/LoadingSpinner'
-import { array, text } from '../components/users/WishList'
-import EditInnerPage from '../components/users/wishList/EditInnerPage'
+import { array } from '../components/users/WishList'
+import AddWishCard from '../components/users/wishList/AddWishCard'
+import EditWishCard from '../components/users/wishList/EditWishCard'
 import PageLayout from '../layout/PageLayout'
 
 const Lenta = lazy(() => import('../components/users/Lenta'))
@@ -22,11 +23,11 @@ const CharityUsers = lazy(() => import('../components/admin/CharityUsers'))
 const Friends = lazy(() => import('../components/users/Friends'))
 const AllRoutes = () => {
     const loc = useLocation()
-    console.log(loc)
+    // console.log(loc)
     const id = loc.pathname.split('/').filter((p) => p)
-    console.log(id[1])
+    // console.log(id[1])
     const newarr = array.filter((i) => i.id === id[1])
-    console.log(newarr)
+    // console.log(newarr)
     return (
         <PageLayout>
             <Suspense
@@ -43,19 +44,16 @@ const AllRoutes = () => {
                     <Route
                         path="/wish_list/:wishListId"
                         element={newarr.map((el) => (
-                            <InnerPage
-                                key={el.id}
-                                image={el.img}
-                                nameGift={el.nameGift}
-                                date={el.date}
-                                holiday={el.holiday}
-                                toBook={el.toBooking}
-                                avatar={el.avatar}
-                                aboutGift={text}
-                            />
+                            <InnerPage data={el} />
                         ))}
                     />
-                    <Route path="/wish_list/edit" element={<EditInnerPage />} />
+                    <Route path="/wish_list/add" element={<AddWishCard />} />
+                    <Route
+                        path="/wish_list/:id/edit"
+                        element={newarr.map((el) => (
+                            <EditWishCard data={el} />
+                        ))}
+                    />
                     <Route path="/bookeds" element={<Bookeds />} />
                     <Route path="/my_halidays" element={<MyHalidays />} />
                     <Route path="/charity" element={<Charity />} />

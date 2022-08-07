@@ -41,10 +41,10 @@ const TextArea = styled('textarea')`
     resize: none;
     outline: none !important;
     margin-top: 6px;
-    padding: 0;
+    padding: 8px 0 0 18px;
     &::placeholder {
         color: #bfc0c4;
-        padding: 8px 0 0 18px;
+        padding: 0;
     }
     &:focus {
         border: 1px solid #8639b5;

@@ -10,40 +10,52 @@ import Button from '../ui/Button'
 
 import GiftCard from './wishList/GiftCard'
 
-export const text =
-    'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.'
 export const array = [
     {
+        userName: 'Doolot Doolot',
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+        link: 'http://giftList.com',
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
-        nameGift: 'Название подарка',
+        nameGift: 'Письма Элджертона',
         holiday: 'День рождения',
-        date: '12.04.22',
+        date: '12.04.21',
         id: '1',
         toBooking: 'В ожидании',
         avatar: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3',
     },
     {
+        userName: 'Doolot Doolot',
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro. Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+        link: 'http://e-book.com',
         img: 'https://images.unsplash.com/photo-1501139083538-0139583c060f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dGltZXxlbnwwfHwwfHw%3D&w=1000&q=80',
-        nameGift: 'Название подарка',
+        nameGift: 'Iphone 13 pro',
         holiday: 'День рождения',
-        date: '12.04.22',
+        date: '1 04 23',
         id: '2',
         toBooking: 'В ожидании',
         avatar: 'https://images.unsplash.com/photo-1534270804882-6b5048b1c1fc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bmV3fGVufDB8fDB8fA%3D%3D&w=1000&q=80',
     },
     {
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+        link: 'http://card.com',
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
-        nameGift: 'Название подарка',
+        nameGift: 'Темный шоколад',
         holiday: 'День рождения',
-        date: '12.04.22',
+        date: '12.04.24',
         id: '3',
 
         toBooking: 'В ожидании',
         avatar: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3',
     },
     {
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
-        nameGift: 'Название подарка',
+        nameGift: 'Билет в кино',
         holiday: 'День рождения',
         date: '12.04.22',
         id: '4',
@@ -52,6 +64,9 @@ export const array = [
         avatar: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3',
     },
     {
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
         nameGift: 'Название подарка',
         holiday: 'День рождения',
@@ -62,6 +77,9 @@ export const array = [
         avatar: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3',
     },
     {
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
         nameGift: 'Название подарка',
         holiday: 'День рождения',
@@ -72,6 +90,9 @@ export const array = [
         avatar: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3',
     },
     {
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
         nameGift: 'Название подарка',
         holiday: 'День рождения',
@@ -82,6 +103,9 @@ export const array = [
         avatar: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3',
     },
     {
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
         nameGift: 'Название подарка',
         holiday: 'День рождения',
@@ -92,6 +116,9 @@ export const array = [
         avatar: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3',
     },
     {
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
         nameGift: 'Название подарка',
         holiday: 'День рождения',
@@ -102,6 +129,9 @@ export const array = [
         avatar: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3',
     },
     {
+        aboutGift:
+            'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
+
         img: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8c3R1ZHl8ZW58MHx8MHx8&w=1000&q=80',
         nameGift: 'Название подарка',
         holiday: 'День рождения',
@@ -118,10 +148,10 @@ const WishList = () => {
     const navigate = useNavigate()
     // console.log(navigate)
     const a = (id) => {
-        navigate(`/wish_list/${id}`)
+        navigate(`${id}`)
     }
     const b = (e) => {
-        navigate(`/wish_list/${e}`)
+        navigate(`${e}`)
     }
     const boardHandler = () => {
         setFormat(false)
@@ -141,7 +171,7 @@ const WishList = () => {
                     <ButtonIcon onClick={listHandler}>
                         <ListIcons fill={formatCard} />
                     </ButtonIcon>
-                    <Button onclick={() => b('edit')} startIcon={<Plus />}>
+                    <Button onClick={() => b('add')} startIcon={<Plus />}>
                         Добавить желание
                     </Button>
                 </WrapperIcon>
@@ -150,6 +180,7 @@ const WishList = () => {
                 {array.map((el) => (
                     <GiftCard
                         key={el.id}
+                        id={el.id}
                         variant={formatCard}
                         image={el.img}
                         nameGift={el.nameGift}

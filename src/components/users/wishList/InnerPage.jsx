@@ -1,38 +1,37 @@
 import styled from '@emotion/styled'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
 
-const InnerPage = ({
-    userName,
-    toBook,
-    holidays,
-    date,
-    nameGift,
-    aboutGift,
-    image,
-    avatar,
-}) => {
+const InnerPage = (props) => {
+    const navigate = useNavigate()
+
+    const a = (b) => {
+        navigate(`${b}`)
+    }
     return (
         <WrapperAll>
-            <Img src={image} alt="image" />
+            <Img src={props.data.img} alt="image" />
             <WrapperDiv>
                 <User>
-                    <StyledAvatar src={avatar} alt="avatar" />
-                    <UserName>{userName}</UserName>
-                    <ToBooking>{toBook}</ToBooking>
+                    <StyledAvatar src={props.data.avatar} alt="avatar" />
+                    <UserName>{props.data.userName}</UserName>
+                    <ToBooking>{props.data.toBook}</ToBooking>
                 </User>
                 <WrapperNameGiftAndDate>
                     <NameGift>Название праздника:</NameGift>
                     <DateGift>Дата праздника:</DateGift>
                 </WrapperNameGiftAndDate>
                 <WrapperPropsGiftAndDate>
-                    <NameGiftProps>{holidays}</NameGiftProps>
-                    <DateGiftProps>{date}</DateGiftProps>
+                    <NameGiftProps>{props.data.holiday}</NameGiftProps>
+                    <DateGiftProps>{props.data.date}</DateGiftProps>
                 </WrapperPropsGiftAndDate>
-                <StyledH1>{nameGift}</StyledH1>
-                <Styledp>{aboutGift}</Styledp>
+                <StyledH1>{props.data.nameGift}</StyledH1>
+                <Styledp>{props.data.aboutGift}</Styledp>
                 <WrapperButtons>
-                    <Button variant="contained">Редактировать</Button>
+                    <Button variant="contained" onClick={() => a('edit')}>
+                        Редактировать
+                    </Button>
                     <Button variant="contained">Удалить</Button>
                 </WrapperButtons>
             </WrapperDiv>
