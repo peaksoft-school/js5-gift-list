@@ -4,18 +4,32 @@ import styled from '@emotion/styled'
 import OutlinedInput from '@mui/material/OutlinedInput'
 
 const Input = forwardRef((props, ref) => {
-    const { type, placholder, name, id, onchange, value, width, height } = props
+    const {
+        // type,
+        placeholder,
+        name,
+        id,
+        error,
+        onBlur,
+        onchange,
+        value,
+        width,
+        height,
+        ...other
+    } = props
     return (
         <StyledTextField
-            type={type}
-            placeholder={placholder}
+            error={error}
+            placeholder={placeholder}
             name={name}
             id={id}
+            onBlur={onBlur}
             onChange={onchange}
             ref={ref}
             value={value}
             width={width}
             height={height}
+            {...other}
         />
     )
 })
@@ -24,11 +38,12 @@ export default Input
 
 const StyledTextField = styled(OutlinedInput)((props) => ({
     boxSizing: 'border-box',
-    fontFamily: 'Inter',
+    fontFamily: 'Inter, sans-serif',
     fontStyle: 'normal',
     fontWeight: '300',
     fontSize: '16px',
     display: 'flex',
+
     borderRadius: '6px',
     alignItems: 'center',
     width: props.width || '482px',
