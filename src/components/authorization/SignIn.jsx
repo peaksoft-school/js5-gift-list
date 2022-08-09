@@ -1,17 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
+import { useDispatch } from 'react-redux'
 
-import { appFetch } from '../../api/CustomFetch'
 import Exit from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
-import { useInput } from '../../hooks/UseInput'
+import { useInput } from '../../hooks/useInput'
+import { googleAuthorization } from '../../store/slices/GoogleAuthorization'
+import { singInActions } from '../../store/slices/SignInActions'
+import { actionsignUp } from '../../store/slices/SignUpSlice'
 import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 import InputPassword from '../ui/InputPassword'
 
 const SingIn = () => {
+    const [memorize, setMemorize] = useState(false)
+    const [error, setError] = useState('')
+    const dispatch = useDispatch()
     const {
         value: emailValue,
         isValid: emailIsValid,
@@ -33,17 +39,18 @@ const SingIn = () => {
             return
         }
         if (emailValue.trim() !== '' && passwordValue.trim() !== '') {
-            const response = await appFetch({
-                method: 'POST',
-                url: 'api/public/login',
-                body: {
-                    email: emailValue,
-                    password: passwordValue,
-                },
-            })
-            console.log(response)
+            const userData = {
+                email: emailValue,
+                password: passwordValue,
+            }
+            dispatch(singInActions({ userData, setError }))
+            dispatch(actionsignUp.baseSignUp(memorize))
         }
     }
+    const googleHandler = () => {
+        dispatch(googleAuthorization())
+    }
+
     return (
         <BasicModal open>
             <SignInForm onSubmit={submitHandler}>
@@ -52,29 +59,39 @@ const SingIn = () => {
                     <img src={Exit} alt="" />
                 </InputDiv>
                 <InputDivForm>
-                    <Input
-                        validation={emailIsValidHasError}
-                        value={emailValue}
-                        onchange={emailChangeHandler}
-                        onBlur={emailBlurHandler}
-                        type="email"
-                        placholder="Email"
-                    />
-                    {emailIsValidHasError && (
-                        <ErrorValidation>@ no</ErrorValidation>
-                    )}
-                    <InputPassword
-                        validation={passwordIsValidHasError}
-                        value={passwordValue}
-                        onChange={passwordChangeHandler}
-                        onBlur={passwordBlurHandler}
-                        type="password"
-                        placeholder="Пароль"
-                    />
-                    {passwordIsValidHasError && (
-                        <ErrorValidation>password 6</ErrorValidation>
-                    )}
-                    <DivRemember>
+                    <Div>
+                        <Input
+                            error={emailIsValidHasError}
+                            value={emailValue}
+                            onchange={emailChangeHandler}
+                            onBlur={emailBlurHandler}
+                            type="email"
+                            placeholder="Email"
+                        />
+                        {emailIsValidHasError && (
+                            <ErrorValidation>
+                                введите действительную электронную почту
+                            </ErrorValidation>
+                        )}
+                    </Div>
+                    <Div>
+                        <InputPassword
+                            error={passwordIsValidHasError}
+                            value={passwordValue}
+                            onChange={passwordChangeHandler}
+                            onBlur={passwordBlurHandler}
+                            type="password"
+                            placeholder="Пароль"
+                        />
+                        {passwordIsValidHasError && (
+                            <ErrorValidation>
+                                пароль должен содержать не менее 6 символов
+                            </ErrorValidation>
+                        )}
+                    </Div>
+                    <ErrorValidation>{error}</ErrorValidation>
+
+                    <DivRemember onClick={() => setMemorize(!memorize)}>
                         <input type="checkbox" />
                         <p>Запимнить меня</p>
                     </DivRemember>
@@ -91,7 +108,7 @@ const SingIn = () => {
                         <Or>или</Or>
                         <Line2 />
                     </OrDiv>
-                    <GoogleDiv>
+                    <GoogleDiv onClick={googleHandler}>
                         <img src={Google} alt="" /> Продолжить с Google
                     </GoogleDiv>
                     <ToComeInDiv>
@@ -119,6 +136,7 @@ const InputDiv = styled('div')`
     height: 32px;
     h4 {
         margin-top: 0px;
+        font-family: 'Inter', sans-serif;
     }
 `
 const InputDivForm = styled('div')`
@@ -198,6 +216,7 @@ const GoogleDiv = styled('div')`
     line-height: 16px;
 
     color: #23262f;
+    cursor: pointer;
 `
 const ToComeInDiv = styled('div')`
     display: flex;
@@ -224,6 +243,11 @@ const ToComeInDiv = styled('div')`
 const ErrorValidation = styled('p')`
     margin: 0;
     padding: 0;
-    font-size: 17px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
     color: #b40e0e;
+    text-align: end;
+`
+const Div = styled('div')`
+    height: 40px;
 `

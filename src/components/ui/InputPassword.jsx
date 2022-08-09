@@ -9,7 +9,17 @@ import { ReactComponent as ClosedEyes } from '../../assets/icons/closedEyes.svg'
 import { ReactComponent as OpenedEyes } from '../../assets/icons/openedEyes.svg'
 
 const InputPassword = forwardRef((props, ref) => {
-    const { placeholder, validation, name, value, onBlur, onChange, id } = props
+    const {
+        placeholder,
+        name,
+        value,
+        error,
+        onBlur,
+        onChange,
+        id,
+        type,
+        ...other
+    } = props
     const [textOrPassword, setValues] = React.useState(false)
 
     const handleClickShowPassword = () => {
@@ -26,10 +36,11 @@ const InputPassword = forwardRef((props, ref) => {
             placeholder={placeholder}
             onChange={onChange}
             ref={ref}
-            validation={validation}
+            error={error}
             id={id}
             onBlur={onBlur}
             name={name}
+            {...other}
             endAdornment={
                 <InputAdornment position="end">
                     <IconButton
@@ -54,6 +65,4 @@ const OutlinedInputStyled = styled(OutlinedInput)((props) => ({
 
     width: props.width || '482px',
     height: props.height || '35px',
-    backgroundColor: props.validation ? '#fddddd;' : '',
-    border: props.validation ? ' 1px solid #b40e0e; ' : '',
 }))
