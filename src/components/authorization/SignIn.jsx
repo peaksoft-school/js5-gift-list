@@ -8,7 +8,6 @@ import Google from '../../assets/icons/google.svg'
 import { useInput } from '../../hooks/useInput'
 import { googleAuthorization } from '../../store/slices/GoogleAuthorization'
 import { singInActions } from '../../store/slices/SignInActions'
-import { actionsignUp } from '../../store/slices/SignUpSlice'
 import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
@@ -43,8 +42,7 @@ const SingIn = () => {
                 email: emailValue,
                 password: passwordValue,
             }
-            dispatch(singInActions({ userData, setError }))
-            dispatch(actionsignUp.baseSignUp(memorize))
+            dispatch(singInActions({ userData, setError, memorizee: memorize }))
         }
     }
     const googleHandler = () => {

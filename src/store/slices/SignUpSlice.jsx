@@ -23,7 +23,7 @@ const signUpSlice = createSlice({
             state.user.jwt = newItem.jwt
             state.user.role = newItem.role
             state.user.email = newItem.email
-            state.memorize = newItem.memorize
+            state.memorize = newItem.memorizee
         },
     },
 })

@@ -16,8 +16,8 @@ export const appFetch = async (data) => {
             requestOptions.body = JSON.stringify(data.body)
         }
         const response = await fetch(URL_BASE + data.url, requestOptions)
-        if (response.status === 403) {
-            throw new Error('не правильный пароль или логин')
+        if (!response.ok) {
+            throw response.message
         }
         return response.json()
     } catch (error) {
