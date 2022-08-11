@@ -1,23 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
-import { Box, css, Tab } from '@mui/material'
+import { Box, Tab } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import FriendsCard from './FriendsCard'
 
-export default function Tabs({ options }) {
+export default function FriendTabs({ options }) {
     const [value, setValue] = useState('1')
 
+    useEffect(() => {
+        localStorage.setItem('items', JSON.stringify(value))
+    }, [value])
+    useEffect(() => {
+        const value = JSON.parse(localStorage.getItem('items'))
+        if (value) {
+            setValue(value)
+        }
+    }, [])
     const navigate = useNavigate()
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
-
     const handleInnerPage = (id) => {
         navigate(`/friends/${id}`)
     }
@@ -40,8 +48,8 @@ export default function Tabs({ options }) {
             <TabContext value={value}>
                 <StyledBox>
                     <StyledTabList onChange={handleChange}>
-                        <StyledTab label={myFriends} value="1" num={value} />
-                        <StyledTab label={requstToFriends} value="2" num="2" />
+                        <StyledTab label={myFriends} value="1" />
+                        <StyledTab label={requstToFriends} value="2" />
                     </StyledTabList>
                 </StyledBox>
                 <StyledTabPanel value="1">
@@ -53,7 +61,7 @@ export default function Tabs({ options }) {
                                 key={el.id}
                                 amountOfHolidays={el.amountOfHolidays}
                                 amountOfWishes={el.amountOfWishes}
-                                navigate={() => {
+                                onClick={() => {
                                     handleInnerPage(el.id)
                                 }}
                             />
@@ -68,12 +76,12 @@ export default function Tabs({ options }) {
                                     name={el.name}
                                     id={el.id}
                                     key={el.id}
-                                    navigate={() => {
+                                    onClick={() => {
                                         handleInnerPage(el.id)
                                     }}
                                     amountOfHolidays={el.amountOfHolidays}
                                     amountOfWishes={el.amountOfWishes}
-                                    variant="2"
+                                    variant="requestToFriends"
                                 />
                             )
                         })}
@@ -100,6 +108,16 @@ const StyledTabList = styled(TabList)`
     & .MuiTabs-indicator {
         display: none;
     }
+    & .Mui-selected {
+        background-color: #8639b5;
+        span {
+            color: white;
+        }
+        h4 {
+            color: #8639b5;
+            background-color: white;
+        }
+    }
 `
 const StyledBox = styled(Box)`
     width: 1086px;
@@ -125,36 +143,6 @@ const StyledTab = styled(Tab)`
     min-width: 541px;
     min-height: 10px;
     list-style: none;
-    ${({ num }) =>
-        num === '1'
-            ? css`
-            & > :nth-of-type(1) {
-                z-index: 1;
-                color: white;
-                & h4 {
-                              color: #8639b5;
-                              background-color: white;
-                          }
-            }
-                  & > :nth-of-type(2) {
-                          background: #8639b5;
-                          text-decoration: none;
-                      }
-                  }
-              `
-            : css`
-                  :focus-within {
-                      background: #8639b5;
-                      text-decoration: none;
-                      & span {
-                          color: white;
-                      }
-                      & h4 {
-                          color: #8639b5;
-                          background-color: white;
-                      }
-                  }
-              `}
 `
 
 const StyledSpan = styled('span')`

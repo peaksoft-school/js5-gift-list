@@ -1,6 +1,6 @@
 import { styled, Avatar } from '@mui/material'
 
-import Button from '../../ui/Button'
+import Button from '../ui/Button'
 
 const FriendsCard = ({
     amountOfWishes,
@@ -8,12 +8,20 @@ const FriendsCard = ({
     name,
     amountOfHolidays,
     id,
-    navigate,
+    onClick,
     variant,
 }) => {
+    const acceptRequestHandler = (event, id) => {
+        event.stopPropagation()
+        console.log(id)
+    }
+    const rejectHandler = (event, id) => {
+        event.stopPropagation()
+        console.log(id)
+    }
     return (
-        <StyledContainer id={id} variant={variant}>
-            <StyledAvatar src={img} alt="photo" onClick={navigate} />
+        <StyledContainer id={id} variant={variant} onClick={onClick}>
+            <StyledAvatar src={img} alt="photo" />
             <StyledNameOfFriend>{name}</StyledNameOfFriend>
             <StyledDiv>
                 <div>
@@ -25,10 +33,23 @@ const FriendsCard = ({
                     <StyledTitle>Праздников</StyledTitle>
                 </div>
             </StyledDiv>
-            {variant === '2' && (
+            {variant === 'requestToFriends' && (
                 <StyledDiv1>
-                    <Button>Принять заявку</Button>
-                    <Button variant="outlined">Отклонить</Button>
+                    <Button
+                        onClick={(event) => {
+                            acceptRequestHandler(event, id)
+                        }}
+                    >
+                        Принять заявку
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        onClick={() => {
+                            rejectHandler(id)
+                        }}
+                    >
+                        Отклонить
+                    </Button>
                 </StyledDiv1>
             )}
         </StyledContainer>
@@ -66,7 +87,7 @@ const StyledContainer = styled('div')(({ variant }) => ({
     height: '256px',
     background:
         'linear-gradient(to bottom, rgba(134, 57, 181, 0.2) 30%, white 30% 100%)',
-    ...(variant === '2' && {
+    ...(variant === 'requestToFriends' && {
         width: '260px',
         height: '357px',
         display: 'flex',

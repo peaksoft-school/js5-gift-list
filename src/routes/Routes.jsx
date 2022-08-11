@@ -30,6 +30,7 @@ const AllRoutes = () => {
                 <Routes>
                     <Route path="/lenta" element={<Lenta />} />
                     <Route path="/friends" element={<Friends />} />
+
                     <Route path="/wish_list" element={<WissList />} />
                     <Route path="/bookeds" element={<Bookeds />} />
                     <Route path="/my_halidays" element={<MyHalidays />} />
