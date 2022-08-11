@@ -24,6 +24,7 @@ const BUTTON_VARIANTS = {
         backgroundColor: '#8639B5',
         width: '482px',
         height: '37px',
+        textTransform: 'none',
         '&:hover': {
             backgroundColor: '#8639B5',
         },
@@ -33,6 +34,7 @@ const BUTTON_VARIANTS = {
         background: '#F1F1F1',
         width: '482px',
         height: '37px',
+        fontFamily: 'Inter, sans-serif',
     },
     singInButton: {
         color: '#FFFFFF',
@@ -45,10 +47,12 @@ const BUTTON_VARIANTS = {
 const Button = ({
     children,
     variant,
+    type,
     onClick,
     startIcon,
     active,
     disabled,
+    ...other
 }) => {
     return (
         <StyledButton
@@ -56,7 +60,9 @@ const Button = ({
             startIcon={startIcon}
             onClick={onClick}
             active={active}
+            type={type}
             disabled={disabled}
+            {...other}
         >
             {children}
         </StyledButton>
@@ -76,7 +82,7 @@ const StyledButton = styled(MuiButton)`
     justify-content: center;
     align-items: center;
     padding: 10px;
-    font-family: Inter;
+    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 16px;

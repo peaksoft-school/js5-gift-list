@@ -44,8 +44,8 @@ const FriendsCard = ({
                     </Button>
                     <Button
                         variant="outlined"
-                        onClick={() => {
-                            rejectHandler(id)
+                        onClick={(event) => {
+                            rejectHandler(event, id)
                         }}
                     >
                         Отклонить

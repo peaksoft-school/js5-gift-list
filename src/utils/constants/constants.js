@@ -69,3 +69,4 @@ export const arr = [
     { value: 'Б/У', label: 'Б/У' },
     { value: 'Новое', label: 'Новое' },
 ]
+export const GIFTLIST_AUTH = 'GIFTLIST_AUTH'
