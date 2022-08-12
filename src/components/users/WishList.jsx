@@ -151,7 +151,7 @@ const WishList = () => {
         navigate(`${id}`)
     }
     const b = (e) => {
-        navigate(`${e}`)
+        navigate(`/wish_list/${e}`)
     }
     const boardHandler = () => {
         setFormat(false)

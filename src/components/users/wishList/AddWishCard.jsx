@@ -1,5 +1,10 @@
-import styled from '@emotion/styled'
+import { useState } from 'react'
 
+import styled from '@emotion/styled'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
+import { addGift } from '../../../store/slices/AddWishCardActions'
 import Button from '../../ui/Button'
 import ViewsDatePicker from '../../ui/datePicker/ViewsDatePicker'
 import ImagePicker from '../../ui/ImagePicker'
@@ -8,18 +13,46 @@ import Select from '../../ui/select/Select'
 import Textarea from '../../ui/Textarea'
 
 const AddWishCard = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const option = [
-        { value: 'Праздник', label: 'Праздник' },
-        { value: 'Праздник', label: 'Праздникll' },
-        { value: 'Праздник', label: 'Празднlkkик' },
+        { value: 'Праздник1', label: 'Праздник' },
+        { value: 'Праздник2', label: 'Праздникll' },
+        { value: 'Праздник3', label: 'Празднlkkик' },
     ]
-  
-    const postHandler=()=>{
-        
+    const [wishGift, setWishGift] = useState({
+        nameGift: '',
+        linkGift: '',
+        aboutGift: '',
+    })
+    const [choose, setChoose] = useState('')
+    const [imageGift, setImageGift] = useState('')
+    console.log(choose)
+
+    // const UserId = useSelector((s) => s.user?.id)
+    // console.log(wishGift.nameGift)
+    const cancel = () => {
+        navigate('/wish_list')
+    }
+    const addWishGift = (e) => {
+        setWishGift({ [e.target.name]: e.target.value })
+    }
+    const addImageGift = (e) => {
+        setImageGift(e)
+    }
+    // console.log(imageGift)
+    const chooseHoliday = (e) => {
+        setChoose(e.value)
+    }
+    // const giftData = {}
+    const postHandler = (e) => {
+        e.preventDefault()
+        dispatch(addGift({ imageGift, wishGift }))
+        // dispatch(addGift(giftData))
     }
     return (
-        <WrapperAll>
-            <ImagePicker />
+        <WrapperAll onSubmit={postHandler}>
+            <ImagePicker onChange={addImageGift} />
             <WrapperEdit>
                 <H2>Добавление желаемого подарка</H2>
                 <WrapperLabels>
@@ -28,35 +61,51 @@ const AddWishCard = () => {
                 </WrapperLabels>
                 <WrapperInputs>
                     <Input
+                        name="nameGift"
+                        value={wishGift.nameGift}
                         width="396px"
-                        placholder="Введите название подарка"
+                        placeholder="Введите название подарка"
+                        onChange={addWishGift}
                     />
                     <Input
+                        name="linkGift"
+                        value={wishGift.linkGift}
                         width="396px"
-                        placholder="Вставьте ссылку на подарок"
+                        placeholder="Вставьте ссылку на подарок"
+                        onChange={addWishGift}
                     />
                 </WrapperInputs>
                 <WrapperSelects>
                     <Select
+                        // value={choose}
+                        onChange={chooseHoliday}
                         placeholder="Выберите праздник"
                         options={option}
                         label="Праздник"
                     />
                     <DivDatePicker>
                         <ViewsDatePicker
-                            value={null}
+                            // value={dateGift}
                             placeholder="Укажите дату праздника"
                             label="Дата праздника"
+                            onChange={addWishGift}
                         />
                     </DivDatePicker>
                 </WrapperSelects>
                 <Textarea
+                    value={wishGift.aboutGift}
+                    name="aboutGift"
                     placeholder="Введите описание подарка"
                     label="Описание подарка"
+                    onChange={addWishGift}
                 />
                 <WrapperButton>
-                    <Button variant="outlined">Отмена</Button>
-                    <Button variant="contained" onClick={postHandler}>Добавить</Button>
+                    <Button variant="outlined" onClick={cancel}>
+                        Отмена
+                    </Button>
+                    <Button variant="contained" type="submit">
+                        Добавить
+                    </Button>
                 </WrapperButton>
             </WrapperEdit>
         </WrapperAll>
@@ -65,7 +114,7 @@ const AddWishCard = () => {
 
 export default AddWishCard
 
-const WrapperAll = styled('div')`
+const WrapperAll = styled('form')`
     padding: 20px;
     display: flex;
 `

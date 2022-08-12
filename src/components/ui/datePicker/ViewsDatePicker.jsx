@@ -19,6 +19,7 @@ const theme = createTheme({
 const ViewsDatePicker = ({ onChange, value, label, placeholder }) => {
     const dateChangeHandler = (event) => {
         onChange(event.target.value)
+        console.log(event.target.value)
     }
 
     return (

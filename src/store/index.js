@@ -1,6 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import AddWishCardSlice from './slices/addWishCardSlice'
+import signUpSlice from './slices/SignUpSlice'
+
 const store = configureStore({
-    reducer: {},
+    reducer: {
+        signUp: signUpSlice.reducer,
+        addWishCard: AddWishCardSlice.reducer,
+    },
 })
 export default store

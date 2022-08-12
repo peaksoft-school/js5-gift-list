@@ -23,7 +23,6 @@ export default function GiftCard(props) {
         toBook,
         navigate,
     } = props
-    console.log(id)
     const navigateEdit = useNavigate()
     const navigation = [
         {
@@ -34,13 +33,13 @@ export default function GiftCard(props) {
         },
         { icon: deleteIcon, title: 'удалить', id: '2' },
     ]
-    function toEditPage() {
+    function toEditPage(event) {
+        event.stopPropagation()
         navigateEdit(`${id}/edit`)
     }
     return (
-        <StyledCard variants={variant}>
+        <StyledCard onClick={navigate} variants={variant}>
             <StyledCardMedia
-                onClick={navigate}
                 variants={variant}
                 component="img"
                 image={image}
@@ -57,10 +56,13 @@ export default function GiftCard(props) {
                         <StyledAvatar src={avatar} alt="avatar" />
                         <StyledText>{toBook}</StyledText>
                     </WrapperToBooking>
-                    <WrapperMeatBalls variants={variant}>
+                    <WrapperMeatBalls
+                        variants={variant}
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <MeatBalls
                             navigations={navigation}
-                            // onClick={() => toEditPage('edit')}
+                            // onClick={(e) => e.stopPropagation()}
                         />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>

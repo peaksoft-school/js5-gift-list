@@ -1,15 +1,16 @@
 import React from 'react'
 
 import { styled } from '@mui/material'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { NavLink } from 'react-router-dom'
 
 import { RolePaths } from '../utils/constants/constants'
 
 import Header from './Header'
 
-const role = 'USER'
-
 const PageLayout = ({ children }) => {
+    const { role } = useSelector((state) => state.signUp.user)
+
     return (
         <Layout>
             <>
@@ -17,7 +18,7 @@ const PageLayout = ({ children }) => {
                     <SideBar>
                         <TextGift>GIFT LIST</TextGift>
                         <NavWrapper>
-                            {RolePaths[role].map((item) => {
+                            {RolePaths[role]?.map((item) => {
                                 return (
                                     <NavbarLink
                                         key={item.pathName}

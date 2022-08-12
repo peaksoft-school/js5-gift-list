@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom'
 
 import Button from '../../ui/Button'
 import ViewsDatePicker from '../../ui/datePicker/ViewsDatePicker'
@@ -10,6 +11,7 @@ import Select from '../../ui/select/Select'
 import Textarea from '../../ui/Textarea'
 
 const EditWishCard = (props) => {
+    const navigate = useNavigate()
     const option = [
         { value: 'Праздник1', label: 'Праздник1' },
         { value: 'Праздник2', label: 'Праздник2' },
@@ -25,6 +27,9 @@ const EditWishCard = (props) => {
     const [select, setSelect] = useState('')
     const [textarea, setTextarea] = useState(props.data.aboutGift)
     console.log(select)
+    const cancel = () => {
+        navigate('/wish_list')
+    }
 
     const editImageHandler = (file) => {
         setImage(file)
@@ -99,7 +104,9 @@ const EditWishCard = (props) => {
                     onChange={onChangeTextarea}
                 />
                 <WrapperButton>
-                    <Button variant="outlined">Отмена</Button>
+                    <Button variant="outlined" onClick={cancel}>
+                        Отмена
+                    </Button>
                     <Button variant="contained">Добавить</Button>
                 </WrapperButton>
             </WrapperEdit>
