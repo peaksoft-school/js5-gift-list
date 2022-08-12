@@ -16,6 +16,7 @@ export default function MyHolidaysCard({ img, title, date }) {
         },
         { id: '2', icon: deleteIcon, title: 'Удалить', clickItem: () => {} },
     ]
+
     return (
         <StyledCard>
             <StyledCardMedia alt="green iguana" image={img} />
