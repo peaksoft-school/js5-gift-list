@@ -71,9 +71,7 @@ const FriendProfile = () => {
                     </StyledCard>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div>
-                        <h4>Основная информация</h4>
-                    </div>
+                    <h4>Основная информация</h4>
                     <div>
                         <div>
                             <p>Город:</p>
@@ -88,9 +86,7 @@ const FriendProfile = () => {
                             <h6>+9967052364</h6>
                         </div>
                     </div>
-                    <div>
-                        <h4>Интересы, хобби</h4>
-                    </div>
+                    <h4>Интересы, хобби</h4>
                     <div>
                         <div>
                             <p>Интересы,хобби:</p>
@@ -101,9 +97,7 @@ const FriendProfile = () => {
                             <h6>Против спиртных напитков</h6>
                         </div>
                     </div>
-                    <div>
-                        <h4>Доп. инфа</h4>
-                    </div>
+                    <h4>Доп. инфа</h4>
                     <div>
                         <div>
                             <p>Размер одежды:</p>

@@ -18,7 +18,7 @@ const PageLayout = ({ children }) => {
                     <SideBar>
                         <TextGift>GIFT LIST</TextGift>
                         <NavWrapper>
-                            {RolePaths[role].map((item) => {
+                            {RolePaths[role]?.map((item) => {
                                 return (
                                     <NavbarLink
                                         key={item.pathName}
