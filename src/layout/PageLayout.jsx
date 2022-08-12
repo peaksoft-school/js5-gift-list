@@ -1,15 +1,16 @@
 import React from 'react'
 
 import { styled } from '@mui/material'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 import { NavLink } from 'react-router-dom'
 
 import { RolePaths } from '../utils/constants/constants'
 
 import Header from './Header'
 
-const role = 'USER'
-
 const PageLayout = ({ children }) => {
+    const { role } = useSelector((state) => state.signUp.user)
+
     return (
         <Layout>
             <>
@@ -56,6 +57,7 @@ const SideBar = styled('div')`
     margin-top: -8px;
     margin-left: -8px;
     text-align: start;
+    z-index: 99;
 `
 const TextGift = styled('h2')`
     text-align: center;
