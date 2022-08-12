@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
+import { useDispatch } from 'react-redux'
 
+import { postHoliday } from '../../../store/slices/HolidaySlice'
 import BasicModal from '../../ui/BasicModal'
 import Button from '../../ui/Button'
 import ViewsDatePicker from '../../ui/datePicker/ViewsDatePicker'
@@ -10,51 +12,91 @@ import Input from '../../ui/Input'
 
 const AddHolidayModal = (props) => {
     const { open, onClose } = props
-    const [value, setValue] = useState(null)
+    const [photo, setPhoto] = useState(null)
+    const [name, setName] = useState('')
+    const [holidayDate, setHolidayDate] = useState(null)
+    // const r = holidayDate?.getMonth()
+    // console.log(holidayDate, r)
+    const d = new Date(holidayDate)
+    const day = {}
+    day.day = 1 + d.getDate()
+    day.year = d.getFullYear()
+    day.month = 1 + d.getMonth()
+    const all = new Date(`${day.month} ${day.day} ${day.year}`)
+    console.log(all)
 
+    const dispatch = useDispatch()
+
+    const onLoad = (fileString) => {
+        setPhoto(fileString)
+    }
+    const onChangeImageValue = (file) => {
+        setPhoto(file)
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => {
+            onLoad(reader.result)
+        }
+    }
+    const onChangeInputValue = (e) => {
+        setName(e.target.value)
+    }
+    const onChangeDateValue = (date) => {
+        setHolidayDate(date)
+    }
+    const submitHandler = () => {
+        if (holidayDate === null || name === '') {
+            return
+        }
+        // const formData = new FormData()
+        // formData.append(photo)
+        dispatch(postHoliday({ photo, name, date: all }))
+        // setPhoto(null)
+        // setName('')
+        // setHolidayDate(null)
+        onClose()
+    }
     return (
         <div>
             <BasicModal open={open} onClose={onClose}>
-                <form>
-                    <ModalChildDiv>
-                        <AddTitle>Добавление праздника</AddTitle>
-                        <ImagePicker />
-                        <InModalChildDiv>
-                            <LabelInputDiv>
-                                <label htmlFor="Название праздника">
-                                    Название праздника
-                                </label>
-                                <Input
-                                    type="text"
-                                    placholder="Введите название праздника"
-                                />
-                            </LabelInputDiv>
+                <ModalChildDiv>
+                    <AddTitle>Добавление праздника</AddTitle>
+                    <ImagePicker onChange={onChangeImageValue} />
+                    <InModalChildDiv>
+                        <LabelInputDiv>
+                            <label htmlFor="Название праздника">
+                                Название праздника
+                            </label>
+                            <Input
+                                value={name}
+                                onchange={onChangeInputValue}
+                                type="text"
+                                placholder="Введите название праздника"
+                            />
+                        </LabelInputDiv>
 
-                            <div>
-                                <ViewsDatePicker
-                                    width="100%"
-                                    value={value}
-                                    onChange={(newValue) => {
-                                        setValue(newValue)
-                                    }}
-                                    label="Дата праздника"
-                                    placeholder="Укажите дату праздника"
-                                />
-                                <CancelAddDiv>
-                                    <Button
-                                        variant="outlined"
-                                        onClick={onClose}
-                                    >
-                                        Отмена
-                                    </Button>
-                                    <Button variant="contained">
-                                        Добавить
-                                    </Button>
-                                </CancelAddDiv>
-                            </div>
-                        </InModalChildDiv>
-                    </ModalChildDiv>
-                </form>
+                        <div>
+                            <ViewsDatePicker
+                                width="100%"
+                                value={holidayDate}
+                                onChange={onChangeDateValue}
+                                label="Дата праздника"
+                                placeholder="Укажите дату праздника"
+                            />
+                            <CancelAddDiv>
+                                <Button variant="outlined" onClick={onClose}>
+                                    Отмена
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    onClick={submitHandler}
+                                >
+                                    Добавить
+                                </Button>
+                            </CancelAddDiv>
+                        </div>
+                    </InModalChildDiv>
+                </ModalChildDiv>
             </BasicModal>
         </div>
     )

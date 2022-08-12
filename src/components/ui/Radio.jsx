@@ -12,14 +12,23 @@ function Radio({ onChange, cheked, label }) {
                 />
                 <Span> </Span>
             </Label>
-            {label}
+            <FontLabel>{label}</FontLabel>
         </Div>
     )
 }
 
 export default Radio
+
+const FontLabel = styled('span')`
+    font-family: 'Inter' sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 45px;
+`
 const Div = styled('div')`
     display: flex;
+    align-items: center;
 `
 
 const Label = styled.label`

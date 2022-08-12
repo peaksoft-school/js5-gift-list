@@ -1,20 +1,40 @@
 import * as React from 'react'
 
 import { Card, CardMedia, styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
+import { deleteHoliday } from '../../store/slices/HolidaySlice'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-export default function MyHolidaysCard({ img, title, date, onOpen }) {
+export default function MyHolidaysCard({
+    id,
+    img,
+    title,
+    date,
+    onOpen,
+    getid,
+}) {
+    const dispatch = useDispatch()
     const navigations = [
         {
             id: '1',
             icon: editIcon,
             title: 'Редактировать',
-            clickItem: onOpen,
+            clickItem: () => {
+                onOpen()
+                getid(id)
+            },
         },
-        { id: '2', icon: deleteIcon, title: 'Удалить', clickItem: () => {} },
+        {
+            id: '2',
+            icon: deleteIcon,
+            title: 'Удалить',
+            clickItem: () => {
+                dispatch(deleteHoliday(id))
+            },
+        },
     ]
 
     return (
@@ -36,6 +56,7 @@ const StyledCard = styled(Card)`
     height: 250px;
     border-radius: 8px;
     padding: 16px;
+    margin-top: 40px;
 `
 const StyledCardMedia = styled(CardMedia)`
     width: 317px;

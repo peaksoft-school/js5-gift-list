@@ -23,6 +23,12 @@ const ImagePicker = ({ onChange, newFile }) => {
         const image = URL.createObjectURL(refs.current.files[0])
 
         setIcons(image)
+        // const img = JSON.stringify(refs.current.files[0])
+        // console.log(
+        //     refs.current.files[0].File,
+        //     img,
+        //     // JSON.stringify(refs.current.files)
+        // )
         onChange(refs.current.files[0])
     }
     return (

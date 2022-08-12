@@ -1,11 +1,5 @@
-import AllRoutes from './routes/Routes'
-
 function App() {
-    return (
-        <div className="App">
-            <AllRoutes />
-        </div>
-    )
+    return <div className="App">gift list</div>
 }
 
 export default App

@@ -1,12 +1,12 @@
 import React from 'react'
 
-import AddHoliday from '../addDeleteEditHolidays/addHoliday/AddHoliday'
+// import AddHoliday from '../addDeleteEditHolidays/addHoliday/AddHoliday'
 import EditHolidays from '../addDeleteEditHolidays/editHolidays/EditHolidays'
 
 const MyHalidays = () => {
     return (
         <div>
-            <AddHoliday />
+            {/* <AddHoliday /> */}
             <EditHolidays />
         </div>
     )
