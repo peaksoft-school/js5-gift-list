@@ -23,7 +23,7 @@ const Input = forwardRef((props, ref) => {
             placeholder={placeholder}
             name={name}
             id={id}
-            onchange={onChange}
+            onChange={onChange}
             onBlur={onBlur}
             ref={ref}
             value={value}

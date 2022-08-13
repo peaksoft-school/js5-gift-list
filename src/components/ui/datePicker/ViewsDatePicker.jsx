@@ -17,11 +17,6 @@ const theme = createTheme({
 })
 
 const ViewsDatePicker = ({ onChange, value, label, placeholder }) => {
-    const dateChangeHandler = (event) => {
-        onChange(event.target.value)
-        console.log(event.target.value)
-    }
-
     return (
         <Div>
             <Label htmlFor={label}>{label}</Label>
@@ -30,7 +25,7 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder }) => {
                 <ThemeProvider theme={theme}>
                     <DatePicker
                         value={value}
-                        onChange={dateChangeHandler}
+                        onChange={onChange}
                         renderInput={(params) => (
                             <StyledTextField
                                 {...params}

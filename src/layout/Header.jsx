@@ -30,6 +30,7 @@ const Headers = styled('header')`
     left: 0;
     background: #ffffff;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.03);
+    z-index: 2;
 `
 
 const WarningSpan = styled('span')`

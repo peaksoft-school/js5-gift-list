@@ -1,7 +1,6 @@
 import store from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
-// eslint-disable-next-line consistent-return
 export const appFetch = async (data) => {
     const { signUp } = store.getState()
     try {
@@ -18,11 +17,11 @@ export const appFetch = async (data) => {
         }
         const response = await fetch(URL_BASE + data.url, requestOptions)
         if (!response.ok) {
-            throw new Error(response.message)
+            throw response.message
         }
         return response.json()
     } catch (error) {
-        return new Error(error.message)
+        return error
     }
 }
 

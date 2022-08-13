@@ -10,6 +10,7 @@ const initialState = {
         jwt: null,
         role: null,
         email: null,
+        memorize: null,
     },
 }
 const signUpSlice = createSlice({
@@ -23,6 +24,7 @@ const signUpSlice = createSlice({
             state.user.jwt = newItem.jwt
             state.user.role = newItem.role
             state.user.email = newItem.email
+            state.memorize = newItem.memorizee
         },
     },
 })

@@ -62,6 +62,7 @@ const OutlinedInputStyled = styled(OutlinedInput)((props) => ({
     boxSizing: 'border-box',
 
     borderRadius: '6px',
+
     width: props.width || '482px',
     height: props.height || '35px',
 }))

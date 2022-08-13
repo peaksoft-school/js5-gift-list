@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import ExitIcon from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
-import { useInput } from '../../hooks/useInput'
+import { useInput } from '../../hooks/UseInput'
 import { googleAuthorization } from '../../store/slices/GoogleAuthorization'
 import { signUp } from '../../store/slices/SignUpActions'
 import BasicModal from '../ui/BasicModal'
@@ -110,9 +110,7 @@ const SignUp = () => {
                             placeholder="Имя"
                         />
                         {firstNameInputHasError && (
-                            <ErrorValidation>
-                                Name must not be empty
-                            </ErrorValidation>
+                            <ErrorValidation>введите имя</ErrorValidation>
                         )}
                     </InputDiv>
                     <InputDiv>
@@ -126,9 +124,7 @@ const SignUp = () => {
                             placeholder="Фамилия"
                         />
                         {lastNameInputHasError && (
-                            <ErrorValidation>
-                                last Name must not be empty
-                            </ErrorValidation>
+                            <ErrorValidation>введите фамилию</ErrorValidation>
                         )}
                     </InputDiv>
                     <InputDiv>
@@ -143,7 +139,7 @@ const SignUp = () => {
                         />
                         {emailInputHasError && (
                             <ErrorValidation>
-                                Please enter valid email
+                                введите действительную электронную почту
                             </ErrorValidation>
                         )}
                     </InputDiv>
@@ -159,7 +155,7 @@ const SignUp = () => {
                         />
                         {passwordInputHasError && (
                             <ErrorValidation>
-                                please enter valid 6
+                                пароль должен содержать не менее 6 символов
                             </ErrorValidation>
                         )}
                     </InputDiv>
@@ -175,7 +171,9 @@ const SignUp = () => {
                             placeholder="Повторите пароль"
                         />
                         {passwordTwoInputHasError && (
-                            <ErrorValidation>error</ErrorValidation>
+                            <ErrorValidation>
+                                пароль должен совпадать с предыдущим
+                            </ErrorValidation>
                         )}
                     </InputDiv>
 

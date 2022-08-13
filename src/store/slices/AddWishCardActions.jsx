@@ -18,7 +18,7 @@ export const addGift = createAsyncThunk(
             const response = await appFetch({
                 method: 'POST',
                 url: 'api/wish',
-                body: wishGift,
+                body: (wishGift.photo = responseImg),
             })
             console.log(response)
             // const response = await appFetch({
