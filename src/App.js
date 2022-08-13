@@ -1,9 +1,9 @@
-import SingIn from './components/authorization/SignIn'
+import LandingPage from './containers/LandingPage'
 
 function App() {
     return (
         <div className="App">
-            <SingIn />
+            <LandingPage />
         </div>
     )
 }
