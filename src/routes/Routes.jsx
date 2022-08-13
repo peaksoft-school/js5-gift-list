@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import { Routes, Route } from 'react-router-dom'
 
 import LoadingSpinner from '../components/ui/LoadingSpinner'
+import EditCharity from '../components/users/EditCharity'
 import PageLayout from '../layout/PageLayout'
 
 const Lenta = lazy(() => import('../components/users/Lenta'))
@@ -35,6 +36,10 @@ const AllRoutes = () => {
                     <Route path="/bookeds" element={<Bookeds />} />
                     <Route path="/my_halidays" element={<MyHalidays />} />
                     <Route path="/charity" element={<Charity />} />
+                    <Route
+                        path="/charity/:id/edit_charity"
+                        element={<EditCharity />}
+                    />
                     <Route path="/users" element={<Users />} />
                     <Route path="/complaints" element={<Complaints />} />
                     <Route path="/mailing" element={<Mailing />} />
