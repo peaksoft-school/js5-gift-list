@@ -5,7 +5,7 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 
 const Input = forwardRef((props, ref) => {
     const {
-        // type,
+        type,
         placeholder,
         name,
         id,

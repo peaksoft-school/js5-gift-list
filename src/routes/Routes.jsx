@@ -15,10 +15,8 @@ const Bookeds = lazy(() => import('../components/users/Bookeds'))
 const Charity = lazy(() => import('../components/users/Charity'))
 const MyHalidays = lazy(() => import('../components/users/MyHalidays'))
 // eslint-disable-next-line prettier/prettier
-const CharityUsers = lazy(() =>
-    import('../components/admin/CharityUsers')
-)
-const Friends = lazy(() => import('../components/users/Friends'))
+const CharityUsers = lazy(() => import('../components/admin/CharityUsers'))
+const FriendsPage = lazy(() => import('../containers/FriendsPage'))
 const AllRoutes = () => {
     return (
         <PageLayout>
@@ -31,7 +29,8 @@ const AllRoutes = () => {
             >
                 <Routes>
                     <Route path="/lenta" element={<Lenta />} />
-                    <Route path="/friends" element={<Friends />} />
+                    <Route path="/friends" element={<FriendsPage />} />
+
                     <Route path="/wish_list" element={<WissList />} />
                     <Route path="/bookeds" element={<Bookeds />} />
                     <Route path="/my_halidays" element={<MyHalidays />} />

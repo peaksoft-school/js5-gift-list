@@ -57,6 +57,7 @@ const SideBar = styled('div')`
     margin-top: -8px;
     margin-left: -8px;
     text-align: start;
+    z-index: 99;
 `
 const TextGift = styled('h2')`
     text-align: center;

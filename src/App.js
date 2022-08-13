@@ -1,16 +1,9 @@
-import SignUp from './components/authorization/SingUp'
-// import Card from './components/users/Card'
-
-// import MainRouter from './routes/MainRouter'
-// import AllRoutes from './routes/Routes'
+import SingIn from './components/authorization/SignIn'
 
 function App() {
     return (
         <div className="App">
-            <SignUp />
-            {/* <Card variant="board" /> */}
-            {/* <AllRoutes />
-            <MainRouter /> */}
+            <SingIn />
         </div>
     )
 }

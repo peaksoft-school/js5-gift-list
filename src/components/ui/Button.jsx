@@ -47,10 +47,10 @@ const BUTTON_VARIANTS = {
 const Button = ({
     children,
     variant,
+    type,
     onClick,
     startIcon,
     active,
-    type,
     disabled,
     ...other
 }) => {
