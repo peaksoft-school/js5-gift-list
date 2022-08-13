@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import charityIcon from '../assets/icons/charityIcon.png'
 import facebook from '../assets/icons/facebook.svg'
-import heart from '../assets/icons/heart.svg'
+import heart from '../assets/icons/heart.png'
 import insta from '../assets/icons/insta.svg'
 import landingFacebook from '../assets/icons/landingFacebook.svg'
 import landingInstagram from '../assets/icons/landingInstagram.svg'
@@ -120,7 +120,7 @@ const LandingPage = () => {
                     <Advantage>
                         <Advantages>
                             <h3>
-                                <img src={like} alt="like icon" />
+                                <img src={heart} alt="like icon" />
                                 Дари то, что необходимо
                             </h3>
                             <ul>
@@ -131,7 +131,7 @@ const LandingPage = () => {
                         </Advantages>
                         <Advantages>
                             <h3>
-                                <img src={heart} alt="like icon" />
+                                <img src={like} alt="like icon" />
                                 Удобство в использовании
                             </h3>
                             <ul>
