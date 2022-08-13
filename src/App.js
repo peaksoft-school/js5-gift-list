@@ -1,9 +1,9 @@
-import SingIn from './components/authorization/SignIn'
+import AllRoutes from './routes/Routes'
 
 function App() {
     return (
         <div className="App">
-            <SingIn />
+            <AllRoutes />
         </div>
     )
 }

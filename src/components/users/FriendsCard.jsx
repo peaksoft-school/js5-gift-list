@@ -12,9 +12,12 @@ const FriendsCard = ({
     variant,
 }) => {
     const acceptRequestHandler = (event, id) => {
+        console.log(id)
         event.stopPropagation()
     }
     const rejectHandler = (event, id) => {
+        console.log(id)
+
         event.stopPropagation()
     }
     return (

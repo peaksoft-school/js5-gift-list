@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import { Routes, Route } from 'react-router-dom'
 
 import LoadingSpinner from '../components/ui/LoadingSpinner'
+import AboutGiftMore from '../components/users/CharityAboutMore'
 import EditCharity from '../components/users/EditCharity'
 import PageLayout from '../layout/PageLayout'
 
@@ -39,6 +40,10 @@ const AllRoutes = () => {
                     <Route
                         path="/charity/:id/edit_charity"
                         element={<EditCharity />}
+                    />
+                    <Route
+                        path="/charity/:giftId/:giftName"
+                        element={<AboutGiftMore />}
                     />
                     <Route path="/users" element={<Users />} />
                     <Route path="/complaints" element={<Complaints />} />

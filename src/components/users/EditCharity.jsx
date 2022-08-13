@@ -107,8 +107,7 @@ const Anketa = styled.form`
     border-radius: 10px;
 `
 const Title = styled.h1`
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Inter', san-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
