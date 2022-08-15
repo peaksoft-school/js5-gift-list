@@ -28,6 +28,7 @@ const AuthSlice = createSlice({
             state.memorize = newItem.memorizee
             state.user.firstName = newItem.firstName
             state.user.lastName = newItem.lastName
+            console.log(newItem)
         },
     },
 })

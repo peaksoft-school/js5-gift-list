@@ -80,7 +80,6 @@ const SignUp = () => {
                 password: enteredPassword,
                 mailingList: checkboxState,
             }
-
             dispatch(signUp(userData))
         }
     }
