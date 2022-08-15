@@ -281,7 +281,7 @@ const Peaksoft = styled.span`
     width: 265px;
     height: 14px;
     color: #020202;
-    font-family: sans-serif;
+    font-family: 'Inter';
     margin-top: 100px;
 `
 const Navigation = styled.div`
@@ -316,7 +316,7 @@ const Contacts = styled.div`
     width: 255px;
     height: 120px;
     & h2 {
-        font-family: sans-serif;
+        font-family: 'Inter';
         font-size: 24px;
         cursor: pointer;
         margin: 0px;
@@ -350,7 +350,7 @@ const Team = styled.div`
         & strong {
             width: 170px;
             height: 36px;
-            font-family: sans-serif;
+            font-family: 'Inter';
             padding-top: 10px;
         }
     }
@@ -362,7 +362,7 @@ const Device = styled.div`
     & h1 {
         width: 234px;
         height: 46px;
-        font-family: sans-serif;
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
         font-size: 46px;
@@ -376,7 +376,7 @@ const Device = styled.div`
     & p {
         width: 500px;
         height: 182px;
-        font-family: sans-serif;
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
@@ -391,7 +391,7 @@ const Charity = styled.div`
     align-items: center;
     padding: 80px 5px;
     & h1 {
-        font-family: sans-serif;
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
         font-size: 46px;
@@ -401,7 +401,7 @@ const Charity = styled.div`
     & p {
         width: 570px;
         height: 192px;
-        font-family: sans-serif;
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 400;
         font-size: 16px;
@@ -439,7 +439,7 @@ const Advantages = styled.div`
         align-item: center;
         // width: 288px;
         height: 30px;
-        font-family: sans-serif;
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 600;
         font-size: 20px;
@@ -452,7 +452,7 @@ const Advantages = styled.div`
     }
     & ul {
         width: 288px;
-        font-family: sans-serif;
+        font-family: 'Inter';
         & li {
             padding: 5px;
         }
@@ -471,7 +471,7 @@ const Numbers = styled.div`
     & h2 {
         width: 177px;
         height: 54px;
-        font-family: system-ui;
+        font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
         font-size: 54px;
@@ -482,7 +482,7 @@ const Numbers = styled.div`
     & p {
         width: 177px;
         height: 17px;
-        font-family: system-ui;
+        font-family: 'Inter';
         font-style: normal;
         text-align: center;
         font-weight: 400;
@@ -522,7 +522,7 @@ const Third = styled.div`
         color: #ffffff;
         transform: rotate(-90deg);
         margin-left: 170px;
-        font-family: sans-serif;
+        font-family: 'Inter';
     }
 `
 const Second = styled.div`
@@ -545,7 +545,7 @@ const Second = styled.div`
     }
     & h1 {
         font-size: 54px;
-        font-family: Monaco, Lucida Console, monospace;
+        font-family: 'Inter';
         color: #ffffff;
         width: 542px;
         height: 130px;
@@ -553,7 +553,7 @@ const Second = styled.div`
     & p {
         font-size: 16px;
         color: #ffffff;
-        font-family: Monaco, Lucida Console, monospace;
+        font-family: 'Inter';
         width: 378px;
         height: 48px;
         padding-top: 30px;
@@ -602,7 +602,7 @@ const Content = styled.div`
     width: 1170px;
 `
 const PurpleSection = styled.div`
-    padding-bottom: 200px;
+    padding-bottom: 100px;
     width: 100%;
     background-color: #8639b5;
 `
