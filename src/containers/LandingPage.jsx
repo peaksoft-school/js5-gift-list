@@ -24,7 +24,7 @@ import Button from '../components/ui/Button'
 const LandingPage = () => {
     const aboutScroll = () => {
         window.scrollTo({
-            top: 2200,
+            top: 2100,
             behavior: 'smooth',
         })
     }

@@ -13,9 +13,11 @@ const FriendsCard = ({
 }) => {
     const acceptRequestHandler = (event, id) => {
         event.stopPropagation()
+        console.log(id)
     }
     const rejectHandler = (event, id) => {
         event.stopPropagation()
+        console.log(id)
     }
     return (
         <StyledContainer id={id} variant={variant} onClick={onClick}>
