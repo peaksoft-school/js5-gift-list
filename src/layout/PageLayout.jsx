@@ -92,7 +92,7 @@ const NavbarLink = styled(NavLink)`
         align-items: center;
         font-family: 'Inter', sans-serif;
 
-        & :first-child {
+        & :first-of-type {
             align-self: center;
         }
         & :last-child {
