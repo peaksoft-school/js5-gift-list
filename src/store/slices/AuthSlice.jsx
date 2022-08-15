@@ -4,28 +4,32 @@ import { GIFTLIST_AUTH } from '../../utils/constants/constants'
 
 const initialState = {
     user: JSON.parse(localStorage.getItem(GIFTLIST_AUTH)),
-} || {
+} && {
     user: {
         id: null,
         jwt: null,
         role: null,
         email: null,
         memorize: null,
+        firstName: null,
+        lastName: null,
     },
 }
-const signUpSlice = createSlice({
-    name: 'signUp',
+const AuthSlice = createSlice({
+    name: 'authSlice',
     initialState,
     reducers: {
-        baseSignUp(state, action) {
+        baseAuth(state, action) {
             const newItem = action.payload
             state.user.id = newItem.id
             state.user.jwt = newItem.jwt
             state.user.role = newItem.role
             state.user.email = newItem.email
             state.memorize = newItem.memorizee
+            state.user.firstName = newItem.firstName
+            state.user.lastName = newItem.lastName
         },
     },
 })
-export const actionsignUp = signUpSlice.actions
-export default signUpSlice
+export const actionAuth = AuthSlice.actions
+export default AuthSlice

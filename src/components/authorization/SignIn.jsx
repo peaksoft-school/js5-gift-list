@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 
 import Exit from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
-import { useInput } from '../../hooks/useInput'
+import { useInput } from '../../hooks/UseInput'
 import { googleAuthorization } from '../../store/slices/GoogleAuthorization'
 import { singInActions } from '../../store/slices/SignInActions'
 import BasicModal from '../ui/BasicModal'
