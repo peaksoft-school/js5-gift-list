@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
-import charityIcon from '../assets/icons/charityIcon.png'
+import charityIcon from '../assets/icons/charityIcon.svg'
 import facebook from '../assets/icons/facebook.svg'
-import heart from '../assets/icons/heart.png'
+import heart from '../assets/icons/heart.svg'
 import insta from '../assets/icons/insta.svg'
 import landingFacebook from '../assets/icons/landingFacebook.svg'
 import landingInstagram from '../assets/icons/landingInstagram.svg'
-import like from '../assets/icons/like.png'
+import like from '../assets/icons/like.svg'
 import vk from '../assets/icons/vk.svg'
 import vkontakte from '../assets/icons/vkontakte.svg'
 import charity from '../assets/images/charity.png'
@@ -49,6 +49,12 @@ const LandingPage = () => {
             behavior: 'smooth',
         })
     }
+    const downPage = () => {
+        window.scrollTo({
+            top: 800,
+            behavior: 'smooth',
+        })
+    }
     return (
         <div>
             <PurpleSection>
@@ -56,7 +62,7 @@ const LandingPage = () => {
                     <Section>
                         <p onClick={aboutScroll}>О проекте</p>
                         <Title>
-                            <strong>GIFT LIST</strong>
+                            <strong>gift list</strong>
                         </Title>
                         <p onClick={charityScroll}>Благотворительность</p>
                     </Section>
@@ -92,7 +98,7 @@ const LandingPage = () => {
                         </Second>
                         <Third>
                             <img src={groupPhotoRight} alt="third" />
-                            <p>&#8592; Листай вниз </p>
+                            <p onClick={downPage}>&#8592; Листай вниз </p>
                         </Third>
                     </ThreeColumns>
                 </Content>
@@ -237,7 +243,7 @@ const LandingPage = () => {
                     <section>
                         <Contacts>
                             <h2 onClick={toTop}>GIFT LIST</h2>
-                            <span>Социальная сеть нового поколения</span>
+                            <p>Социальная сеть нового поколения</p>
                             <div>
                                 <img
                                     onClick={toInstagram}
@@ -277,12 +283,11 @@ const Advantage = styled.div`
     padding-top: 100px;
     height: 191px;
 `
-const Peaksoft = styled.span`
-    width: 265px;
+const Peaksoft = styled.p`
     height: 14px;
     color: #020202;
     font-family: 'Inter';
-    margin-top: 100px;
+    padding: 10px 0;
 `
 const Navigation = styled.div`
     display: flex;
@@ -310,25 +315,25 @@ const Footer = styled.footer`
 `
 const Contacts = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: left;
     flex-direction: column;
     width: 255px;
-    height: 120px;
+    /* height: 120px; */
     & h2 {
         font-family: 'Inter';
         font-size: 24px;
         cursor: pointer;
         margin: 0px;
     }
-    & span {
-        // padding-bottom: 10px;
-        width: 247px;
+    & p {
+        padding-bottom: 10px;
+        width: 300px;
         height: 18px;
     }
     & div {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         width: 116px;
         height: 22px;
         // padding-top: 10px;
@@ -411,17 +416,6 @@ const Charity = styled.div`
     & img {
         width: 500px;
         height: 362px;
-            animation-duration: 3s;
-            animation-name: slidein;
-          
-          @keyframes slidein {
-            from {
-              margin-right: 100%;
-            }
-          
-            to {
-              margin-right: 0%;
-            }
     }
 `
 const Btn = styled.div`
@@ -436,8 +430,8 @@ const Btn = styled.div`
 const Advantages = styled.div`
     & h3 {
         display: flex;
-        align-item: center;
-        // width: 288px;
+        align-items: center;
+        /* width: 288px; */
         height: 30px;
         font-family: 'Inter';
         font-style: normal;
@@ -445,9 +439,9 @@ const Advantages = styled.div`
         font-size: 20px;
         line-height: 150%;
         & img {
-            padding: 5px;
-            width: 19px;
-            height: 18px;
+            padding: 0 15px;
+            width: 50px;
+            /* height: 18px; */
         }
     }
     & ul {
@@ -523,6 +517,7 @@ const Third = styled.div`
         transform: rotate(-90deg);
         margin-left: 170px;
         font-family: 'Inter';
+        cursor: pointer;
     }
 `
 const Second = styled.div`
@@ -549,6 +544,12 @@ const Second = styled.div`
         color: #ffffff;
         width: 542px;
         height: 130px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 120%;
+        /* or 65px */
+
+        text-align: center;
     }
     & p {
         font-size: 16px;
@@ -630,6 +631,7 @@ const Section = styled.section`
         font-weight: 500;
         font-size: 16px;
         color: #fdfdfd;
+        line-height: 100%;
         margin-top: 31px;
         cursor: pointer;
     }
