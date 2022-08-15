@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
+import moment from 'moment'
 import { useDispatch } from 'react-redux'
 
 import { postHoliday } from '../../../store/slices/HolidaySlice'
@@ -15,47 +16,33 @@ const AddHolidayModal = (props) => {
     const [photo, setPhoto] = useState(null)
     const [name, setName] = useState('')
     const [holidayDate, setHolidayDate] = useState(null)
-    // const r = holidayDate?.getMonth()
-    // console.log(holidayDate, r)
-    const d = new Date(holidayDate)
-    const day = {}
-    day.day = 1 + d.getDate()
-    day.year = d.getFullYear()
-    day.month = 1 + d.getMonth()
-    const all = new Date(`${day.month} ${day.day} ${day.year}`)
-    console.log(all)
 
     const dispatch = useDispatch()
 
-    const onLoad = (fileString) => {
-        setPhoto(fileString)
-    }
     const onChangeImageValue = (file) => {
         setPhoto(file)
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () => {
-            onLoad(reader.result)
-        }
+        console.log(file)
     }
     const onChangeInputValue = (e) => {
         setName(e.target.value)
     }
     const onChangeDateValue = (date) => {
-        setHolidayDate(date)
+        const newDate = moment(date).format('YYYY-MM-DD')
+        setHolidayDate(newDate)
     }
-    const submitHandler = () => {
+
+    const submitHandler = async (e) => {
+        e.preventDefault()
         if (holidayDate === null || name === '') {
             return
         }
-        // const formData = new FormData()
-        // formData.append(photo)
-        dispatch(postHoliday({ photo, name, date: all }))
+        dispatch(postHoliday({ photo, name, date: holidayDate }))
         // setPhoto(null)
-        // setName('')
-        // setHolidayDate(null)
+        setName('')
+        setHolidayDate('')
         onClose()
     }
+
     return (
         <div>
             <BasicModal open={open} onClose={onClose}>
@@ -75,7 +62,7 @@ const AddHolidayModal = (props) => {
                             />
                         </LabelInputDiv>
 
-                        <div>
+                        <DateDiv>
                             <ViewsDatePicker
                                 width="100%"
                                 value={holidayDate}
@@ -94,7 +81,7 @@ const AddHolidayModal = (props) => {
                                     Добавить
                                 </Button>
                             </CancelAddDiv>
-                        </div>
+                        </DateDiv>
                     </InModalChildDiv>
                 </ModalChildDiv>
             </BasicModal>
@@ -148,4 +135,7 @@ const CancelAddDiv = styled('div')`
         width: 232px;
         height: 37px;
     }
+`
+const DateDiv = styled('div')`
+    font-family: 'Inter', sans-serif;
 `

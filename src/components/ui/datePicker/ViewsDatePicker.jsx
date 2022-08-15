@@ -24,6 +24,7 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder, width }) => {
             <LocalizationProvider locale={ru} dateAdapter={AdapterDateFns}>
                 <ThemeProvider theme={theme}>
                     <DatePicker
+                        format="MM/dd/yyyy"
                         value={value}
                         onChange={onChange}
                         renderInput={(params) => (
@@ -77,7 +78,7 @@ const StyledTextField = styled(TextField)((props) => ({
 
 const Label = styled('label')((props) => ({
     padding: '0px',
-    fontStyle: 'normal',
+    fontStyle: 'Inter',
     fontWeight: 400,
     fontSize: props.fontSize || '12px',
     lineHeight: '15px',

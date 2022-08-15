@@ -34,7 +34,6 @@ const ImagePicker = ({ onChange, newFile }) => {
     return (
         <ImagePickerContainer icons={icons}>
             <Label icons={icons} htmlFor="file" />
-
             <Input
                 id="file"
                 ref={refs}

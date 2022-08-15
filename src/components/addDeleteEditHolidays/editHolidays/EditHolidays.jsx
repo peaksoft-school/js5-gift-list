@@ -61,7 +61,7 @@ const EditHolidays = () => {
 export default EditHolidays
 
 const HolidayCardDiv = styled('div')`
-    width: 1086px;
+    /* width: 100%; */
     padding-top: 32px;
     margin-left: 20px;
     margin-right: 40px;

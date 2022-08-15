@@ -1,18 +1,32 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-import { appFetch } from '../../api/CustomFetch'
+// eslint-disable-next-line import/no-cycle
+import { appFetch, appFetchFile } from '../../api/CustomFetch'
+import { showSuccessMessage } from '../../utils/helpers'
 
 export const postHoliday = createAsyncThunk(
     'holiday/postHoliday',
-    async (hol) => {
-        console.log(hol)
-        console.log('111111111111111111111111111111111')
+    async (props) => {
+        console.log('photo', props)
+        const formData = new FormData()
         try {
+            formData.set('file', props.photo)
+            const holidayResponse = await appFetchFile({
+                url: 'api/file/upload',
+                body: formData,
+            })
+            console.log(holidayResponse)
             const response = await appFetch({
                 method: 'POST',
-                body: hol,
+                body: {
+                    holidayDate: props.date,
+                    name: props.name,
+                    photo: holidayResponse?.link,
+                },
                 url: 'api/holiday',
             })
+            showSuccessMessage({ message: response.message })
+            console.log(response)
             return response
         } catch (error) {
             return error.message
@@ -68,17 +82,17 @@ const HolidaySlice = createSlice({
     name: 'holiday',
     initialState,
     extraReducers: {
-        // [postHoliday.pending]: (state) => {
-        //     state.status = 'pending'
-        // },
-        // [postHoliday.rejected]: (state) => {
-        //     state.status = 'rejected'
-        // },
-        // [postHoliday.fulfilled]: (state, { payload }) => {
-        //     console.log(state)
-        //     state.data = payload
-        //     state.status = 'success'
-        // },
+        [postHoliday.pending]: (state) => {
+            state.status = 'pending'
+        },
+        [postHoliday.rejected]: (state) => {
+            state.status = 'rejected'
+        },
+        [postHoliday.fulfilled]: (state, action) => {
+            console.log(state)
+            state.data = action.payload
+            state.status = 'success'
+        },
         [getHoliday.pending]: (state) => {
             state.status = 'pending'
         },
