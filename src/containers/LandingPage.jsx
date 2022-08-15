@@ -4,10 +4,7 @@ import charityIcon from '../assets/icons/charityIcon.svg'
 import facebook from '../assets/icons/facebook.svg'
 import heart from '../assets/icons/heart.svg'
 import insta from '../assets/icons/insta.svg'
-import landingFacebook from '../assets/icons/landingFacebook.svg'
-import landingInstagram from '../assets/icons/landingInstagram.svg'
 import like from '../assets/icons/like.svg'
-import vk from '../assets/icons/vk.svg'
 import vkontakte from '../assets/icons/vkontakte.svg'
 import charity from '../assets/images/charity.png'
 import designer from '../assets/images/designer.png'
@@ -15,46 +12,18 @@ import developer from '../assets/images/developer.png'
 import device from '../assets/images/device.png'
 import director from '../assets/images/director.png'
 import editor from '../assets/images/editor.png'
-import groupPhotoLeft from '../assets/images/groupPhotoLeft.png'
-import groupPhotoRight from '../assets/images/groupPhotoRight.png'
 import manager from '../assets/images/manager.png'
 import market from '../assets/images/market.png'
 import Button from '../components/ui/Button'
 
+import AboutProject from './landingPage_components/AboutProject'
+import AdvantagePage from './landingPage_components/AdvantagePage'
+import CharityMain from './landingPage_components/CharityMain'
+import HelloPage from './landingPage_components/HelloPage'
+import Statistic from './landingPage_components/Statistics'
+import Member from './landingPage_components/Team'
+
 const LandingPage = () => {
-    const aboutScroll = () => {
-        window.scrollTo({
-            top: 2100,
-            behavior: 'smooth',
-        })
-    }
-    const charityScroll = () => {
-        window.scrollTo({
-            top: 1450,
-            behavior: 'smooth',
-        })
-    }
-    const toInstagram = () => {
-        window.location.assign('https://www.instagram.com/')
-    }
-    const toFacebook = () => {
-        window.location.assign('https://www.facebook.com/')
-    }
-    const toVk = () => {
-        window.location.assign('https://vk.com/')
-    }
-    const toTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-        })
-    }
-    const downPage = () => {
-        window.scrollTo({
-            top: 800,
-            behavior: 'smooth',
-        })
-    }
     return (
         <div>
             <PurpleSection>
@@ -67,102 +36,22 @@ const LandingPage = () => {
                         <p onClick={charityScroll}>Благотворительность</p>
                     </Section>
                     <ThreeColumns>
-                        <First>
-                            <Icons>
-                                <img
-                                    onClick={toFacebook}
-                                    src={landingFacebook}
-                                    alt="landing"
-                                />
-                                <img onClick={toVk} src={vk} alt="landing" />
-                                <img
-                                    onClick={toInstagram}
-                                    src={landingInstagram}
-                                    alt="landing"
-                                />
-                            </Icons>
-                            <img src={groupPhotoLeft} alt="landing" />
-                        </First>
-                        <Second>
-                            <h1>Социальная сеть нового поколения</h1>
-                            <p>
-                                Всегда подскажет, что подарить близким и
-                                осуществит твои желания
-                            </p>
-                            <Button variant="singInButton">Войти</Button>
-                            <Buton>
-                                <Button variant="singUpButton">
-                                    Регистрация
-                                </Button>
-                            </Buton>
-                        </Second>
-                        <Third>
-                            <img src={groupPhotoRight} alt="third" />
-                            <p onClick={downPage}>&#8592; Листай вниз </p>
-                        </Third>
+                        <HelloPage />
                     </ThreeColumns>
                 </Content>
             </PurpleSection>
             <WhiteSection>
                 <Content>
                     <Div>
-                        <Numbers>
-                            <h2>100 К+</h2>
-                            <p>Пользователей</p>
-                        </Numbers>
-                        <Numbers>
-                            <h2>10 К+</h2>
-                            <p>Размещенных подарков</p>
-                        </Numbers>
-                        <Numbers>
-                            <h2>15 К+</h2>
-                            <p>Подаренных подарков</p>
-                        </Numbers>
-                        <Numbers>
-                            <h2>9 К+</h2>
-                            <p>Реализованной благотворительной помощи</p>
-                        </Numbers>
+                        <Statistic number="100 К+" name="Пользователей" />
+                        <Statistic number="10 К+" name="Размещенных подарков" />
+                        <Statistic number="15 К+" name="Подаренных подарков" />
+                        <Statistic
+                            number="9 К+"
+                            name="Реализованной благотворительной помощи"
+                        />
                     </Div>
-                    <Advantage>
-                        <Advantages>
-                            <h3>
-                                <img src={heart} alt="like icon" />
-                                Дари то, что необходимо
-                            </h3>
-                            <ul>
-                                <li>Находи своих близких</li>
-                                <li>Просматривай их списки желаний</li>
-                                <li>Узнавай о ближайших мероприятиях</li>
-                            </ul>
-                        </Advantages>
-                        <Advantages>
-                            <h3>
-                                <img src={like} alt="like icon" />
-                                Удобство в использовании
-                            </h3>
-                            <ul>
-                                <li>
-                                    Создавай неограниченное количество желаний
-                                </li>
-                                <li>
-                                    Добавляй подарки которые ты действительно
-                                    хочешь
-                                </li>
-                                <li>Делись своими желаниями с другими</li>
-                            </ul>
-                        </Advantages>
-                        <Advantages>
-                            <h3>
-                                <img src={charityIcon} alt="like icon" />
-                                Твори добро
-                            </h3>
-                            <ul>
-                                <li>Дари благотворительные подарки</li>
-                                <li>Делись своими вещами</li>
-                                <li>Помогай другим приобрести необходимое</li>
-                            </ul>
-                        </Advantages>
-                    </Advantage>
+                    <AdvantagePage advant={advant} />
                     <Btn>
                         <Button variant="contained">Зарегистрироваться</Button>
                     </Btn>
@@ -170,74 +59,15 @@ const LandingPage = () => {
             </WhiteSection>
             <PurpleSection>
                 <Content>
-                    <Charity>
-                        <img src={charity} alt="charity" />
-                        <div>
-                            <h1>Благотворительность</h1>
-                            <p>
-                                Найти удачный подарок, который принесёт радость,
-                                не всегда простая задача. Благодаря нашему
-                                сервису у вас есть возможность не только
-                                обрадовать подарком, но и помочь другим
-                                приобрести необходимые им вещи. В разделе
-                                благотворительность вы можете найти список
-                                опубликованных вещей, забронировав, вы
-                                связываетесь с их обладателем.
-                            </p>
-                        </div>
-                    </Charity>
+                    <CharityMain charity={charity} />
                 </Content>
             </PurpleSection>
             <WhiteSection>
                 <Content>
-                    <Device>
-                        <div>
-                            <h1>О проекте</h1>
-                            <p>
-                                Найти удачный подарок, который принесёт радость,
-                                не всегда простая задача. Благодаря нашему
-                                сервису у вас есть возможность не только
-                                обрадовать подарком, но и помочь другим
-                                приобрести необходимые им вещи. В разделе
-                                благотворительность вы можете найти список
-                                опубликованных вещей, забронировав, вы
-                                связываетесь с их обладателем.
-                            </p>
-                        </div>
-                        <img src={device} alt="device" />
-                    </Device>
-                    <Team>
-                        <p>
-                            <img src={designer} alt="team" />
-                            <strong>Катя, ведущий дизайнер TailGroup</strong>
-                        </p>
-                        <p>
-                            <img src={market} alt="team" />
-                            <strong> Марина, маркетолог Headers Market</strong>
-                        </p>
-                        <p>
-                            <img src={manager} alt="team" />
-                            <strong> Сава, PR-менеджер Central Media</strong>
-                        </p>
-                        <p>
-                            <img src={director} alt="team" />
-                            <strong> Паша, основатель LeadCompany</strong>
-                        </p>
-                        <p>
-                            <img src={editor} alt="team" />
-                            <strong>
-                                {' '}
-                                Саша, главный редактор Just Journal
-                            </strong>
-                        </p>
-                        <p>
-                            <img src={developer} alt="team" />
-                            <strong> Лёня, ведущий разработчик Ymail</strong>
-                        </p>
-                    </Team>
+                    <AboutProject device={device} />
+                    <Member team={team} />
                 </Content>
             </WhiteSection>
-
             <Footer>
                 <Content>
                     <section>
@@ -245,21 +75,15 @@ const LandingPage = () => {
                             <h2 onClick={toTop}>GIFT LIST</h2>
                             <p>Социальная сеть нового поколения</p>
                             <div>
-                                <img
-                                    onClick={toInstagram}
-                                    src={facebook}
-                                    alt="landing"
-                                />
-                                <img
-                                    onClick={toVk}
-                                    src={vkontakte}
-                                    alt="landing"
-                                />
-                                <img
-                                    onClick={toFacebook}
-                                    src={insta}
-                                    alt="landing"
-                                />
+                                <a href="https://vk.com/">
+                                    <img src={vkontakte} alt="landing" />
+                                </a>
+                                <a href="https://www.instagram.com/">
+                                    <img src={insta} alt="landing" />
+                                </a>
+                                <a href="https://www.facebook.com/">
+                                    <img src={facebook} alt="landing" />
+                                </a>
                             </div>
                         </Contacts>
                         <Navigation>
@@ -277,12 +101,66 @@ const LandingPage = () => {
     )
 }
 export default LandingPage
-const Advantage = styled.div`
-    display: flex;
-    justify-content: space-around;
-    padding-top: 100px;
-    height: 191px;
-`
+const team = [
+    { job: 'Катя, ведущий дизайнер TailGroup', photo: designer },
+    { job: 'Марина, маркетолог Headers Market', photo: market },
+    { job: 'Сава, PR-менеджер Central Media', photo: manager },
+    { job: 'Паша, основатель LeadCompany', photo: director },
+    { job: 'Саша, главный редактор Just Journal', photo: editor },
+    { job: 'Лёня, ведущий разработчик Ymail', photo: developer },
+]
+
+const heartAd = [
+    'Находи своих близких',
+    'Просматривай их списки желаний',
+    'Узнавай о ближайших мероприятиях',
+]
+const likeAd = [
+    'Создавай неограниченное количество желаний',
+    'Добавляй подарки которые ты действительно хочешь',
+    'Делись своими желаниями с другими',
+]
+const charAd = [
+    'Дари благотворительные подарки',
+    'Делись своими вещами',
+    'Помогай другим приобрести необходимое',
+]
+const advant = [
+    {
+        title: 'Дари то, что необходимо',
+        icon: heart,
+        li: heartAd,
+    },
+    {
+        title: 'Удобство в использовании',
+        icon: like,
+        li: likeAd,
+    },
+    {
+        title: 'Твори добро',
+        icon: charityIcon,
+        li: charAd,
+    },
+]
+const aboutScroll = () => {
+    window.scrollTo({
+        top: 2100,
+        behavior: 'smooth',
+    })
+}
+const charityScroll = () => {
+    window.scrollTo({
+        top: 1450,
+        behavior: 'smooth',
+    })
+}
+const toTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    })
+}
+
 const Peaksoft = styled.p`
     height: 14px;
     color: #020202;
@@ -319,7 +197,6 @@ const Contacts = styled.div`
     align-items: left;
     flex-direction: column;
     width: 255px;
-    /* height: 120px; */
     & h2 {
         font-family: 'Inter';
         font-size: 24px;
@@ -342,82 +219,7 @@ const Contacts = styled.div`
         }
     }
 `
-const Team = styled.div`
-    display: flex;
-    justify-content: space-between;
-    & p {
-        display: flex;
-        flex-direction: column;
-        & img {
-            width: 170px;
-            height: 170px;
-        }
-        & strong {
-            width: 170px;
-            height: 36px;
-            font-family: 'Inter';
-            padding-top: 10px;
-        }
-    }
-`
-const Device = styled.div`
-    padding: 100px 5px;
-    display: flex;
-    justify-content: space-between;
-    & h1 {
-        width: 234px;
-        height: 46px;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 46px;
-        line-height: 100%;
-        color: #020202;
-    }
-    & img {
-        width: 542px;
-        height: 318px;
-    }
-    & p {
-        width: 500px;
-        height: 182px;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 19px;
-        color: #020202;
-    }
-`
 const WhiteSection = styled.div``
-const Charity = styled.div`
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 80px 5px;
-    & h1 {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 46px;
-        line-height: 120%;
-        color: #fdfdfd;
-    }
-    & p {
-        width: 570px;
-        height: 192px;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 150%;
-        color: #fdfdfd;
-    }
-    & img {
-        width: 500px;
-        height: 362px;
-    }
-`
 const Btn = styled.div`
     display: flex;
     justify-content: center;
@@ -427,176 +229,10 @@ const Btn = styled.div`
         width: 291px;
     }
 `
-const Advantages = styled.div`
-    & h3 {
-        display: flex;
-        align-items: center;
-        /* width: 288px; */
-        height: 30px;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 150%;
-        & img {
-            padding: 0 15px;
-            width: 50px;
-            /* height: 18px; */
-        }
-    }
-    & ul {
-        width: 288px;
-        font-family: 'Inter';
-        & li {
-            padding: 5px;
-        }
-    }
-`
 const Div = styled.div`
     display: flex;
     justify-content: space-around;
     padding-top: 50px;
-`
-const Numbers = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    & h2 {
-        width: 177px;
-        height: 54px;
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
-        font-size: 54px;
-        color: #8639b5;
-        padding: 30px;
-        margin: 0px;
-    }
-    & p {
-        width: 177px;
-        height: 17px;
-        font-family: 'Inter';
-        font-style: normal;
-        text-align: center;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 120%;
-        color: #353a5a;
-        padding: 0px;
-        margin: 0px;
-    }
-`
-// ------------------------------------------------------
-const Third = styled.div`
-    width: 270px;
-    height: 560px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    padding-top: 50px;
-    animation-duration: 3s;
-    animation-name: first;
-    @keyframes first {
-        from {
-            margin-left: 100px;
-        }
-
-        to {
-            margin-left: 0%;
-        }
-    }
-    & img {
-        width: 270px;
-        height: 330px;
-    }
-    & p {
-        font-size: 20px;
-        width: 150px;
-        color: #ffffff;
-        transform: rotate(-90deg);
-        margin-left: 170px;
-        font-family: 'Inter';
-        cursor: pointer;
-    }
-`
-const Second = styled.div`
-    width: inherit;
-    height: 353px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation-duration: 3s;
-    animation-name: love;
-    @keyframes love {
-        from {
-            margin-top: 50%;
-        }
-
-        to {
-            margin-top: 0%;
-        }
-    }
-    & h1 {
-        font-size: 54px;
-        font-family: 'Inter';
-        color: #ffffff;
-        width: 542px;
-        height: 130px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 120%;
-        /* or 65px */
-
-        text-align: center;
-    }
-    & p {
-        font-size: 16px;
-        color: #ffffff;
-        font-family: 'Inter';
-        width: 378px;
-        height: 48px;
-        padding-top: 30px;
-        padding-bottom: 30px;
-    }
-`
-const Buton = styled.div`
-    padding: 20px;
-    & button {
-        border: 1px solid #ffffff;
-        width: 291px;
-        background: rgba(255, 255, 255, 0.1);
-    }
-`
-const First = styled.div`
-    width: 270px;
-    height: 560px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    padding-top: 50px;
-    animation-duration: 3s;
-    animation-name: third;
-    @keyframes third {
-        from {
-            margin-right: 100px;
-        }
-
-        to {
-            margin-right: 0%;
-        }
-    }
-`
-const Icons = styled.div`
-    width: 22px;
-    height: 126px;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    & img {
-        cursor: pointer;
-    }
 `
 const Content = styled.div`
     margin: 0px auto;
