@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import styled from 'styled-components'
 
 import landingFacebook from '../../assets/icons/landingFacebook.svg'
@@ -5,9 +7,14 @@ import landingInstagram from '../../assets/icons/landingInstagram.svg'
 import vk from '../../assets/icons/vk.svg'
 import groupPhotoLeft from '../../assets/images/groupPhotoLeft.png'
 import groupPhotoRight from '../../assets/images/groupPhotoRight.png'
+import SingIn from '../../components/authorization/SignIn'
 import Button from '../../components/ui/Button'
 
-const HelloPage = () => {
+const HelloPage = ({ signupHandler }) => {
+    const [signInState, setSignInState] = useState(false)
+    const signInHandler = () => {
+        setSignInState(true)
+    }
     const downPage = () => {
         window.scrollTo({
             top: 800,
@@ -49,9 +56,14 @@ const HelloPage = () => {
                     Всегда подскажет, что подарить близким и осуществит твои
                     желания
                 </p>
-                <Button variant="singInButton">Войти</Button>
+                <Button onClick={signInHandler} variant="singInButton">
+                    Войти
+                </Button>
+                {signInState && <SingIn setSignInState={setSignInState} />}
                 <Buton>
-                    <Button variant="singUpButton">Регистрация</Button>
+                    <Button onClick={signupHandler} variant="singUpButton">
+                        Регистрация
+                    </Button>
                 </Buton>
             </Second>
             <Third>

@@ -2,22 +2,22 @@ import React from 'react'
 
 import { styled } from '@mui/material'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 
 import { RolePaths } from '../utils/constants/constants'
 
 import Header from './Header'
 
-const PageLayout = ({ children }) => {
+const PageLayout = () => {
     const { role } = useSelector((state) => state.signUp.user)
     return (
-        <Layout>
-            <>
+        <ContainerWrapper>
+            <Layout>
                 <NavbarWrapper>
                     <SideBar>
                         <TextGift>GIFT LIST</TextGift>
                         <NavWrapper>
-                            {RolePaths[role].map((item) => {
+                            {RolePaths[role]?.map((item) => {
                                 return (
                                     <NavbarLink
                                         key={item.pathName}
@@ -33,29 +33,45 @@ const PageLayout = ({ children }) => {
                         </NavWrapper>
                     </SideBar>
                 </NavbarWrapper>
-                <div>
+                <Box>
                     <Header />
-                    <Content>{children}</Content>
-                </div>
-            </>
-        </Layout>
+                    <ContentWrapper>
+                        <Outlet />
+                    </ContentWrapper>
+                    {/* <Content>{children}</Content> */}
+                </Box>
+            </Layout>
+        </ContainerWrapper>
     )
 }
 
 export default PageLayout
+const ContainerWrapper = styled('div')`
+    width: 100%;
+    margin: 0 auto;
+`
+const ContentWrapper = styled('div')`
+    margin-top: 100px;
+    min-height: 50vh;
+`
+const Box = styled('div')`
+    position: relative;
+    margin: 0 auto;
+    width: 1146px;
+`
 const Layout = styled('div')`
     display: grid;
     grid-template-columns: 284px 1067px;
-    background: #f7f8fa;
 `
 const SideBar = styled('div')`
     background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
     position: fixed;
     width: 294px;
+    /* top: 0; */
     height: 100%;
     box-sizing: border-box;
-    margin-top: -8px;
-    margin-left: -8px;
+    /* margin-top: -8px;
+    margin-left: -8px; */
     text-align: start;
     z-index: 99;
 `
@@ -65,11 +81,11 @@ const TextGift = styled('h2')`
     font-family: 'Inter', sans-serif;
     margin-bottom: 34px;
 `
-const Content = styled('main')`
-    margin-top: 80px;
-`
+// const Content = styled('main')``
 
-const NavbarWrapper = styled('div')``
+const NavbarWrapper = styled('div')`
+    /* position: relative; */
+`
 const NavWrapper = styled('nav')`
     color: white;
     font-size: 18px;

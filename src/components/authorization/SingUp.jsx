@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { styled } from '@mui/material/styles'
-import { useDispatch } from 'react-redux/es/exports'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import ExitIcon from '../../assets/icons/ExitModal.svg'
@@ -14,11 +14,13 @@ import Button from '../ui/Button'
 import Input from '../ui/Input'
 import InputPassword from '../ui/InputPassword'
 
-const SignUp = () => {
+const SignUp = ({ setSignupState }) => {
     const [checkboxState, setCheckboxState] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const signUpHandler = () => {
+        setSignupState(false)
+    }
     const {
         value: firstName,
         isValid: enteredFirstNameIsValid,
@@ -87,6 +89,13 @@ const SignUp = () => {
             navigate('/lenta')
         }
     }
+    const authgoogle = useSelector((s) => s.signUp.user?.role)
+    console.log(authgoogle)
+    useEffect(() => {
+        if (authgoogle) {
+            navigate('/lenta')
+        }
+    }, [authgoogle])
     const googleHandler = () => {
         dispatch(googleAuthorization())
     }
@@ -95,7 +104,7 @@ const SignUp = () => {
             <ContainerRegistration onSubmit={submitHandler}>
                 <RegistrationDiv>
                     <Registration>Регистрация</Registration>
-                    <img src={ExitIcon} alt="" />
+                    <img onClick={signUpHandler} src={ExitIcon} alt="" />
                 </RegistrationDiv>
                 <RegistrationInputDiv>
                     <InputDiv>

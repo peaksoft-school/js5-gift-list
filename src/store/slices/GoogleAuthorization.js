@@ -13,6 +13,7 @@ export const googleAuthorization = () => {
                 method: 'POST',
                 url: `api/public/auth/google?token=${user.accessToken}`,
             })
+            console.log(response, user)
             const users = {
                 id: response.id,
                 jwt: response.jwt,

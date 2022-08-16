@@ -13,10 +13,13 @@ import Button from '../ui/Button'
 import Input from '../ui/Input'
 import InputPassword from '../ui/InputPassword'
 
-const SingIn = () => {
+const SingIn = ({ setSignInState }) => {
     const [memorize, setMemorize] = useState(false)
     const [error, setError] = useState('')
     const dispatch = useDispatch()
+    const signInHandler = () => {
+        setSignInState(false)
+    }
     const {
         value: emailValue,
         isValid: emailIsValid,
@@ -54,7 +57,7 @@ const SingIn = () => {
             <SignInForm onSubmit={submitHandler}>
                 <InputDiv>
                     <h4>Вход</h4>
-                    <img src={Exit} alt="" />
+                    <img onClick={signInHandler} src={Exit} alt="" />
                 </InputDiv>
                 <InputDivForm>
                     <Div>
