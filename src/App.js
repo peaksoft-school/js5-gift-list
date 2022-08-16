@@ -1,11 +1,9 @@
-import MainRouter from './routes/MainRouter'
-import AllRoutes from './routes/Routes'
+import LandingPage from './containers/LandingPage'
 
 function App() {
     return (
         <div className="App">
-            <MainRouter />
-            <AllRoutes />
+            <LandingPage />
         </div>
     )
 }
