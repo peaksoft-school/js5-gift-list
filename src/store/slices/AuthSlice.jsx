@@ -11,21 +11,27 @@ const initialState = {
         role: null,
         email: null,
         memorize: null,
+        firstName: null,
+        lastName: null,
+        photo: null,
     },
 }
-const signUpSlice = createSlice({
-    name: 'signUp',
+const authSlice = createSlice({
+    name: 'authSlice',
     initialState,
     reducers: {
-        baseSignUp(state, action) {
+        baseAuth(state, action) {
             const newItem = action.payload
             state.user.id = newItem.id
             state.user.jwt = newItem.jwt
             state.user.role = newItem.role
             state.user.email = newItem.email
-            state.memorize = newItem.memorizee
+            state.user.memorize = newItem.memorizee
+            state.user.firstName = newItem.firstName
+            state.user.lastName = newItem.lastName
+            state.user.photo = newItem.photo
         },
     },
 })
-export const actionsignUp = signUpSlice.actions
-export default signUpSlice
+export const actionAuth = authSlice.actions
+export default authSlice

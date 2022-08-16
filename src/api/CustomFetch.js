@@ -2,13 +2,13 @@ import store from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
 export const appFetch = async (data) => {
-    const { signUp } = store.getState()
+    const { authSlice } = store.getState()
     try {
         const requestOptions = {
             method: data.method || 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${signUp.user.jwt || ''}`,
+                Authorization: `Bearer ${authSlice.user.jwt || ''}`,
             },
         }
 

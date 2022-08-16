@@ -82,13 +82,13 @@ const SignUp = () => {
                 password: enteredPassword,
                 mailingList: checkboxState,
             }
-
             dispatch(signUp(userData))
             navigate('/lenta')
         }
     }
     const googleHandler = () => {
         dispatch(googleAuthorization())
+        navigate('/lenta')
     }
     return (
         <BasicModal open>

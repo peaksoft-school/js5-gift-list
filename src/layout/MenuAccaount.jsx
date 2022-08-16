@@ -3,6 +3,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Menu from '@mui/material/Menu'
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
+import { useSelector } from 'react-redux/es/exports'
 
 import { ReactComponent as Exit } from '../assets/icons/ExitIcon.svg'
 import { ReactComponent as Profile } from '../assets/icons/Profile.svg'
@@ -10,6 +11,9 @@ import { ReactComponent as ProfileIcon } from '../assets/icons/ProfileIcon.svg'
 import { ReactComponent as Vector } from '../assets/icons/Vector.svg'
 
 const MenuAccaunt = () => {
+    const { firstName, photo, lastName } = useSelector(
+        (state) => state.AuthSlice.user
+    )
     return (
         <AccauntProfile>
             <PopupState variant="popover" popupId="demo-popup-menu">
@@ -20,9 +24,15 @@ const MenuAccaunt = () => {
                             {...bindTrigger(popupState)}
                         >
                             <span>
-                                <Profile />
+                                {photo ? (
+                                    <MenuImg src={photo} alt="" />
+                                ) : (
+                                    <Profile />
+                                )}
                             </span>
-                            <p>Naruto Uzumaki</p>
+                            <p>
+                                {firstName} {lastName}
+                            </p>
                             <p>
                                 <Vector />
                             </p>
@@ -73,4 +83,8 @@ const MenuItem = styled('div')`
         margin-left: 10px;
         font-family: 'Inter', sans-serif;
     }
+`
+const MenuImg = styled('img')`
+    width: 12px;
+    border-radius: 50%;
 `
