@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 
 import { styled } from '@mui/material/styles'
 import { useDispatch } from 'react-redux/es/exports'
+import { useNavigate } from 'react-router-dom'
 
 import ExitIcon from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
-import { useInput } from '../../hooks/UseInput'
+import { useInput } from '../../hooks/useInput'
 import { googleAuthorization } from '../../store/slices/GoogleAuthorization'
 import { signUp } from '../../store/slices/SignUpActions'
 import BasicModal from '../ui/BasicModal'
@@ -16,6 +17,7 @@ import InputPassword from '../ui/InputPassword'
 const SignUp = () => {
     const [checkboxState, setCheckboxState] = useState(false)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const {
         value: firstName,
@@ -81,10 +83,12 @@ const SignUp = () => {
                 mailingList: checkboxState,
             }
             dispatch(signUp(userData))
+            navigate('/lenta')
         }
     }
     const googleHandler = () => {
         dispatch(googleAuthorization())
+        navigate('/lenta')
     }
     return (
         <BasicModal open>

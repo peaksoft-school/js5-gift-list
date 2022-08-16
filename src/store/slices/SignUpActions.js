@@ -11,12 +11,11 @@ export const signUp = (userData) => {
                 url: 'api/public/register',
                 body: userData,
             })
-            console.log(response)
             const users = {
                 id: response.id,
                 jwt: response.jwt,
                 role: response.role,
-                fisrtName: response.fisrtName,
+                firstName: response.firstName,
                 lastName: response.lastName,
             }
             const json = JSON.stringify(users)
@@ -26,7 +25,7 @@ export const signUp = (userData) => {
                     id: response.id,
                     jwt: response.jwt,
                     role: response.role,
-                    fisrtName: response.fisrtName,
+                    firstName: response.firstName,
                     lastName: response.lastName,
                 })
             )

@@ -17,8 +17,9 @@ export const singInActions = ({ userData, setError, memorizee }) => {
                 jwt: response.jwt,
                 role: response.role,
                 memorizee,
-                fisrtName: response.fisrtName,
+                firstName: response.firstName,
                 lastName: response.lastName,
+                photo: response.photo,
             }
 
             const json = JSON.stringify(users)
@@ -29,8 +30,9 @@ export const singInActions = ({ userData, setError, memorizee }) => {
                     jwt: response.jwt,
                     role: response.role,
                     memorizee,
-                    fisrtName: response.fisrtName,
+                    firstName: response.firstName,
                     lastName: response.lastName,
+                    photo: response.photo,
                 })
             )
         } catch (error) {

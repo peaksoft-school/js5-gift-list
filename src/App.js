@@ -1,9 +1,11 @@
-import SignUp from './components/authorization/SignUp'
+import MainRouter from './routes/MainRouter'
+import AllRoutes from './routes/Routes'
 
 function App() {
     return (
         <div className="App">
-            <SignUp />
+            <MainRouter />
+            <AllRoutes />
         </div>
     )
 }

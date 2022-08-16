@@ -18,9 +18,11 @@ export const googleAuthorization = () => {
                 jwt: response.jwt,
                 role: response.role,
                 email: response.email,
-                fisrtName: response.fisrtName,
+                firstName: response.firstName,
                 lastName: response.lastName,
+                photo: response.photo,
             }
+            console.log(response)
             const json = JSON.stringify(users)
             localStorage.setItem(GIFTLIST_AUTH, json)
             dispatch(
@@ -29,8 +31,9 @@ export const googleAuthorization = () => {
                     jwt: response.jwt,
                     role: response.role,
                     email: response.email,
-                    fisrtName: response.fisrtName,
+                    firstName: response.firstName,
                     lastName: response.lastName,
+                    photo: response.photo,
                 })
             )
         } catch (e) {

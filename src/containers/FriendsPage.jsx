@@ -5,8 +5,8 @@ import { styled } from '@mui/material'
 import FriendTabs from '../components/users/FriendTabs'
 
 const options = {
-    friends: [],
-    requestToFriends: [],
+    friends: [{ name: 'Ann', id: '1', amountOfFriends: '1' }],
+    requestToFriends: [{ name: 'Ali', id: '1', amountOfFriends: '1' }],
 }
 
 const Friends = () => {
