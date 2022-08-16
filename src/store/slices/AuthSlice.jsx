@@ -16,7 +16,7 @@ const initialState = {
         photo: null,
     },
 }
-const AuthSlice = createSlice({
+const authSlice = createSlice({
     name: 'authSlice',
     initialState,
     reducers: {
@@ -33,5 +33,5 @@ const AuthSlice = createSlice({
         },
     },
 })
-export const actionAuth = AuthSlice.actions
-export default AuthSlice
+export const actionAuth = authSlice.actions
+export default authSlice
