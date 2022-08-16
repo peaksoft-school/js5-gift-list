@@ -24,7 +24,11 @@ const MenuAccaunt = () => {
                             {...bindTrigger(popupState)}
                         >
                             <span>
-                                {<MenuImg src={photo} alt="" /> && <Profile />}
+                                {photo ? (
+                                    <MenuImg src={photo} alt="" />
+                                ) : (
+                                    <Profile />
+                                )}
                             </span>
                             <p>
                                 {firstName} {lastName}
