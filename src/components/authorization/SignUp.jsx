@@ -84,13 +84,10 @@ const SignUp = ({ setSignupState }) => {
                 password: enteredPassword,
                 mailingList: checkboxState,
             }
-
             dispatch(signUp(userData))
-            navigate('/lenta')
         }
     }
-    const authgoogle = useSelector((s) => s.signUp.user?.role)
-    console.log(authgoogle)
+    const authgoogle = useSelector((state) => state.authSlice.user?.role)
     useEffect(() => {
         if (authgoogle) {
             navigate('/lenta')
@@ -100,7 +97,7 @@ const SignUp = ({ setSignupState }) => {
         dispatch(googleAuthorization())
     }
     return (
-        <BasicModal open>
+        <BasicModal open onClose={signUpHandler}>
             <ContainerRegistration onSubmit={submitHandler}>
                 <RegistrationDiv>
                     <Registration>Регистрация</Registration>

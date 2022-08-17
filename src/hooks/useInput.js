@@ -5,11 +5,9 @@ export const useInput = (validateState) => {
     const [isTouched, setIsTouched] = useState(false)
     const valueisValid = validateState(enteredValue)
     const hasError = !valueisValid && isTouched
-
     const valueChangeHandler = (event) => {
         setEnteredValue(event.target.value)
     }
-
     const inputBlurHandler = () => {
         setIsTouched(true)
     }

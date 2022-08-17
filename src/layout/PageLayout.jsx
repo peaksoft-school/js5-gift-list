@@ -9,7 +9,7 @@ import { RolePaths } from '../utils/constants/constants'
 import Header from './Header'
 
 const PageLayout = () => {
-    const { role } = useSelector((state) => state.signUp.user)
+    const { role } = useSelector((state) => state.authSlice.user)
     return (
         <ContainerWrapper>
             <Layout>

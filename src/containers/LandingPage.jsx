@@ -16,7 +16,7 @@ import director from '../assets/images/director.png'
 import editor from '../assets/images/editor.png'
 import manager from '../assets/images/manager.png'
 import market from '../assets/images/market.png'
-import SignUp from '../components/authorization/SingUp'
+import SignUp from '../components/authorization/SignUp'
 import Button from '../components/ui/Button'
 
 import AboutProject from './landingPage_components/AboutProject'
