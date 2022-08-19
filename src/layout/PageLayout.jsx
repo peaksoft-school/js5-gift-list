@@ -9,8 +9,7 @@ import { RolePaths } from '../utils/constants/constants'
 import Header from './Header'
 
 const PageLayout = ({ children }) => {
-    const { role } = useSelector((state) => state.signUp.user)
-
+    const { role } = useSelector((state) => state.AuthSlice.user)
     return (
         <Layout>
             <>
@@ -18,7 +17,7 @@ const PageLayout = ({ children }) => {
                     <SideBar>
                         <TextGift>GIFT LIST</TextGift>
                         <NavWrapper>
-                            {RolePaths[role].map((item) => {
+                            {RolePaths[role]?.map((item) => {
                                 return (
                                     <NavbarLink
                                         key={item.pathName}
@@ -46,7 +45,8 @@ const PageLayout = ({ children }) => {
 export default PageLayout
 const Layout = styled('div')`
     display: grid;
-    grid-template-columns: 288px 1067px;
+    grid-template-columns: 284px 1067px;
+    background: #f7f8fa;
 `
 const SideBar = styled('div')`
     background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
@@ -92,7 +92,7 @@ const NavbarLink = styled(NavLink)`
         align-items: center;
         font-family: 'Inter', sans-serif;
 
-        & :first-child {
+        & :first-of-type {
             align-self: center;
         }
         & :last-child {

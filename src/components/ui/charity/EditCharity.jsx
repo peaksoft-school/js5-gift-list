@@ -1,17 +1,25 @@
-import { Card, InputLabel, TextField } from '@mui/material'
-import { useParams } from 'react-router-dom'
-import styled from 'styled-components'
+import { useState } from 'react'
 
-import Button from '../ui/Button'
-import ImagePicker from '../ui/ImagePicker'
+import styled from '@emotion/styled'
+import { InputLabel, TextField } from '@mui/material'
+import { useParams } from 'react-router-dom'
+// import styled from 'styled-components'
+
+import Button from '../Button'
+import ImagePicker from '../ImagePicker'
 
 export default function EditCharity() {
+    const [photo, setPhoto] = useState(null)
+    console.log(photo)
     const { id } = useParams()
+    const onChangeImageHandler = (image) => {
+        setPhoto(image)
+    }
     return (
-        <Card style={cardStyle}>
+        <div style={styleForCard}>
             <Title>Редактировать {id}</Title>
             <Anketa>
-                <ImagePicker />
+                <ImagePicker onChange={onChangeImageHandler} />
                 <Container>
                     <Title>Добавление вещи </Title>
                     <Questionaire>
@@ -47,12 +55,7 @@ export default function EditCharity() {
                     </Questionaire>
                     <InputLabel style={TextAreaStyle}>
                         Описание подарка
-                        <TextField
-                            placeholder="Введите описание подарка"
-                            InputProps={{
-                                style: { style },
-                            }}
-                        />
+                        <AboutGift placeholder="Введите описание подарка" />
                     </InputLabel>
                     {/* -------------------------  --------------------- */}
                     <Buttons>
@@ -61,21 +64,28 @@ export default function EditCharity() {
                     </Buttons>
                 </Container>
             </Anketa>
-        </Card>
+        </div>
     )
 }
-
-const Questionaire = styled.div`
+const styleForCard = {
+    margin: '30px',
+    padding: '20px',
+    width: '1086px',
+    height: '100%',
+    backgroundColor: '#ffffff',
+    borderRadius: '10px',
+}
+const Questionaire = styled('div')`
     display: flex;
     justify-content: space-between;
     width: 808px;
     border-radius: 10px;
 `
-const Container = styled.div`
+const Container = styled('div')`
     height: auto;
     width: 808px;
 `
-const Buttons = styled.div`
+const Buttons = styled('div')`
     display: flex;
     width: inherit;
     justify-content: right;
@@ -100,14 +110,14 @@ const TextAreaStyle = {
     display: 'flex',
     flexDirection: 'column',
 }
-const Anketa = styled.form`
+const Anketa = styled('form')`
     display: flex;
     justify-content: space-around;
     background: #ffffff;
     border-radius: 10px;
 `
-const Title = styled.h1`
-    font-family: 'Inter', san-serif;
+const Title = styled('h1')`
+    font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -115,13 +125,21 @@ const Title = styled.h1`
     align-items: center;
     letter-spacing: 0.2px;
 `
-const style = {
-    width: '808px',
-    height: '111px',
-    border: '1px solid #BDBDBD',
-    borderRadius: '6px',
-}
-const cardStyle = {
-    padding: '15px',
-    height: '870px',
-}
+// const style = {
+//     width: '808px',
+//     height: '111px',
+//     border: '1px solid #BDBDBD',
+//     borderRadius: '6px',
+//     alignItems: 'flex-start',
+//     padding: '8px 18px',
+//     backgroundColor: 'red',
+// }
+const AboutGift = styled(TextField)`
+    width: 100%;
+    height: 111px;
+    border: 1px solid #bdbdbd;
+    border-radius: 6px;
+    align-items: flex-start;
+    padding: 8px 18px;
+    /* background-color: red; */
+`

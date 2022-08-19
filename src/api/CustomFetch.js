@@ -24,3 +24,22 @@ export const appFetch = async (data) => {
         return error
     }
 }
+export const appFetchFile = async (config) => {
+    const { signUp } = store.getState()
+    try {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${signUp.user.jwt || ''}`,
+            },
+            body: config.body,
+        }
+        const response = await fetch(URL_BASE + config.url, requestOptions)
+        if (!response.ok) {
+            throw new Error(response.message)
+        }
+        return response.json()
+    } catch (error) {
+        return new Error(error.message)
+    }
+}

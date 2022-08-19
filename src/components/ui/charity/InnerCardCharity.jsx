@@ -1,15 +1,22 @@
+import { useState } from 'react'
+
 import styled from '@emotion/styled'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
 
+import Button from '../Button'
+
 const InnerPage = (props) => {
+    const [reserved, setReserved] = useState()
     const navigate = useNavigate()
-    const link = (b) => {
-        navigate(`${b}`)
+    const link = () => {
+        navigate(`/charity/${props.data.id}/edit_charity`)
+    }
+    const reserve = () => {
+        setReserved(true)
     }
     return (
-        <WrapperAll>
+        <div style={styleForCard}>
             <Img src={props.data.img} alt="image" />
             <WrapperDiv>
                 <User>
@@ -17,7 +24,6 @@ const InnerPage = (props) => {
                     <UserName>{props.data.userName}</UserName>
                     <ToBooking>{props.data.status}</ToBooking>
                 </User>
-
                 <StyledH1>{props.data.nameGift}</StyledH1>
                 <Styledp>{props.data.aboutGift}</Styledp>
                 <WrapperNameGiftAndDate>
@@ -36,31 +42,45 @@ const InnerPage = (props) => {
                     <NameGiftProps>{props.data.subcategory}</NameGiftProps>
                     <DateGiftProps>{props.data.addDate}</DateGiftProps>
                 </WrapperPropsGiftAndDate>
+                {/* --------------------------------------------- */}
                 <WrapperButtons>
-                    <Button variant="outlined">Удалить</Button>
-                    <Button
-                        styles={gradientColor}
-                        variant="contained"
-                        onClick={() =>
-                            link(`/charity/${props.data.id}/edit_charity`)
-                        }
-                    >
-                        Редактировать
-                    </Button>
+                    {props.my && (
+                        <>
+                            <Button variant="outlined">Удалить</Button>
+                            <Button onClick={link}>Редактировать</Button>
+                        </>
+                    )}
+                    {props.notMy && (
+                        <>
+                            {!reserved && (
+                                <>
+                                    <label>
+                                        <input type="checkbox" />
+                                        Забронировать анонимно
+                                    </label>
+                                    <Button onClick={reserve}>
+                                        Забронировать
+                                    </Button>
+                                </>
+                            )}
+                            {reserved && <Button>Отменить бронь</Button>}
+                        </>
+                    )}
+                    {props.admin && <Button>Заблокировать</Button>}
                 </WrapperButtons>
             </WrapperDiv>
-        </WrapperAll>
+            {/* </WrapperAll> */}
+        </div>
     )
 }
 export default InnerPage
-const WrapperAll = styled('div')`
-    display: flex;
-    padding: 20px;
-    max-width: 1046px;
-    max-height: 871px;
-`
-const gradientColor = {
-    backgroundColor: 'linear-gradient(180deg, #8639b5 0%, #092056 100%)',
+const styleForCard = {
+    display: 'flex',
+    margin: '30px',
+    padding: '20px',
+    width: '1086px',
+    backgroundColor: '#ffffff',
+    borderRadius: '10px',
 }
 const Img = styled('img')`
     width: 343px;
@@ -70,6 +90,7 @@ const Img = styled('img')`
 const WrapperDiv = styled('div')`
     padding-left: 20px;
     padding-top: 50px;
+    width: 683px;
 `
 const User = styled('div')`
     align-items: center;
@@ -89,10 +110,9 @@ const ToBooking = styled('p')`
     display: flex;
     justify-content: flex-end;
     color: #3774d0;
-    font-family: cursive;
+    font-family: 'Inter';
     font-weight: 400;
     font-size: 14px;
-    line-height: 17px;
 `
 const WrapperNameGiftAndDate = styled('div')`
     display: grid;
@@ -101,17 +121,15 @@ const WrapperNameGiftAndDate = styled('div')`
 `
 const NameGift = styled('div')`
     color: #5c5c5c;
-    font-family: cursive;
+    font-family: 'Inter';
     font-weight: 400;
     font-size: 14px;
-    line-height: 130%;
 `
 const DateGift = styled('div')`
     color: #5c5c5c;
-    font-family: cursive;
+    font-family: 'Inter';
     font-weight: 400;
     font-size: 14px;
-    line-height: 130%;
 `
 const WrapperPropsGiftAndDate = styled('div')`
     display: grid;
@@ -120,13 +138,13 @@ const WrapperPropsGiftAndDate = styled('div')`
 `
 const NameGiftProps = styled('div')`
     color: #0ba360;
-    font-family: cursive;
+    font-family: 'Inter';
     font-weight: 400;
     font-size: 16px;
     line-height: 130%;
 `
 const DateGiftProps = styled('div')`
-    font-family: cursive;
+    font-family: 'Inter';
     font-weight: 400;
     font-size: 16px;
     color: #000000;
@@ -138,15 +156,16 @@ const StyledH1 = styled('h1')`
     font-weight: 500;
 `
 const Styledp = styled('h1')`
-    font-family: Gill Sans, sans-serif;
+    font-family: 'Inter';
     font-weight: 400;
     font-size: 16px;
-    line-height: 130%;
     margin-bottom: 50px;
+    width: 683px;
 `
 const WrapperButtons = styled('div')`
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     & button {
         margin: 15px;
     }

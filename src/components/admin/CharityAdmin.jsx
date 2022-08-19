@@ -4,9 +4,11 @@ import { Card } from '@mui/material'
 import styled from 'styled-components'
 
 import gift from '../../assets/images/gift.png'
+import CharityCard from '../ui/charity/CharityCard'
 
-import CharityCard from './CharityCard'
 import photo from './Rectangle 8 (1).png'
+
+// import CharityCard from './CharityCard'
 
 const options = [
     {
@@ -50,7 +52,7 @@ const options = [
         id: 4,
     },
 ]
-const Charity = () => {
+const CharityAdmin = () => {
     const [filtered, setFiltered] = useState(options)
     const deleteFunc = (id) => {
         setFiltered((current) =>
@@ -84,7 +86,7 @@ const Charity = () => {
     )
 }
 
-export default Charity
+export default CharityAdmin
 
 const Title = styled.h2`
     font-family: sans-serif;
@@ -103,7 +105,7 @@ const CardList = styled.div`
     }
 `
 const NotFound = styled.h2`
-    font-family: cursive;
+    font-family: 'Inter';
 `
 const GiftImg = styled.img`
     width: 100px;

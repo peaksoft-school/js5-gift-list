@@ -3,9 +3,9 @@ import React, { Suspense, lazy } from 'react'
 import styled from '@emotion/styled'
 import { Routes, Route } from 'react-router-dom'
 
+import AboutGiftMore from '../components/admin/CharityAboutMore'
+import EditCharity from '../components/ui/charity/EditCharity'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
-import AboutGiftMore from '../components/users/CharityAboutMore'
-import EditCharity from '../components/users/EditCharity'
 import PageLayout from '../layout/PageLayout'
 
 const Lenta = lazy(() => import('../components/users/Lenta'))
@@ -14,7 +14,7 @@ const Complaints = lazy(() => import('../components/admin/Complaints'))
 const Mailing = lazy(() => import('../components/admin/Mailing'))
 const Users = lazy(() => import('../components/admin/Users'))
 const Bookeds = lazy(() => import('../components/users/Bookeds'))
-const Charity = lazy(() => import('../components/users/Charity'))
+const CharityAdmin = lazy(() => import('../components/admin/CharityAdmin'))
 const MyHalidays = lazy(() => import('../components/users/MyHalidays'))
 // eslint-disable-next-line prettier/prettier
 const CharityUsers = lazy(() => import('../components/admin/CharityUsers'))
@@ -36,7 +36,7 @@ const AllRoutes = () => {
                     <Route path="/wish_list" element={<WissList />} />
                     <Route path="/bookeds" element={<Bookeds />} />
                     <Route path="/my_halidays" element={<MyHalidays />} />
-                    <Route path="/charity" element={<Charity />} />
+                    <Route path="/charity" element={<CharityAdmin />} />
                     <Route
                         path="/charity/:id/edit_charity"
                         element={<EditCharity />}

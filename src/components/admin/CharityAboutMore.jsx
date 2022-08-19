@@ -1,4 +1,5 @@
-import InnerPage from './InnerCardCharity'
+import InnerPage from '../ui/charity/InnerCardCharity'
+
 import inner from './innerImg.png'
 
 const innerData = {
@@ -16,6 +17,11 @@ const innerData = {
         'Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности. Исключительная прочность. A15 Bionic — самый быстрый чип для iPhone. И впечатляющее время работы без подзарядки. Всё это Pro.',
 }
 const AboutGiftMore = () => {
-    return <InnerPage data={innerData} />
+    return (
+        <div>
+            <p>Благотворительность/Подарок</p>
+            <InnerPage admin data={innerData} />
+        </div>
+    )
 }
 export default AboutGiftMore

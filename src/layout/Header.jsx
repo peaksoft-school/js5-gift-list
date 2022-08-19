@@ -19,7 +19,7 @@ const Header = () => {
 
 export default Header
 const Headers = styled('header')`
-    width: 1146px;
+    width: 100%;
     height: 86px;
     margin-left: 294px;
     display: flex;
