@@ -6,12 +6,13 @@ import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 
-import MeatBalls from '../ui/meatBall/components/meatBalls'
+import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
     return (
         <StyledCard>
             <StyledCardMedia
+                style={{ cursor: 'pointer' }}
                 component="img"
                 image={props.data.image}
                 alt="green iguana"
