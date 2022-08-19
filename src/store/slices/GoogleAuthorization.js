@@ -2,7 +2,7 @@ import { appFetch } from '../../api/CustomFetch'
 import signInWithGoogle from '../../firebase/Firebase'
 import { GIFTLIST_AUTH } from '../../utils/constants/constants'
 
-import { actionsignUp } from './SignUpSlice'
+import { actionAuth } from './AuthSlice'
 
 export const googleAuthorization = () => {
     return async (dispatch) => {
@@ -18,15 +18,21 @@ export const googleAuthorization = () => {
                 jwt: response.jwt,
                 role: response.role,
                 email: response.email,
+                firstName: response.firstName,
+                lastName: response.lastName,
+                photo: response.photo,
             }
             const json = JSON.stringify(users)
             localStorage.setItem(GIFTLIST_AUTH, json)
             dispatch(
-                actionsignUp.baseSignUp({
+                actionAuth.baseAuth({
                     id: response.id,
                     jwt: response.jwt,
                     role: response.role,
                     email: response.email,
+                    firstName: response.firstName,
+                    lastName: response.lastName,
+                    photo: response.photo,
                 })
             )
         } catch (e) {
