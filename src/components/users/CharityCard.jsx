@@ -5,39 +5,17 @@ import Avatar from '@mui/material/Avatar'
 import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { useNavigate } from 'react-router-dom'
 
-import deleteIcon from '../../assets/icons/deleteIcon.svg'
-import editIcon from '../../assets/icons/editIcon.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
-    const navigate = useNavigate()
-    const navigation = [
-        {
-            icon: editIcon,
-            title: 'Редактировать',
-            id: '1',
-            clickItem: () => {
-                navigate(`/charity/${props.data.id}/edit_charity`)
-            },
-        },
-        {
-            icon: deleteIcon,
-            title: 'удалить',
-            id: '2',
-            clickItem: props.deleteFunc,
-        },
-    ]
     return (
         <StyledCard>
             <StyledCardMedia
                 component="img"
                 image={props.data.image}
                 alt="green iguana"
-                onClick={() => {
-                    navigate(`/charity/${props.data.id}/${props.data.giftName}`)
-                }}
+                onClick={props.clickImage}
             />
             <StyledCardContentFirst>
                 <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
@@ -45,8 +23,8 @@ export default function CharityCard(props) {
             </StyledCardContentFirst>
 
             <NameGift>
-                {props.data.giftName}{' '}
-                <Status sts={props.data.status}>{props.data.status}</Status>{' '}
+                {props.data.giftName}
+                <Status sts={props.data.status}>{props.data.status}</Status>
             </NameGift>
 
             <StyledCardContentSecond>
@@ -57,7 +35,7 @@ export default function CharityCard(props) {
                         src={props.data.avatarInBooking}
                     />
                     <StyledText>{props.data.toBook}</StyledText>
-                    <MeatBalls navigations={navigation} />
+                    <MeatBalls navigations={props.meatBallsOptions} />
                 </Wrapper>
             </StyledCardContentSecond>
         </StyledCard>
