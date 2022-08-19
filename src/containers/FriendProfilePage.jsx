@@ -8,10 +8,10 @@ import {
     styled,
 } from '@mui/material'
 
-import { ReactComponent as Facebook } from '../../../assets/icons/facebookFriendProfilePage.svg'
-import { ReactComponent as Instagram } from '../../../assets/icons/instagramFriendProfilePage.svg'
+import { ReactComponent as Facebook } from '../assets/icons/facebookFriendProfilePage.svg'
+import { ReactComponent as Instagram } from '../assets/icons/instagram.svg'
 import { ReactComponent as Telegram } from '../assets/icons/telegram.svg'
-import { ReactComponent as Vk } from '../assets/icons/vkProfile.svg'
+import { ReactComponent as Vk } from '../assets/icons/vkFriendProfile.svg'
 import Button from '../components/ui/Button'
 import MyHolidays from '../components/users/MyHolidaysCard'
 
@@ -74,9 +74,12 @@ const FriendProfile = () => {
             </div>
 
             <ContentDiv>
-                <Div>
+                <div>
                     <StyledCard>
-                        <StyledCardMedia image={friend} alt="green iguana" />
+                        <StyledCardMedia
+                            image="https://storage.ws.pho.to/s2/408d0e5ca2a34fa8022d6c840a789f177eed35e6_m.jpeg"
+                            alt="green iguana"
+                        />
                         <CardContent>
                             <StyledTypography>Аида Каримова</StyledTypography>
                             <ButtonDiv>
@@ -91,10 +94,10 @@ const FriendProfile = () => {
                             </ButtonDiv>
                         </CardContent>
                         <StyledCardActions>
-                            <a href="https://www.instagram.com">
+                            <a href="https://www.facebook.com">
                                 <Facebook />
                             </a>
-                            <a href="https://www.facebook.com">
+                            <a href="https://www.instagram.com">
                                 <Instagram />
                             </a>
                             <a href="https://desktop.telegram.org">
@@ -105,7 +108,7 @@ const FriendProfile = () => {
                             </a>
                         </StyledCardActions>
                     </StyledCard>
-                </Div>
+                </div>
                 <InfoDiv>
                     <MainTitle>Основная информация</MainTitle>
                     <GrayTitle>Город:</GrayTitle>
@@ -235,7 +238,6 @@ const ContainerDiv = styled('div')`
     padding: 0 auto;
     display: flex;
     flex-direction: column;
-    /* height: 1867px; */
     height: 100%;
     margin-left: 60px;
 `
@@ -321,7 +323,6 @@ const StyledShowMoreDiv = styled('div')`
         border-bottom: 1px solid blue;
     }
 `
-const Div = styled('div')``
 
 const StyledCardDiv = styled('div')`
     display: grid;
@@ -340,6 +341,7 @@ const StyledCardMedia = styled(CardMedia)`
     width: 187px;
     height: 190px;
     border-radius: 8px;
+    border: 1px solid gray;
 `
 const StyledTypography = styled(Typography)`
     font-family: 'Inter', sans-serif;
