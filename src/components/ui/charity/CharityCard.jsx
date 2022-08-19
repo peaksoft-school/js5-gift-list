@@ -5,22 +5,18 @@ import Avatar from '@mui/material/Avatar'
 import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { useNavigate } from 'react-router-dom'
 
+import blockIcon from '../../../assets/icons/blockIcon.svg'
 import deleteIcon from '../../../assets/icons/deleteIcon.svg'
-import editIcon from '../../../assets/icons/editIcon.svg'
 import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
-    const navigate = useNavigate()
     const navigation = [
         {
-            icon: editIcon,
-            title: 'Редактировать',
+            icon: blockIcon,
+            title: 'Заблокировать',
             id: '1',
-            clickItem: () => {
-                navigate(`/charity/${props.data.id}/edit_charity`)
-            },
+            clickItem: () => {},
         },
         {
             icon: deleteIcon,
@@ -33,10 +29,11 @@ export default function CharityCard(props) {
         <StyledCard>
             <StyledCardMedia
                 component="img"
+                style={{ cursor: 'pointer' }}
                 image={props.data.image}
                 alt="green iguana"
                 onClick={() => {
-                    navigate(`/charity/${props.data.id}/${props.data.giftName}`)
+                    props.onClickImg()
                 }}
             />
             <StyledCardContentFirst>

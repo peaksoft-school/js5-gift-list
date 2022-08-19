@@ -29,7 +29,7 @@ export const signUp = (userData) => {
                     lastName: response.lastName,
                 })
             )
-        } catch (e) {
+        } catch (error) {
             throw new Error('Что-то пошло не так')
         }
     }

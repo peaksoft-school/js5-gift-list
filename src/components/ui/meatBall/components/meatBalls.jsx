@@ -50,4 +50,6 @@ export default function MeatBalls(props) {
 }
 const Img = styled.img`
     margin-right: 10px;
+    width: 16px;
+    height: auto;
 `

@@ -12,7 +12,7 @@ import { ReactComponent as Vector } from '../assets/icons/Vector.svg'
 
 const MenuAccaunt = () => {
     const { firstName, photo, lastName } = useSelector(
-        (state) => state.AuthSlice.user
+        (state) => state.authSlice.user
     )
     return (
         <AccauntProfile>

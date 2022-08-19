@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import styled from 'styled-components'
 
 import charityIcon from '../assets/icons/charityIcon.svg'
@@ -14,6 +16,7 @@ import director from '../assets/images/director.png'
 import editor from '../assets/images/editor.png'
 import manager from '../assets/images/manager.png'
 import market from '../assets/images/market.png'
+import SignUp from '../components/authorization/SignUp'
 import Button from '../components/ui/Button'
 
 import AboutProject from './landingPage_components/AboutProject'
@@ -24,6 +27,10 @@ import Statistic from './landingPage_components/Statistics'
 import Member from './landingPage_components/Team'
 
 const LandingPage = () => {
+    const [signupState, setSignupState] = useState(false)
+    const signupHandler = () => {
+        setSignupState(true)
+    }
     return (
         <div>
             <PurpleSection>
@@ -36,7 +43,7 @@ const LandingPage = () => {
                         <p onClick={charityScroll}>Благотворительность</p>
                     </Section>
                     <ThreeColumns>
-                        <HelloPage />
+                        <HelloPage signupHandler={signupHandler} />
                     </ThreeColumns>
                 </Content>
             </PurpleSection>
@@ -53,7 +60,12 @@ const LandingPage = () => {
                     </Div>
                     <AdvantagePage advant={advant} />
                     <Btn>
-                        <Button variant="contained">Зарегистрироваться</Button>
+                        <Button onClick={signupHandler} variant="contained">
+                            Зарегистрироваться
+                        </Button>
+                        {signupState && (
+                            <SignUp setSignupState={setSignupState} />
+                        )}
                     </Btn>
                 </Content>
             </WhiteSection>
@@ -101,6 +113,9 @@ const LandingPage = () => {
     )
 }
 export default LandingPage
+// const BoxContainer = styled.div`
+//     width: ;
+// `
 const team = [
     { job: 'Катя, ведущий дизайнер TailGroup', photo: designer },
     { job: 'Марина, маркетолог Headers Market', photo: market },

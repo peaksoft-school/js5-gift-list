@@ -21,13 +21,12 @@ export default Header
 const Headers = styled('header')`
     width: 100%;
     height: 86px;
-    margin-left: 294px;
     display: flex;
     align-items: center;
     padding-left: 20px;
     position: fixed;
     top: 0;
-    left: 0;
+    /* left: 0; */
     background: #ffffff;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.03);
     z-index: 2;

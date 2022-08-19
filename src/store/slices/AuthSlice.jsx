@@ -3,9 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { GIFTLIST_AUTH } from '../../utils/constants/constants'
 
 const initialState = {
-    user: JSON.parse(localStorage.getItem(GIFTLIST_AUTH)),
-} || {
-    user: {
+    user: JSON.parse(localStorage.getItem(GIFTLIST_AUTH)) || {
         id: null,
         jwt: null,
         role: null,

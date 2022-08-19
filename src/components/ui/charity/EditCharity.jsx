@@ -55,7 +55,13 @@ export default function EditCharity() {
                     </Questionaire>
                     <InputLabel style={TextAreaStyle}>
                         Описание подарка
-                        <AboutGift placeholder="Введите описание подарка" />
+                        {/* <AboutGift /> */}
+                        <TextField
+                            InputProps={{
+                                style: styles,
+                            }}
+                            variant="outlined"
+                        />
                     </InputLabel>
                     {/* -------------------------  --------------------- */}
                     <Buttons>
@@ -125,21 +131,23 @@ const Title = styled('h1')`
     align-items: center;
     letter-spacing: 0.2px;
 `
-// const style = {
-//     width: '808px',
-//     height: '111px',
-//     border: '1px solid #BDBDBD',
-//     borderRadius: '6px',
-//     alignItems: 'flex-start',
-//     padding: '8px 18px',
-//     backgroundColor: 'red',
-// }
-const AboutGift = styled(TextField)`
-    width: 100%;
-    height: 111px;
-    border: 1px solid #bdbdbd;
-    border-radius: 6px;
-    align-items: flex-start;
-    padding: 8px 18px;
-    /* background-color: red; */
-`
+const styles = {
+    width: 'auto',
+    height: '111px',
+    borderRadius: '6px',
+    alignItems: 'flex-start',
+    padding: '8px 8px',
+}
+// const AboutGift = styled('textarea')`
+//     width: auto;
+//     height: 111px;
+//     border: 1px solid #bdbdbd;
+//     border-radius: 6px;
+//     align-items: flex-start;
+//     padding: 8px 18px;
+//     text-decoration: none;
+//     :active {
+//         border: 1px solid red;
+//     }
+//     /* background-color: red; */
+// `

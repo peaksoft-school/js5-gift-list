@@ -1,9 +1,9 @@
-import AllRoutes from './routes/Routes'
+import MainRouter from './routes/MainRouter'
 
 function App() {
     return (
         <div className="App">
-            <AllRoutes />
+            <MainRouter />
         </div>
     )
 }
