@@ -1,7 +1,5 @@
 import React from 'react'
 
-const MyHalidays = () => {
+export const MyHalidays = () => {
     return <div>myHalidays</div>
 }
-
-export default MyHalidays

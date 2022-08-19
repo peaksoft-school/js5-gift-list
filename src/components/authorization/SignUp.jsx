@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { styled } from '@mui/material/styles'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import ExitIcon from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
@@ -15,9 +14,9 @@ import Input from '../ui/Input'
 import InputPassword from '../ui/InputPassword'
 
 const SignUp = ({ setSignupState }) => {
+    const [error, setError] = useState('')
     const [checkboxState, setCheckboxState] = useState(false)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const signUpHandler = () => {
         setSignupState(false)
     }
@@ -84,15 +83,10 @@ const SignUp = ({ setSignupState }) => {
                 password: enteredPassword,
                 mailingList: checkboxState,
             }
-            dispatch(signUp(userData))
+            dispatch(signUp({ userData, setError }))
         }
     }
-    const authgoogle = useSelector((state) => state.authSlice.user?.role)
-    useEffect(() => {
-        if (authgoogle) {
-            navigate('/lenta')
-        }
-    }, [authgoogle])
+
     const googleHandler = () => {
         dispatch(googleAuthorization())
     }
@@ -181,7 +175,7 @@ const SignUp = ({ setSignupState }) => {
                             </ErrorValidation>
                         )}
                     </InputDiv>
-
+                    <ErrorValidation>{error}</ErrorValidation>
                     <CheckboxDiv>
                         <input
                             onClick={() => setCheckboxState(!checkboxState)}

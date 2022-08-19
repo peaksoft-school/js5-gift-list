@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import Exit from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
@@ -18,10 +17,10 @@ const SingIn = ({ setSignInState }) => {
     const [memorize, setMemorize] = useState(false)
     const [error, setError] = useState('')
     const dispatch = useDispatch()
-    const navigate = useNavigate()
     const signInHandler = () => {
         setSignInState(false)
     }
+
     const {
         value: emailValue,
         isValid: emailIsValid,
@@ -50,16 +49,9 @@ const SingIn = ({ setSignInState }) => {
             dispatch(singInActions({ userData, setError, memorizee: memorize }))
         }
     }
-    const authgoogle = useSelector((state) => state.authSlice.user?.role)
-    useEffect(() => {
-        if (authgoogle === 'USER') {
-            navigate('/lenta')
-        } else if (authgoogle === 'ADMIN') {
-            navigate('/users')
-        }
-    }, [authgoogle])
+
     const googleHandler = () => {
-        dispatch(googleAuthorization())
+        dispatch(googleAuthorization(memorize))
     }
 
     return (

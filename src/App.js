@@ -1,11 +1,9 @@
-import MainRouter from './routes/MainRouter'
-// import AllRoutes from './routes/Routes'
+import { AppRoutes } from './routes/AppRoutes'
 
 function App() {
     return (
         <div className="App">
-            <MainRouter />
-            {/* <AllRoutes /> */}
+            <AppRoutes />
         </div>
     )
 }

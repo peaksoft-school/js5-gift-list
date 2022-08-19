@@ -1,4 +1,4 @@
-import store from '../store'
+import { store } from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
 export const appFetch = async (data) => {
