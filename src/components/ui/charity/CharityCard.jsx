@@ -10,13 +10,12 @@ import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
     return (
-        <StyledCard>
+        <StyledCard onClick={props.clickCard}>
             <StyledCardMedia
                 style={{ cursor: 'pointer' }}
                 component="img"
                 image={props.data.image}
                 alt="green iguana"
-                onClick={props.clickImage}
             />
             <StyledCardContentFirst>
                 <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
