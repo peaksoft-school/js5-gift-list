@@ -10,9 +10,9 @@ import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
     return (
-        <StyledCard onClick={props.clickCard}>
+        <StyledCard style={cursor} onClick={props.clickCard}>
             <StyledCardMedia
-                style={{ cursor: 'pointer' }}
+                style={cursor}
                 component="img"
                 image={props.data.image}
                 alt="green iguana"
@@ -48,7 +48,9 @@ const StyledCard = styled(MuiCard)(() => ({
     display: 'flex',
     flexDirection: 'column',
 }))
-
+const cursor = {
+    cursor: 'pointer',
+}
 const StyledAvatar = styled(Avatar)`
     width: 36px;
     height: 36px;
