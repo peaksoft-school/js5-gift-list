@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import Menu from '@mui/material/Menu'
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
 import { useSelector } from 'react-redux/es/exports'
+import { useNavigate } from 'react-router-dom'
 
 import { ReactComponent as Exit } from '../assets/icons/ExitIcon.svg'
 import { ReactComponent as Profile } from '../assets/icons/Profile.svg'
@@ -11,9 +12,13 @@ import { ReactComponent as ProfileIcon } from '../assets/icons/ProfileIcon.svg'
 import { ReactComponent as Vector } from '../assets/icons/Vector.svg'
 
 const MenuAccaunt = () => {
+    const navigate = useNavigate()
     const { firstName, photo, lastName } = useSelector(
         (state) => state.authSlice.user
     )
+    const profileNavigate = () => {
+        navigate('/profile')
+    }
     return (
         <AccauntProfile>
             <PopupState variant="popover" popupId="demo-popup-menu">
@@ -42,7 +47,7 @@ const MenuAccaunt = () => {
                                 <p>
                                     <ProfileIcon />
                                 </p>
-                                <p>Профиль</p>
+                                <p onClick={profileNavigate}>Профиль</p>
                             </MenuItem>
                             <MenuItem onClick={popupState.close}>
                                 <p>

@@ -67,11 +67,8 @@ const SideBar = styled('div')`
     background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
     position: fixed;
     width: 294px;
-    /* top: 0; */
     height: 100%;
     box-sizing: border-box;
-    /* margin-top: -8px;
-    margin-left: -8px; */
     text-align: start;
     z-index: 99;
 `
@@ -81,11 +78,8 @@ const TextGift = styled('h2')`
     font-family: 'Inter', sans-serif;
     margin-bottom: 34px;
 `
-// const Content = styled('main')``
 
-const NavbarWrapper = styled('div')`
-    /* position: relative; */
-`
+const NavbarWrapper = styled('div')``
 const NavWrapper = styled('nav')`
     color: white;
     font-size: 18px;

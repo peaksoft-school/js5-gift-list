@@ -15,6 +15,7 @@ import MyHalidays from '../components/users/MyHalidays'
 import WissList from '../components/users/WissList'
 import FriendsPage from '../containers/FriendsPage'
 import LandingPage from '../containers/LandingPage'
+import UserProfile from '../containers/UserProfile'
 import PageLayout from '../layout/PageLayout'
 
 const MainRouter = () => {
@@ -40,6 +41,7 @@ const MainRouter = () => {
                     <Route path="/complaints" element={<Complaints />} />
                     <Route path="/mailing" element={<Mailing />} />
                     <Route path="/charity_users" element={<CharityUsers />} />
+                    <Route path="/profile" element={<UserProfile />} />
                 </Route>
             </Routes>
         </Suspense>
