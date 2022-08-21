@@ -1,7 +1,5 @@
 import React from 'react'
 
-const Lenta = () => {
+export const Lenta = () => {
     return <div>lenta</div>
 }
-
-export default Lenta

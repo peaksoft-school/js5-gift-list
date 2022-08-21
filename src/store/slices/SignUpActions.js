@@ -3,7 +3,7 @@ import { GIFTLIST_AUTH } from '../../utils/constants/constants'
 
 import { actionAuth } from './AuthSlice'
 
-export const signUp = (userData) => {
+export const signUp = ({ userData, setError }) => {
     return async (dispatch) => {
         try {
             const response = await appFetch({
@@ -30,7 +30,7 @@ export const signUp = (userData) => {
                 })
             )
         } catch (error) {
-            throw new Error('Что-то пошло не так')
+            setError('бул аккаунть бар')
         }
     }
 }
