@@ -1,11 +1,11 @@
-import Get from './components/users/Get'
+// import Get from './components/users/Get'
 import MainRouter from './routes/MainRouter'
 
 function App() {
     return (
         <div className="App">
             <MainRouter />
-            <Get />
+            {/* <Get /> */}
         </div>
     )
 }

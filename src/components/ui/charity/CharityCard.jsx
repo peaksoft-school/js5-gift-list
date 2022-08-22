@@ -6,35 +6,16 @@ import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 
-import blockIcon from '../../../assets/icons/blockIcon.svg'
-import deleteIcon from '../../../assets/icons/deleteIcon.svg'
 import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
-    const navigation = [
-        {
-            icon: blockIcon,
-            title: 'Заблокировать',
-            id: '1',
-            clickItem: () => {},
-        },
-        {
-            icon: deleteIcon,
-            title: 'удалить',
-            id: '2',
-            clickItem: props.deleteFunc,
-        },
-    ]
     return (
-        <StyledCard>
+        <StyledCard style={cursor} onClick={props.clickCard}>
             <StyledCardMedia
+                style={cursor}
                 component="img"
-                style={{ cursor: 'pointer' }}
                 image={props.data.image}
                 alt="green iguana"
-                onClick={() => {
-                    props.onClickImg()
-                }}
             />
             <StyledCardContentFirst>
                 <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
@@ -42,8 +23,8 @@ export default function CharityCard(props) {
             </StyledCardContentFirst>
 
             <NameGift>
-                {props.data.giftName}{' '}
-                <Status sts={props.data.status}>{props.data.status}</Status>{' '}
+                {props.data.giftName}
+                <Status sts={props.data.status}>{props.data.status}</Status>
             </NameGift>
 
             <StyledCardContentSecond>
@@ -54,7 +35,7 @@ export default function CharityCard(props) {
                         src={props.data.avatarInBooking}
                     />
                     <StyledText>{props.data.toBook}</StyledText>
-                    <MeatBalls navigations={navigation} />
+                    <MeatBalls navigations={props.meatBallsOptions} />
                 </Wrapper>
             </StyledCardContentSecond>
         </StyledCard>
@@ -67,7 +48,9 @@ const StyledCard = styled(MuiCard)(() => ({
     display: 'flex',
     flexDirection: 'column',
 }))
-
+const cursor = {
+    cursor: 'pointer',
+}
 const StyledAvatar = styled(Avatar)`
     width: 36px;
     height: 36px;

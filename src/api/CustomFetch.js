@@ -1,5 +1,9 @@
-import store from '../store'
 import { URL_BASE } from '../utils/constants/Url'
+
+let store
+export const injectStore = (_store) => {
+    store = _store
+}
 
 export const appFetch = async (data) => {
     const { authSlice } = store.getState()
@@ -28,17 +32,18 @@ export const appFetch = async (data) => {
         return error
     }
 }
-export const appFetchFile = async (config) => {
-    const { signUp } = store.getState()
+export const appFetchFile = async (photo) => {
+    console.log(photo)
+    const { authSlice } = store.getState()
     try {
         const requestOptions = {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${signUp.user.jwt || ''}`,
+                Authorization: `Bearer ${authSlice.user.jwt}`,
             },
-            body: config.body,
+            body: photo.body,
         }
-        const response = await fetch(URL_BASE + config.url, requestOptions)
+        const response = await fetch(URL_BASE + photo.url, requestOptions)
         if (!response.ok) {
             throw new Error(response.message)
         }

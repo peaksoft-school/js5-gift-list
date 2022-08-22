@@ -45,7 +45,6 @@ export default ImagePicker
 
 const DeleteButton = styled.button`
     border: none;
-
     position: absolute;
     top: 87%;
     left: 60%;

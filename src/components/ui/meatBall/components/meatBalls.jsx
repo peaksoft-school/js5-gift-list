@@ -19,7 +19,7 @@ export default function MeatBalls(props) {
     }
 
     return (
-        <div>
+        <div style={{ width: '30px' }}>
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}

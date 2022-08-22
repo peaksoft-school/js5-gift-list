@@ -1,25 +1,43 @@
 import { useState } from 'react'
 
 import styled from '@emotion/styled'
-import { InputLabel, TextField } from '@mui/material'
+import { InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-// import styled from 'styled-components'
 
+// import { addCharityActions } from '../../../store/slices/AddCharity'
+import { postCharity } from '../../../store/slices/GiftActions'
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
 
 export default function EditCharity() {
-    const [photo, setPhoto] = useState(null)
-    console.log(photo)
+    const dispatch = useDispatch()
     const { id } = useParams()
-    const onChangeImageHandler = (image) => {
-        setPhoto(image)
+    const [allvalue, setallvalue] = useState({
+        photo: null,
+        name: '',
+        state: '',
+        category: '',
+        subcategory: '',
+        description: '',
+    })
+    const submitHandler = (e) => {
+        e.preventDefault()
+        dispatch(postCharity(allvalue))
     }
     return (
         <div style={styleForCard}>
             <Title>Редактировать {id}</Title>
-            <Anketa>
-                <ImagePicker onChange={onChangeImageHandler} />
+            <Anketa onSubmit={submitHandler}>
+                <ImagePicker
+                    onChange={(file) => {
+                        setallvalue({
+                            ...allvalue,
+                            photo: file,
+                        })
+                    }}
+                    newFile={allvalue.photo}
+                />
                 <Container>
                     <Title>Добавление вещи </Title>
                     <Questionaire>
@@ -27,29 +45,72 @@ export default function EditCharity() {
                             <InputLabel style={InputLabelstyle}>
                                 Название подарка
                                 <TextField
+                                    value={allvalue.name}
+                                    onChange={(e) => {
+                                        setallvalue({
+                                            ...allvalue,
+                                            name: e.target.value,
+                                        })
+                                    }}
                                     variant="outlined"
                                     InputProps={{
                                         style: textFieldstyle,
                                     }}
                                 />
                             </InputLabel>
-                            <InputLabel style={InputLabelstyle}>
-                                Категория
-                                <select style={textFieldstyle} name="holidays">
-                                    {' '}
-                                </select>
-                            </InputLabel>
+                            <InputLabel>Категория</InputLabel>
+                            <Select
+                                value={allvalue.category}
+                                onChange={(e) => {
+                                    setallvalue({
+                                        ...allvalue,
+                                        category: e.target.value,
+                                    })
+                                }}
+                                style={textFieldstyle}
+                            >
+                                <MenuItem value="Электроника">
+                                    Электроника
+                                </MenuItem>
+                                <MenuItem value="Одежда">Одежда</MenuItem>
+                                <MenuItem value="Школа">Школа</MenuItem>
+                                <MenuItem value="Обувь">Обувь</MenuItem>
+                            </Select>
                         </div>
                         {/* ------------------------------------------------------------ */}
                         <div>
-                            <InputLabel style={InputLabelstyle}>
-                                Состояние
-                                <select style={textFieldstyle}> </select>
-                            </InputLabel>
-                            <InputLabel style={InputLabelstyle}>
-                                Подкатегория
-                                <select style={textFieldstyle}> </select>
-                            </InputLabel>
+                            <InputLabel>Состояние</InputLabel>
+                            <Select
+                                value={allvalue.state}
+                                onChange={(e) => {
+                                    setallvalue({
+                                        ...allvalue,
+                                        state: e.target.value,
+                                    })
+                                }}
+                                style={textFieldstyle}
+                            >
+                                <MenuItem value="Б/У">Б/У</MenuItem>
+                                <MenuItem value="Новое">Новое</MenuItem>
+                            </Select>
+                            <InputLabel>Подкатегория</InputLabel>
+                            <Select
+                                value={allvalue.subcategory}
+                                onChange={(e) => {
+                                    setallvalue({
+                                        ...allvalue,
+                                        subcategory: e.target.value,
+                                    })
+                                }}
+                                style={textFieldstyle}
+                            >
+                                <MenuItem value="Электроника">
+                                    Электроника
+                                </MenuItem>
+                                <MenuItem value="Одежда">Одежда</MenuItem>
+                                <MenuItem value="Школа">Школа</MenuItem>
+                                <MenuItem value="Обувь">Обувь</MenuItem>
+                            </Select>
                         </div>
                         {/* --------------------------------  --------------------- */}
                     </Questionaire>
@@ -57,6 +118,13 @@ export default function EditCharity() {
                         Описание подарка
                         {/* <AboutGift /> */}
                         <TextField
+                            value={allvalue.description}
+                            onChange={(e) => {
+                                setallvalue({
+                                    ...allvalue,
+                                    description: e.target.value,
+                                })
+                            }}
                             InputProps={{
                                 style: styles,
                             }}
@@ -66,7 +134,7 @@ export default function EditCharity() {
                     {/* -------------------------  --------------------- */}
                     <Buttons>
                         <Button variant="outlined">Отмена</Button>
-                        <Button>Сохранить</Button>
+                        <Button type="submit">Сохранить</Button>
                     </Buttons>
                 </Container>
             </Anketa>
@@ -106,6 +174,7 @@ const textFieldstyle = {
     color: '#8D949E',
     padding: '8px 18px',
     borderRadius: '6px',
+    margin: '5px 0',
 }
 const InputLabelstyle = {
     display: 'flex',
