@@ -1,9 +1,10 @@
+import { store } from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
-let store
-export const injectStore = (_store) => {
-    store = _store
-}
+// let store
+// export const injectStore = (_store) => {
+//     store = _store
+// }
 
 export const appFetch = async (data) => {
     const { authSlice } = store.getState()

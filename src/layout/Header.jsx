@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg'
-// import MainSearchInput from '../components/ui/MainSearchInput'
 
+// import MainSearchInput from '../components/ui/MainSearchInput'
 import MenuAccaunt from './MenuAccaount'
 
-const Header = () => {
+export const Header = () => {
     return (
         <Headers>
             <InputDiv>{/* <MainSearchInput /> */}</InputDiv>
@@ -17,7 +17,6 @@ const Header = () => {
     )
 }
 
-export default Header
 const Headers = styled('header')`
     width: 100%;
     height: 86px;

@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { GIFTLIST_AUTH } from '../../utils/constants/constants'
+import { DEFAULT_ROUTES, GIFTLIST_AUTH } from '../../utils/constants/constants'
+import { store } from '../index'
+
+export const logout = (navigateToIndex) => {
+    localStorage.removeItem(GIFTLIST_AUTH)
+    store.dispatch(actionAuth.logaut())
+    navigateToIndex(DEFAULT_ROUTES.INDEX.PATH)
+}
 
 const initialState = {
     user: JSON.parse(localStorage.getItem(GIFTLIST_AUTH)) || {
@@ -14,9 +21,10 @@ const initialState = {
         photo: null,
     },
 }
-const authSlice = createSlice({
+export const authSlice = createSlice({
     name: 'authSlice',
     initialState,
+
     reducers: {
         baseAuth(state, action) {
             const newItem = action.payload
@@ -29,7 +37,13 @@ const authSlice = createSlice({
             state.user.lastName = newItem.lastName
             state.user.photo = newItem.photo
         },
+        logaut(state) {
+            state.user.jwt = null
+            state.user.email = null
+            state.user.role = null
+            state.user.firstName = null
+            state.user.lastName = null
+        },
     },
 })
 export const actionAuth = authSlice.actions
-export default authSlice

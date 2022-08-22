@@ -1,7 +1,5 @@
 import React from 'react'
 
-const WissList = () => {
+export const WissList = () => {
     return <div>wisslist</div>
 }
-
-export default WissList

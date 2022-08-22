@@ -1,11 +1,9 @@
-// import Get from './components/users/Get'
-import MainRouter from './routes/MainRouter'
+import Error from './components/ui/Error'
 
 function App() {
     return (
         <div className="App">
-            <MainRouter />
-            {/* <Get /> */}
+            <Error />
         </div>
     )
 }

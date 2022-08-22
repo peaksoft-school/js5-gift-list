@@ -26,7 +26,7 @@ import HelloPage from './landingPage_components/HelloPage'
 import Statistic from './landingPage_components/Statistics'
 import Member from './landingPage_components/Team'
 
-const LandingPage = () => {
+export const LandingPage = () => {
     const [signupState, setSignupState] = useState(false)
     const signupHandler = () => {
         setSignupState(true)
@@ -112,7 +112,6 @@ const LandingPage = () => {
         </div>
     )
 }
-export default LandingPage
 // const BoxContainer = styled.div`
 //     width: ;
 // `
