@@ -43,7 +43,6 @@ const StyledTextField = styled(OutlinedInput)((props) => ({
     fontWeight: '300',
     fontSize: '16px',
     display: 'flex',
-
     borderRadius: '6px',
     alignItems: 'center',
     width: props.width || '482px',

@@ -3,12 +3,12 @@ import { useState } from 'react'
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 
-import Button from '../../ui/Button'
-import ViewsDatePicker from '../../ui/datePicker/ViewsDatePicker'
-import ImagePicker from '../../ui/ImagePicker'
-import Input from '../../ui/Input'
-import Select from '../../ui/select/Select'
-import Textarea from '../../ui/Textarea'
+import Button from '../components/ui/Button'
+import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
+import ImagePicker from '../components/ui/ImagePicker'
+import Input from '../components/ui/Input'
+import Select from '../components/ui/select/Select'
+import Textarea from '../components/ui/Textarea'
 
 const EditWishCard = (props) => {
     const navigate = useNavigate()

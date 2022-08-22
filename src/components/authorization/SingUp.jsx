@@ -103,7 +103,7 @@ const SignUp = () => {
                         <Input
                             error={firstNameInputHasError}
                             value={firstName}
-                            onСhange={firstNameChangeHanlder}
+                            onChange={firstNameChangeHanlder}
                             onBlur={firstNameBlurHandler}
                             name="firstName"
                             type="text"
@@ -117,7 +117,7 @@ const SignUp = () => {
                         <Input
                             error={lastNameInputHasError}
                             value={lastName}
-                            onСhange={lastNameChangeHanlder}
+                            onChange={lastNameChangeHanlder}
                             onBlur={lastNameBlurHandler}
                             name="lastName"
                             type="text"
@@ -131,7 +131,7 @@ const SignUp = () => {
                         <Input
                             error={emailInputHasError}
                             value={enteredEmail}
-                            onСhange={emailChangeHanlder}
+                            onChange={emailChangeHanlder}
                             onBlur={emailBlurHandler}
                             name="email"
                             type="email"

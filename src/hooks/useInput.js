@@ -9,7 +9,6 @@ export const useInput = (validateState) => {
     const valueChangeHandler = (event) => {
         setEnteredValue(event.target.value)
     }
-
     const inputBlurHandler = () => {
         setIsTouched(true)
     }

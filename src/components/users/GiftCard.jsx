@@ -7,9 +7,9 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import { useNavigate } from 'react-router-dom'
 
-import deleteIcon from '../../../assets/icons/deleteIcon.svg'
-import editIcon from '../../../assets/icons/editIcon.svg'
-import MeatBalls from '../../ui/meatBall/components/meatBalls'
+import deleteIcon from '../../assets/icons/deleteIcon.svg'
+import editIcon from '../../assets/icons/editIcon.svg'
+import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 export default function GiftCard(props) {
     const {

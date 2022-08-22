@@ -4,14 +4,14 @@ import styled from '@emotion/styled'
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 import LoadingSpinner from '../components/ui/LoadingSpinner'
-import { array } from '../components/users/WishList'
-import AddWishCard from '../components/users/wishList/AddWishCard'
-import EditWishCard from '../components/users/wishList/EditWishCard'
+import AddWishCard from '../containers/AddWishCard'
+import EditWishCard from '../containers/EditWishCard'
+import { array } from '../containers/WishList'
 import PageLayout from '../layout/PageLayout'
 
 const Lenta = lazy(() => import('../components/users/Lenta'))
-const WishList = lazy(() => import('../components/users/WishList'))
-const InnerPage = lazy(() => import('../components/users/wishList/InnerPage'))
+const WishList = lazy(() => import('../containers/WishList'))
+const InnerPage = lazy(() => import('../containers/InnerPageWishList'))
 const Complaints = lazy(() => import('../components/admin/Complaints'))
 const Mailing = lazy(() => import('../components/admin/Mailing'))
 const Users = lazy(() => import('../components/admin/Users'))

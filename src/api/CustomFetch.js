@@ -1,7 +1,12 @@
-import store from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
+let store
+
+export const injectStore = (_store) => {
+    store = _store
+}
 export const appFetch = async (data) => {
+    console.log(data)
     const { signUp } = store.getState()
     try {
         const requestOptions = {
@@ -11,35 +16,30 @@ export const appFetch = async (data) => {
                 Authorization: `Bearer ${signUp.user.jwt || ''}`,
             },
         }
-
         if (data.method !== 'GET' && data.body) {
             requestOptions.body = JSON.stringify(data.body)
         }
         const response = await fetch(URL_BASE + data.url, requestOptions)
         if (!response.ok) {
-            throw response.message
+            throw new Error(response.message)
         }
         return response.json()
     } catch (error) {
-        return error
+        return new Error(error.message)
     }
 }
-
-export const formData = async (data) => {
+export const appFetchFile = async (config) => {
+    console.log(config)
     const { signUp } = store.getState()
     try {
         const requestOptions = {
-            method: data.method || 'GET',
+            method: 'POST',
             headers: {
-                'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${signUp.user.jwt || ''}`,
             },
+            body: config.body,
         }
-
-        if (data.method !== 'GET' && data.body) {
-            // requestOptions.body = JSON.stringify(data.body)
-        }
-        const response = await fetch(URL_BASE + data.url, requestOptions)
+        const response = await fetch(URL_BASE + config.url, requestOptions)
         if (!response.ok) {
             throw new Error(response.message)
         }

@@ -1,24 +1,26 @@
 import { useState } from 'react'
 
 import styled from '@emotion/styled'
+import moment from 'moment'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { addGift } from '../../../store/slices/AddWishCardActions'
-import Button from '../../ui/Button'
-import ViewsDatePicker from '../../ui/datePicker/ViewsDatePicker'
-import ImagePicker from '../../ui/ImagePicker'
-import Input from '../../ui/Input'
-import Select from '../../ui/select/Select'
-import Textarea from '../../ui/Textarea'
+import Button from '../components/ui/Button'
+import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
+import ImagePicker from '../components/ui/ImagePicker'
+import Input from '../components/ui/Input'
+import Notification from '../components/ui/notification/Notification'
+import Select from '../components/ui/select/Select'
+import Textarea from '../components/ui/Textarea'
+import { addGift } from '../store/slices/AddWishCardActions'
 
 const AddWishCard = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const option = [
-        { value: 'Праздник1', label: 'Праздник' },
-        { value: 'Праздник2', label: 'Праздникll' },
-        { value: 'Праздник3', label: 'Празднlkkик' },
+    const options = [
+        { text: 'almaz', id: 'Праздник' },
+        { text: 'doolot', id: 'Праздникll' },
+        { text: 'my day', id: 'my day' },
     ]
     const [wishGift, setWishGift] = useState({
         giftName: '',
@@ -28,8 +30,8 @@ const AddWishCard = () => {
 
     const [holidayName, setHolidayName] = useState('')
     const [wishDate, setDateWishGift] = useState('')
-    const [imageGift, setImageGift] = useState('')
-
+    const [photo, setImageGift] = useState('')
+    // console.log(holidayName)
     const cancel = () => {
         navigate('/wish_list')
     }
@@ -43,21 +45,30 @@ const AddWishCard = () => {
         setImageGift(e)
     }
     const addDateWishGift = (e) => {
-        setDateWishGift(e)
+        const newDate = moment(e).format('YYYY-MM-DD')
+        console.log(newDate)
+        // const n = new Date(e)
+        // const year = n.getFullYear()
+        // const month = n.getMonth()
+        // const day = n.getDay()
+        // console.log(year, month, day)
+        setDateWishGift(newDate)
     }
     const chooseHoliday = (e) => {
-        setHolidayName(e.value)
+        setHolidayName(e.text)
+        console.log(e.text)
     }
     wishGift.holidayName = holidayName
     wishGift.wishDate = wishDate
-    console.log(wishGift)
+    // console.log(wishGift)
     const postHandler = (e) => {
         e.preventDefault()
-        dispatch(addGift({ imageGift, wishGift }))
-        // console.log(wishGift)
+        dispatch(addGift({ photo, wishGift, dispatch }))
+        // dispatch(getWishGift())
     }
     return (
         <WrapperAll onSubmit={postHandler}>
+            <Notification />
             <ImagePicker onChange={addImageGift} />
             <WrapperEdit>
                 <H2>Добавление желаемого подарка</H2>
@@ -67,14 +78,14 @@ const AddWishCard = () => {
                 </WrapperLabels>
                 <WrapperInputs>
                     <Input
-                        name="nameGift"
+                        name="giftName"
                         value={wishGift.giftName}
                         width="396px"
                         placeholder="Введите название подарка"
                         onChange={addWishGift}
                     />
                     <Input
-                        name="linkGift"
+                        name="giftLink"
                         value={wishGift.giftLink}
                         width="396px"
                         placeholder="Вставьте ссылку на подарок"
@@ -82,13 +93,15 @@ const AddWishCard = () => {
                     />
                 </WrapperInputs>
                 <WrapperSelects>
-                    <Select
-                        value={holidayName}
-                        onChange={chooseHoliday}
-                        placeholder="Выберите праздник"
-                        options={option}
-                        label="Праздник"
-                    />
+                    <DivSelect>
+                        <Select
+                            getValue={chooseHoliday}
+                            placeholder="Выберите праздник"
+                            label="Праздник"
+                            showButton="button"
+                            options={options}
+                        />
+                    </DivSelect>
                     <DivDatePicker>
                         <ViewsDatePicker
                             value={wishDate}
@@ -100,7 +113,7 @@ const AddWishCard = () => {
                 </WrapperSelects>
                 <Textarea
                     value={wishGift.description}
-                    name="aboutGift"
+                    name="description"
                     placeholder="Введите описание подарка"
                     label="Описание подарка"
                     onChange={addWishGift}
@@ -167,8 +180,16 @@ const WrapperSelects = styled('div')`
         height: 36px;
     }
 `
+const DivSelect = styled('div')`
+    width: 396px;
+    /* margin-top: 24px; */
+    div {
+        /* padding: 0; */
+        height: 35px;
+    }
+`
 const DivDatePicker = styled('div')`
-    padding-top: 3px;
+    /* padding-top: 3px; */
 `
 const WrapperButton = styled('div')`
     display: flex;
