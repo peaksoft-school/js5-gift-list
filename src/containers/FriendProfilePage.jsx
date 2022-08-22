@@ -7,13 +7,39 @@ import {
     Typography,
     styled,
 } from '@mui/material'
+import { useParams } from 'react-router-dom'
 
 import { ReactComponent as Facebook } from '../assets/icons/facebookFriendProfilePage.svg'
 import { ReactComponent as Instagram } from '../assets/icons/instagram.svg'
 import { ReactComponent as Telegram } from '../assets/icons/telegram.svg'
 import { ReactComponent as Vk } from '../assets/icons/vkFriendProfile.svg'
 import Button from '../components/ui/Button'
+import CharityCard from '../components/ui/charity/CharityCard'
+import GiftCard from '../components/users/GiftCard'
 import MyHolidays from '../components/users/MyHolidaysCard'
+
+const options = {
+    friends: [
+        { name: 'Doolot', id: '1', amountOfFriends: '1' },
+        { name: 'Burul', id: '2', amountOfFriends: '4' },
+    ],
+    requestToFriends: [{ name2: 'Ali', id: '3', amountOfFriends: '1' }],
+}
+
+const navigation = [
+    {
+        // icon: blockIcon,
+        title: 'Заблокировать',
+        id: '1',
+        clickItem: () => {},
+    },
+    {
+        // icon: deleteIcon,
+        title: 'удалить',
+        id: '2',
+        // clickItem: props.deleteFunc,
+    },
+]
 
 const data = [
     {
@@ -48,11 +74,115 @@ const data = [
     },
 ]
 
+const option = [
+    {
+        toBook: 'reserved',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvFBa3G11OUBYADP7ouSBgwiiRzSYorF4dfg&usqp=CAU',
+        date: '20.93.2021',
+        userName: 'Sakura Chan',
+        status: 'Б/У',
+        giftName: 'Письма Элджертона',
+        avatarInBooking: 'avatarInBooking',
+        id: 1,
+    },
+    {
+        toBook: 'reserved',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvFBa3G11OUBYADP7ouSBgwiiRzSYorF4dfg&usqp=CAU',
+        date: '20.93.2021',
+        userName: 'Saske',
+        status: 'Б/У',
+        giftName: 'Письма Элджертона',
+        avatarInBooking: 'avatarInBooking',
+        id: 2,
+    },
+    {
+        toBook: 'reserved',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvFBa3G11OUBYADP7ouSBgwiiRzSYorF4dfg&usqp=CAU',
+        date: '20.93.2021',
+        userName: 'Naruto',
+        status: 'Б/У',
+        giftName: 'Письма Элджертона',
+        avatarInBooking: 'avatarInBooking',
+        id: 3,
+    },
+    {
+        toBook: 'reserved',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvFBa3G11OUBYADP7ouSBgwiiRzSYorF4dfg&usqp=CAU',
+        date: '20.93.2021',
+        userName: 'Itachi',
+        status: 'Б/У',
+        giftName: 'Письма Элджертона',
+        avatarInBooking: 'avatarInBooking',
+        id: 4,
+    },
+]
+
+const giftData = [
+    {
+        id: '1',
+        image: 'https://poofpoof.com.ua/18263-medium_default/ruchka-s-beloj-pastoj-flowers.jpg',
+        nameGift: 'pen',
+        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
+        holiday: 'день рождения',
+        toBook: 'в ожидании',
+        date: '12.04.2022',
+    },
+    {
+        id: '2',
+
+        image: 'https://ae01.alicdn.com/kf/HTB1vlD6c5IRMeJjy0Fbq6znqXXaC/4pcs-lot-Totoro-Toys-DIY-Miyazaki-My-Neighbor-Totoro-Sitting-in-the-Tree-PVC-Action-Figures.jpg_Q90.jpg_.webp',
+        nameGift: 'toys',
+        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
+        holiday: 'день рождения',
+        toBook: 'в ожидании',
+        date: '12.04.2022',
+    },
+    {
+        id: '3',
+
+        image: 'https://isakaabengaluru.com/wp-content/uploads/2022/03/He7f88008e87a4391858c412a3dd8664ch.jpg',
+        nameGift: 'car',
+        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
+        holiday: 'день рождения',
+        toBook: 'в ожидании',
+        date: '12.04.2022',
+    },
+    {
+        id: '4',
+
+        image: 'https://shopshop.md/upload/catalog/products/thumbs/ej9esz2unk.jpg',
+        nameGift: 'bottle',
+        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
+        holiday: 'день рождения',
+        toBook: 'в ожидании',
+        date: '12.04.2022',
+    },
+    {
+        id: '4',
+
+        image: 'https://raskraski.com.ua/content/uploads/images/kartina-po-nomeram-afremova-leonida.jpg',
+        nameGift: 'art',
+        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
+        holiday: 'день рождения',
+        toBook: 'в ожидании',
+        date: '12.04.2022',
+    },
+]
+
 const FriendProfile = () => {
     const [showMoreWishCard, setShowMoreWishCard] = useState(false)
     const [showMoreHolidayCard, setShowMoreHolidayCard] = useState(false)
     const [showMoreCharityCard, setShowMoreCharityCard] = useState(false)
 
+    const { friendId } = useParams()
+    console.log(friendId)
+
+    const selectedUser = options.friends.find((el) => el.id === friendId)
+    const selectedUserTo = options.requestToFriends.find(
+        (el) => el.id === friendId
+    )
+    // console.log(selectedUserTo)
+    // console.log(options.requestToFriends)
     const data2 = data.map((el) => {
         return (
             <MyHolidays
@@ -64,12 +194,39 @@ const FriendProfile = () => {
             />
         )
     })
+
+    const dataCharity = option.map((el) => {
+        return (
+            <CharityCard key={el.id} data={el} meatBallsOptions={navigation} />
+        )
+    })
+
+    const giftData2 = giftData.map((el) => {
+        return (
+            <GiftCard
+                key={el.id}
+                variant="board"
+                id={el.id}
+                nameGift={el.nameGift}
+                image={el.image}
+                avatar={el.avatar}
+                holiday={el.holiday}
+                date={el.date}
+                toBook={el.toBook}
+                onClick={() => {
+                    console.log('add')
+                }}
+            />
+        )
+    })
     return (
         <ContainerDiv>
             <div>
                 <RouteTitle>
                     Друзья
-                    <RouteNameTitle> / Аида Каримова</RouteNameTitle>
+                    <RouteNameTitle>
+                        / {selectedUserTo.name2 || selectedUser.name}
+                    </RouteNameTitle>
                 </RouteTitle>
             </div>
 
@@ -81,7 +238,9 @@ const FriendProfile = () => {
                             alt="green iguana"
                         />
                         <CardContent>
-                            <StyledTypography>Аида Каримова</StyledTypography>
+                            <StyledTypography>
+                                {selectedUserTo.name2 || selectedUser.name}
+                            </StyledTypography>
                             <ButtonDiv>
                                 <Button
                                     variant="contained"
@@ -142,18 +301,25 @@ const FriendProfile = () => {
                 </StyledShowMoreDiv>
                 <StyledCardDiv>
                     {showMoreWishCard ? (
-                        data2
+                        giftData2
                     ) : (
                         <StyledCardDiv>
                             {' '}
-                            {data.slice(0, 3).map((el) => {
+                            {giftData.slice(0, 3).map((el) => {
                                 return (
-                                    <MyHolidays
+                                    <GiftCard
                                         key={el.id}
+                                        variant="board"
                                         id={el.id}
+                                        nameGift={el.nameGift}
+                                        image={el.image}
+                                        avatar={el.avatar}
+                                        holiday={el.holiday}
                                         date={el.date}
-                                        title={el.title}
-                                        img={el.img}
+                                        toBook={el.toBook}
+                                        onClick={() => {
+                                            console.log('add')
+                                        }}
                                     />
                                 )
                             })}
@@ -208,18 +374,16 @@ const FriendProfile = () => {
 
                 <StyledCardDiv>
                     {showMoreCharityCard ? (
-                        data2
+                        dataCharity
                     ) : (
                         <StyledCardDiv>
                             {' '}
-                            {data.slice(0, 3).map((el) => {
+                            {option.slice(0, 3).map((el) => {
                                 return (
-                                    <MyHolidays
+                                    <CharityCard
                                         key={el.id}
-                                        id={el.id}
-                                        date={el.date}
-                                        title={el.title}
-                                        img={el.img}
+                                        data={el}
+                                        meatBallsOptions={navigation}
                                     />
                                 )
                             })}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
 import TabContext from '@mui/lab/TabContext'
@@ -12,15 +12,15 @@ import FriendsCard from './FriendsCard'
 export default function FriendTabs({ options }) {
     const [value, setValue] = useState('1')
 
-    useEffect(() => {
-        localStorage.setItem('items', JSON.stringify(value))
-    }, [value])
-    useEffect(() => {
-        const value = JSON.parse(localStorage.getItem('items'))
-        if (value) {
-            setValue(value)
-        }
-    }, [])
+    // useEffect(() => {
+    //     localStorage.setItem('items', JSON.stringify(value))
+    // }, [value])
+    // useEffect(() => {
+    //     const value = JSON.parse(localStorage.getItem('items'))
+    //     if (value) {
+    //         setValue(value)
+    //     }
+    // }, [])
     const navigate = useNavigate()
 
     const handleChange = (event, newValue) => {
@@ -78,6 +78,7 @@ export default function FriendTabs({ options }) {
                                     key={el.id}
                                     onClick={() => {
                                         handleInnerPage(el.id)
+                                        console.log(el.name)
                                     }}
                                     amountOfHolidays={el.amountOfHolidays}
                                     amountOfWishes={el.amountOfWishes}
