@@ -1,39 +1,40 @@
 import React, { useState, useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { getHoliday } from '../../../store/slices/HolidaySlice'
-import MyHolidaysCard from '../../users/MyHolidaysCard'
-import AddHoliday from '../addHoliday/AddHoliday'
+import { getHoliday } from '../../store/slices/HolidayActions'
+import MyHolidaysCard from '../users/MyHolidaysCard'
 
-// eslint-disable-next-line import/no-named-as-default
+import AddHoliday from './AddHoliday'
 import EditHolidaysModal from './EditHolidaysModal'
 
-const EditHolidays = () => {
-    const [open, setOpen] = useState(false)
-    const [id, setid] = useState('')
-
-    const dispatch = useDispatch()
-    const [click, setclick] = useState(false)
+const AddDeleteEditHolidays = () => {
+    const [holidayById, setHolidayById] = useState(null)
+    const [params, setParams] = useSearchParams()
     const holiday = useSelector((state) => state.holiday)
+    const dispatch = useDispatch()
+    const { editHoliday } = Object.fromEntries([...params])
+
+    console.log(holidayById)
     console.log(holiday)
-
-    const onCloseHandler = () => {
-        setOpen((prev) => !prev)
-    }
     const openModalHandler = () => {
-        setOpen(!open)
+        setParams({ editHoliday: true })
     }
-    const getclick = () => setclick((p) => !p)
-    const editarr = holiday.holiday.find((el) => el.id === +id)
-
+    const closeModalHandler = () => {
+        setParams({})
+    }
+    const getItemChangehandler = (id) => {
+        setHolidayById(id)
+    }
     useEffect(() => {
         dispatch(getHoliday())
-    }, [dispatch, click])
+    }, [holiday.editmodal, dispatch])
+
     return (
         <HolidayCardDiv>
-            <AddHoliday click={getclick} />
+            <AddHoliday />
             <CardDiv>
                 {holiday.holiday.map((el) => {
                     return (
@@ -43,25 +44,24 @@ const EditHolidays = () => {
                             img={el.photo}
                             title={el.name}
                             date={el.holidayDate}
-                            getid={setid}
+                            getId={getItemChangehandler}
                             onOpen={openModalHandler}
                         />
                     )
                 })}
             </CardDiv>
             <EditHolidaysModal
-                open={open}
-                data={editarr}
-                onClose={onCloseHandler}
+                onClose={closeModalHandler}
+                open={editHoliday === 'true'}
+                data={holiday.getSingleHoliday}
             />
         </HolidayCardDiv>
     )
 }
 
-export default EditHolidays
+export default AddDeleteEditHolidays
 
 const HolidayCardDiv = styled('div')`
-    /* width: 100%; */
     padding-top: 32px;
     margin-left: 20px;
     margin-right: 40px;

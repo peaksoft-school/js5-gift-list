@@ -13,7 +13,7 @@ const Mailing = lazy(() => import('../components/admin/Mailing'))
 const Users = lazy(() => import('../components/admin/Users'))
 const Bookeds = lazy(() => import('../components/users/Bookeds'))
 const Charity = lazy(() => import('../components/users/Charity'))
-const MyHalidays = lazy(() => import('../components/users/MyHalidays'))
+const MyHolidays = lazy(() => import('../components/users/MyHolidays'))
 // eslint-disable-next-line prettier/prettier
 const CharityUsers = lazy(() => import('../components/admin/CharityUsers'))
 const FriendsPage = lazy(() => import('../containers/FriendsPage'))
@@ -33,7 +33,7 @@ const AllRoutes = () => {
 
                     <Route path="/wish_list" element={<WissList />} />
                     <Route path="/bookeds" element={<Bookeds />} />
-                    <Route path="/my_halidays" element={<MyHalidays />} />
+                    <Route path="/my_halidays" element={<MyHolidays />} />
                     <Route path="/charity" element={<Charity />} />
                     <Route path="/users" element={<Users />} />
                     <Route path="/complaints" element={<Complaints />} />

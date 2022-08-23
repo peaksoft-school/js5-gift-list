@@ -1,11 +1,9 @@
 // eslint-disable-next-line import/no-cycle
 import store from '../store'
 import { URL_BASE } from '../utils/constants/Url'
-// eslint-disable-next-line consistent-return
 
 export const appFetch = async (data) => {
     const { signUp } = store.getState()
-    console.log(signUp)
     try {
         const requestOptions = {
             method: data.method || 'GET',

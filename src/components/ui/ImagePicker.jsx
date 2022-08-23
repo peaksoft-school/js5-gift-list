@@ -4,15 +4,21 @@ import styled, { css } from 'styled-components'
 
 import File from '../../assets/icons/ImageFile.svg'
 
-const ImagePicker = ({ onChange, newFile }) => {
+const ImagePicker = ({ onChange, newFile, value, oldPhotoBoolean }) => {
     const refs = useRef()
     const [icons, setIcons] = useState()
     useEffect(() => {
         if (newFile) {
             const Image = URL.createObjectURL(newFile)
             setIcons(Image)
+            oldPhotoBoolean(true)
+            return
         }
-    }, [newFile])
+        if (value) {
+            setIcons(value)
+            oldPhotoBoolean(false)
+        }
+    }, [newFile, value])
 
     const deleteImageHandler = () => {
         refs.current.value = ''
@@ -21,15 +27,10 @@ const ImagePicker = ({ onChange, newFile }) => {
 
     const imageHandler = () => {
         const image = URL.createObjectURL(refs.current.files[0])
-
-        setIcons(image)
-        // const img = JSON.stringify(refs.current.files[0])
-        // console.log(
-        //     refs.current.files[0].File,
-        //     img,
-        //     // JSON.stringify(refs.current.files)
-        // )
-        onChange(refs.current.files[0])
+        if (refs.current.files[0].size < 1000000) {
+            setIcons(image)
+            onChange(refs.current.files[0])
+        }
     }
     return (
         <ImagePickerContainer icons={icons}>

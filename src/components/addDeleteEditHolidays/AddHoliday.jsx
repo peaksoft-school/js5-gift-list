@@ -1,22 +1,24 @@
 import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
+import { useSearchParams } from 'react-router-dom'
 
-import { ReactComponent as PlusIcon } from '../../../assets/icons/plusIcon.svg'
-import Button from '../../ui/Button'
+import { ReactComponent as PlusIcon } from '../../assets/icons/plusIcon.svg'
+import Button from '../ui/Button'
 
 import AddHolidayModal from './AddHolidayModal'
 
-const AddHoliday = (props) => {
+const AddHoliday = () => {
     const [open, setOpen] = useState(false)
-
+    const [params, setParams] = useSearchParams()
+    const { addHoliday } = Object.fromEntries([...params])
     const onCloseHandler = () => {
         setOpen((prev) => !prev)
-        props.click()
+        setParams({})
     }
     const openModalHandler = () => {
-        props.click()
         setOpen(!open)
+        setParams({ addHoliday: true })
     }
 
     return (
@@ -31,7 +33,10 @@ const AddHoliday = (props) => {
                     Добавить праздник
                 </Button>
             </WrapperButton>
-            <AddHolidayModal open={open} onClose={onCloseHandler} />
+            <AddHolidayModal
+                open={addHoliday === 'true'}
+                onClose={onCloseHandler}
+            />
         </div>
     )
 }
@@ -39,18 +44,18 @@ const AddHoliday = (props) => {
 export default AddHoliday
 
 const WrapperButton = styled('div')`
-    /* width: 100%; */
     height: 39px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    /* & Button {
-        position: relative;
-        top: 32px;
-        right: 40px;
-    } */
 `
 const NamePage = styled('h1')`
     margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.2px;
+    color: #020202;
 `

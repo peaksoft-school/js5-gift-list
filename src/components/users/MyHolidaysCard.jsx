@@ -5,7 +5,10 @@ import { useDispatch } from 'react-redux'
 
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
-import { deleteHoliday } from '../../store/slices/HolidaySlice'
+import {
+    deleteHoliday,
+    getHolidayById,
+} from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 export default function MyHolidaysCard({
@@ -14,7 +17,7 @@ export default function MyHolidaysCard({
     title,
     date,
     onOpen,
-    getid,
+    getId,
 }) {
     const dispatch = useDispatch()
     const navigations = [
@@ -24,7 +27,8 @@ export default function MyHolidaysCard({
             title: 'Редактировать',
             clickItem: () => {
                 onOpen()
-                getid(id)
+                dispatch(getHolidayById(id))
+                getId(id)
             },
         },
         {
@@ -32,11 +36,11 @@ export default function MyHolidaysCard({
             icon: deleteIcon,
             title: 'Удалить',
             clickItem: () => {
-                dispatch(deleteHoliday(id))
+                dispatch(deleteHoliday({ id, link: img }))
             },
         },
     ]
-
+    const dateReverse = date.split('-').reverse('').join('-')
     return (
         <StyledCard>
             <StyledCardMedia alt="green iguana" image={img} />
@@ -44,7 +48,7 @@ export default function MyHolidaysCard({
                 <HolidayTitle>{title}</HolidayTitle>
             </HolidayTitleDiv>
             <StyledFooter>
-                <StyledDate>{date}</StyledDate>
+                <StyledDate>{dateReverse}</StyledDate>
                 <MeatBalls navigations={navigations} />
             </StyledFooter>
         </StyledCard>

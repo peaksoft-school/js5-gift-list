@@ -1,72 +1,88 @@
-import React, { useState } from 'react'
+// import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 import moment from 'moment'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { postHoliday } from '../../../store/slices/HolidaySlice'
-import BasicModal from '../../ui/BasicModal'
-import Button from '../../ui/Button'
-import ViewsDatePicker from '../../ui/datePicker/ViewsDatePicker'
-import ImagePicker from '../../ui/ImagePicker'
-import Input from '../../ui/Input'
+import { putHoliday } from '../../store/slices/HolidayActions'
+import BasicModal from '../ui/BasicModal'
+import Button from '../ui/Button'
+import ViewsDatePicker from '../ui/datePicker/ViewsDatePicker'
+import ImagePicker from '../ui/ImagePicker'
+import Input from '../ui/Input'
 
-const AddHolidayModal = (props) => {
+const EditHolidaysModal = (props) => {
     const { open, onClose } = props
-    const [photo, setPhoto] = useState(null)
-    const [name, setName] = useState('')
-    const [holidayDate, setHolidayDate] = useState(null)
-
+    const [prevHolidayDate, setPrevHolidayDate] = useState('')
+    const [prevImage, setPrevImage] = useState(null)
+    const [prevName, setPrevName] = useState('')
+    const [imglink, setimglink] = useState(null)
+    const [oldPhotoBoolean, setOldPhotoBoolean] = useState(false)
+    const closemodal = useSelector((store) => store.holiday.editmodal)
     const dispatch = useDispatch()
 
-    const onChangeImageValue = (file) => {
-        setPhoto(file)
-        console.log(file)
-    }
-    const onChangeInputValue = (e) => {
-        setName(e.target.value)
-    }
-    const onChangeDateValue = (date) => {
-        const newDate = moment(date).format('YYYY-MM-DD')
-        setHolidayDate(newDate)
+    useEffect(() => {
+        setPrevHolidayDate(props.data.holidayDate)
+        setPrevName(props.data.name)
+        setimglink(props.data.photo)
+    }, [props.data.name])
+
+    const booleanValue = (e) => {
+        setOldPhotoBoolean(e)
     }
 
-    const submitHandler = async (e) => {
-        e.preventDefault()
-        if (holidayDate === null || name === '') {
-            return
-        }
-        dispatch(postHoliday({ photo, name, date: holidayDate }))
-        // setPhoto(null)
-        setName('')
-        setHolidayDate('')
-        onClose()
+    const editCardHandler = () => {
+        const newDate = moment(prevHolidayDate).format('YYYY-MM-DD')
+        dispatch(
+            putHoliday({
+                id: props.data.id,
+                body: {
+                    bool: oldPhotoBoolean,
+                    photo: oldPhotoBoolean ? prevImage : props.data.photo,
+                    name: prevName,
+                    date: newDate,
+                },
+            })
+        )
     }
+    useEffect(() => {
+        if (!closemodal) {
+            onClose()
+        }
+    }, [closemodal])
 
     return (
         <div>
             <BasicModal open={open} onClose={onClose}>
                 <ModalChildDiv>
-                    <AddTitle>Добавление праздника</AddTitle>
-                    <ImagePicker onChange={onChangeImageValue} />
+                    <AddTitle>Редактировать праздник</AddTitle>
+                    <ImagePicker
+                        onChange={setPrevImage}
+                        newFile={prevImage}
+                        value={imglink}
+                        oldPhotoBoolean={booleanValue}
+                    />
                     <InModalChildDiv>
                         <LabelInputDiv>
                             <label htmlFor="Название праздника">
                                 Название праздника
                             </label>
                             <Input
-                                value={name}
-                                onchange={onChangeInputValue}
+                                onchange={(e) => setPrevName(e.target.value)}
+                                value={prevName}
                                 type="text"
                                 placholder="Введите название праздника"
                             />
                         </LabelInputDiv>
 
-                        <DateDiv>
+                        <div>
                             <ViewsDatePicker
                                 width="100%"
-                                value={holidayDate}
-                                onChange={onChangeDateValue}
+                                value={prevHolidayDate}
+                                onChange={(newValue) => {
+                                    setPrevHolidayDate(newValue)
+                                }}
                                 label="Дата праздника"
                                 placeholder="Укажите дату праздника"
                             />
@@ -75,13 +91,13 @@ const AddHolidayModal = (props) => {
                                     Отмена
                                 </Button>
                                 <Button
+                                    onClick={editCardHandler}
                                     variant="contained"
-                                    onClick={submitHandler}
                                 >
-                                    Добавить
+                                    Сохранить
                                 </Button>
                             </CancelAddDiv>
-                        </DateDiv>
+                        </div>
                     </InModalChildDiv>
                 </ModalChildDiv>
             </BasicModal>
@@ -89,7 +105,7 @@ const AddHolidayModal = (props) => {
     )
 }
 
-export default AddHolidayModal
+export default EditHolidaysModal
 
 const ModalChildDiv = styled('div')`
     display: flex;
@@ -135,7 +151,4 @@ const CancelAddDiv = styled('div')`
         width: 232px;
         height: 37px;
     }
-`
-const DateDiv = styled('div')`
-    font-family: 'Inter', sans-serif;
 `

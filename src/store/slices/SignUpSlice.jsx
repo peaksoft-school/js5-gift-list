@@ -5,13 +5,11 @@ import { GIFTLIST_AUTH } from '../../utils/constants/constants'
 const initialState = {
     user: JSON.parse(localStorage.getItem(GIFTLIST_AUTH)),
 } || {
-    user: {
-        id: null,
-        jwt: null,
-        role: null,
-        email: null,
-        memorize: null,
-    },
+    id: null,
+    jwt: null,
+    role: null,
+    email: null,
+    memorize: null,
 }
 const signUpSlice = createSlice({
     name: 'signUp',

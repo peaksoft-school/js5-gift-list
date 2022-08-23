@@ -1,82 +1,22 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 // eslint-disable-next-line import/no-cycle
-import { appFetch, appFetchFile } from '../../api/CustomFetch'
-import { showSuccessMessage } from '../../utils/helpers'
+import {
+    getHoliday,
+    postHoliday,
+    getHolidayById,
+    putHoliday,
+    deleteHoliday,
+} from './HolidayActions'
 
-export const postHoliday = createAsyncThunk(
-    'holiday/postHoliday',
-    async (props) => {
-        console.log('photo', props)
-        const formData = new FormData()
-        try {
-            formData.set('file', props.photo)
-            const holidayResponse = await appFetchFile({
-                url: 'api/file/upload',
-                body: formData,
-            })
-            console.log(holidayResponse)
-            const response = await appFetch({
-                method: 'POST',
-                body: {
-                    holidayDate: props.date,
-                    name: props.name,
-                    photo: holidayResponse?.link,
-                },
-                url: 'api/holiday',
-            })
-            showSuccessMessage({ message: response.message })
-            console.log(response)
-            return response
-        } catch (error) {
-            return error.message
-        }
-    }
-)
-export const getHoliday = createAsyncThunk('holiday/getHoliday', async () => {
-    const response = await appFetch({ url: 'api/holiday' })
-    const data = response
-    // console.log(data)
-    return data
-})
-
-export const putHoliday = createAsyncThunk(
-    'holiday/putHoliday',
-    async (obj) => {
-        try {
-            const response = await appFetch({
-                method: 'PUT',
-                url: `api/holiday/${obj.id}`,
-                body: obj.body,
-            })
-            return response
-        } catch (error) {
-            return error.message
-        }
-    }
-)
-
-export const deleteHoliday = createAsyncThunk(
-    'holiday/sendDeleteHolidayReq',
-    async (id) => {
-        try {
-            const response = await appFetch({
-                url: `api/holiday/${id}`,
-                method: 'DELETE',
-            })
-            // const data = await response.json()
-            console.log(response)
-            return response
-        } catch (error) {
-            return error.message
-        }
-    }
-)
 const initialState = {
     holiday: [],
+    getSingleHoliday: {},
     data: null,
     error: null,
     status: null,
+    modal: false,
+    editmodal: false,
 }
 const HolidaySlice = createSlice({
     name: 'holiday',
@@ -89,7 +29,6 @@ const HolidaySlice = createSlice({
             state.status = 'rejected'
         },
         [postHoliday.fulfilled]: (state, action) => {
-            console.log(state)
             state.data = action.payload
             state.status = 'success'
         },
@@ -105,16 +44,33 @@ const HolidaySlice = createSlice({
             state.holiday = newArr
             state.status = 'success'
         },
+        [getHolidayById.pending]: (state) => {
+            state.status = 'pending'
+            state.modal = false
+        },
+        [getHolidayById.rejected]: (state, action) => {
+            state.status = 'rejected'
+            state.error = action.error
+            state.modal = false
+        },
+        [getHolidayById.fulfilled]: (state, action) => {
+            state.getSingleHoliday = action.payload
+            state.status = 'success'
+            state.modal = true
+        },
         [putHoliday.pending]: (state) => {
             state.status = 'pending'
+            state.editmodal = true
         },
         [putHoliday.rejected]: (state, action) => {
             state.status = 'rejected'
             state.error = action.error
+            state.editmodal = true
         },
         [putHoliday.fulfilled]: (state, action) => {
             state.data = action.payload
             state.status = 'success'
+            state.editmodal = false
         },
         [deleteHoliday.pending]: (state) => {
             state.status = 'pending'

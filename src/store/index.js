@@ -1,6 +1,6 @@
-/* eslint-disable import/no-cycle */
 import { configureStore } from '@reduxjs/toolkit'
 
+// eslint-disable-next-line import/no-cycle
 import HolidaySlice from './slices/HolidaySlice'
 import signUpSlice from './slices/SignUpSlice'
 
