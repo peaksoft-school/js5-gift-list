@@ -3,12 +3,13 @@ import { InputBase, IconButton, Paper, styled, Avatar } from '@mui/material'
 
 export default function MainSearchInput({ options, onChange, value, onClick }) {
     const renderSearchResults = () => {
-        if (options.length > 0) {
-            return options.map((user) => {
+        if (options?.length > 0) {
+            return options?.map((user) => {
                 return (
                     <StyledUserDiv key={user.id} onClick={() => onClick(user)}>
-                        <StyledAvatar alt="Remy Sharp" src={user.img} />
-                        <StyledSpan>{user.name}</StyledSpan>
+                        <StyledAvatar alt="Remy Sharp" src={user.photo} />
+                        <StyledSpan>{user.firstName}</StyledSpan>
+                        <StyledSpan>{user.lastName}</StyledSpan>
                     </StyledUserDiv>
                 )
             })
@@ -104,6 +105,8 @@ const StyledTitle = styled('p')`
 const StyledSpan = styled('span')`
     padding: 5px;
     cursor: pointer;
+    color: black;
+    z-index: 99;
 `
 
 const StyledUserDiv = styled('div')`
@@ -111,6 +114,7 @@ const StyledUserDiv = styled('div')`
     justify-content: flex-start;
     align-items: center;
     margin: 16px;
+    border: 2px solid white;
 `
 
 const StyledContentTitle = styled('span')`
@@ -122,6 +126,7 @@ const StyledContentTitle = styled('span')`
     line-height: 19px;
     letter-spacing: 0.2px;
     color: #020202;
+    /* z-index: 99; */
 `
 
 const StyledAvatar = styled(Avatar)`

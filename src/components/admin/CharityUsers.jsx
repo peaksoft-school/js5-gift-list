@@ -1,7 +1,5 @@
 import React from 'react'
 
-const CharityUsers = () => {
+export const CharityUsers = () => {
     return <div>usersCharity</div>
 }
-
-export default CharityUsers

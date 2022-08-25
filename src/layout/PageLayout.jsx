@@ -6,9 +6,9 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 import { RolePaths } from '../utils/constants/constants'
 
-import Header from './Header'
+import { Header } from './Header'
 
-const PageLayout = () => {
+export const PageLayout = () => {
     const { role } = useSelector((state) => state.authSlice.user)
     return (
         <ContainerWrapper>
@@ -45,7 +45,6 @@ const PageLayout = () => {
     )
 }
 
-export default PageLayout
 const ContainerWrapper = styled('div')`
     width: 100%;
     margin: 0 auto;

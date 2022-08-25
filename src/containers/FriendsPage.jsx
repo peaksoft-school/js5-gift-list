@@ -1,8 +1,13 @@
-import React from 'react'
+// import React, { useState } from 'react'
+
+// import { useEffect, useState } from 'react'
 
 import { styled } from '@mui/material'
+// import { useDispatch, useSelector } from 'react-redux'
 
+// import { appFetch } from '../api/CustomFetch'
 import FriendTabs from '../components/users/FriendTabs'
+// import { getUsersAction } from '../store/slices/getUsersAction'
 
 const options = {
     friends: [
@@ -12,7 +17,24 @@ const options = {
     requestToFriends: [{ name2: 'Ali', id: '3', amountOfFriends: '1' }],
 }
 
-const Friends = () => {
+export const Friends = () => {
+    // const [user, setUser] = useState()
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(getUsersAction(setUser))
+    // }, [])
+    // const store = useSelector((state) => state.users)
+    // console.log(store)
+    // const [data, setData] = useState([])
+
+    // const getData = async () => {
+    //     const user = await appFetch({
+    //         url: 'api/users/friends',
+    //     })
+    //     setData(user)
+    // }
+    // getData()
+    // console.log(user)
     return (
         <MainDiv>
             <StyledMainTitle>Друзья</StyledMainTitle>
@@ -23,7 +45,6 @@ const Friends = () => {
     )
 }
 
-export default Friends
 const MainDiv = styled('div')`
     width: 1086px;
     height: 1224px;
