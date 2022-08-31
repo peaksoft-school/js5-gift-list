@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
@@ -6,8 +6,6 @@ import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 export const addGift = createAsyncThunk(
     'addWishCard/fetchByIdStatus',
     async ({ photo, wishGift, dispatch }) => {
-        // console.log(dispatch)
-        // console.log(wishGift)
         const formData = new FormData()
         try {
             formData.set('file', photo)
@@ -26,69 +24,84 @@ export const addGift = createAsyncThunk(
                     holidayName: wishGift.holidayName,
                     wishDate: wishGift.wishDate,
                 },
-                //  array.photo = response.link,
             })
-            console.log(responseAll)
-            console.log(response)
 
-            if (!response.link) {
+            if (!responseAll.wish) {
                 showErrorMessage('error')
             }
-            if (response.link) {
-                showSuccessMessage('Hello')
+            if (responseAll.wish) {
+                showSuccessMessage('успешно!')
             }
             dispatch(getWishGift())
+            return responseAll
         } catch (e) {
-            throw new Error('Что-то пошло не так')
+            throw showErrorMessage('Что-то пошло не так')
         }
     }
 )
 
 export const getWishGift = createAsyncThunk('get/wishGift', async () => {
-    const getResponse = await appFetch({
-        url: 'api/wish',
-    })
-    console.log(getResponse)
-    return getResponse
+    try {
+        const getResponse = await appFetch({
+            url: 'api/wish',
+        })
+        return getResponse
+    } catch (error) {
+        throw new Error('Что-то пошло не так')
+    }
 })
 
-// import { addGift } from './AddWishCardActions'
+export const deleteWishGift = createAsyncThunk(
+    'delete/wishGift',
+    async (id) => {
+        const deleteResponse = await appFetch({
+            method: 'DELETE',
+            url: `api/wish/${id}`,
+        })
+        return deleteResponse
+    }
+)
 
-const initialState = {
-    card: [],
-    data: null,
-    status: null,
-    error: null,
-}
+export const getWishWithId = createAsyncThunk(
+    'wishCard/getWishWithId',
+    async (id) => {
+        const response = await appFetch({
+            url: `api/wish/${id}`,
+        })
+        return response
+    }
+)
 
-const AddWishCardSlice = createSlice({
-    name: 'wishCard',
-    initialState,
-    extraReducers: {
-        [addGift.pending]: (state) => {
-            state.status = 'pending'
-        },
-        [addGift.rejected]: (state) => {
-            state.status = 'rejected'
-        },
-        [addGift.fulfilled]: (state, action) => {
-            state.status = 'success'
-            state.data = action.payload
-        },
-        [getWishGift.pending]: (state) => {
-            state.status = 'pending'
-        },
-        [getWishGift.rejected]: (state) => {
-            state.status = 'rejected'
-        },
-        [getWishGift.fulfilled]: (state, action) => {
-            state.status = 'success'
-            state.card = action.payload
-            console.log(action.payload)
-            // console.log(state.card)
-        },
-    },
-})
-
-export const cardSliceActions = AddWishCardSlice.actions
-export default AddWishCardSlice
+export const putWishCard = createAsyncThunk(
+    'wishCard/putWishCard',
+    async (object) => {
+        const formData = new FormData()
+        try {
+            const photoresponse = {}
+            if (object.isnewPhoto) {
+                formData.set('file', object.photo)
+                photoresponse.link = await appFetchFile({
+                    url: `api/file/upload`,
+                    body: formData,
+                })
+            }
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/wish/${object.id}`,
+                body: {
+                    photo: object.isnewPhoto
+                        ? photoresponse.link.link
+                        : object.photo,
+                    giftName: object.wishGift.giftName,
+                    giftLink: object.wishGift.giftLink,
+                    description: object.wishGift.description,
+                    holidayName: object.wishGift.holidayName,
+                    wishDate: object.wishGift.wishDate,
+                },
+            })
+            return response
+        } catch (error) {
+            throw new Error('error')
+        }
+    }
+)

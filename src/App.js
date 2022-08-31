@@ -1,13 +1,9 @@
-// import Notification from './components/ui/notification/Notification'
-import MainRouter from './routes/MainRouter'
-import AllRoutes from './routes/Routes'
+import { AppRoutes } from './routes/AppRoutes'
 
 function App() {
     return (
         <div className="App">
-            <MainRouter />
-            <AllRoutes />
-            {/* <Notification /> */}
+            <AppRoutes />
         </div>
     )
 }

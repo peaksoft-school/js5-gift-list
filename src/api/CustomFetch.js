@@ -1,20 +1,19 @@
+import { store } from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
-let store
-
-export const injectStore = (_store) => {
-    store = _store
-}
 export const appFetch = async (data) => {
-    console.log(data)
-    const { signUp } = store.getState()
+    const { authSlice } = store.getState()
     try {
         const requestOptions = {
             method: data.method || 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${signUp.user.jwt || ''}`,
-            },
+            headers: authSlice.user.jwt
+                ? {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${authSlice.user.jwt}`,
+                  }
+                : {
+                      'Content-Type': 'application/json',
+                  },
         }
         if (data.method !== 'GET' && data.body) {
             requestOptions.body = JSON.stringify(data.body)
@@ -29,13 +28,12 @@ export const appFetch = async (data) => {
     }
 }
 export const appFetchFile = async (config) => {
-    console.log(config)
-    const { signUp } = store.getState()
+    const { authSlice } = store.getState()
     try {
         const requestOptions = {
             method: 'POST',
             headers: {
-                Authorization: `Bearer ${signUp.user.jwt || ''}`,
+                Authorization: `Bearer ${authSlice.user.jwt || ''}`,
             },
             body: config.body,
         }

@@ -1,37 +1,70 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { styled } from '@mui/system'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { ReactComponent as BoardIcon } from '../assets/icons/boardIcon.svg'
+import deleteIcon from '../assets/icons/deleteIcon.svg'
+import editIcon from '../assets/icons/editIcon.svg'
 import { ReactComponent as ListIcon } from '../assets/icons/listIcon.svg'
 import { ReactComponent as Plus } from '../assets/icons/plusIconInTheButton.svg'
 import Button from '../components/ui/Button'
 import Notification from '../components/ui/notification/Notification'
 import GiftCard from '../components/users/GiftCard'
-
-export const array = []
+import {
+    getWishGift,
+    deleteWishGift,
+    getWishWithId,
+} from '../store/slices/AddWishCardActions'
 
 const WishList = () => {
-    const { wishCard } = useSelector((data) => data)
-    console.log(wishCard)
-    console.log('hello')
+    const dispatch = useDispatch()
+    const navigateEdit = useNavigate()
+    const { card, deleteId } = useSelector((data) => data.wishCard)
+    const navigation = [
+        {
+            icon: editIcon,
+            title: 'Редактировать',
+            id: '1',
+            clickItem: (id) => {
+                toEditPage(id)
+                dispatch(getWishWithId(id))
+            },
+        },
+        {
+            icon: deleteIcon,
+            title: 'удалить',
+            id: '2',
+            clickItem: (id) => {
+                dispatch(deleteWishGift(id))
+            },
+        },
+    ]
+
+    useEffect(() => {
+        dispatch(getWishGift())
+    }, [deleteId])
+
     const [format, setFormat] = useState(false)
     const navigate = useNavigate()
-    const a = (id) => {
-        navigate(`${id}`)
-    }
-    const b = (e) => {
+
+    const toInnerPage = (e) => {
         navigate(`/wish_list/${e}`)
     }
+    const toaddWish = (e) => {
+        navigate(`/wish_list/${e}`)
+    }
+    function toEditPage(id) {
+        navigateEdit(`${id}/edit`)
+    }
+
     const boardHandler = () => {
         setFormat(false)
     }
     const listHandler = () => {
         setFormat(true)
     }
-    // dispatch(getWishGift())
     const formatCard = format ? 'list' : 'board'
     return (
         <DivWishList>
@@ -44,24 +77,30 @@ const WishList = () => {
                     <ButtonIcon onClick={listHandler}>
                         <ListIcons fill={formatCard} />
                     </ButtonIcon>
-                    <Button onClick={() => b('add')} startIcon={<Plus />}>
+                    <Button
+                        onClick={() => toaddWish('add')}
+                        startIcon={<Plus />}
+                    >
                         Добавить желание
                     </Button>
                 </WrapperIcon>
             </WrapperTop>
             <WrapperCards variant={formatCard}>
-                {array?.map((el) => (
+                {card?.map((el) => (
                     <GiftCard
-                        key={el.id}
-                        id={el.id}
+                        key={el.wish.id}
+                        id={el.wish.id}
                         variant={formatCard}
-                        image={el.img}
-                        nameGift={el.nameGift}
-                        date={el.date}
-                        holiday={el.holiday}
+                        image={el.wish.photo}
+                        nameGift={el.wish.giftName}
+                        date={el.wish.wishDate}
+                        holiday={el.wish.holidayName}
                         toBook={el.toBooking}
-                        avatar={el.avatar}
-                        navigate={() => a(el.id)}
+                        avatarBooked={el?.bookedUser?.photo}
+                        navigateToInnerPage={() => {
+                            toInnerPage(el.wish.id)
+                        }}
+                        navigation={navigation}
                     />
                 ))}
             </WrapperCards>
@@ -126,9 +165,6 @@ const BoardIcons = styled(BoardIcon)(({ fill }) => ({
     }),
 }))
 
-// `
-//     fill: ${(props) => (props.fill ? '#84818a' : '#8639B5')};
-// `
 const ListIcons = styled(ListIcon)(({ fill }) => ({
     ...(fill === 'board' && {
         fill: '#84818a',
@@ -137,9 +173,6 @@ const ListIcons = styled(ListIcon)(({ fill }) => ({
         fill: '#8639B5',
     }),
 }))
-// `
-//     fill: ${(props) => (props.fill ? '#8639B5' : '#84818a')};
-// `
 const WrapperCards = styled('div')(({ variant }) => ({
     ...(variant === 'board' && {
         display: 'grid',

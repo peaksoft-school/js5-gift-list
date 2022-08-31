@@ -19,6 +19,7 @@ const Input = forwardRef((props, ref) => {
     } = props
     return (
         <StyledTextField
+            autoComplete="off"
             error={error}
             placeholder={placeholder}
             name={name}
@@ -38,9 +39,7 @@ export default Input
 
 const StyledTextField = styled(OutlinedInput)((props) => ({
     boxSizing: 'border-box',
-    fontFamily: 'Inter, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: '300',
+
     fontSize: '16px',
     display: 'flex',
     borderRadius: '6px',

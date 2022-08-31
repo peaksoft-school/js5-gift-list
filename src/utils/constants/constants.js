@@ -63,10 +63,25 @@ export const RolePaths = {
         },
     ],
 }
-
+export const DEFAULT_ROUTES = {
+    INDEX: {
+        PATH: '/',
+        LABEL: 'Главная',
+    },
+    NOT_FOUND: {
+        PATH: '*',
+        LABEL: 'Страница не найдена',
+    },
+}
 export const arr = [
     { value: 'Все', label: 'Все' },
     { value: 'Б/У', label: 'Б/У' },
     { value: 'Новое', label: 'Новое' },
 ]
 export const GIFTLIST_AUTH = 'GIFTLIST_AUTH'
+export const GIFTLIST_REMEMBER = 'GIFTLIST_REMEMBER'
+
+export const ROLES = {
+    ADMIN: 'ADMIN',
+    USER: 'USER',
+}

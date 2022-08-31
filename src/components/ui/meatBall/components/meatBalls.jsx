@@ -17,9 +17,8 @@ export default function MeatBalls(props) {
     const handleClose = () => {
         setAnchorEl(null)
     }
-
     return (
-        <div>
+        <div style={{ width: '30px' }}>
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
@@ -39,7 +38,13 @@ export default function MeatBalls(props) {
                 }}
             >
                 {props.navigations.map((el) => (
-                    <MenuItem key={el.id} onClick={el.clickItem}>
+                    <MenuItem
+                        key={el.id}
+                        onClick={() => {
+                            el.clickItem(props.id)
+                            handleClose()
+                        }}
+                    >
                         <Img src={el.icon} alt="navigation items" />
                         {el.title}
                     </MenuItem>

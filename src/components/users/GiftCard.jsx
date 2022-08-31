@@ -5,10 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { useNavigate } from 'react-router-dom'
 
-import deleteIcon from '../../assets/icons/deleteIcon.svg'
-import editIcon from '../../assets/icons/editIcon.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 export default function GiftCard(props) {
@@ -17,28 +14,16 @@ export default function GiftCard(props) {
         id,
         image,
         nameGift,
-        avatar,
+        avatarBooked,
         holiday,
         date,
         toBook,
-        navigate,
+        navigateToInnerPage,
+        navigation,
     } = props
-    const navigateEdit = useNavigate()
-    const navigation = [
-        {
-            icon: editIcon,
-            title: 'Редактировать',
-            id: '1',
-            clickItem: toEditPage,
-        },
-        { icon: deleteIcon, title: 'удалить', id: '2' },
-    ]
-    function toEditPage(event) {
-        event.stopPropagation()
-        navigateEdit(`${id}/edit`)
-    }
+    const newDate = date?.split('-').reverse('-').join('.')
     return (
-        <StyledCard onClick={navigate} variants={variant}>
+        <StyledCard onClick={navigateToInnerPage} variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
@@ -51,19 +36,27 @@ export default function GiftCard(props) {
                     <StyledBirthday>{holiday}</StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
-                    <StyledDate variants={variant}>{date}</StyledDate>
+                    <StyledDate variants={variant}>{newDate}</StyledDate>
                     <WrapperToBooking variants={variant}>
-                        <StyledAvatar src={avatar} alt="avatar" />
-                        <StyledText>{toBook}</StyledText>
+                        <StyledText>
+                            {!toBook ? (
+                                <SpanAvatar>
+                                    <StyledAvatar
+                                        src={avatarBooked}
+                                        alt="avatar"
+                                    />
+                                    Забронирован
+                                </SpanAvatar>
+                            ) : (
+                                'В ожидании'
+                            )}
+                        </StyledText>
                     </WrapperToBooking>
                     <WrapperMeatBalls
                         variants={variant}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <MeatBalls
-                            navigations={navigation}
-                            // onClick={(e) => e.stopPropagation()}
-                        />
+                        <MeatBalls navigations={navigation} id={id} />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>
             </Wrapper>
@@ -86,7 +79,12 @@ const StyledAvatar = styled(Avatar)`
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    display: inline-flex;
 `
+const SpanAvatar = styled('span')`
+    display: flex;
+`
+
 const StyledCard = styled(Card)(({ variants }) => ({
     ...(variants === 'board' && {
         width: '349px',

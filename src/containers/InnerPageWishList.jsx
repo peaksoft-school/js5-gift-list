@@ -1,38 +1,75 @@
+import { useEffect } from 'react'
+
 import styled from '@emotion/styled'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
-import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const InnerPage = (props) => {
+import Button from '../components/ui/Button'
+import {
+    deleteWishGift,
+    getWishWithId,
+} from '../store/slices/AddWishCardActions'
+
+const InnerPage = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { innerPage } = useSelector((state) => state.wishCard)
+    const { wishListId } = useParams()
+    useEffect(() => {
+        dispatch(getWishWithId(wishListId))
+    }, [])
 
-    const a = (b) => {
-        navigate(`${b}`)
+    const toEditPage = () => {
+        navigate(`/wish_list/${wishListId}/edit`)
     }
+    const deleteGift = () => {
+        dispatch(deleteWishGift(wishListId))
+        navigate('/wish_list')
+    }
+    const date = innerPage?.wish?.wishDate?.split('-').reverse('-').join('.')
+
     return (
         <WrapperAll>
-            <Img src={props.data.img} alt="image" />
+            <Img src={innerPage?.wish?.photo} alt="image" />
             <WrapperDiv>
                 <User>
-                    <StyledAvatar src={props.data.avatar} alt="avatar" />
-                    <UserName>{props.data.userName}</UserName>
-                    <ToBooking>{props.data.toBook}</ToBooking>
+                    <StyledAvatar src={innerPage?.user?.photo} alt="avatar" />
+                    <UserName>
+                        {innerPage?.user?.firstName} {innerPage?.user?.lastName}
+                    </UserName>
+                    <ToBooking>
+                        {!innerPage?.bookedUser ? (
+                            <SpanAvatar>
+                                <AvatarToBooking
+                                    src={innerPage?.bookedUser?.photo}
+                                />
+                                Забронирован
+                            </SpanAvatar>
+                        ) : (
+                            'В ожидании'
+                        )}
+                    </ToBooking>
                 </User>
                 <WrapperNameGiftAndDate>
                     <NameGift>Название праздника:</NameGift>
                     <DateGift>Дата праздника:</DateGift>
                 </WrapperNameGiftAndDate>
                 <WrapperPropsGiftAndDate>
-                    <NameGiftProps>{props.data.holiday}</NameGiftProps>
-                    <DateGiftProps>{props.data.date}</DateGiftProps>
+                    <NameGiftProps>
+                        {innerPage?.wish?.holidayName}
+                    </NameGiftProps>
+                    <DateGiftProps>{date}</DateGiftProps>
                 </WrapperPropsGiftAndDate>
-                <StyledH1>{props.data.nameGift}</StyledH1>
-                <Styledp>{props.data.aboutGift}</Styledp>
+                <StyledH1>{innerPage?.wish?.giftName}</StyledH1>
+                <Styledp>{innerPage?.wish?.description} </Styledp>
                 <WrapperButtons>
-                    <Button variant="contained" onClick={() => a('edit')}>
+                    <Button variant="contained" onClick={toEditPage}>
                         Редактировать
                     </Button>
-                    <Button variant="contained">Удалить</Button>
+                    <Button variant="contained" onClick={deleteGift}>
+                        Удалить
+                    </Button>
                 </WrapperButtons>
             </WrapperDiv>
         </WrapperAll>
@@ -64,6 +101,15 @@ const User = styled('div')`
 const StyledAvatar = styled(Avatar)`
     width: 36px;
     height: 36px;
+`
+const AvatarToBooking = styled(Avatar)`
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    margin-right: 5px;
+`
+const SpanAvatar = styled('span')`
+    display: flex;
 `
 const UserName = styled('h2')`
     box-sizing: border-box;
@@ -123,8 +169,13 @@ const DateGiftProps = styled('div')`
 `
 const StyledH1 = styled('h1')`
     color: #3774d0;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
     font-size: 24px;
-    font-weight: 500;
+    line-height: 29px;
+    border-bottom: 2px solid #3774d0;
+    display: inline;
 `
 const Styledp = styled('h1')`
     font-family: 'Inter';

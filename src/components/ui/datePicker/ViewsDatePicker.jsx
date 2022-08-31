@@ -28,6 +28,7 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder }) => {
                         onChange={onChange}
                         renderInput={(params) => (
                             <StyledTextField
+                                autoComplete="off"
                                 {...params}
                                 helperText={null}
                                 inputProps={{

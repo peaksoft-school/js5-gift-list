@@ -5,11 +5,11 @@ import { styled } from '@mui/material'
 import FriendTabs from '../components/users/FriendTabs'
 
 const options = {
-    friends: [],
-    requestToFriends: [],
+    friends: [{ name: 'Ann', id: '1', amountOfFriends: '1' }],
+    requestToFriends: [{ name: 'Ali', id: '1', amountOfFriends: '1' }],
 }
 
-const Friends = () => {
+export const Friends = () => {
     return (
         <MainDiv>
             <StyledMainTitle>Друзья</StyledMainTitle>
@@ -20,7 +20,6 @@ const Friends = () => {
     )
 }
 
-export default Friends
 const MainDiv = styled('div')`
     width: 1086px;
     height: 1224px;

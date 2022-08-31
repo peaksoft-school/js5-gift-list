@@ -5,10 +5,11 @@ import styled from '@emotion/styled'
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg'
 import MainSearchInput from '../components/ui/MainSearchInput'
 
+// import MainSearchInput from '../components/ui/MainSearchInput'
 import MenuAccaunt from './MenuAccaount'
 
-const options = [{ name: 'Ann', id: '1' }]
-const Header = () => {
+export const Header = () => {
+    const options = [{ name: 'Ann', id: '1' }]
     const [value, setValue] = useState('')
     const valueChangeHandler = (e) => {
         setValue(e.target.value)
@@ -34,16 +35,16 @@ const Header = () => {
     )
 }
 export default Header
+
 const Headers = styled('header')`
-    width: 1146px;
+    width: 100%;
     height: 86px;
-    margin-left: 294px;
     display: flex;
     align-items: center;
     padding-left: 20px;
     position: fixed;
     top: 0;
-    left: 0;
+    /* left: 0; */
     background: #ffffff;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.03);
     z-index: 2;

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { createTheme, ThemeProvider } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -9,11 +9,15 @@ import Select from '@mui/material/Select'
 import { styled } from '@mui/system'
 
 export default function SelectFilter(props) {
-    const [text, settext] = useState('')
-
+    const [name, settext] = useState('')
     const handleChange = (event) => {
         settext(event.target.value)
     }
+    useEffect(() => {
+        if (props.holidayName) {
+            settext(props.holidayName)
+        }
+    }, [props.holidayName])
     return (
         <div>
             <ThemeProvider
@@ -44,7 +48,7 @@ export default function SelectFilter(props) {
                 <Box>
                     <FormControl fullWidth>
                         <Label>{props.label}</Label>
-                        {text === '' ? (
+                        {name === '' ? (
                             <StyledInputLabel
                                 shrink={false}
                                 focused={false}
@@ -60,7 +64,7 @@ export default function SelectFilter(props) {
                                 minWidth: 120,
                                 height: 35,
                             }}
-                            value={text}
+                            value={name}
                             onChange={handleChange}
                         >
                             {props?.options?.map((i) => (
@@ -68,16 +72,16 @@ export default function SelectFilter(props) {
                                     onClick={() => {
                                         props.getValue(i)
                                     }}
-                                    value={i.text}
+                                    value={i.name}
                                     key={i.id}
                                 >
-                                    {i.text}
+                                    {i.name}
                                 </MenuItem>
                             ))}
                             {props.showButton === 'button' ? (
-                                <MenuItem style={{ background: 'white' }}>
-                                    + Добавить праздник
-                                </MenuItem>
+                                <MenuItemButton onClick={props.onClickButton}>
+                                    <Plus>+</Plus> Добавить праздник
+                                </MenuItemButton>
                             ) : (
                                 ''
                             )}
@@ -88,6 +92,14 @@ export default function SelectFilter(props) {
         </div>
     )
 }
+const Plus = styled('span')`
+    font-size: 25px;
+    margin-right: 7px;
+`
+const MenuItemButton = styled(MenuItem)`
+    color: #8639b5;
+    padding: 0 0 0 15px;
+`
 const StyledInputLabel = styled(InputLabel)`
     padding: 10px 0 8px 0;
     color: #bfc0c4;
