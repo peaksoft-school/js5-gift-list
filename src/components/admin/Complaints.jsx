@@ -1,7 +1,5 @@
 import React from 'react'
 
-const Complaints = () => {
+export const Complaints = () => {
     return <div>Complaints</div>
 }
-
-export default Complaints

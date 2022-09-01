@@ -1,7 +1,10 @@
 import { appFetch } from '../../api/CustomFetch'
-import { GIFTLIST_AUTH } from '../../utils/constants/constants'
+import {
+    GIFTLIST_AUTH,
+    GIFTLIST_REMEMBER,
+} from '../../utils/constants/constants'
 
-import { actionsignUp } from './SignUpSlice'
+import { actionAuth } from './AuthSlice'
 
 export const singInActions = ({ userData, setError, memorizee }) => {
     return async (dispatch) => {
@@ -17,16 +20,37 @@ export const singInActions = ({ userData, setError, memorizee }) => {
                 jwt: response.jwt,
                 role: response.role,
                 memorizee,
+                firstName: response.firstName,
+                lastName: response.lastName,
+                photo: response.photo,
             }
 
             const json = JSON.stringify(users)
             localStorage.setItem(GIFTLIST_AUTH, json)
+            if (memorizee) {
+                localStorage.setItem(
+                    GIFTLIST_REMEMBER,
+                    JSON.stringify({
+                        id: response.id,
+
+                        checked: memorizee,
+                        jwt: response.jwt,
+                        email: response.email,
+                        role: response.role,
+                        firstName: response.firstName,
+                        lastName: response.lastName,
+                    })
+                )
+            }
             dispatch(
-                actionsignUp.baseSignUp({
+                actionAuth.baseAuth({
                     id: response.id,
                     jwt: response.jwt,
                     role: response.role,
                     memorizee,
+                    firstName: response.firstName,
+                    lastName: response.lastName,
+                    photo: response.photo,
                 })
             )
         } catch (error) {

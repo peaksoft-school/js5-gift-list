@@ -19,7 +19,7 @@ export default function MeatBalls(props) {
     }
 
     return (
-        <div>
+        <div style={{ width: '30px' }}>
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
@@ -38,7 +38,7 @@ export default function MeatBalls(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {props.navigations.map((el) => (
+                {props.navigations?.map((el) => (
                     <MenuItem
                         key={el.id}
                         onClick={() => {

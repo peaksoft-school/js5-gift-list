@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 
 import { styled } from '@mui/material/styles'
-import { useDispatch } from 'react-redux/es/exports'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import ExitIcon from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
@@ -14,11 +13,13 @@ import Button from '../ui/Button'
 import Input from '../ui/Input'
 import InputPassword from '../ui/InputPassword'
 
-const SignUp = () => {
+const SignUp = ({ setSignupState }) => {
+    const [error, setError] = useState('')
     const [checkboxState, setCheckboxState] = useState(false)
     const dispatch = useDispatch()
-    const navigate = useNavigate()
-
+    const signUpHandler = () => {
+        setSignupState(false)
+    }
     const {
         value: firstName,
         isValid: enteredFirstNameIsValid,
@@ -82,21 +83,19 @@ const SignUp = () => {
                 password: enteredPassword,
                 mailingList: checkboxState,
             }
-
-            dispatch(signUp(userData))
-            navigate('/lenta')
+            dispatch(signUp({ userData, setError }))
         }
     }
+
     const googleHandler = () => {
         dispatch(googleAuthorization())
-        navigate('lenta')
     }
     return (
-        <BasicModal open>
+        <BasicModal open onClose={signUpHandler}>
             <ContainerRegistration onSubmit={submitHandler}>
                 <RegistrationDiv>
                     <Registration>Регистрация</Registration>
-                    <img src={ExitIcon} alt="" />
+                    <img onClick={signUpHandler} src={ExitIcon} alt="" />
                 </RegistrationDiv>
                 <RegistrationInputDiv>
                     <InputDiv>
@@ -176,7 +175,7 @@ const SignUp = () => {
                             </ErrorValidation>
                         )}
                     </InputDiv>
-
+                    <ErrorValidation>{error}</ErrorValidation>
                     <CheckboxDiv>
                         <input
                             onClick={() => setCheckboxState(!checkboxState)}

@@ -14,35 +14,35 @@ export const postHoliday = createAsyncThunk(
                 url: 'api/file/upload',
                 body: formData,
             })
+
             const response = await appFetch({
                 method: 'POST',
+                url: 'api/holiday',
                 body: {
                     date: props.date,
                     name: props.name,
                     photo: holidayResponse?.link,
                 },
-                url: 'api/holiday',
             })
+
             showSuccessMessage('Успешно добавлен')
             dispatch(getHoliday())
             return response
         } catch (error) {
             showErrorMessage('Вышла ошибка!')
+
             return error
         }
     }
 )
 export const getHoliday = createAsyncThunk('holiday/getHoliday', async () => {
     const response = await appFetch({ url: 'api/holiday' })
-    console.log(response)
     return response
 })
 export const getHolidayById = createAsyncThunk(
     'holiday/singleHolidayById',
     async (id) => {
         const response = await appFetch({ url: `api/holiday/${id}` })
-        console.log(response)
-
         return response
     }
 )

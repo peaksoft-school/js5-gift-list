@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 // eslint-disable-next-line import/no-cycle
+import { authSlice } from './slices/AuthSlice'
+import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
 import HolidaySlice from './slices/HolidaySlice'
-import signUpSlice from './slices/SignUpSlice'
 
-const store = configureStore({
+export const store = configureStore({
     reducer: {
-        signUp: signUpSlice.reducer,
         holiday: HolidaySlice.reducer,
+        authSlice: authSlice.reducer,
+        holidayUserGifts: HolidayGiftsSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

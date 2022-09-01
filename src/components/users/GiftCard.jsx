@@ -6,20 +6,24 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 
-import deleteIcon from '../../assets/icons/deleteIcon.svg'
-import editIcon from '../../assets/icons/editIcon.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-const navigation = [
-    { icon: editIcon, title: 'Редактировать', id: '1' },
-    { icon: deleteIcon, title: 'удалить', id: '2' },
-]
-
 export default function GiftCard(props) {
-    const { variant, image, nameGift, avatar, holiday, date, toBook, onClick } =
-        props
+    const {
+        variant,
+        id,
+        image,
+        nameGift,
+        avatarBooked,
+        holiday,
+        date,
+        toBook,
+        navigateToInnerPage,
+        navigation,
+    } = props
+    const newDate = date?.split('-').reverse('-').join('.')
     return (
-        <StyledCard variants={variant}>
+        <StyledCard onClick={navigateToInnerPage} variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
@@ -32,20 +36,33 @@ export default function GiftCard(props) {
                     <StyledBirthday>{holiday}</StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
-                    <StyledDate variants={variant}>{date}</StyledDate>
+                    <StyledDate variants={variant}>{newDate}</StyledDate>
                     <WrapperToBooking variants={variant}>
-                        <StyledAvatar src={avatar} alt="avatar" />
-                        <StyledText>{toBook}</StyledText>
+                        <StyledText>
+                            {toBook ? (
+                                <SpanAvatar>
+                                    <StyledAvatar
+                                        src={avatarBooked}
+                                        alt="avatar"
+                                    />
+                                    Забронирован
+                                </SpanAvatar>
+                            ) : (
+                                'В ожидании'
+                            )}
+                        </StyledText>
                     </WrapperToBooking>
-                    <WrapperMeatBalls variants={variant}>
-                        <MeatBalls navigations={navigation} onClick={onClick} />
+                    <WrapperMeatBalls
+                        variants={variant}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <MeatBalls navigations={navigation} id={id} />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>
             </Wrapper>
         </StyledCard>
     )
 }
-
 const WrapperToBooking = styled('div')(({ variants }) => ({
     display: 'flex',
     ...(variants === 'board' && {
@@ -56,15 +73,18 @@ const WrapperToBooking = styled('div')(({ variants }) => ({
         justifyContent: 'flex-start',
     }),
 }))
-
 const StyledAvatar = styled(Avatar)`
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    display: inline-flex;
+`
+const SpanAvatar = styled('span')`
+    display: flex;
 `
 const StyledCard = styled(Card)(({ variants }) => ({
     ...(variants === 'board' && {
-        width: '349px',
+        width: '100%',
         height: '250px',
     }),
     ...(variants === 'list' && {
@@ -89,16 +109,15 @@ const StyledCardContentFirst = styled(CardContent)(({ variants }) => ({
         padding: '3px 16px 3px 16px',
     }),
     ...(variants === 'list' && {
-        width: '335px',
+        width: '100%',
         justifyContent: 'space-between',
         paddingLeft: '0',
     }),
 }))
-
 const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
     display: 'grid',
     ...(variants === 'board' && {
-        gridTemplateColumns: '80px 190px 10px',
+        gridTemplateColumns: '80px 164px 10px',
         padding: '10px 16px 0 16px',
     }),
     ...(variants === 'list' && {
@@ -108,7 +127,6 @@ const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
         padding: '10px 16px 0 0px',
     }),
 }))
-
 const NameGift = styled('span')`
     font-size: Inter;
     font-weight: 600;
@@ -121,7 +139,7 @@ const StyledDate = styled('span')(({ variants }) => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#636c84',
+    color: '#636C84',
     ...(variants === 'list' && {
         display: 'flex',
         justifyContent: 'flex-end',
@@ -143,10 +161,9 @@ const StyledBirthday = styled('span')`
 `
 const StyledCardMedia = styled(CardMedia)(({ variants }) => ({
     borderRadius: '6px',
-
     ...(variants === 'board' && {
-        width: '317px',
-        height: '149px',
+        width: '90%',
+        height: '58%',
         margin: '16px',
     }),
     ...(variants === 'list' && {

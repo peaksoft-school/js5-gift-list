@@ -5,10 +5,8 @@ import { useDispatch } from 'react-redux'
 
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
-import {
-    deleteHoliday,
-    getHolidayById,
-} from '../../store/slices/HolidayActions'
+import defaultimage from '../../assets/images/placeholder.webp'
+import { deleteHoliday } from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 export default function MyHolidaysCard({
@@ -18,6 +16,7 @@ export default function MyHolidaysCard({
     date,
     onOpen,
     getId,
+    navigate,
 }) {
     const dispatch = useDispatch()
     const navigations = [
@@ -26,8 +25,7 @@ export default function MyHolidaysCard({
             icon: editIcon,
             title: 'Редактировать',
             clickItem: () => {
-                onOpen()
-                dispatch(getHolidayById(id))
+                onOpen(id)
                 getId(id)
             },
         },
@@ -40,31 +38,42 @@ export default function MyHolidaysCard({
             },
         },
     ]
-    const dateReverse = date.split('-').reverse('').join('-')
+    const dateReverse = date.split('-').reverse('').join('.')
+    const image = {
+        image: img,
+    }
+    if (!img) {
+        image.image = defaultimage
+    }
     return (
-        <StyledCard>
-            <StyledCardMedia alt="green iguana" image={img} />
+        <StyledCard onClick={navigate}>
+            <StyledCardMedia alt="green iguana" image={image.image} />
             <HolidayTitleDiv>
                 <HolidayTitle>{title}</HolidayTitle>
             </HolidayTitleDiv>
             <StyledFooter>
                 <StyledDate>{dateReverse}</StyledDate>
-                <MeatBalls navigations={navigations} />
+                <MeatBallsWrapper onClick={(e) => e.stopPropagation()}>
+                    <MeatBalls navigations={navigations} />
+                </MeatBallsWrapper>
             </StyledFooter>
         </StyledCard>
     )
 }
+const MeatBallsWrapper = styled('div')`
+    width: auto;
+`
 const StyledCard = styled(Card)`
     box-sizing: border-box;
-    width: 349px;
-    height: 250px;
+    width: 100%;
+    height: 38vh;
     border-radius: 8px;
     padding: 16px;
-    margin-top: 40px;
+    margin-top: 24px;
 `
 const StyledCardMedia = styled(CardMedia)`
-    width: 317px;
-    height: 149px;
+    width: 100%;
+    height: 67%;
     border-radius: 6px;
 `
 const HolidayTitleDiv = styled('div')`

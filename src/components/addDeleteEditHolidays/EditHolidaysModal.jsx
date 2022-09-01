@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 import moment from 'moment'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { putHoliday } from '../../store/slices/HolidayActions'
+import { clearHoliday } from '../../store/slices/HolidaySlice'
 import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
 import ViewsDatePicker from '../ui/datePicker/ViewsDatePicker'
@@ -19,9 +20,7 @@ const EditHolidaysModal = (props) => {
     const [prevName, setPrevName] = useState('')
     const [imglink, setimglink] = useState(null)
     const [oldPhotoBoolean, setOldPhotoBoolean] = useState(false)
-    const closemodal = useSelector((store) => store.holiday.editmodal)
     const dispatch = useDispatch()
-
     useEffect(() => {
         setPrevHolidayDate(props.data.holidayDate)
         setPrevName(props.data.name)
@@ -45,12 +44,12 @@ const EditHolidaysModal = (props) => {
                 },
             })
         )
+        onClose()
     }
+
     useEffect(() => {
-        if (!closemodal) {
-            onClose()
-        }
-    }, [closemodal])
+        return () => dispatch(clearHoliday())
+    }, [])
 
     return (
         <div>

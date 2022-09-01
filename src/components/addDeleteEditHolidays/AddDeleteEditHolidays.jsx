@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { getHoliday } from '../../store/slices/HolidayActions'
+import { getHoliday, getHolidayById } from '../../store/slices/HolidayActions'
 import MyHolidaysCard from '../users/MyHolidaysCard'
 
 import AddHoliday from './AddHoliday'
 import EditHolidaysModal from './EditHolidaysModal'
 
 const AddDeleteEditHolidays = () => {
-    const [holidayById, setHolidayById] = useState(null)
     const [params, setParams] = useSearchParams()
     const holiday = useSelector((state) => state.holiday)
+    const [holidayById, setHolidayById] = useState(params.get('id'))
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const { editHoliday } = Object.fromEntries([...params])
 
-    console.log(holidayById)
-    console.log(holiday)
-    const openModalHandler = () => {
-        setParams({ editHoliday: true })
+    const navigateToInnerPage = (id) => {
+        navigate(`${id}`)
+    }
+    const openModalHandler = (id) => {
+        setParams({ editHoliday: true, id })
     }
     const closeModalHandler = () => {
         setParams({})
@@ -32,6 +35,11 @@ const AddDeleteEditHolidays = () => {
         dispatch(getHoliday())
     }, [holiday.editmodal, dispatch])
 
+    useEffect(() => {
+        if (holidayById) {
+            dispatch(getHolidayById(holidayById))
+        }
+    }, [holidayById, dispatch])
     return (
         <HolidayCardDiv>
             <AddHoliday />
@@ -46,15 +54,18 @@ const AddDeleteEditHolidays = () => {
                             date={el.holidayDate}
                             getId={getItemChangehandler}
                             onOpen={openModalHandler}
+                            navigate={() => navigateToInnerPage(el.id)}
                         />
                     )
                 })}
             </CardDiv>
-            <EditHolidaysModal
-                onClose={closeModalHandler}
-                open={editHoliday === 'true'}
-                data={holiday.getSingleHoliday}
-            />
+            {editHoliday === 'true' && (
+                <EditHolidaysModal
+                    onClose={closeModalHandler}
+                    open={editHoliday === 'true'}
+                    data={holiday.getSingleHoliday}
+                />
+            )}
         </HolidayCardDiv>
     )
 }

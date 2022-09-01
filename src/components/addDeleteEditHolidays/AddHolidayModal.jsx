@@ -59,7 +59,7 @@ const AddHolidayModal = (props) => {
                                 value={name}
                                 onchange={onChangeInputValue}
                                 type="text"
-                                placholder="Введите название праздника"
+                                placeholder="Введите название праздника"
                             />
                         </LabelInputDiv>
 

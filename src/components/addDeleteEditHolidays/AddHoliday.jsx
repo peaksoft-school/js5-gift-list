@@ -9,9 +9,10 @@ import Button from '../ui/Button'
 import AddHolidayModal from './AddHolidayModal'
 
 const AddHoliday = () => {
-    const [open, setOpen] = useState(false)
     const [params, setParams] = useSearchParams()
+    const [open, setOpen] = useState(params.get('addHoliday'))
     const { addHoliday } = Object.fromEntries([...params])
+
     const onCloseHandler = () => {
         setOpen((prev) => !prev)
         setParams({})
@@ -23,7 +24,7 @@ const AddHoliday = () => {
 
     return (
         <div>
-            <WrapperButton>
+            <TitleButtonWrapper>
                 <NamePage>Мои праздники</NamePage>
                 <Button
                     startIcon={<PlusIcon />}
@@ -32,7 +33,7 @@ const AddHoliday = () => {
                 >
                     Добавить праздник
                 </Button>
-            </WrapperButton>
+            </TitleButtonWrapper>
             <AddHolidayModal
                 open={addHoliday === 'true'}
                 onClose={onCloseHandler}
@@ -43,7 +44,7 @@ const AddHoliday = () => {
 
 export default AddHoliday
 
-const WrapperButton = styled('div')`
+const TitleButtonWrapper = styled('div')`
     height: 39px;
     display: flex;
     justify-content: space-between;

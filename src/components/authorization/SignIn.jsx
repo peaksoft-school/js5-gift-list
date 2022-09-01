@@ -13,10 +13,14 @@ import Button from '../ui/Button'
 import Input from '../ui/Input'
 import InputPassword from '../ui/InputPassword'
 
-const SingIn = () => {
+const SingIn = ({ setSignInState }) => {
     const [memorize, setMemorize] = useState(false)
     const [error, setError] = useState('')
     const dispatch = useDispatch()
+    const signInHandler = () => {
+        setSignInState(false)
+    }
+
     const {
         value: emailValue,
         isValid: emailIsValid,
@@ -30,7 +34,7 @@ const SingIn = () => {
         hasError: passwordIsValidHasError,
         valueChangeHandler: passwordChangeHandler,
         inputBlurHandler: passwordBlurHandler,
-    } = useInput((value) => value.length >= 6)
+    } = useInput((value) => value.trim() !== '')
     const submitHandler = async (e) => {
         e.preventDefault()
         if (!emailIsValid && !passwordIsValid) {
@@ -45,16 +49,17 @@ const SingIn = () => {
             dispatch(singInActions({ userData, setError, memorizee: memorize }))
         }
     }
+
     const googleHandler = () => {
-        dispatch(googleAuthorization())
+        dispatch(googleAuthorization(memorize))
     }
 
     return (
-        <BasicModal open>
+        <BasicModal open onClose={signInHandler}>
             <SignInForm onSubmit={submitHandler}>
                 <InputDiv>
                     <h4>Вход</h4>
-                    <img src={Exit} alt="" />
+                    <img onClick={signInHandler} src={Exit} alt="" />
                 </InputDiv>
                 <InputDivForm>
                     <Div>
@@ -81,17 +86,12 @@ const SingIn = () => {
                             type="password"
                             placeholder="Пароль"
                         />
-                        {passwordIsValidHasError && (
-                            <ErrorValidation>
-                                пароль должен содержать не менее 6 символов
-                            </ErrorValidation>
-                        )}
                     </Div>
                     <ErrorValidation>{error}</ErrorValidation>
 
                     <DivRemember onClick={() => setMemorize(!memorize)}>
                         <input type="checkbox" />
-                        <p>Запимнить меня</p>
+                        <p>Запомнить меня</p>
                     </DivRemember>
                 </InputDivForm>
                 <div>

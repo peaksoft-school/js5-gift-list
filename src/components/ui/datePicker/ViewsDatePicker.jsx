@@ -24,6 +24,7 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder, width }) => {
             <LocalizationProvider locale={ru} dateAdapter={AdapterDateFns}>
                 <ThemeProvider theme={theme}>
                     <DatePicker
+                        autoComplete="off"
                         format="MM/dd/yyyy"
                         value={value}
                         onChange={onChange}
