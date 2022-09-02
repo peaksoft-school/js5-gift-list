@@ -17,11 +17,10 @@ export default function GiftCard(props) {
         avatarBooked,
         holiday,
         date,
-        toBook,
+        isBooked,
         navigateToInnerPage,
         navigation,
     } = props
-    const newDate = date?.split('-').reverse('-').join('.')
     return (
         <StyledCard onClick={navigateToInnerPage} variants={variant}>
             <StyledCardMedia
@@ -36,10 +35,10 @@ export default function GiftCard(props) {
                     <StyledBirthday>{holiday}</StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
-                    <StyledDate variants={variant}>{newDate}</StyledDate>
+                    <StyledDate variants={variant}>{date}</StyledDate>
                     <WrapperToBooking variants={variant}>
                         <StyledText>
-                            {!toBook ? (
+                            {isBooked ? (
                                 <SpanAvatar>
                                     <StyledAvatar
                                         src={avatarBooked}

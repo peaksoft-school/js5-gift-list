@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import styled from '@emotion/styled'
-import moment from 'moment'
+import MenuItem from '@mui/material/MenuItem'
+import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -11,58 +12,54 @@ import ImagePicker from '../components/ui/ImagePicker'
 import Input from '../components/ui/Input'
 import Select from '../components/ui/select/Select'
 import Textarea from '../components/ui/Textarea'
-import { getWishWithId, putWishCard } from '../store/slices/AddWishCardActions'
+import {
+    getHolidaysToSelect,
+    getWishWithId,
+    putWishCard,
+} from '../store/slices/AddWishCardActions'
 
-const EditWishCard = () => {
+const EditWishCardPage = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const id = location.pathname.split('/')[2]
 
     const dispatch = useDispatch()
 
-    const { innerPage } = useSelector((s) => s.wishCard)
-    const holiday = [
-        { name: 'Нооруз', id: '1' },
-        { name: 'Нооруз1', id: '2' },
-        { name: 'Нооруз2', id: '3' },
-    ]
-    const [image, setImage] = useState('')
+    const { innerPage, holidaysToSelect } = useSelector(
+        (state) => state.wishCard
+    )
     const [photo, setPhoto] = useState(null)
     const [wishGift, setWishGift] = useState({
-        giftName: '',
-        giftLink: '',
+        wishName: '',
+        wishLink: '',
         description: '',
     })
-
     const [date, setDate] = useState('')
     const [select, setSelect] = useState('')
-    const [isPhoto, setIsPhoto] = useState(false)
 
     useEffect(() => {
         dispatch(getWishWithId(id))
     }, [innerPage?.wish?.photo])
+    useEffect(() => {
+        dispatch(getHolidaysToSelect())
+    }, [])
 
     useEffect(() => {
-        if (innerPage?.wish?.photo) {
-            setImage(innerPage?.wish?.photo)
-        }
         setWishGift({
-            giftName: innerPage?.wish?.giftName,
-            giftLink: innerPage?.wish?.giftLink,
+            wishName: innerPage?.wish?.wishName,
+            wishLink: innerPage?.wish?.wishLink,
             description: innerPage?.wish?.description,
         })
-        setDate(innerPage?.wish?.giftDate)
-        setSelect(innerPage?.wish?.holidayName)
+        setDate(innerPage?.wish?.wishDate)
+        setSelect(innerPage?.wish?.holiday.id)
+        setPhoto(innerPage?.wish?.photo)
     }, [innerPage?.wish?.photo])
 
     const cancel = () => {
         navigate('/wish_list')
     }
     const holidayNameHandler = (e) => {
-        setSelect(e.name)
-    }
-    const isPhotohandler = (e) => {
-        setIsPhoto(e)
+        setSelect(e.id)
     }
 
     const editImageHandler = (file) => {
@@ -76,11 +73,11 @@ const EditWishCard = () => {
         })
     }
     const DateHandler = (e) => {
-        const newDate = moment(e).format('YYYY-MM-DD')
-        setDate(newDate)
+        const date = format(e, 'MM.dd.yy')
+        setDate(date)
     }
-    wishGift.giftDate = date
-    wishGift.holidayName = select
+    wishGift.wishDate = date
+    wishGift.holidayId = select
 
     const putDataWishCard = (e) => {
         e.preventDefault()
@@ -88,48 +85,49 @@ const EditWishCard = () => {
             putWishCard({
                 id,
                 wishGift,
-                isnewPhoto: isPhoto,
-                photo: isPhoto ? photo : image,
+                photo,
                 dispatch,
             })
         )
         navigate('/wish_list')
     }
+    const addHolidayHandler = () => {}
+    const img = photo?.name ? null : photo
     return (
         <WrapperAll onSubmit={putDataWishCard}>
-            <ImagePicker
-                oldPhotoBoolean={isPhotohandler}
-                newFile={photo}
-                onChange={editImageHandler}
-                value={image}
-            />
+            <ImagePicker newFile={img} onChange={editImageHandler} />
             <WrapperEdit>
                 <H2>Добавление желаемого подарка</H2>
                 <WrapperLabels>
-                    <Label> Название подарка</Label>
+                    <Label> Название п одарка</Label>
                     <Label>Ссылка на подарок </Label>
                 </WrapperLabels>
                 <WrapperInputs>
                     <Input
-                        name="giftName"
+                        name="wishName"
                         width="396px"
-                        value={wishGift.giftName}
+                        value={wishGift.wishName}
                         onChange={wishGiftHandler}
                     />
                     <Input
-                        name="giftLink"
+                        name="wishLink"
                         width="396px"
-                        value={wishGift.giftLink}
+                        value={wishGift.wishLink}
                         onChange={wishGiftHandler}
                     />
                 </WrapperInputs>
                 <WrapperSelects>
                     <DivSelect>
                         <Select
-                            holidayName={innerPage?.wish?.holidayName}
-                            options={holiday}
+                            holidayName={innerPage?.wish?.holiday?.name}
+                            options={holidaysToSelect}
                             label="Праздник"
                             getValue={holidayNameHandler}
+                            additionalOption={
+                                <MenuItemButton onClick={addHolidayHandler}>
+                                    <Plus>+</Plus> Добавить праздник
+                                </MenuItemButton>
+                            }
                         />
                     </DivSelect>
                     <DivDatePicker>
@@ -159,7 +157,15 @@ const EditWishCard = () => {
     )
 }
 
-export default EditWishCard
+export default EditWishCardPage
+const Plus = styled('span')`
+    font-size: 25px;
+    margin-right: 7px;
+`
+const MenuItemButton = styled(MenuItem)`
+    color: #8639b5;
+    padding: 0 0 0 15px;
+`
 
 const WrapperAll = styled('form')`
     padding: 20px;

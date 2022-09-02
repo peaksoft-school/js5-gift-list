@@ -88,17 +88,17 @@ const WishList = () => {
             <WrapperCards variant={formatCard}>
                 {card?.map((el) => (
                     <GiftCard
-                        key={el.wish.id}
-                        id={el.wish.id}
+                        key={el.wish.wishId}
+                        id={el.wish.wishId}
                         variant={formatCard}
                         image={el.wish.photo}
-                        nameGift={el.wish.giftName}
+                        nameGift={el.wish.wishName}
                         date={el.wish.wishDate}
-                        holiday={el.wish.holidayName}
+                        holiday={el.wish.holiday.name}
                         toBook={el.toBooking}
                         avatarBooked={el?.bookedUser?.photo}
                         navigateToInnerPage={() => {
-                            toInnerPage(el.wish.id)
+                            toInnerPage(el.wish.wishId)
                         }}
                         navigation={navigation}
                     />
@@ -112,7 +112,6 @@ const WishList = () => {
 export default WishList
 
 const DivWishList = styled('div')`
-    width: 1086px;
     margin: 32px 40px 0 20px;
 `
 
@@ -143,9 +142,9 @@ const H2 = styled('h2')`
 `
 const WrapperIcon = styled('div')`
     display: flex;
+    margin-right: 30px;
     button:first-of-type {
         border-radius: 4px 0 0 4px;
-        border-right: none;
     }
 `
 const ButtonIcon = styled('button')`

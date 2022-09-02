@@ -3,13 +3,16 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
     addGift,
     deleteWishGift,
+    getHolidaysToSelect,
     getWishGift,
     getWishWithId,
+    putWishCard,
 } from './AddWishCardActions'
 
 const initialState = {
     card: [],
     innerPage: {},
+    holidaysToSelect: [],
     status: null,
     deleteId: false,
 }
@@ -51,6 +54,12 @@ export const AddWishCardSlice = createSlice({
         [getWishWithId.fulfilled]: (state, { payload }) => {
             state.status = 'success'
             state.innerPage = payload
+        },
+        [getHolidaysToSelect.fulfilled]: (state, { payload }) => {
+            state.holidaysToSelect = payload
+        },
+        [putWishCard.pending]: (state) => {
+            state.status = 'pending'
         },
     },
 })

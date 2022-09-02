@@ -11,7 +11,7 @@ import {
     getWishWithId,
 } from '../store/slices/AddWishCardActions'
 
-const InnerPage = () => {
+const InnerPageWishCard = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { innerPage } = useSelector((state) => state.wishCard)
@@ -27,19 +27,22 @@ const InnerPage = () => {
         dispatch(deleteWishGift(wishListId))
         navigate('/wish_list')
     }
-    const date = innerPage?.wish?.wishDate?.split('-').reverse('-').join('.')
 
     return (
         <WrapperAll>
             <Img src={innerPage?.wish?.photo} alt="image" />
             <WrapperDiv>
                 <User>
-                    <StyledAvatar src={innerPage?.user?.photo} alt="avatar" />
+                    <StyledAvatar
+                        src={innerPage?.ownerUser?.photo}
+                        alt="avatar"
+                    />
                     <UserName>
-                        {innerPage?.user?.firstName} {innerPage?.user?.lastName}
+                        {innerPage?.ownerUser?.firstName}{' '}
+                        {innerPage?.ownerUser?.lastName}
                     </UserName>
                     <ToBooking>
-                        {!innerPage?.bookedUser ? (
+                        {innerPage?.bookedUser ? (
                             <SpanAvatar>
                                 <AvatarToBooking
                                     src={innerPage?.bookedUser?.photo}
@@ -57,11 +60,11 @@ const InnerPage = () => {
                 </WrapperNameGiftAndDate>
                 <WrapperPropsGiftAndDate>
                     <NameGiftProps>
-                        {innerPage?.wish?.holidayName}
+                        {innerPage?.wish?.holiday.name}
                     </NameGiftProps>
-                    <DateGiftProps>{date}</DateGiftProps>
+                    <DateGiftProps>{innerPage?.wish?.wishDate}</DateGiftProps>
                 </WrapperPropsGiftAndDate>
-                <StyledH1>{innerPage?.wish?.giftName}</StyledH1>
+                <StyledH1>{innerPage?.wish?.wishName}</StyledH1>
                 <Styledp>{innerPage?.wish?.description} </Styledp>
                 <WrapperButtons>
                     <Button variant="contained" onClick={toEditPage}>
@@ -75,7 +78,7 @@ const InnerPage = () => {
         </WrapperAll>
     )
 }
-export default InnerPage
+export default InnerPageWishCard
 const WrapperAll = styled('div')`
     display: flex;
     padding: 20px;

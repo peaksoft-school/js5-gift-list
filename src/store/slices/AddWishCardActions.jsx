@@ -18,14 +18,13 @@ export const addGift = createAsyncThunk(
                 url: 'api/wish',
                 body: {
                     photo: response.link,
-                    giftName: wishGift.giftName,
-                    giftLink: wishGift.giftLink,
+                    wishName: wishGift.wishName,
+                    wishLink: wishGift.wishLink,
                     description: wishGift.description,
-                    holidayName: wishGift.holidayName,
-                    wishDate: wishGift.wishDate,
+                    holidayId: wishGift.holidayId,
+                    wishDate: '2022-09-01',
                 },
             })
-
             if (!responseAll.wish) {
                 showErrorMessage('error')
             }
@@ -78,7 +77,7 @@ export const putWishCard = createAsyncThunk(
         const formData = new FormData()
         try {
             const photoresponse = {}
-            if (object.isnewPhoto) {
+            if (object.photo.name) {
                 formData.set('file', object.photo)
                 photoresponse.link = await appFetchFile({
                     url: `api/file/upload`,
@@ -89,19 +88,30 @@ export const putWishCard = createAsyncThunk(
                 method: 'PUT',
                 url: `api/wish/${object.id}`,
                 body: {
-                    photo: object.isnewPhoto
+                    photo: object.photo.name
                         ? photoresponse.link.link
                         : object.photo,
-                    giftName: object.wishGift.giftName,
-                    giftLink: object.wishGift.giftLink,
+                    wishName: object.wishGift.wishName,
+                    wishLink: object.wishGift.wishLink,
                     description: object.wishGift.description,
-                    holidayName: object.wishGift.holidayName,
-                    wishDate: object.wishGift.wishDate,
+                    holidayId: object.wishGift.holidayId,
+                    wishDate: '2022-09-01',
                 },
             })
+            object.dispatch(getWishGift())
             return response
         } catch (error) {
-            throw new Error('error')
+            throw new Error('Что-то пошло не так')
         }
+    }
+)
+
+export const getHolidaysToSelect = createAsyncThunk(
+    'holiday/getHolidayName',
+    async () => {
+        const response = await appFetch({
+            url: 'api/holiday',
+        })
+        return response
     }
 )

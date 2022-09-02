@@ -24,7 +24,7 @@ export const appFetch = async (data) => {
         }
         return response.json()
     } catch (error) {
-        return new Error(error.message)
+        throw new Error(error.message)
     }
 }
 export const appFetchFile = async (config) => {
@@ -43,6 +43,6 @@ export const appFetchFile = async (config) => {
         }
         return response.json()
     } catch (error) {
-        return new Error(error.message)
+        throw new Error(error.message)
     }
 }

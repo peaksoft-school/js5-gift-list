@@ -14,10 +14,10 @@ export default function SelectFilter(props) {
         settext(event.target.value)
     }
     useEffect(() => {
-        if (props.holidayName) {
-            settext(props.holidayName)
+        if (props?.holidayName) {
+            settext(props?.holidayName)
         }
-    }, [props.holidayName])
+    }, [props?.holidayName])
     return (
         <div>
             <ThemeProvider
@@ -78,13 +78,7 @@ export default function SelectFilter(props) {
                                     {i.name}
                                 </MenuItem>
                             ))}
-                            {props.showButton === 'button' ? (
-                                <MenuItemButton onClick={props.onClickButton}>
-                                    <Plus>+</Plus> Добавить праздник
-                                </MenuItemButton>
-                            ) : (
-                                ''
-                            )}
+                            {props.additionalOption}
                         </Select>
                     </FormControl>
                 </Box>
@@ -92,14 +86,6 @@ export default function SelectFilter(props) {
         </div>
     )
 }
-const Plus = styled('span')`
-    font-size: 25px;
-    margin-right: 7px;
-`
-const MenuItemButton = styled(MenuItem)`
-    color: #8639b5;
-    padding: 0 0 0 15px;
-`
 const StyledInputLabel = styled(InputLabel)`
     padding: 10px 0 8px 0;
     color: #bfc0c4;

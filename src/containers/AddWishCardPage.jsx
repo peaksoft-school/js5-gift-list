@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 
 import styled from '@emotion/styled'
-import { createAsyncThunk } from '@reduxjs/toolkit'
-import moment from 'moment'
-import { useDispatch } from 'react-redux'
+import MenuItem from '@mui/material/MenuItem'
+import { format } from 'date-fns'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { appFetch } from '../api/CustomFetch'
 import Button from '../components/ui/Button'
 import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
 import ImagePicker from '../components/ui/ImagePicker'
@@ -14,32 +13,26 @@ import Input from '../components/ui/Input'
 import Notification from '../components/ui/notification/Notification'
 import Select from '../components/ui/select/Select'
 import Textarea from '../components/ui/Textarea'
-import { addGift } from '../store/slices/AddWishCardActions'
+import {
+    addGift,
+    getHolidaysToSelect,
+} from '../store/slices/AddWishCardActions'
 
-const AddWishCard = () => {
+const AddWishCardPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [dataSelect, setDataSelect] = useState([])
-    const getHolidayName = createAsyncThunk(
-        'holiday/getHolidayName',
-        async () => {
-            const response = await appFetch({
-                url: 'api/holiday',
-            })
-            setDataSelect(response)
-            return response
-        }
-    )
+    const { holidaysToSelect } = useSelector((state) => state.wishCard)
+
     useEffect(() => {
-        dispatch(getHolidayName())
+        dispatch(getHolidaysToSelect())
     }, [])
     const [wishGift, setWishGift] = useState({
-        giftName: '',
-        giftLink: '',
+        wishName: '',
+        wishLink: '',
         description: '',
     })
 
-    const [holidayName, setHolidayName] = useState('')
+    const [holidayId, setHolidays] = useState('')
     const [wishDate, setDateWishGift] = useState('')
     const [photo, setImageGift] = useState('')
     const cancel = () => {
@@ -58,23 +51,22 @@ const AddWishCard = () => {
         setImageGift(e)
     }
     const addDateWishGift = (e) => {
-        const newDate = moment(e).format('YYYY-MM-DD')
-        setDateWishGift(newDate)
+        const date = format(e, 'MM.dd.yy')
+        setDateWishGift(date)
     }
     const chooseHoliday = (e) => {
-        setHolidayName(e.name)
+        setHolidays(e.id)
     }
-
-    const addHolidayName = () => {}
-    wishGift.holidayName = holidayName
+    const addHolidayHandler = () => {}
+    wishGift.holidayId = holidayId
     wishGift.wishDate = wishDate
     const postHandler = (e) => {
         e.preventDefault()
         if (
-            wishGift.giftName &&
-            wishGift.giftLink &&
+            wishGift.wishName &&
+            wishGift.wishLink &&
             wishGift.description &&
-            wishGift.holidayName &&
+            wishGift.holidayId &&
             wishGift.wishDate
         ) {
             dispatch(addGift({ photo, wishGift, dispatch }))
@@ -93,15 +85,15 @@ const AddWishCard = () => {
                 </WrapperLabels>
                 <WrapperInputs>
                     <Input
-                        name="giftName"
-                        value={wishGift.giftName}
+                        name="wishName"
+                        value={wishGift.wishName}
                         width="396px"
                         placeholder="Введите название подарка"
                         onChange={addWishGift}
                     />
                     <Input
-                        name="giftLink"
-                        value={wishGift.giftLink}
+                        name="wishLink"
+                        value={wishGift.wishLink}
                         width="396px"
                         placeholder="Вставьте ссылку на подарок"
                         onChange={addWishGift}
@@ -114,8 +106,12 @@ const AddWishCard = () => {
                             placeholder="Выберите праздник"
                             label="Праздник"
                             showButton="button"
-                            options={dataSelect}
-                            onClickButton={addHolidayName}
+                            options={holidaysToSelect}
+                            additionalOption={
+                                <MenuItemButton onClick={addHolidayHandler}>
+                                    <Plus>+</Plus> Добавить праздник
+                                </MenuItemButton>
+                            }
                         />
                     </DivSelect>
                     <DivDatePicker>
@@ -147,7 +143,16 @@ const AddWishCard = () => {
     )
 }
 
-export default AddWishCard
+export default AddWishCardPage
+
+const Plus = styled('span')`
+    font-size: 25px;
+    margin-right: 7px;
+`
+const MenuItemButton = styled(MenuItem)`
+    color: #8639b5;
+    padding: 0 0 0 15px;
+`
 
 const WrapperAll = styled('form')`
     padding: 20px;
