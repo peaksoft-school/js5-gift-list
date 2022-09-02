@@ -31,6 +31,7 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder, width }) => {
                         renderInput={(params) => (
                             <StyledTextField
                                 width={width}
+                                autoComplete="off"
                                 {...params}
                                 helperText={null}
                                 inputProps={{
@@ -77,11 +78,12 @@ const StyledTextField = styled(TextField)((props) => ({
     },
 }))
 
-const Label = styled('label')((props) => ({
-    padding: '0px',
-    fontStyle: 'Inter',
-    fontWeight: 400,
-    fontSize: props.fontSize || '12px',
-    lineHeight: '15px',
-    color: ' #464444',
-}))
+const Label = styled('label')`
+    padding: 0px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #464444;
+`

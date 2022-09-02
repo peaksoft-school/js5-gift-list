@@ -24,7 +24,9 @@ function Textarea({
         </div>
     )
 }
+
 export default Textarea
+
 const TextArea = styled('textarea')`
     width: 808px;
     height: 111px;

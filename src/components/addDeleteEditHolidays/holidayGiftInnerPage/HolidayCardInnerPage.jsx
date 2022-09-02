@@ -7,14 +7,16 @@ import styled from 'styled-components'
 
 import deleteIcon from '../../../assets/icons/deleteIcon.svg'
 import editIcon from '../../../assets/icons/editIcon.svg'
-import defaultImage from '../../../assets/images/placeholder.webp'
+import {
+    deleteWishGift,
+    getWishWithId,
+} from '../../../store/slices/AddWishCardActions'
 import { getHoliday } from '../../../store/slices/HolidayActions'
 import { getHolidayWish } from '../../../store/slices/HolidayGiftsActions'
 import GiftCard from '../../users/GiftCard'
 
-const HolidayCardInnerPage = ({ img }) => {
+const HolidayCardInnerPage = () => {
     const { holidayGifts } = useParams()
-    console.log(holidayGifts)
     const dispatch = useDispatch()
     const holidayUserGifts = useSelector((state) => state)
     const navigate = useNavigate()
@@ -23,28 +25,28 @@ const HolidayCardInnerPage = ({ img }) => {
             icon: editIcon,
             title: 'Редактировать',
             id: '1',
-            clickItem: () => {
-                navigate(`/edit`)
+            clickItem: (id) => {
+                dispatch(getWishWithId(id))
+                navigate(`/wish_list/${id}/edit`)
             },
         },
-        { icon: deleteIcon, title: 'удалить', id: '2' },
+        {
+            icon: deleteIcon,
+            title: 'удалить',
+            id: '2',
+            clickItem: (id) => {
+                dispatch(deleteWishGift(id))
+            },
+        },
     ]
-
     useEffect(() => {
         dispatch(getHolidayWish(holidayGifts))
         dispatch(getHoliday())
-    }, [holidayGifts])
+    }, [holidayGifts, holidayUserGifts?.wishCard?.deleteId])
 
     const nameHoliday = holidayUserGifts?.holiday?.holiday?.filter(
         (i) => i.id === +holidayGifts
     )
-    console.log(nameHoliday)
-    const image = {
-        image: img,
-    }
-    if (!img) {
-        image.image = defaultImage
-    }
     return (
         <HolidayInnerDiv>
             <HolidayTitle>
@@ -61,7 +63,7 @@ const HolidayCardInnerPage = ({ img }) => {
                                 variant="board"
                                 nameGift={el.wish.wishName}
                                 holiday={el.wish.holiday.name}
-                                image={el.wish.photo || defaultImage}
+                                image={el.wish.photo}
                                 toBook={el.wish.booking}
                                 navigation={navigation}
                             />

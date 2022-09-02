@@ -18,8 +18,6 @@ const HolidayGiftsSlice = createSlice({
         },
         [getHolidayWish.fulfilled]: (state, action) => {
             state.holidayUserGifts = action.payload
-            console.log(state.holidayUserGifts)
-
             state.status = 'success'
         },
     },

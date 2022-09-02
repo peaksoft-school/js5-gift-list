@@ -8,7 +8,6 @@ export const getHolidayWish = createAsyncThunk(
         const response = await appFetch({
             url: `api/holiday/wishes/${id}`,
         })
-        console.log(response)
         return response
     }
 )

@@ -20,7 +20,7 @@ export const postHoliday = createAsyncThunk(
                 url: 'api/holiday',
                 body: {
                     date: props.date,
-                    name: props.name,
+                    name: props.holidayName,
                     photo: holidayResponse?.link,
                 },
             })

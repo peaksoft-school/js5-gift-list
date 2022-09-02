@@ -53,8 +53,11 @@ const EditHolidaysModal = (props) => {
                                 Название праздника
                             </label>
                             <Input
-                                onchange={(e) => setPrevName(e.target.value)}
+                                onChange={(e) => {
+                                    setPrevName(e.target.value)
+                                }}
                                 value={prevName}
+                                name="prevName"
                                 type="text"
                                 placholder="Введите название праздника"
                             />

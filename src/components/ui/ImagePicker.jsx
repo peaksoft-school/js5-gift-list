@@ -12,12 +12,10 @@ const ImagePicker = ({ onChange, newFile }) => {
             setIcons(newFile)
         }
     }, [newFile])
-
     const deleteImageHandler = () => {
         refs.current.value = ''
         setIcons('')
     }
-
     const imageHandler = () => {
         const image = URL.createObjectURL(refs.current.files[0])
         if (refs.current.files[0].size < 1000000) {
@@ -39,12 +37,9 @@ const ImagePicker = ({ onChange, newFile }) => {
         </ImagePickerContainer>
     )
 }
-
 export default ImagePicker
-
 const DeleteButton = styled.button`
     border: none;
-
     position: absolute;
     top: 87%;
     left: 60%;
@@ -57,17 +52,13 @@ const DeleteButton = styled.button`
     z-index: 10;
     display: none;
     cursor: pointer;
-
     display: none;
     &:hover {
         text-decoration: underline;
-
         opacity: 3;
         border-radius: 2px;
         font-family: 'Inter', sans-serif;
-
         align-items: center;
-
         margin-right: 3px;
         text-decoration: none;
     }
@@ -91,11 +82,9 @@ const ImagePickerContainer = styled.div`
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-
             &: after {
                 display: none;
             }
-
             &:hover {
                 align-items: flex-start;
             }
@@ -107,7 +96,6 @@ const ImagePickerContainer = styled.div`
             }
         `}
 `
-
 const Input = styled.input`
     display: none;
 `
@@ -125,7 +113,6 @@ const Label = styled.label`
     &::after {
         content: 'Нажмите для добавления фотографии';
         position: absolute;
-
         top: 50%;
         right: 4%;
         font-family: 'Inter', sans-serif;
@@ -138,7 +125,6 @@ const Label = styled.label`
         props.icons &&
         css`
             background-image: none;
-
             display: none;
             &::after {
                 content: 'Заменить';
@@ -146,23 +132,18 @@ const Label = styled.label`
                 left: 50px;
                 top: 88%;
                 align-items: center;
-
                 font-family: 'Inter', sans-serif;
                 font-weight: 400;
                 font-size: 18px;
                 color: #000000;
-
                 transform: translateX(-50%);
             }
             &:hover:after {
                 text-decoration: underline;
-
                 text-decoration: none;
-
                 display: block;
                 align-items: center;
                 text-align: center;
-
                 border-radius: 2px;
             }
         `}

@@ -66,7 +66,7 @@ const SingIn = ({ setSignInState }) => {
                         <Input
                             error={emailIsValidHasError}
                             value={emailValue}
-                            onchange={emailChangeHandler}
+                            onChange={emailChangeHandler}
                             onBlur={emailBlurHandler}
                             type="email"
                             placeholder="Email"

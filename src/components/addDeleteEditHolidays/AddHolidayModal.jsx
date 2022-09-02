@@ -14,7 +14,7 @@ import Input from '../ui/Input'
 const AddHolidayModal = (props) => {
     const { open, onClose } = props
     const [photo, setPhoto] = useState(null)
-    const [name, setName] = useState('')
+    const [holidayName, setHolidayName] = useState('')
     const [holidayDate, setHolidayDate] = useState(null)
 
     const dispatch = useDispatch()
@@ -25,22 +25,22 @@ const AddHolidayModal = (props) => {
         }
     }
     const onChangeInputValue = (e) => {
-        setName(e.target.value)
+        setHolidayName(e.target.value)
     }
     const onChangeDateValue = (date) => {
         const newDate = format(date, 'yyyy-MM-dd')
         setHolidayDate(newDate)
     }
 
-    const submitHandler = async (e) => {
+    const submitHandler = (e) => {
         e.preventDefault()
-        if (holidayDate === null || name === '') {
+        if (holidayDate === null || holidayName === '') {
             return
         }
-        dispatch(postHoliday({ photo, name, date: holidayDate }))
+        dispatch(postHoliday({ photo, holidayName, date: holidayDate }))
         onClose()
         setPhoto(null)
-        setName('')
+        setHolidayName('')
         setHolidayDate(null)
     }
 
@@ -56,8 +56,9 @@ const AddHolidayModal = (props) => {
                                 Название праздника
                             </label>
                             <Input
-                                value={name}
-                                onchange={onChangeInputValue}
+                                name="holidayName"
+                                value={holidayName}
+                                onChange={onChangeInputValue}
                                 type="text"
                                 placeholder="Введите название праздника"
                             />

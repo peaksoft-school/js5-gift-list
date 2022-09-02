@@ -17,7 +17,7 @@ export default function GiftCard(props) {
         avatarBooked,
         holiday,
         date,
-        toBook,
+        isBooked,
         navigateToInnerPage,
         navigation,
     } = props
@@ -39,7 +39,7 @@ export default function GiftCard(props) {
                     <StyledDate variants={variant}>{newDate}</StyledDate>
                     <WrapperToBooking variants={variant}>
                         <StyledText>
-                            {toBook ? (
+                            {isBooked ? (
                                 <SpanAvatar>
                                     <StyledAvatar
                                         src={avatarBooked}
@@ -56,7 +56,7 @@ export default function GiftCard(props) {
                         variants={variant}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <MeatBalls navigation={navigation} id={id} />
+                        <MeatBalls navigations={navigation} id={id} />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>
             </Wrapper>
@@ -82,6 +82,7 @@ const StyledAvatar = styled(Avatar)`
 const SpanAvatar = styled('span')`
     display: flex;
 `
+
 const StyledCard = styled(Card)(({ variants }) => ({
     ...(variants === 'board' && {
         width: '100%',
