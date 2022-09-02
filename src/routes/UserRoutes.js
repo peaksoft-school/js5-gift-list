@@ -3,7 +3,6 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import HolidayCardInnerPage from '../components/addDeleteEditHolidays/holidayGiftInnerPage/HolidayCardInnerPage'
-import ToEditInnerPage from '../components/addDeleteEditHolidays/holidayGiftInnerPage/ToEditInnerpage'
 import Error from '../components/ui/Error'
 import { Bookeds } from '../components/users/Bookeds'
 import { Charity } from '../components/users/Charity'
@@ -26,10 +25,6 @@ const UserRoutes = () => {
                 <Route
                     path="/my_halidays/:holidayGifts"
                     element={<HolidayCardInnerPage />}
-                />
-                <Route
-                    path="/my_halidays/:holidayGifts/editPage"
-                    element={<ToEditInnerPage />}
                 />
 
                 <Route path="/charity" element={<Charity />} />

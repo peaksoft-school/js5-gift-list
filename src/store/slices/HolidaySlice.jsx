@@ -12,7 +12,6 @@ import {
 const initialState = {
     holiday: [],
     getSingleHoliday: {},
-    data: null,
     error: null,
     status: null,
     modal: false,
@@ -34,7 +33,6 @@ const HolidaySlice = createSlice({
             state.status = 'rejected'
         },
         [postHoliday.fulfilled]: (state, action) => {
-            state.data = action.payload
             state.status = 'success'
             state.error = action.payload.error
         },
@@ -70,8 +68,7 @@ const HolidaySlice = createSlice({
             state.error = action.error
             state.editmodal = true
         },
-        [putHoliday.fulfilled]: (state, action) => {
-            state.data = action.payload
+        [putHoliday.fulfilled]: (state) => {
             state.status = 'success'
             state.editmodal = false
         },
@@ -83,7 +80,6 @@ const HolidaySlice = createSlice({
             state.error = action.error.message
         },
         [deleteHoliday.fulfilled]: (state) => {
-            // state.data = action.payload
             state.status = 'success'
         },
     },

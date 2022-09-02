@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux/es/exports'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import deleteIcon from '../../../assets/icons/deleteIcon.svg'
@@ -12,14 +12,23 @@ import { getHoliday } from '../../../store/slices/HolidayActions'
 import { getHolidayWish } from '../../../store/slices/HolidayGiftsActions'
 import GiftCard from '../../users/GiftCard'
 
-const navigation = [
-    { icon: editIcon, title: 'Редактировать', id: '1' },
-    { icon: deleteIcon, title: 'удалить', id: '2' },
-]
 const HolidayCardInnerPage = ({ img }) => {
     const { holidayGifts } = useParams()
+    console.log(holidayGifts)
     const dispatch = useDispatch()
     const holidayUserGifts = useSelector((state) => state)
+    const navigate = useNavigate()
+    const navigation = [
+        {
+            icon: editIcon,
+            title: 'Редактировать',
+            id: '1',
+            clickItem: () => {
+                navigate(`/edit`)
+            },
+        },
+        { icon: deleteIcon, title: 'удалить', id: '2' },
+    ]
 
     useEffect(() => {
         dispatch(getHolidayWish(holidayGifts))
@@ -46,7 +55,8 @@ const HolidayCardInnerPage = ({ img }) => {
                     (el) => {
                         return (
                             <GiftCard
-                                id={el.wish.id}
+                                key={el.wish.wishId}
+                                id={el.wish.wishId}
                                 date={el.wish.wishDate}
                                 variant="board"
                                 nameGift={el.wish.wishName}

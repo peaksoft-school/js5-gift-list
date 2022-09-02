@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
-import moment from 'moment'
+import format from 'date-fns/format'
 import { useDispatch } from 'react-redux'
 
 import { postHoliday } from '../../store/slices/HolidayActions'
@@ -28,7 +28,7 @@ const AddHolidayModal = (props) => {
         setName(e.target.value)
     }
     const onChangeDateValue = (date) => {
-        const newDate = moment(date).format('YYYY-MM-DD')
+        const newDate = format(date, 'yyyy-MM-dd')
         setHolidayDate(newDate)
     }
 
@@ -45,8 +45,8 @@ const AddHolidayModal = (props) => {
     }
 
     return (
-        <div>
-            <BasicModal open={open} onClose={onClose}>
+        <BasicModal open={open} onClose={onClose}>
+            <form onSubmit={submitHandler}>
                 <ModalChildDiv>
                     <AddTitle>Добавление праздника</AddTitle>
                     <ImagePicker onChange={onChangeImageValue} />
@@ -75,18 +75,15 @@ const AddHolidayModal = (props) => {
                                 <Button variant="outlined" onClick={onClose}>
                                     Отмена
                                 </Button>
-                                <Button
-                                    variant="contained"
-                                    onClick={submitHandler}
-                                >
+                                <Button type="submit" variant="contained">
                                     Добавить
                                 </Button>
                             </CancelAddDiv>
                         </DateDiv>
                     </InModalChildDiv>
                 </ModalChildDiv>
-            </BasicModal>
-        </div>
+            </form>
+        </BasicModal>
     )
 }
 

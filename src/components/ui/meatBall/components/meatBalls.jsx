@@ -38,11 +38,11 @@ export default function MeatBalls(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {props.navigations?.map((el) => (
+                {props.navigation?.map((el) => (
                     <MenuItem
                         key={el.id}
                         onClick={() => {
-                            el.clickItem()
+                            el?.clickItem()
                             handleClose()
                         }}
                     >

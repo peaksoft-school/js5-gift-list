@@ -1,30 +1,16 @@
-import { useState } from 'react'
-
 import styled from '@emotion/styled'
 
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg'
-import MainSearchInput from '../components/ui/MainSearchInput'
+// import MainSearchInput from '../components/ui/MainSearchInput'
 
 import MenuAccaunt from './MenuAccaount'
 
-const options = [{ name: 'Adilet', id: '1' }]
 export const Header = () => {
-    const [value, setValue] = useState('')
-    const valueChangeHandler = (e) => {
-        setValue(e.target.value)
-    }
-    const inputClickHandler = (user) => {
-        console.log(user)
-    }
     return (
         <Headers>
             <InputDiv>
-                <MainSearchInput
-                    options={options}
-                    value={value}
-                    onChange={valueChangeHandler}
-                    onClick={inputClickHandler}
-                />
+                {/* <MainSearchInput
+                /> */}
             </InputDiv>
             <WarningSpan>
                 <WarningIcon />

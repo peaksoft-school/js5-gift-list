@@ -1,8 +1,6 @@
-// import React, { useState, useEffect } from 'react'
 import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
-import moment from 'moment'
 import { useDispatch } from 'react-redux'
 
 import { putHoliday } from '../../store/slices/HolidayActions'
@@ -18,29 +16,21 @@ const EditHolidaysModal = (props) => {
     const [prevHolidayDate, setPrevHolidayDate] = useState('')
     const [prevImage, setPrevImage] = useState(null)
     const [prevName, setPrevName] = useState('')
-    const [imglink, setimglink] = useState(null)
-    const [oldPhotoBoolean, setOldPhotoBoolean] = useState(false)
     const dispatch = useDispatch()
     useEffect(() => {
         setPrevHolidayDate(props.data.holidayDate)
         setPrevName(props.data.name)
-        setimglink(props.data.photo)
-    }, [props.data.name])
-
-    const booleanValue = (e) => {
-        setOldPhotoBoolean(e)
-    }
+        setPrevImage(props.data.photo)
+    }, [props.data.name, props.data.photo, props.data.holidayDate])
 
     const editCardHandler = () => {
-        const newDate = moment(prevHolidayDate).format('YYYY-MM-DD')
         dispatch(
             putHoliday({
                 id: props.data.id,
                 body: {
-                    bool: oldPhotoBoolean,
-                    photo: oldPhotoBoolean ? prevImage : props.data.photo,
+                    photo: prevImage,
                     name: prevName,
-                    date: newDate,
+                    date: prevHolidayDate,
                 },
             })
         )
@@ -50,18 +40,13 @@ const EditHolidaysModal = (props) => {
     useEffect(() => {
         return () => dispatch(clearHoliday())
     }, [])
-
+    const newImage = prevImage?.name ? null : prevImage
     return (
-        <div>
-            <BasicModal open={open} onClose={onClose}>
+        <BasicModal open={open} onClose={onClose}>
+            <form onSubmit={editCardHandler}>
                 <ModalChildDiv>
                     <AddTitle>Редактировать праздник</AddTitle>
-                    <ImagePicker
-                        onChange={setPrevImage}
-                        newFile={prevImage}
-                        value={imglink}
-                        oldPhotoBoolean={booleanValue}
-                    />
+                    <ImagePicker onChange={setPrevImage} newFile={newImage} />
                     <InModalChildDiv>
                         <LabelInputDiv>
                             <label htmlFor="Название праздника">
@@ -75,7 +60,7 @@ const EditHolidaysModal = (props) => {
                             />
                         </LabelInputDiv>
 
-                        <div>
+                        <>
                             <ViewsDatePicker
                                 width="100%"
                                 value={prevHolidayDate}
@@ -89,18 +74,15 @@ const EditHolidaysModal = (props) => {
                                 <Button variant="outlined" onClick={onClose}>
                                     Отмена
                                 </Button>
-                                <Button
-                                    onClick={editCardHandler}
-                                    variant="contained"
-                                >
+                                <Button type="submit" variant="contained">
                                     Сохранить
                                 </Button>
                             </CancelAddDiv>
-                        </div>
+                        </>
                     </InModalChildDiv>
                 </ModalChildDiv>
-            </BasicModal>
-        </div>
+            </form>
+        </BasicModal>
     )
 }
 

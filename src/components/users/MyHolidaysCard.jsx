@@ -6,7 +6,10 @@ import { useDispatch } from 'react-redux'
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
 import defaultimage from '../../assets/images/placeholder.webp'
-import { deleteHoliday } from '../../store/slices/HolidayActions'
+import {
+    deleteHoliday,
+    getHolidayById,
+} from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 export default function MyHolidaysCard({
@@ -27,6 +30,7 @@ export default function MyHolidaysCard({
             clickItem: () => {
                 onOpen(id)
                 getId(id)
+                dispatch(getHolidayById(id))
             },
         },
         {
