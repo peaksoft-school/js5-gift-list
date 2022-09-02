@@ -14,7 +14,7 @@ import {
 const InnerPageWishCard = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { innerPage } = useSelector((state) => state.wishCard)
+    const { dataWishCardWithId } = useSelector((state) => state.wishCard)
     const { wishListId } = useParams()
     useEffect(() => {
         dispatch(getWishWithId(wishListId))
@@ -30,22 +30,22 @@ const InnerPageWishCard = () => {
 
     return (
         <WrapperAll>
-            <Img src={innerPage?.wish?.photo} alt="image" />
+            <Img src={dataWishCardWithId?.wish?.photo} alt="image" />
             <WrapperDiv>
                 <User>
                     <StyledAvatar
-                        src={innerPage?.ownerUser?.photo}
+                        src={dataWishCardWithId?.ownerUser?.photo}
                         alt="avatar"
                     />
                     <UserName>
-                        {innerPage?.ownerUser?.firstName}{' '}
-                        {innerPage?.ownerUser?.lastName}
+                        {dataWishCardWithId?.ownerUser?.firstName}{' '}
+                        {dataWishCardWithId?.ownerUser?.lastName}
                     </UserName>
                     <ToBooking>
-                        {innerPage?.bookedUser ? (
+                        {dataWishCardWithId?.bookedUser ? (
                             <SpanAvatar>
                                 <AvatarToBooking
-                                    src={innerPage?.bookedUser?.photo}
+                                    src={dataWishCardWithId?.bookedUser?.photo}
                                 />
                                 Забронирован
                             </SpanAvatar>
@@ -60,12 +60,14 @@ const InnerPageWishCard = () => {
                 </WrapperNameGiftAndDate>
                 <WrapperPropsGiftAndDate>
                     <NameGiftProps>
-                        {innerPage?.wish?.holiday.name}
+                        {dataWishCardWithId?.wish?.holiday.name}
                     </NameGiftProps>
-                    <DateGiftProps>{innerPage?.wish?.wishDate}</DateGiftProps>
+                    <DateGiftProps>
+                        {dataWishCardWithId?.wish?.wishDate}
+                    </DateGiftProps>
                 </WrapperPropsGiftAndDate>
-                <StyledH1>{innerPage?.wish?.wishName}</StyledH1>
-                <Styledp>{innerPage?.wish?.description} </Styledp>
+                <StyledH1>{dataWishCardWithId?.wish?.wishName}</StyledH1>
+                <Styledp>{dataWishCardWithId?.wish?.description} </Styledp>
                 <WrapperButtons>
                     <Button variant="contained" onClick={toEditPage}>
                         Редактировать

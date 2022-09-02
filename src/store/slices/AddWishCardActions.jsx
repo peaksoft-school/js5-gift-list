@@ -5,10 +5,10 @@ import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 export const addGift = createAsyncThunk(
     'addWishCard/fetchByIdStatus',
-    async ({ photo, wishGift, dispatch }) => {
+    async ({ wishPhoto, wishGift, dispatch }) => {
         const formData = new FormData()
         try {
-            formData.set('file', photo)
+            formData.set('file', wishPhoto)
             const response = await appFetchFile({
                 url: 'api/file/upload',
                 body: formData,
@@ -77,8 +77,8 @@ export const putWishCard = createAsyncThunk(
         const formData = new FormData()
         try {
             const photoresponse = {}
-            if (object.photo.name) {
-                formData.set('file', object.photo)
+            if (object.wishPhoto.name) {
+                formData.set('file', object.wishPhoto)
                 photoresponse.link = await appFetchFile({
                     url: `api/file/upload`,
                     body: formData,
@@ -88,14 +88,14 @@ export const putWishCard = createAsyncThunk(
                 method: 'PUT',
                 url: `api/wish/${object.id}`,
                 body: {
-                    photo: object.photo.name
+                    photo: object.wishPhoto.name
                         ? photoresponse.link.link
-                        : object.photo,
+                        : object.wishPhoto,
                     wishName: object.wishGift.wishName,
                     wishLink: object.wishGift.wishLink,
                     description: object.wishGift.description,
                     holidayId: object.wishGift.holidayId,
-                    wishDate: '2022-09-01',
+                    wishDate: object.wishGift.wishDate,
                 },
             })
             object.dispatch(getWishGift())

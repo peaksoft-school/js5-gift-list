@@ -25,45 +25,45 @@ const EditWishCardPage = () => {
 
     const dispatch = useDispatch()
 
-    const { innerPage, holidaysToSelect } = useSelector(
+    const { dataWishCardWithId, holidaysToSelect } = useSelector(
         (state) => state.wishCard
     )
-    const [photo, setPhoto] = useState(null)
+    const [wishPhoto, setWishPhoto] = useState(null)
     const [wishGift, setWishGift] = useState({
         wishName: '',
         wishLink: '',
         description: '',
     })
-    const [date, setDate] = useState('')
-    const [select, setSelect] = useState('')
+    const [dateWish, setDateWish] = useState('')
+    const [wishSelect, setWishSelect] = useState('')
 
     useEffect(() => {
         dispatch(getWishWithId(id))
-    }, [innerPage?.wish?.photo])
+    }, [dataWishCardWithId?.wish?.photo])
     useEffect(() => {
         dispatch(getHolidaysToSelect())
     }, [])
 
     useEffect(() => {
         setWishGift({
-            wishName: innerPage?.wish?.wishName,
-            wishLink: innerPage?.wish?.wishLink,
-            description: innerPage?.wish?.description,
+            wishName: dataWishCardWithId?.wish?.wishName,
+            wishLink: dataWishCardWithId?.wish?.wishLink,
+            description: dataWishCardWithId?.wish?.description,
         })
-        setDate(innerPage?.wish?.wishDate)
-        setSelect(innerPage?.wish?.holiday.id)
-        setPhoto(innerPage?.wish?.photo)
-    }, [innerPage?.wish?.photo])
+        setDateWish(dataWishCardWithId?.wish?.wishDate)
+        setWishSelect(dataWishCardWithId?.wish?.holiday.id)
+        setWishPhoto(dataWishCardWithId?.wish?.photo)
+    }, [dataWishCardWithId?.wish?.photo])
 
     const cancel = () => {
         navigate('/wish_list')
     }
     const holidayNameHandler = (e) => {
-        setSelect(e.id)
+        setWishSelect(e.id)
     }
 
     const editImageHandler = (file) => {
-        setPhoto(file)
+        setWishPhoto(file)
     }
 
     const wishGiftHandler = (e) => {
@@ -74,10 +74,10 @@ const EditWishCardPage = () => {
     }
     const DateHandler = (e) => {
         const date = format(e, 'MM.dd.yy')
-        setDate(date)
+        setDateWish(date)
     }
-    wishGift.wishDate = date
-    wishGift.holidayId = select
+    wishGift.wishDate = dateWish
+    wishGift.holidayId = wishSelect
 
     const putDataWishCard = (e) => {
         e.preventDefault()
@@ -85,14 +85,14 @@ const EditWishCardPage = () => {
             putWishCard({
                 id,
                 wishGift,
-                photo,
+                wishPhoto,
                 dispatch,
             })
         )
         navigate('/wish_list')
     }
     const addHolidayHandler = () => {}
-    const img = photo?.name ? null : photo
+    const img = wishPhoto?.name ? null : wishPhoto
     return (
         <WrapperAll onSubmit={putDataWishCard}>
             <ImagePicker newFile={img} onChange={editImageHandler} />
@@ -119,7 +119,9 @@ const EditWishCardPage = () => {
                 <WrapperSelects>
                     <DivSelect>
                         <Select
-                            holidayName={innerPage?.wish?.holiday?.name}
+                            holidayName={
+                                dataWishCardWithId?.wish?.holiday?.name
+                            }
                             options={holidaysToSelect}
                             label="Праздник"
                             getValue={holidayNameHandler}
@@ -132,7 +134,7 @@ const EditWishCardPage = () => {
                     </DivSelect>
                     <DivDatePicker>
                         <ViewsDatePicker
-                            value={date}
+                            value={dateWish}
                             label="Дата праздника"
                             onChange={DateHandler}
                         />

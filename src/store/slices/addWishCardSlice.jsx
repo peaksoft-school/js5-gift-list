@@ -11,7 +11,7 @@ import {
 
 const initialState = {
     card: [],
-    innerPage: {},
+    dataWishCardWithId: {},
     holidaysToSelect: [],
     status: null,
     deleteId: false,
@@ -53,7 +53,7 @@ export const AddWishCardSlice = createSlice({
         },
         [getWishWithId.fulfilled]: (state, { payload }) => {
             state.status = 'success'
-            state.innerPage = payload
+            state.dataWishCardWithId = payload
         },
         [getHolidaysToSelect.fulfilled]: (state, { payload }) => {
             state.holidaysToSelect = payload

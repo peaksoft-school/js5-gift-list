@@ -34,7 +34,7 @@ const AddWishCardPage = () => {
 
     const [holidayId, setHolidays] = useState('')
     const [wishDate, setDateWishGift] = useState('')
-    const [photo, setImageGift] = useState('')
+    const [wishPhoto, setWishGiftPhoto] = useState('')
     const cancel = () => {
         navigate('/wish_list')
     }
@@ -48,10 +48,10 @@ const AddWishCardPage = () => {
         })
     }
     const addImageGift = (e) => {
-        setImageGift(e)
+        setWishGiftPhoto(e)
     }
     const addDateWishGift = (e) => {
-        const date = format(e, 'MM.dd.yy')
+        const date = format(e, 'dd.MM.yy')
         setDateWishGift(date)
     }
     const chooseHoliday = (e) => {
@@ -69,7 +69,7 @@ const AddWishCardPage = () => {
             wishGift.holidayId &&
             wishGift.wishDate
         ) {
-            dispatch(addGift({ photo, wishGift, dispatch }))
+            dispatch(addGift({ wishPhoto, wishGift, dispatch }))
             toWishPage()
         }
     }
