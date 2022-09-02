@@ -15,16 +15,34 @@ export const appFetch = async (data) => {
                       'Content-Type': 'application/json',
                   },
         }
-
         if (data.method !== 'GET' && data.body) {
             requestOptions.body = JSON.stringify(data.body)
         }
         const response = await fetch(URL_BASE + data.url, requestOptions)
         if (!response.ok) {
-            throw response.message
+            throw new Error(response.message)
         }
         return response.json()
     } catch (error) {
-        return error
+        throw new Error(error.message)
+    }
+}
+export const appFetchFile = async (config) => {
+    const { authSlice } = store.getState()
+    try {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${authSlice.user.jwt || ''}`,
+            },
+            body: config.body,
+        }
+        const response = await fetch(URL_BASE + config.url, requestOptions)
+        if (!response.ok) {
+            throw new Error(response.message)
+        }
+        return response.json()
+    } catch (error) {
+        throw new Error(error.message)
     }
 }

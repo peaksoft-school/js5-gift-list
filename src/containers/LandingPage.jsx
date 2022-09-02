@@ -112,9 +112,6 @@ export const LandingPage = () => {
         </div>
     )
 }
-// const BoxContainer = styled.div`
-//     width: ;
-// `
 const team = [
     { job: 'Катя, ведущий дизайнер TailGroup', photo: designer },
     { job: 'Марина, маркетолог Headers Market', photo: market },
@@ -227,7 +224,6 @@ const Contacts = styled.div`
         justify-content: space-between;
         width: 116px;
         height: 22px;
-        // padding-top: 10px;
         & img {
             cursor: pointer;
         }
