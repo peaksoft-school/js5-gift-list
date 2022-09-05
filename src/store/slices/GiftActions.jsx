@@ -5,7 +5,9 @@ import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 export const postCharity = createAsyncThunk(
     'addCharity/post_Charity',
-    async (props, { dispatch }) => {
+    // , { dispatch }
+    async (props) => {
+        // console.log(props)
         const formData = new FormData()
         try {
             formData.append('file', props.photo)
@@ -14,17 +16,22 @@ export const postCharity = createAsyncThunk(
                 url: 'api/file/upload',
                 body: formData,
             })
-            const data = { ...props }
-            data.photo = response?.link
+            // console.log(response)
             const post = await appFetch({
                 method: 'POST',
-                body: {
-                    ...data,
-                },
                 url: 'api/gifts',
+                body: {
+                    name: props.name,
+                    photo: response?.link,
+                    categoryId: props.categoryId,
+                    subCategoryId: props.subCategoryId,
+                    status: props.status,
+                    description: props.description,
+                },
             })
-            showSuccessMessage('successfully')
-            dispatch(getCharity())
+            // console.log(post)
+            // dispatch(getCharity())
+            showSuccessMessage('SUCCESS')
             return post
         } catch (error) {
             showErrorMessage('Failed')
@@ -34,12 +41,35 @@ export const postCharity = createAsyncThunk(
 )
 export const getCharity = createAsyncThunk(
     'addCharity/getCharity',
-    async () => {
+    async (setCharity) => {
         const response = await appFetch({ url: 'api/gifts' })
-        const data = response
-        return data
+        setCharity(response)
+        return response
     }
 )
+export const getCategory = createAsyncThunk(
+    'addCharity/getCategory',
+    async (setData) => {
+        const category = await appFetch({
+            url: 'api/categories',
+            method: 'GET',
+        })
+        setData(category)
+        return category
+    }
+)
+export const getSubCategory = createAsyncThunk(
+    'addCharity/getSubCategory',
+    async ({ id, setSubCategory }) => {
+        const subCategory = await appFetch({
+            url: `api/subCategories/${id}`,
+            method: 'GET',
+        })
+        setSubCategory(subCategory)
+        return subCategory
+    }
+)
+
 export const getSingleCharityById = createAsyncThunk(
     'addCharity/charityById',
     async (id) => {

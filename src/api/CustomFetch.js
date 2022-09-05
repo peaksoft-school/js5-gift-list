@@ -13,14 +13,13 @@ export const appFetch = async (data) => {
             method: data.method || 'GET',
             headers: authSlice.user.jwt
                 ? {
-                      'Content-Type': 'application/json',
                       Authorization: `Bearer ${authSlice.user.jwt}`,
+                      'Content-Type': 'application/json',
                   }
                 : {
                       'Content-Type': 'application/json',
                   },
         }
-
         if (data.method !== 'GET' && data.body) {
             requestOptions.body = JSON.stringify(data.body)
         }
@@ -28,13 +27,14 @@ export const appFetch = async (data) => {
         if (!response.ok) {
             throw response.message
         }
+        // console.log(response)
+
         return response.json()
     } catch (error) {
         return error
     }
 }
 export const appFetchFile = async (photo) => {
-    console.log(photo)
     const { authSlice } = store.getState()
     try {
         const requestOptions = {

@@ -1,9 +1,12 @@
-import Error from './components/ui/Error'
+import { AppRoutes } from './routes/AppRoutes'
+
+// import PageLayout from './layout/PageLayout'
 
 function App() {
     return (
         <div className="App">
-            <Error />
+            <AppRoutes />
+            {/* <PageLayout /> */}
         </div>
     )
 }

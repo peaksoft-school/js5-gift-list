@@ -13,34 +13,44 @@ const InnerPage = (props) => {
         navigate(`/charity/${props.data.id}/edit_charity`)
     }
     const reserve = () => {
-        setReserved(true)
+        setReserved((prev) => !prev)
     }
     return (
         <div style={styleForCard}>
-            <Img src={props.data.img} alt="image" />
+            <Img src={props.data.gift.photo} alt="image" />
             <WrapperDiv>
                 <User>
-                    <StyledAvatar src={props.data.avatar} alt="avatar" />
-                    <UserName>{props.data.userName}</UserName>
-                    <ToBooking>{props.data.status}</ToBooking>
+                    <StyledAvatar src={props.data.user.avatar} alt="avatar" />
+                    <UserName>{props.data.user.firstName}</UserName>
+
+                    <ToBooking>
+                        {' '}
+                        {props.data.gift.booking === null
+                            ? 'в ожидании'
+                            : 'забронирован'}
+                    </ToBooking>
                 </User>
-                <StyledH1>{props.data.nameGift}</StyledH1>
-                <Styledp>{props.data.aboutGift}</Styledp>
+                <StyledH1>{props.data.gift.name}</StyledH1>
+                <Styledp>{props.data.gift.description}</Styledp>
                 <WrapperNameGiftAndDate>
                     <NameGift>Категория:</NameGift>
                     <DateGift>Состояние:</DateGift>
                 </WrapperNameGiftAndDate>
                 <WrapperPropsGiftAndDate>
-                    <NameGiftProps>{props.data.category}</NameGiftProps>
-                    <DateGiftProps>{props.data.state}</DateGiftProps>
+                    <NameGiftProps>
+                        {props.data.gift.category.name}
+                    </NameGiftProps>
+                    <DateGiftProps>{props.data.gift.status}</DateGiftProps>
                 </WrapperPropsGiftAndDate>
                 <WrapperNameGiftAndDate>
                     <NameGift>Подкатегория:</NameGift>
                     <DateGift>Дата добавления:</DateGift>
                 </WrapperNameGiftAndDate>
                 <WrapperPropsGiftAndDate>
-                    <NameGiftProps>{props.data.subcategory}</NameGiftProps>
-                    <DateGiftProps>{props.data.addDate}</DateGiftProps>
+                    <NameGiftProps>
+                        {props.data.gift.subCategory.name}
+                    </NameGiftProps>
+                    <DateGiftProps>{props.data.gift.createdAt}</DateGiftProps>
                 </WrapperPropsGiftAndDate>
                 {/* --------------------------------------------- */}
                 <WrapperButtons>
@@ -51,20 +61,16 @@ const InnerPage = (props) => {
                         </>
                     )}
                     {props.notMy && (
-                        <>
+                        <But>
                             {!reserved && (
-                                <>
-                                    <label>
-                                        <input type="checkbox" />
-                                        Забронировать анонимно
-                                    </label>
-                                    <Button onClick={reserve}>
-                                        Забронировать
-                                    </Button>
-                                </>
+                                <Button onClick={reserve}>Забронировать</Button>
                             )}
-                            {reserved && <Button>Отменить бронь</Button>}
-                        </>
+                            {reserved && (
+                                <Button onClick={reserve}>
+                                    Отменить бронь
+                                </Button>
+                            )}
+                        </But>
                     )}
                     {props.admin && <Button>Заблокировать</Button>}
                 </WrapperButtons>
@@ -74,6 +80,11 @@ const InnerPage = (props) => {
     )
 }
 export default InnerPage
+const But = styled.div`
+    & button {
+        width: auto;
+    }
+`
 const styleForCard = {
     display: 'flex',
     margin: '30px',

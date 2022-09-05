@@ -5,7 +5,8 @@ import { Routes, Route } from 'react-router-dom'
 import EditCharity from '../components/ui/charity/EditCharity'
 import Error from '../components/ui/Error'
 import { Bookeds } from '../components/users/Bookeds'
-import { Charity } from '../components/users/Charity'
+import CharityInnerPage from '../components/users/charity/CharityInnerPage'
+import CharityUser from '../components/users/charity/CharityUser'
 import { Lenta } from '../components/users/Lenta'
 import { MyHalidays } from '../components/users/MyHalidays'
 import { WissList } from '../components/users/WissList'
@@ -22,11 +23,9 @@ const UserRoutes = () => {
                 <Route path="/wish_list" element={<WissList />} />
                 <Route path="/bookeds" element={<Bookeds />} />
                 <Route path="/my_halidays" element={<MyHalidays />} />
-                <Route path="/charity" element={<Charity />} />
-                <Route
-                    path="/charity/:id/edit_charity"
-                    element={<EditCharity />}
-                />
+                <Route path="/charity" element={<CharityUser />} />
+                <Route path="/charity/add_charity" element={<EditCharity />} />
+                <Route path="/:id/innerPage" element={<CharityInnerPage />} />
             </Route>
             <Route path={DEFAULT_ROUTES.NOT_FOUND.PATH} element={<Error />} />
         </Routes>

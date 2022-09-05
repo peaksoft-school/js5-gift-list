@@ -44,14 +44,13 @@ export const PageLayout = () => {
         </ContainerWrapper>
     )
 }
-
 const ContainerWrapper = styled('div')`
     width: 100%;
     margin: 0 auto;
 `
 const ContentWrapper = styled('div')`
-    margin-top: 100px;
-    min-height: 50vh;
+    margin-top: 30px;
+    /* min-height: 50vh; */
 `
 const Box = styled('div')`
     position: relative;
@@ -66,11 +65,8 @@ const SideBar = styled('div')`
     background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
     position: fixed;
     width: 294px;
-    /* top: 0; */
     height: 100%;
     box-sizing: border-box;
-    /* margin-top: -8px;
-    margin-left: -8px; */
     text-align: start;
     z-index: 99;
 `
@@ -80,11 +76,7 @@ const TextGift = styled('h2')`
     font-family: 'Inter', sans-serif;
     margin-bottom: 34px;
 `
-// const Content = styled('main')``
-
-const NavbarWrapper = styled('div')`
-    /* position: relative; */
-`
+const NavbarWrapper = styled('div')``
 const NavWrapper = styled('nav')`
     color: white;
     font-size: 18px;
@@ -101,12 +93,10 @@ const NavbarLink = styled(NavLink)`
     font-family: 'Inter', sans-serif;
     align-items: center;
     margin-top: 4px;
-
     div {
         display: flex;
         align-items: center;
         font-family: 'Inter', sans-serif;
-
         & :first-of-type {
             align-self: center;
         }
@@ -114,7 +104,6 @@ const NavbarLink = styled(NavLink)`
             margin-left: 15px;
         }
     }
-
     &.active {
         display: flex;
         letter-spacing: 0.01em;
@@ -123,13 +112,11 @@ const NavbarLink = styled(NavLink)`
         height: 50px;
         text-decoration: none;
         font-family: 'Inter', sans-serif;
-
         border-radius: 8px;
         position: relative;
         z-index: 10;
         div {
             display: flex;
-
             color: white;
         }
     }

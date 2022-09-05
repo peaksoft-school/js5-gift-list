@@ -12,6 +12,7 @@ export default function MeatBalls(props) {
     const open = Boolean(anchorEl)
 
     const handleClick = (event) => {
+        event.stopPropogation()
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {

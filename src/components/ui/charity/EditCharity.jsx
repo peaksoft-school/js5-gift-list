@@ -1,33 +1,51 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 import { InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-// import { addCharityActions } from '../../../store/slices/AddCharity'
-import { postCharity } from '../../../store/slices/GiftActions'
+import {
+    getCategory,
+    getSubCategory,
+    postCharity,
+} from '../../../store/slices/GiftActions'
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
+import Notification from '../notification/Notification'
 
 export default function EditCharity() {
+    const [category, setCategory] = useState()
+    const [subCategory, setSubCategory] = useState()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { id } = useParams()
+    useEffect(() => {
+        dispatch(getCategory(setCategory))
+    }, [])
+    // console.log(category)
     const [allvalue, setallvalue] = useState({
-        photo: null,
         name: '',
-        state: '',
-        category: '',
-        subcategory: '',
+        photo: null,
+        categoryId: '',
+        subCategoryId: '',
+        status: '',
         description: '',
     })
+    // console.log(allvalue)
+
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(postCharity(allvalue))
+        navigate('/charity')
     }
+    const getCategotyById = (id) => {
+        dispatch(getSubCategory({ id, setSubCategory }))
+    }
+
     return (
         <div style={styleForCard}>
-            <Title>Редактировать {id}</Title>
+            <Notification />
+            breadCrambs
             <Anketa onSubmit={submitHandler}>
                 <ImagePicker
                     onChange={(file) => {
@@ -60,56 +78,62 @@ export default function EditCharity() {
                             </InputLabel>
                             <InputLabel>Категория</InputLabel>
                             <Select
-                                value={allvalue.category}
+                                value={allvalue.categoryId}
                                 onChange={(e) => {
                                     setallvalue({
                                         ...allvalue,
-                                        category: e.target.value,
+                                        categoryId: e.target.value,
                                     })
                                 }}
                                 style={textFieldstyle}
                             >
-                                <MenuItem value="Электроника">
-                                    Электроника
-                                </MenuItem>
-                                <MenuItem value="Одежда">Одежда</MenuItem>
-                                <MenuItem value="Школа">Школа</MenuItem>
-                                <MenuItem value="Обувь">Обувь</MenuItem>
+                                {category &&
+                                    category.map((el) => (
+                                        <MenuItem
+                                            onClick={() => {
+                                                getCategotyById(el.id)
+                                            }}
+                                            key={el.id}
+                                            value={el.id}
+                                        >
+                                            {el.name}
+                                        </MenuItem>
+                                    ))}
                             </Select>
                         </div>
                         {/* ------------------------------------------------------------ */}
                         <div>
                             <InputLabel>Состояние</InputLabel>
                             <Select
-                                value={allvalue.state}
+                                value={allvalue.status}
                                 onChange={(e) => {
                                     setallvalue({
                                         ...allvalue,
-                                        state: e.target.value,
+                                        status: e.target.value,
                                     })
                                 }}
                                 style={textFieldstyle}
                             >
-                                <MenuItem value="Б/У">Б/У</MenuItem>
-                                <MenuItem value="Новое">Новое</MenuItem>
+                                <MenuItem value="USED">Б/У</MenuItem>
+                                <MenuItem value="NEW">Новое</MenuItem>
                             </Select>
                             <InputLabel>Подкатегория</InputLabel>
                             <Select
-                                value={allvalue.subcategory}
+                                value={allvalue.subCategoryId}
                                 onChange={(e) => {
                                     setallvalue({
                                         ...allvalue,
-                                        subcategory: e.target.value,
+                                        subCategoryId: e.target.value,
                                     })
                                 }}
                                 style={textFieldstyle}
                             >
-                                <MenuItem value="Электроника">
-                                    Электроника
-                                </MenuItem>
-                                <MenuItem value="Одежда">Одежда</MenuItem>
-                                <MenuItem value="Школа">Школа</MenuItem>
-                                <MenuItem value="Обувь">Обувь</MenuItem>
+                                {subCategory &&
+                                    subCategory.map((el) => (
+                                        <MenuItem key={el.id} value={el.id}>
+                                            {el.name}
+                                        </MenuItem>
+                                    ))}
                             </Select>
                         </div>
                         {/* --------------------------------  --------------------- */}
@@ -142,12 +166,12 @@ export default function EditCharity() {
     )
 }
 const styleForCard = {
-    margin: '30px',
-    padding: '20px',
+    margin: '30px auto',
+    // padding: '20px',
     width: '1086px',
-    height: '100%',
-    backgroundColor: '#ffffff',
-    borderRadius: '10px',
+    // height: '100%',
+    // backgroundColor: '#ffffff',
+    // borderRadius: '10px',
 }
 const Questionaire = styled('div')`
     display: flex;
@@ -188,8 +212,12 @@ const TextAreaStyle = {
 const Anketa = styled('form')`
     display: flex;
     justify-content: space-around;
-    background: #ffffff;
+    width: 1086px;
     border-radius: 10px;
+    margin: 30px auto;
+    padding: 20px;
+    height: 871px;
+    background-color: white;
 `
 const Title = styled('h1')`
     font-family: 'Inter';
