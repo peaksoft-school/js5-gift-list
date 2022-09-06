@@ -42,7 +42,6 @@ export default function MyHolidaysCard({
             },
         },
     ]
-    const dateReverse = date.split('-').reverse('').join('.')
     const image = {
         image: img,
     }
@@ -56,7 +55,7 @@ export default function MyHolidaysCard({
                 <HolidayTitle>{title}</HolidayTitle>
             </HolidayTitleDiv>
             <StyledFooter>
-                <StyledDate>{dateReverse}</StyledDate>
+                <StyledDate>{date}</StyledDate>
                 <MeatBallsWrapper onClick={(e) => e.stopPropagation()}>
                     <MeatBalls navigations={navigations} />
                 </MeatBallsWrapper>

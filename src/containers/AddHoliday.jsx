@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useSearchParams } from 'react-router-dom'
 
-import { ReactComponent as PlusIcon } from '../../assets/icons/plusIcon.svg'
-import Button from '../ui/Button'
+import { ReactComponent as PlusIcon } from '../assets/icons/plusIcon.svg'
+import Button from '../components/ui/Button'
 
 import AddHolidayModal from './AddHolidayModal'
 
@@ -23,7 +23,7 @@ const AddHoliday = () => {
     }
 
     return (
-        <div>
+        <>
             <TitleButtonWrapper>
                 <NamePage>Мои праздники</NamePage>
                 <Button
@@ -38,7 +38,7 @@ const AddHoliday = () => {
                 open={addHoliday === 'true'}
                 onClose={onCloseHandler}
             />
-        </div>
+        </>
     )
 }
 

@@ -1,32 +1,49 @@
 import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
+import moment from 'moment'
 import { useDispatch } from 'react-redux'
 
-import { putHoliday } from '../../store/slices/HolidayActions'
-import { clearHoliday } from '../../store/slices/HolidaySlice'
-import BasicModal from '../ui/BasicModal'
-import Button from '../ui/Button'
-import ViewsDatePicker from '../ui/datePicker/ViewsDatePicker'
-import ImagePicker from '../ui/ImagePicker'
-import Input from '../ui/Input'
+import BasicModal from '../components/ui/BasicModal'
+import Button from '../components/ui/Button'
+import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
+import ImagePicker from '../components/ui/ImagePicker'
+import Input from '../components/ui/Input'
+import { putHoliday } from '../store/slices/HolidayActions'
+import { clearHoliday } from '../store/slices/HolidaySlice'
 
 const EditHolidaysModal = (props) => {
-    const { open, onClose } = props
-    const [prevHolidayDate, setPrevHolidayDate] = useState('')
+    const { onOpen, open, onClose, locationId } = props
+    const [prevHolidayDate, setPrevHolidayDate] = useState(null)
     const [prevImage, setPrevImage] = useState(null)
     const [prevName, setPrevName] = useState('')
     const dispatch = useDispatch()
+
     useEffect(() => {
-        setPrevHolidayDate(props.data.holidayDate)
+        const addDate = moment(props.data.holidayDate, 'DD-MM-YYYY').format(
+            'YYYY-MM-DD'
+        )
+        setPrevHolidayDate(addDate)
         setPrevName(props.data.name)
         setPrevImage(props.data.photo)
     }, [props.data.name, props.data.photo, props.data.holidayDate])
 
-    const editCardHandler = () => {
+    const holidayNameChangeHandler = (e) => {
+        setPrevName(e.target.value)
+    }
+    const dateChangeHandler = (newData) => {
+        const addDate = moment(newData, 'YYYY-MM-DD').format('YYYY-MM-DD')
+
+        setPrevHolidayDate(addDate)
+    }
+    const editCardHandler = (e) => {
+        e.preventDefault()
         dispatch(
             putHoliday({
                 id: props.data.id,
+                locationId,
+                onClose,
+                onOpen,
                 body: {
                     photo: prevImage,
                     name: prevName,
@@ -34,7 +51,6 @@ const EditHolidaysModal = (props) => {
                 },
             })
         )
-        onClose()
     }
 
     useEffect(() => {
@@ -53,11 +69,8 @@ const EditHolidaysModal = (props) => {
                                 Название праздника
                             </label>
                             <Input
-                                onChange={(e) => {
-                                    setPrevName(e.target.value)
-                                }}
+                                onChange={holidayNameChangeHandler}
                                 value={prevName}
-                                name="prevName"
                                 type="text"
                                 placholder="Введите название праздника"
                             />
@@ -67,9 +80,7 @@ const EditHolidaysModal = (props) => {
                             <ViewsDatePicker
                                 width="100%"
                                 value={prevHolidayDate}
-                                onChange={(newValue) => {
-                                    setPrevHolidayDate(newValue)
-                                }}
+                                onChange={dateChangeHandler}
                                 label="Дата праздника"
                                 placeholder="Укажите дату праздника"
                             />

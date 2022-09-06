@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-// eslint-disable-next-line import/no-cycle
 import {
     getHoliday,
     postHoliday,
@@ -14,6 +13,7 @@ const initialState = {
     getSingleHoliday: {},
     error: null,
     status: null,
+    loadingSpinner: null,
     modal: false,
     editmodal: false,
 }
@@ -29,48 +29,50 @@ const HolidaySlice = createSlice({
         [postHoliday.pending]: (state) => {
             state.status = 'pending'
         },
-        [postHoliday.rejected]: (state) => {
-            state.status = 'rejected'
-        },
         [postHoliday.fulfilled]: (state, action) => {
             state.status = 'success'
             state.error = action.payload.error
         },
+        [postHoliday.rejected]: (state) => {
+            state.status = 'rejected'
+        },
         [getHoliday.pending]: (state) => {
             state.status = 'pending'
+            state.loadingSpinner = 'pending'
+        },
+        [getHoliday.fulfilled]: (state, action) => {
+            state.holiday = action.payload.reverse()
+            state.status = 'success'
+            state.loadingSpinner = 'success'
         },
         [getHoliday.rejected]: (state, action) => {
             state.status = 'rejected'
             state.error = action.error
-        },
-        [getHoliday.fulfilled]: (state, action) => {
-            const newArr = action.payload.reverse()
-            state.holiday = newArr
-            state.status = 'success'
+            state.loadingSpinner = 'rejected'
         },
         [getHolidayById.pending]: (state) => {
             state.status = 'pending'
-        },
-        [getHolidayById.rejected]: (state, action) => {
-            state.status = 'rejected'
-            state.error = action.error
         },
         [getHolidayById.fulfilled]: (state, action) => {
             state.getSingleHoliday = action.payload
             state.status = 'success'
         },
+        [getHolidayById.rejected]: (state, action) => {
+            state.status = 'rejected'
+            state.error = action.error
+        },
         [putHoliday.pending]: (state) => {
             state.status = 'pending'
-            state.editmodal = true
+            // state.editmodal = true
         },
         [putHoliday.rejected]: (state, action) => {
             state.status = 'rejected'
             state.error = action.error
-            state.editmodal = true
+            // state.editmodal = true
         },
         [putHoliday.fulfilled]: (state) => {
             state.status = 'success'
-            state.editmodal = false
+            state.editmodal = true
         },
         [deleteHoliday.pending]: (state) => {
             state.status = 'pending'

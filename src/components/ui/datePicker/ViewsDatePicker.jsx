@@ -20,12 +20,11 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder, width }) => {
     return (
         <Div>
             <Label htmlFor={label}>{label}</Label>
-
             <LocalizationProvider locale={ru} dateAdapter={AdapterDateFns}>
                 <ThemeProvider theme={theme}>
                     <DatePicker
                         autoComplete="off"
-                        format="MM/dd/yyyy"
+                        // inputFormat="dd.MM.yyyy"
                         value={value}
                         onChange={onChange}
                         renderInput={(params) => (

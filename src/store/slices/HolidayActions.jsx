@@ -10,7 +10,7 @@ export const postHoliday = createAsyncThunk(
         const formData = new FormData()
         try {
             formData.set('file', props.photo)
-            const holidayResponse = await appFetchFile({
+            const fileResponse = await appFetchFile({
                 url: 'api/file/upload',
                 body: formData,
             })
@@ -21,16 +21,16 @@ export const postHoliday = createAsyncThunk(
                 body: {
                     date: props.date,
                     name: props.holidayName,
-                    photo: holidayResponse?.link,
+                    photo: fileResponse.link,
                 },
             })
-
+            props.onClose()
             showSuccessMessage('Успешно добавлен')
             dispatch(getHoliday())
             return response
         } catch (error) {
+            props.onOpen()
             showErrorMessage('Вышла ошибка!')
-
             throw new Error(error.message)
         }
     }
@@ -49,7 +49,7 @@ export const getHolidayById = createAsyncThunk(
 
 export const putHoliday = createAsyncThunk(
     'holiday/putHoliday',
-    async (obj) => {
+    async (obj, { dispatch }) => {
         const formData = new FormData()
         try {
             const holidayResponse = {}
@@ -71,9 +71,12 @@ export const putHoliday = createAsyncThunk(
                         : obj.body.photo,
                 },
             })
+            dispatch(getHoliday())
+            obj.onClose()
             showSuccessMessage('Успешно изменен')
             return response
         } catch (error) {
+            obj.onOpen(obj.locationId)
             showErrorMessage('Вышла ошибка!')
             throw new Error(error.message)
         }

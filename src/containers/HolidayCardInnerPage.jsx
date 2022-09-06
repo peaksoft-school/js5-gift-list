@@ -5,15 +5,15 @@ import { useSelector } from 'react-redux/es/exports'
 import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-import deleteIcon from '../../../assets/icons/deleteIcon.svg'
-import editIcon from '../../../assets/icons/editIcon.svg'
+import deleteIcon from '../assets/icons/deleteIcon.svg'
+import editIcon from '../assets/icons/editIcon.svg'
+import GiftCard from '../components/users/GiftCard'
 import {
     deleteWishGift,
     getWishWithId,
-} from '../../../store/slices/AddWishCardActions'
-import { getHoliday } from '../../../store/slices/HolidayActions'
-import { getHolidayWish } from '../../../store/slices/HolidayGiftsActions'
-import GiftCard from '../../users/GiftCard'
+} from '../store/slices/AddWishCardActions'
+import { getHoliday } from '../store/slices/HolidayActions'
+import { getHolidayWish } from '../store/slices/HolidayGiftsActions'
 
 const HolidayCardInnerPage = () => {
     const { holidayGifts } = useParams()

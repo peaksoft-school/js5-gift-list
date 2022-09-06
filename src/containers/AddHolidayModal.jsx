@@ -1,24 +1,23 @@
 import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
-import format from 'date-fns/format'
+import moment from 'moment'
 import { useDispatch } from 'react-redux'
 
-import { postHoliday } from '../../store/slices/HolidayActions'
-import BasicModal from '../ui/BasicModal'
-import Button from '../ui/Button'
-import ViewsDatePicker from '../ui/datePicker/ViewsDatePicker'
-import ImagePicker from '../ui/ImagePicker'
-import Input from '../ui/Input'
+import defaultImage from '../assets/images/placeholder.webp'
+import BasicModal from '../components/ui/BasicModal'
+import Button from '../components/ui/Button'
+import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
+import ImagePicker from '../components/ui/ImagePicker'
+import Input from '../components/ui/Input'
+import { postHoliday } from '../store/slices/HolidayActions'
 
 const AddHolidayModal = (props) => {
-    const { open, onClose } = props
+    const { onOpen, open, onClose } = props
     const [photo, setPhoto] = useState(null)
     const [holidayName, setHolidayName] = useState('')
     const [holidayDate, setHolidayDate] = useState(null)
-
     const dispatch = useDispatch()
-
     const onChangeImageValue = (file) => {
         if (file.size <= 1000000) {
             setPhoto(file)
@@ -28,17 +27,22 @@ const AddHolidayModal = (props) => {
         setHolidayName(e.target.value)
     }
     const onChangeDateValue = (date) => {
-        const newDate = format(date, 'yyyy-MM-dd')
-        setHolidayDate(newDate)
+        const addDate = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD')
+        setHolidayDate(addDate)
     }
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (holidayDate === null || holidayName === '') {
-            return
-        }
-        dispatch(postHoliday({ photo, holidayName, date: holidayDate }))
-        onClose()
+        dispatch(
+            postHoliday({
+                photo,
+                holidayName,
+                date: holidayDate,
+                onClose,
+                onOpen,
+                default: defaultImage,
+            })
+        )
         setPhoto(null)
         setHolidayName('')
         setHolidayDate(null)
