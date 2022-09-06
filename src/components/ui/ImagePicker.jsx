@@ -12,7 +12,9 @@ const ImagePicker = ({ onChange, newFile }) => {
             setIcons(newFile)
         }
     }, [newFile])
-    const deleteImageHandler = () => {
+    const deleteImageHandler = (e) => {
+        e.stopPropagation()
+        e.preventDefault()
         refs.current.value = ''
         setIcons('')
     }
