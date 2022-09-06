@@ -3,11 +3,11 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import Error from '../components/ui/Error'
-import { Bookeds } from '../components/users/Bookeds'
 import { Charity } from '../components/users/Charity'
 import { Lenta } from '../components/users/Lenta'
 import { MyHalidays } from '../components/users/MyHalidays'
 import AddWishCardPage from '../containers/AddWishCardPage'
+import BookedPage from '../containers/BookedPage'
 import EditWishCardPage from '../containers/EditWishCardPage'
 import { Friends } from '../containers/FriendsPage'
 import InnerPageWishCard from '../containers/InnerPageWishCard'
@@ -31,7 +31,7 @@ const UserRoutes = () => {
                     path="/wish_list/:id/edit"
                     element={<EditWishCardPage />}
                 />
-                <Route path="/bookeds" element={<Bookeds />} />
+                <Route path="/bookedPage" element={<BookedPage />} />
                 <Route path="/my_halidays" element={<MyHalidays />} />
                 <Route path="/charity" element={<Charity />} />
             </Route>
