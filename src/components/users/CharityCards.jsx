@@ -17,9 +17,9 @@ export default function GiftCard(props) {
         holiday,
         date,
         isBooked,
-        id,
         navigation,
         idOfUser,
+        id,
     } = props
     return (
         <StyledCard variants={variant}>
@@ -32,7 +32,9 @@ export default function GiftCard(props) {
             <Wrapper>
                 <StyledCardContentFirst variants={variant}>
                     <NameGift>{nameGift}</NameGift>
-                    <StyledBirthday>{holiday}</StyledBirthday>
+                    <StyledBirthday>
+                        {holiday === 'USED' ? 'Б/У' : 'Новый'}
+                    </StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
                     <StyledDate variants={variant}>{date}</StyledDate>
@@ -45,7 +47,7 @@ export default function GiftCard(props) {
                                         alt="avatar"
                                     />
                                     {isBooked.userId === idOfUser
-                                        ? 'Вы забронировали'
+                                        ? ' Вы забронировали'
                                         : 'Забронирован'}
                                 </SpanAvatar>
                             ) : (
@@ -54,7 +56,13 @@ export default function GiftCard(props) {
                         </StyledText>
                     </WrapperToBooking>
                     <WrapperMeatBalls variants={variant}>
-                        <MeatBalls navigations={navigation} id={id} />
+                        {isBooked?.userId === idOfUser ? (
+                            <MeatBalls navigations={navigation} id={id} />
+                        ) : (
+                            !isBooked && (
+                                <MeatBalls navigations={navigation} id={id} />
+                            )
+                        )}
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>
             </Wrapper>
@@ -158,9 +166,9 @@ const StyledText = styled('span')`
 const StyledBirthday = styled('span')`
     font-size: Inter;
     font-weight: 400;
-    font-size: 13px;
-    line-height: 15px;
-    color: #0ba360;
+    font-size: 14px;
+    line-height: 17px;
+    color: #fd5200;
 `
 const StyledCardMedia = styled(CardMedia)(({ variants }) => ({
     borderRadius: '6px',

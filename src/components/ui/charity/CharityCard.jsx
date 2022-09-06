@@ -18,7 +18,11 @@ export default function CharityCard(props) {
                 alt="green iguana"
             />
             <StyledCardContentFirst>
-                <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
+                {props.variant === 'a' ? (
+                    ''
+                ) : (
+                    <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
+                )}
                 <UserName>{props.data.userName}</UserName>
             </StyledCardContentFirst>
 
@@ -34,7 +38,11 @@ export default function CharityCard(props) {
                         alt="Cindy Baker"
                         src={props.data.avatarInBooking}
                     />
-                    <StyledText>{props.data.toBook}</StyledText>
+                    <StyledText>
+                        {props.data.toBook === null
+                            ? 'В ожидании'
+                            : ' Забронирован'}
+                    </StyledText>
                     <MeatBalls navigations={props.meatBallsOptions} />
                 </Wrapper>
             </StyledCardContentSecond>

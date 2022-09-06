@@ -6,7 +6,7 @@ import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-export default function MyHolidaysCard({ img, title, date }) {
+export default function MyHolidaysCard({ img, title, date, variant }) {
     const navigations = [
         {
             id: '1',
@@ -25,7 +25,9 @@ export default function MyHolidaysCard({ img, title, date }) {
             </HolidayTitleDiv>
             <StyledFooter>
                 <StyledDate>{date}</StyledDate>
-                <MeatBalls navigations={navigations} />
+                {variant === 'withMeatBalls' && (
+                    <MeatBalls navigations={navigations} />
+                )}
             </StyledFooter>
         </StyledCard>
     )
@@ -36,6 +38,7 @@ const StyledCard = styled(Card)`
     height: 250px;
     border-radius: 8px;
     padding: 16px;
+    cursor: pointer;
 `
 const StyledCardMedia = styled(CardMedia)`
     width: 317px;

@@ -1,45 +1,50 @@
-// import React, { useState } from 'react'
-
-// import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { styled } from '@mui/material'
-// import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-// import { appFetch } from '../api/CustomFetch'
 import FriendTabs from '../components/users/FriendTabs'
-// import { getUsersAction } from '../store/slices/getUsersAction'
-
-const options = {
-    friends: [
-        { name: 'Doolot', id: '1', amountOfFriends: '1' },
-        { name: 'Burul', id: '2', amountOfFriends: '4' },
-    ],
-    requestToFriends: [{ name2: 'Ali', id: '3', amountOfFriends: '1' }],
-}
+import {
+    friendsAction,
+    requestsToFriendAction,
+} from '../store/slices/friendTabAction'
 
 export const Friends = () => {
-    // const [user, setUser] = useState()
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     dispatch(getUsersAction(setUser))
-    // }, [])
-    // const store = useSelector((state) => state.users)
-    // console.log(store)
-    // const [data, setData] = useState([])
+    const dispatch = useDispatch()
+    const [user, setUser] = useState()
+    const [requestToFriend, setRequestToFriend] = useState()
 
-    // const getData = async () => {
-    //     const user = await appFetch({
-    //         url: 'api/users/friends',
-    //     })
-    //     setData(user)
-    // }
-    // getData()
-    // console.log(user)
+    useEffect(() => {
+        dispatch(friendsAction(setUser))
+    }, [])
+
+    const store = useSelector((state) => state.users.friends)
+
+    const requestToFriendData = useSelector(
+        (state) => state.users.requestToFriend
+    )
+
+    useEffect(() => {
+        setUser(store)
+    }, [store])
+
+    useEffect(() => {
+        dispatch(requestsToFriendAction(setRequestToFriend))
+    }, [])
+
+    useEffect(() => {
+        setRequestToFriend(requestToFriendData)
+    }, [requestToFriendData])
     return (
         <MainDiv>
             <StyledMainTitle>Друзья</StyledMainTitle>
             <StyledDivTab>
-                <FriendTabs options={options} />
+                {user && (
+                    <FriendTabs
+                        options={user}
+                        requestToFriend={requestToFriend}
+                    />
+                )}
             </StyledDivTab>
         </MainDiv>
     )

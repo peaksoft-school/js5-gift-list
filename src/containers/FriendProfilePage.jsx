@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import {
     CardActions,
@@ -7,226 +7,271 @@ import {
     Typography,
     styled,
 } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import addInMyGiftIcon from '../assets/icons/addInMyGifts.svg'
+import cancelBooking from '../assets/icons/cancelBooking.svg'
+import complaintIcon from '../assets/icons/complaintss.svg'
 import { ReactComponent as Facebook } from '../assets/icons/facebookFriendProfilePage.svg'
+import { ReactComponent as GrayFacebook } from '../assets/icons/grayFacebook.svg'
+import { ReactComponent as GrayInstagram } from '../assets/icons/grayInstagram.svg'
+import { ReactComponent as GrayTelegram } from '../assets/icons/grayTelegram.svg'
+import { ReactComponent as GrayVk } from '../assets/icons/grayVk.svg'
 import { ReactComponent as Instagram } from '../assets/icons/instagram.svg'
 import { ReactComponent as Telegram } from '../assets/icons/telegram.svg'
+import toBookIcon from '../assets/icons/toBook.svg'
 import { ReactComponent as Vk } from '../assets/icons/vkFriendProfile.svg'
 import Button from '../components/ui/Button'
-import CharityCard from '../components/ui/charity/CharityCard'
+import Notification from '../components/ui/notification/Notification'
+import CharityCards from '../components/users/CharityCards'
 import GiftCard from '../components/users/GiftCard'
 import MyHolidays from '../components/users/MyHolidaysCard'
-
-const options = {
-    friends: [
-        { name: 'Doolot', id: '1', amountOfFriends: '1' },
-        { name: 'Burul', id: '2', amountOfFriends: '4' },
-    ],
-    requestToFriends: [{ name2: 'Ali', id: '3', amountOfFriends: '1' }],
-}
-
-const navigation = [
-    {
-        // icon: blockIcon,
-        title: 'Заблокировать',
-        id: '1',
-        clickItem: () => {},
-    },
-    {
-        // icon: deleteIcon,
-        title: 'удалить',
-        id: '2',
-        // clickItem: props.deleteFunc,
-    },
-]
-
-const data = [
-    {
-        img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
-        id: '1',
-        date: '20.01.2022',
-        title: 'Кадыр тун',
-    },
-    {
-        img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
-        id: '2',
-        date: '20.01.2022',
-        title: 'Кадыр тун',
-    },
-    {
-        img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
-        id: '3',
-        date: '20.01.2022',
-        title: 'Кадыр тун',
-    },
-    {
-        img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
-        id: '4',
-        date: '20.01.2022',
-        title: 'Кадыр тун',
-    },
-    {
-        img: 'https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg',
-        id: '5',
-        date: '20.01.2022',
-        title: 'Кадыр тун',
-    },
-]
-
-const option = [
-    {
-        toBook: 'reserved',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvFBa3G11OUBYADP7ouSBgwiiRzSYorF4dfg&usqp=CAU',
-        date: '20.93.2021',
-        userName: 'Sakura Chan',
-        status: 'Б/У',
-        giftName: 'Письма Элджертона',
-        avatarInBooking: 'avatarInBooking',
-        id: 1,
-    },
-    {
-        toBook: 'reserved',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvFBa3G11OUBYADP7ouSBgwiiRzSYorF4dfg&usqp=CAU',
-        date: '20.93.2021',
-        userName: 'Saske',
-        status: 'Б/У',
-        giftName: 'Письма Элджертона',
-        avatarInBooking: 'avatarInBooking',
-        id: 2,
-    },
-    {
-        toBook: 'reserved',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvFBa3G11OUBYADP7ouSBgwiiRzSYorF4dfg&usqp=CAU',
-        date: '20.93.2021',
-        userName: 'Naruto',
-        status: 'Б/У',
-        giftName: 'Письма Элджертона',
-        avatarInBooking: 'avatarInBooking',
-        id: 3,
-    },
-    {
-        toBook: 'reserved',
-        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvFBa3G11OUBYADP7ouSBgwiiRzSYorF4dfg&usqp=CAU',
-        date: '20.93.2021',
-        userName: 'Itachi',
-        status: 'Б/У',
-        giftName: 'Письма Элджертона',
-        avatarInBooking: 'avatarInBooking',
-        id: 4,
-    },
-]
-
-const giftData = [
-    {
-        id: '1',
-        image: 'https://poofpoof.com.ua/18263-medium_default/ruchka-s-beloj-pastoj-flowers.jpg',
-        nameGift: 'pen',
-        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
-        holiday: 'день рождения',
-        toBook: 'в ожидании',
-        date: '12.04.2022',
-    },
-    {
-        id: '2',
-
-        image: 'https://ae01.alicdn.com/kf/HTB1vlD6c5IRMeJjy0Fbq6znqXXaC/4pcs-lot-Totoro-Toys-DIY-Miyazaki-My-Neighbor-Totoro-Sitting-in-the-Tree-PVC-Action-Figures.jpg_Q90.jpg_.webp',
-        nameGift: 'toys',
-        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
-        holiday: 'день рождения',
-        toBook: 'в ожидании',
-        date: '12.04.2022',
-    },
-    {
-        id: '3',
-
-        image: 'https://isakaabengaluru.com/wp-content/uploads/2022/03/He7f88008e87a4391858c412a3dd8664ch.jpg',
-        nameGift: 'car',
-        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
-        holiday: 'день рождения',
-        toBook: 'в ожидании',
-        date: '12.04.2022',
-    },
-    {
-        id: '4',
-
-        image: 'https://shopshop.md/upload/catalog/products/thumbs/ej9esz2unk.jpg',
-        nameGift: 'bottle',
-        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
-        holiday: 'день рождения',
-        toBook: 'в ожидании',
-        date: '12.04.2022',
-    },
-    {
-        id: '4',
-
-        image: 'https://raskraski.com.ua/content/uploads/images/kartina-po-nomeram-afremova-leonida.jpg',
-        nameGift: 'art',
-        avatar: 'https://cdn.mos.cms.futurecdn.net/CAZ6JXi6huSuN4QGE627NR-320-80.jpg',
-        holiday: 'день рождения',
-        toBook: 'в ожидании',
-        date: '12.04.2022',
-    },
-]
+import ReportModal from '../components/users/ReportModal'
+import {
+    friendDeleteAction,
+    addToRequestFriendAction,
+    friendProfileAction,
+    toBookWish,
+    cancelBookingWish,
+    copmlainToWish,
+    toBookGift,
+    cancelBookingGift,
+    copmlainToGift,
+    addtoMyWish,
+} from '../store/slices/friendProfileAction'
+import {
+    acceptRequestToFriend,
+    rejectRequestToFriendAction,
+} from '../store/slices/friendTabAction'
 
 const FriendProfile = () => {
     const [showMoreWishCard, setShowMoreWishCard] = useState(false)
     const [showMoreHolidayCard, setShowMoreHolidayCard] = useState(false)
     const [showMoreCharityCard, setShowMoreCharityCard] = useState(false)
+    const [open, setOpen] = useState(false)
+    const [title, setTitle] = useState('')
+    const idOfUser = useSelector((state) => state.authSlice.user.id)
+    const { userId } = useParams()
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(friendProfileAction(userId))
+    }, [userId])
 
-    const { friendId } = useParams()
-    console.log(friendId)
-
-    const selectedUser = options.friends.find((el) => el.id === friendId)
-    const selectedUserTo = options.requestToFriends.find(
-        (el) => el.id === friendId
+    const { friend, userInfo, gifts, holidays, wishes } = useSelector(
+        (state) => state.friend
     )
-    // console.log(selectedUserTo)
-    // console.log(options.requestToFriends)
-    const data2 = data.map((el) => {
-        return (
-            <MyHolidays
-                key={el.id}
-                id={el.id}
-                img={el.img}
-                title={el.title}
-                date={el.date}
-            />
-        )
-    })
+    const friendId = useSelector((state) => state.friend.friend.id)
 
-    const dataCharity = option.map((el) => {
-        return (
-            <CharityCard key={el.id} data={el} meatBallsOptions={navigation} />
-        )
-    })
+    const toBookWishNavigatian = [
+        {
+            icon: toBookIcon,
+            title: 'Забронировать',
+            id: '1',
+            clickItem: (id) => toBookFunction(id),
+        },
+        {
+            icon: addInMyGiftIcon,
+            title: 'Добавить в мои подарки',
+            id: '2',
+            clickItem: (id) => addToMyWishHandler(id),
+        },
+        {
+            icon: complaintIcon,
+            title: 'Пожаловаться',
+            id: '3',
+            clickItem: (id) => {
+                openModal(id)
+            },
+        },
+    ]
+    const cancelBookingWishNavigation = [
+        {
+            icon: toBookIcon,
+            title: ' Снять бронь',
+            id: '1',
+            clickItem: (id) => cancelBookingWishFunction(id),
+        },
+        {
+            icon: addInMyGiftIcon,
+            title: 'Добавить в мои подарки',
+            id: '2',
+            clickItem: (id) => addToMyWishHandler(id),
+        },
+        {
+            icon: complaintIcon,
+            title: 'Пожаловаться',
+            id: '3',
+            clickItem: (id) => {
+                openModal(id)
+            },
+        },
+    ]
+    const toBookGiftNavigation = [
+        {
+            icon: toBookIcon,
+            title: 'Забронировать',
+            id: '1',
+            clickItem: (id) => toBookGiftFunction(id),
+        },
+        {
+            icon: complaintIcon,
+            title: 'Пожаловаться',
+            id: '2',
+            clickItem: openModal,
+        },
+    ]
+    const cancelBookingGiftNavigation = [
+        {
+            icon: cancelBooking,
+            title: ' Снять бронь',
+            id: '1',
+            clickItem: (id) => cancelBookingGiftFunction(id),
+        },
+        {
+            icon: complaintIcon,
+            title: 'Пожаловаться',
+            id: '2',
+            clickItem: openModal,
+        },
+    ]
+    const [idRep, setIdRep] = useState('')
+    function openModal(id) {
+        setIdRep(id)
+        setOpen(!open)
+    }
+    function cancelBookingGiftFunction(id) {
+        dispatch(cancelBookingGift({ id, dispatch, userId }))
+    }
+    function toBookGiftFunction(id) {
+        dispatch(toBookGift({ dispatch, id, userId }))
+    }
+    function toBookFunction(id) {
+        dispatch(toBookWish({ id, userId, dispatch }))
+    }
 
-    const giftData2 = giftData.map((el) => {
+    function cancelBookingWishFunction(id) {
+        dispatch(cancelBookingWish({ id, friendId, dispatch }))
+    }
+    // function addToMyWishFunction(id) {
+    //     dispatch(addToMyWish(id))
+    // }
+
+    const addToFriendHandler = () => {
+        dispatch(addToRequestFriendAction({ friendId, dispatch }))
+    }
+    const deleteFriendHandler = () => {
+        dispatch(friendDeleteAction({ dispatch, friendId }))
+    }
+    const acceptToFriendHandler = () => {
+        dispatch(acceptRequestToFriend({ dispatch, friendId }))
+    }
+    const rejectRequestHandler = () => {
+        dispatch(rejectRequestToFriendAction({ dispatch, friendId }))
+    }
+
+    const isShowMoreHandler = () => {
+        setShowMoreHolidayCard(!showMoreHolidayCard)
+    }
+    const isShowMoreWishHandler = () => {
+        setShowMoreWishCard(!showMoreWishCard)
+    }
+    const isShowMoreGiftHandler = () => {
+        setShowMoreCharityCard(!showMoreCharityCard)
+    }
+    const sendComplainToWishHandler = () => {
+        dispatch(copmlainToWish({ idRep, title }))
+        setOpen(false)
+        console.log('wish')
+    }
+    const sendComplainToGiftHandler = (id) => {
+        dispatch(copmlainToGift(id, title))
+        setOpen(false)
+        console.log('gift')
+    }
+    const addToMyWishHandler = (id) => {
+        dispatch(addtoMyWish(id))
+    }
+    const holidayLength = holidays.length
+    const wichIsShowHoliday = showMoreHolidayCard ? holidayLength : 3
+    const whichTextHoliday = wichIsShowHoliday < 4 ? 'Смотреть все' : 'Скрыть'
+    const wishesLength = wishes.length
+    const wichIsShowWish = showMoreWishCard ? wishesLength : 3
+    const whichTextWish = wichIsShowWish < 4 ? 'Смотреть все' : 'Скрыть'
+    const giftLength = gifts.length
+    const wichIsShowGift = showMoreCharityCard ? giftLength : 3
+    const whichIsTextGift = wichIsShowGift < 4 ? 'Смотреть все' : 'Скрыть'
+    const renderButtons = () => {
+        if (friend.friendStatus === 'FRIEND') {
+            return (
+                <ButtonDiv>
+                    <Button variant="outlined" onClick={deleteFriendHandler}>
+                        Удалить из друзей
+                    </Button>
+                </ButtonDiv>
+            )
+        }
+        if (friend.friendStatus === 'NOT_FRIEND') {
+            return (
+                <ButtonDiv>
+                    <Button variant="contained" onClick={addToFriendHandler}>
+                        Добавить в друзья
+                    </Button>
+                </ButtonDiv>
+            )
+        }
+        if (friend.friendStatus === 'REQUEST_TO_FRIEND') {
+            return (
+                <ButtonDiv>
+                    <Button variant="contained" onClick={acceptToFriendHandler}>
+                        Принять заявку
+                    </Button>
+                    <Button variant="outlined" onClick={rejectRequestHandler}>
+                        Отклонить
+                    </Button>
+                </ButtonDiv>
+            )
+        }
+
         return (
-            <GiftCard
-                key={el.id}
-                variant="board"
-                id={el.id}
-                nameGift={el.nameGift}
-                image={el.image}
-                avatar={el.avatar}
-                holiday={el.holiday}
-                date={el.date}
-                toBook={el.toBook}
-                onClick={() => {
-                    console.log('add')
-                }}
-            />
+            <ButtonDiv>
+                <Button variant="contained">Запрос отправлен</Button>
+            </ButtonDiv>
         )
-    })
+    }
+
+    const change = (e) => {
+        setTitle(e.title)
+    }
+    const closeModalHandler = () => {
+        setOpen(false)
+    }
+    console.log(title, wishes)
+
     return (
         <ContainerDiv>
+            {open && (
+                <ReportModal
+                    open={open}
+                    onClose={closeModalHandler}
+                    onChange={change}
+                    onClick={sendComplainToWishHandler}
+                />
+            )}
+            {open && (
+                <ReportModal
+                    open={open}
+                    onClose={closeModalHandler}
+                    onChange={change}
+                    onClick={sendComplainToGiftHandler}
+                />
+            )}
             <div>
                 <RouteTitle>
-                    Друзья
-                    <RouteNameTitle>
-                        / {selectedUserTo.name2 || selectedUser.name}
-                    </RouteNameTitle>
+                    {friend.friendStatus === 'FRIEND'
+                        ? 'Друзья'
+                        : 'Запросы в друзья'}
+                    <RouteNameTitle>/{friend?.firstName}</RouteNameTitle>
                 </RouteTitle>
             </div>
 
@@ -234,163 +279,230 @@ const FriendProfile = () => {
                 <div>
                     <StyledCard>
                         <StyledCardMedia
-                            image="https://storage.ws.pho.to/s2/408d0e5ca2a34fa8022d6c840a789f177eed35e6_m.jpeg"
+                            image={friend?.photo}
                             alt="green iguana"
                         />
                         <CardContent>
-                            <StyledTypography>
-                                {selectedUserTo.name2 || selectedUser.name}
-                            </StyledTypography>
-                            <ButtonDiv>
-                                <Button
-                                    variant="contained"
-                                    onClick={() => {
-                                        console.log('add')
-                                    }}
-                                >
-                                    Добавить в друзья
-                                </Button>
-                            </ButtonDiv>
+                            <UserName>
+                                <StyledTypography>
+                                    {friend?.firstName}
+                                </StyledTypography>
+                                <StyledTypography>
+                                    {friend?.lastName}
+                                </StyledTypography>
+                            </UserName>
+                            {renderButtons()}
                         </CardContent>
                         <StyledCardActions>
-                            <a href="https://www.facebook.com">
-                                <Facebook />
+                            <a href={userInfo?.facebookLink}>
+                                {userInfo?.facebookLink ? (
+                                    <Facebook />
+                                ) : (
+                                    <GrayFacebook />
+                                )}
+                            </a>{' '}
+                            <a href={userInfo?.instagramLink}>
+                                {userInfo?.instagramLink ? (
+                                    <Instagram />
+                                ) : (
+                                    <GrayInstagram />
+                                )}
                             </a>
-                            <a href="https://www.instagram.com">
-                                <Instagram />
+                            <a href={userInfo?.telegramLink}>
+                                {userInfo?.telegramLink ? (
+                                    <Telegram />
+                                ) : (
+                                    <GrayTelegram />
+                                )}
                             </a>
-                            <a href="https://desktop.telegram.org">
-                                <Telegram />
-                            </a>
-                            <a href="https://vk.com">
-                                <Vk />
+                            <a href={userInfo?.vkLink}>
+                                {userInfo?.vkLink ? <Vk /> : <GrayVk />}
                             </a>
                         </StyledCardActions>
                     </StyledCard>
                 </div>
                 <InfoDiv>
                     <MainTitle>Основная информация</MainTitle>
-                    <GrayTitle>Город:</GrayTitle>
-                    <StyledTitle>Бишкек</StyledTitle>
-                    <GrayTitle>Email:</GrayTitle>
-                    <StyledTitle>Aika1998@gmail.com</StyledTitle>
-                    <GrayTitle>Дата рождения:</GrayTitle>
-                    <StyledTitle>12.04.1998</StyledTitle>
-                    <GrayTitle>Номер телефона:</GrayTitle>
-                    <StyledTitle>+9967052364</StyledTitle>
+
+                    {userInfo?.city ? (
+                        <div>
+                            <GrayTitle>Город:</GrayTitle>
+                            <StyledTitle>{userInfo?.city}</StyledTitle>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+
+                    {friend?.email ? (
+                        <div>
+                            <GrayTitle>Email:</GrayTitle>
+                            <StyledTitle>{friend?.email}</StyledTitle>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                    {userInfo?.dateOfBirth ? (
+                        <div>
+                            <GrayTitle>Дата рождения:</GrayTitle>
+                            <StyledTitle>{userInfo?.dateOfBirth}</StyledTitle>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                    {userInfo?.phoneNumber ? (
+                        <div>
+                            <GrayTitle>Номер телефона:</GrayTitle>
+                            <StyledTitle>{userInfo?.phoneNumber}</StyledTitle>
+                        </div>
+                    ) : (
+                        ''
+                    )}
                 </InfoDiv>
                 <InfoDiv>
-                    <MainTitle>Интересы, хобби</MainTitle>
-                    <GrayTitle>Интересы, хобби:</GrayTitle>
-                    <StyledTitle>Танцы, иностранные языки, готовка</StyledTitle>
-                    <MainTitle>Доп. инфо</MainTitle>
-                    <GrayTitle>Размер одежды:</GrayTitle>
-                    <StyledTitle>S</StyledTitle>
-                    <GrayTitle>Размер обуви:</GrayTitle>
-                    <StyledTitle>36</StyledTitle>
-                    <GrayTitle>Важно знать:</GrayTitle>
-                    <StyledTitle>Против спиртных напитков</StyledTitle>
+                    {userInfo?.hobby ? (
+                        <div>
+                            <MainTitle>Интересы, хобби</MainTitle>
+                            <GrayTitle>Интересы, хобби:</GrayTitle>
+                            <StyledTitle>{userInfo?.hobby}</StyledTitle>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                    {userInfo?.clothingSize ||
+                    userInfo?.shoeSize ||
+                    userInfo?.importantNote ? (
+                        <MainTitle>Дополнительное информация</MainTitle>
+                    ) : (
+                        ''
+                    )}
+                    {userInfo?.clothingSize ? (
+                        <div>
+                            <GrayTitle>Размер одежды:</GrayTitle>
+                            <StyledTitle>{userInfo?.clothingSize}</StyledTitle>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                    {userInfo?.shoeSize ? (
+                        <div>
+                            <GrayTitle>Размер обуви:</GrayTitle>
+                            <StyledTitle>{userInfo?.shoeSize}</StyledTitle>
+                        </div>
+                    ) : (
+                        ''
+                    )}
+                    {userInfo?.importantNote ? (
+                        <div>
+                            <GrayTitle>Важно знать:</GrayTitle>
+                            <StyledTitle>{userInfo?.importantNote}</StyledTitle>
+                        </div>
+                    ) : (
+                        ''
+                    )}
                 </InfoDiv>
             </ContentDiv>
-            <div>
+            {wishes.length > 0 ? (
                 <MainCardTitle>Желаемые подарки</MainCardTitle>
-                <StyledShowMoreDiv>
-                    <p onClick={() => setShowMoreWishCard(!showMoreWishCard)}>
-                        Смотреть все
-                    </p>
+            ) : (
+                ''
+            )}
+            {wishesLength <= 3 ? (
+                ''
+            ) : (
+                <StyledShowMoreDiv onClick={isShowMoreWishHandler}>
+                    <p>{whichTextWish}</p>
                 </StyledShowMoreDiv>
-                <StyledCardDiv>
-                    {showMoreWishCard ? (
-                        giftData2
-                    ) : (
-                        <StyledCardDiv>
-                            {' '}
-                            {giftData.slice(0, 3).map((el) => {
-                                return (
-                                    <GiftCard
-                                        key={el.id}
-                                        variant="board"
-                                        id={el.id}
-                                        nameGift={el.nameGift}
-                                        image={el.image}
-                                        avatar={el.avatar}
-                                        holiday={el.holiday}
-                                        date={el.date}
-                                        toBook={el.toBook}
-                                        onClick={() => {
-                                            console.log('add')
-                                        }}
-                                    />
-                                )
-                            })}
-                        </StyledCardDiv>
-                    )}
-                </StyledCardDiv>
-            </div>
-            <div>
+            )}
+
+            <StyledCardDiv>
+                {wishes.slice(0, wichIsShowWish).map((el) => {
+                    return (
+                        <GiftCard
+                            key={el.wish?.wishId}
+                            variant="board"
+                            id={el.wish?.wishId}
+                            nameGift={el.wish?.wishName}
+                            image={el?.wish?.photo}
+                            avatarBooked={el?.bookedUser?.photo}
+                            holiday={el.wish?.holiday?.name}
+                            date={el.wish?.wishDate}
+                            isBooked={el?.bookedUser}
+                            idOfUser={idOfUser}
+                            navigation={
+                                el?.bookedUser === null
+                                    ? toBookWishNavigatian
+                                    : cancelBookingWishNavigation
+                            }
+                        />
+                    )
+                })}
+            </StyledCardDiv>
+            {holidays.length > 0 ? (
                 <MainCardTitle>Праздники</MainCardTitle>
-                <StyledShowMoreDiv>
-                    <p
-                        onClick={() =>
-                            setShowMoreHolidayCard(!showMoreHolidayCard)
-                        }
-                    >
-                        Смотреть все
-                    </p>
+            ) : (
+                ''
+            )}
+            {holidayLength <= 3 ? (
+                ''
+            ) : (
+                <StyledShowMoreDiv onClick={isShowMoreHandler}>
+                    <p>{whichTextHoliday}</p>
                 </StyledShowMoreDiv>
+            )}
 
-                <StyledCardDiv>
-                    {showMoreHolidayCard ? (
-                        data2
-                    ) : (
-                        <StyledCardDiv>
-                            {' '}
-                            {data.slice(0, 3).map((el) => {
-                                return (
-                                    <MyHolidays
-                                        key={el.id}
-                                        id={el.id}
-                                        date={el.date}
-                                        title={el.title}
-                                        img={el.img}
-                                    />
-                                )
-                            })}
-                        </StyledCardDiv>
-                    )}
-                </StyledCardDiv>
-            </div>
-            <div>
+            <StyledCardDiv>
+                {holidays.slice(0, wichIsShowHoliday).map((el) => {
+                    return (
+                        <MyHolidays
+                            key={el.id}
+                            id={el.id}
+                            date={el.holidayDate}
+                            title={el.name}
+                            img={el.photo}
+                            variant="withoutMeatBalls"
+                        />
+                    )
+                })}
+            </StyledCardDiv>
+            {gifts.length > 0 ? (
                 <MainCardTitle>Благотворительность</MainCardTitle>
-                <StyledShowMoreDiv>
-                    <p
-                        onClick={() =>
-                            setShowMoreCharityCard(!showMoreCharityCard)
-                        }
-                    >
-                        Смотреть все
-                    </p>
+            ) : (
+                ''
+            )}
+            {giftLength <= 3 ? (
+                ''
+            ) : (
+                <StyledShowMoreDiv onClick={isShowMoreGiftHandler}>
+                    <p>{whichIsTextGift}</p>
                 </StyledShowMoreDiv>
+            )}
 
+            <div>
                 <StyledCardDiv>
-                    {showMoreCharityCard ? (
-                        dataCharity
-                    ) : (
-                        <StyledCardDiv>
-                            {' '}
-                            {option.slice(0, 3).map((el) => {
-                                return (
-                                    <CharityCard
-                                        key={el.id}
-                                        data={el}
-                                        meatBallsOptions={navigation}
-                                    />
-                                )
-                            })}
-                        </StyledCardDiv>
-                    )}
+                    {gifts.slice(0, wichIsShowGift).map((el) => {
+                        return (
+                            <CharityCards
+                                id={el.gift?.giftId}
+                                key={el.gift?.giftId}
+                                variant="board"
+                                nameGift={el.gift?.name}
+                                image={el.ownerUser?.photo}
+                                avatarBooked={el.bookedUser?.photo}
+                                holiday={el.gift?.status}
+                                date={el.gift?.createdAt}
+                                isBooked={el?.bookedUser}
+                                idOfUser={idOfUser}
+                                navigation={
+                                    el?.bookedUser === null
+                                        ? toBookGiftNavigation
+                                        : cancelBookingGiftNavigation
+                                }
+                            />
+                        )
+                    })}
                 </StyledCardDiv>
             </div>
+            <Notification />
         </ContainerDiv>
     )
 }
@@ -408,7 +520,7 @@ const ContainerDiv = styled('div')`
 
 const ContentDiv = styled('div')`
     background-color: white;
-    width: 1086px;
+    width: 1118px;
     height: 464px;
     display: grid;
     grid-template-columns: 230px 290px 300px;
@@ -436,15 +548,20 @@ const RouteNameTitle = styled('span')`
     line-height: 17px;
     color: #000000;
 `
+
+const UserName = styled('div')`
+    display: flex;
+    justify-content: space-around;
+`
 const MainCardTitle = styled('div')`
     font-family: 'Inter', sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: bolder;
     font-size: 18px;
     line-height: 22px;
     letter-spacing: 0.2px;
+    margin-top: 54px;
     color: #020202;
-    margin-bottom: -28px;
 `
 const MainTitle = styled('p')`
     font-family: 'Inter', sans-serif;
@@ -453,7 +570,6 @@ const MainTitle = styled('p')`
     font-size: 18px;
     line-height: 22px;
     display: flex;
-    align-items: center;
     letter-spacing: 0.2px;
     color: #8639b5;
 `
@@ -480,6 +596,7 @@ const StyledTitle = styled('span')`
 const StyledShowMoreDiv = styled('div')`
     display: flex;
     justify-content: flex-end;
+    margin-top: -34px;
     & p {
         display: inline;
         color: blue;
@@ -494,7 +611,8 @@ const StyledCardDiv = styled('div')`
     grid-template-rows: repeat(1, 1fr);
     grid-column-gap: 36px;
     grid-row-gap: 36px;
-    margin-bottom: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 `
 const StyledCard = styled('div')`
     display: flex;
@@ -536,6 +654,6 @@ const ButtonDiv = styled('div')`
         font-weight: 500;
         font-size: 16px;
         line-height: 19px;
-        color: #ffffff;
+        margin-bottom: 16px;
     }
 `
