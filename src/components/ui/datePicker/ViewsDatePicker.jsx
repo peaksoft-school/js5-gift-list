@@ -24,7 +24,6 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder, width }) => {
                 <ThemeProvider theme={theme}>
                     <DatePicker
                         autoComplete="off"
-                        // inputFormat="dd.MM.yyyy"
                         value={value}
                         onChange={onChange}
                         renderInput={(params) => (

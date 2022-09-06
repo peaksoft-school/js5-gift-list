@@ -63,12 +63,10 @@ const HolidaySlice = createSlice({
         },
         [putHoliday.pending]: (state) => {
             state.status = 'pending'
-            // state.editmodal = true
         },
         [putHoliday.rejected]: (state, action) => {
             state.status = 'rejected'
             state.error = action.error
-            // state.editmodal = true
         },
         [putHoliday.fulfilled]: (state) => {
             state.status = 'success'
