@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { useSearchParams, useNavigate, useLocation } from 'react-router-dom'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { ReactComponent as PlusIcon } from '../assets/icons/plusIcon.svg'
@@ -18,7 +18,9 @@ const HolidaysPage = () => {
     const [holidayById, setHolidayById] = useState(params.get('id'))
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const locaionId = params.get('id')
     const { editHoliday, addHoliday } = Object.fromEntries([...params])
+
     const navigateToInnerPage = (id) => {
         navigate(`${id}`)
     }
@@ -44,8 +46,6 @@ const HolidaysPage = () => {
             dispatch(getHolidayById(holidayById))
         }
     }, [holidayById, dispatch])
-    const location = useLocation()
-    const locaionId = location.search.split('=')[2]
     return (
         <HolidayCardDiv>
             <TitleButtonWrapper>

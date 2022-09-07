@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { format } from 'date-fns'
 
 // eslint-disable-next-line import/no-cycle
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
@@ -7,6 +8,7 @@ import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 export const postHoliday = createAsyncThunk(
     'holiday/postHoliday',
     async (props, { dispatch }) => {
+        const formatDate = format(props.date, 'yyyy-MM-dd')
         const formData = new FormData()
         try {
             formData.set('file', props.photo)
@@ -19,7 +21,7 @@ export const postHoliday = createAsyncThunk(
                 method: 'POST',
                 url: 'api/holiday',
                 body: {
-                    date: props.date,
+                    date: formatDate,
                     name: props.holidayName,
                     photo: fileResponse.link,
                 },
@@ -29,7 +31,6 @@ export const postHoliday = createAsyncThunk(
             dispatch(getHoliday())
             return response
         } catch (error) {
-            props.onOpen()
             showErrorMessage('Вышла ошибка!')
             throw new Error(error.message)
         }
@@ -50,6 +51,7 @@ export const getHolidayById = createAsyncThunk(
 export const putHoliday = createAsyncThunk(
     'holiday/putHoliday',
     async (obj, { dispatch }) => {
+        const formatDate = format(obj.body.date, 'yyyy-MM-dd')
         const formData = new FormData()
         try {
             const holidayResponse = {}
@@ -65,7 +67,7 @@ export const putHoliday = createAsyncThunk(
                 url: `api/holiday/${obj.id}`,
                 body: {
                     name: obj.body.name,
-                    date: obj.body.date,
+                    date: formatDate,
                     photo: obj.body.photo.name
                         ? holidayResponse.link.link
                         : obj.body.photo,
@@ -76,7 +78,6 @@ export const putHoliday = createAsyncThunk(
             showSuccessMessage('Успешно изменен')
             return response
         } catch (error) {
-            obj.onOpen(obj.locationId)
             showErrorMessage('Вышла ошибка!')
             throw new Error(error.message)
         }

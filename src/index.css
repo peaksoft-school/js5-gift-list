@@ -10,12 +10,10 @@ body {
     font-family: 'Inter';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: #f7f8fa;
 }
 
 code {
     font-family: 'Inter';
-    /* 'Courier New', monospace; */
 }
 
 :root {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
-import moment from 'moment'
 import { useDispatch } from 'react-redux'
 
 import defaultImage from '../assets/images/placeholder.webp'
@@ -13,7 +12,7 @@ import Input from '../components/ui/Input'
 import { postHoliday } from '../store/slices/HolidayActions'
 
 const AddHolidayModal = (props) => {
-    const { onOpen, open, onClose } = props
+    const { open, onClose } = props
     const [photo, setPhoto] = useState(null)
     const [holidayName, setHolidayName] = useState('')
     const [holidayDate, setHolidayDate] = useState(null)
@@ -27,8 +26,7 @@ const AddHolidayModal = (props) => {
         setHolidayName(e.target.value)
     }
     const onChangeDateValue = (date) => {
-        const addDate = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD')
-        setHolidayDate(addDate)
+        setHolidayDate(date)
     }
 
     const submitHandler = (e) => {
@@ -39,7 +37,6 @@ const AddHolidayModal = (props) => {
                 holidayName,
                 date: holidayDate,
                 onClose,
-                onOpen,
                 default: defaultImage,
             })
         )

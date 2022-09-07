@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
-import moment from 'moment'
+// import moment from 'moment'
 import { useDispatch } from 'react-redux'
 
 import BasicModal from '../components/ui/BasicModal'
@@ -13,17 +13,13 @@ import { putHoliday } from '../store/slices/HolidayActions'
 import { clearHoliday } from '../store/slices/HolidaySlice'
 
 const EditHolidaysModal = (props) => {
-    const { onOpen, open, onClose, locationId } = props
+    const { open, onClose, locationId } = props
     const [prevHolidayDate, setPrevHolidayDate] = useState(null)
     const [prevImage, setPrevImage] = useState(null)
     const [prevName, setPrevName] = useState('')
     const dispatch = useDispatch()
-
     useEffect(() => {
-        const addDate = moment(props.data.holidayDate, 'DD-MM-YYYY').format(
-            'YYYY-MM-DD'
-        )
-        setPrevHolidayDate(addDate)
+        setPrevHolidayDate(props.data.holidayDate)
         setPrevName(props.data.name)
         setPrevImage(props.data.photo)
     }, [props.data.name, props.data.photo, props.data.holidayDate])
@@ -32,9 +28,7 @@ const EditHolidaysModal = (props) => {
         setPrevName(e.target.value)
     }
     const dateChangeHandler = (newData) => {
-        const addDate = moment(newData, 'YYYY-MM-DD').format('YYYY-MM-DD')
-
-        setPrevHolidayDate(addDate)
+        setPrevHolidayDate(newData)
     }
     const editCardHandler = (e) => {
         e.preventDefault()
@@ -43,7 +37,6 @@ const EditHolidaysModal = (props) => {
                 id: props.data.id,
                 locationId,
                 onClose,
-                onOpen,
                 body: {
                     photo: prevImage,
                     name: prevName,
