@@ -25,6 +25,7 @@ const HelloPage = ({ signupHandler }) => {
         const user = localStorage.getItem(GIFTLIST_REMEMBER)
         const { jwt, id, firstName, lastName, role, email, checked } =
             JSON.parse(user)
+        console.log(user)
 
         if (checked) {
             localStorage.setItem(

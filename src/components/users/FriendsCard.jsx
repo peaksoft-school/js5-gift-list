@@ -12,6 +12,8 @@ const FriendsCard = ({
     variant,
 }) => {
     const acceptRequestHandler = (event, id) => {
+        console.log(id)
+
         event.stopPropagation()
         console.log(id)
     }

@@ -48,7 +48,7 @@ const ResultDiv = styled('div')`
     position: absolute;
     height: auto;
     top: 69px;
-    width: 823px;
+    width: 100%;
 `
 
 const StyledFormPaper = styled(Paper)`
@@ -58,7 +58,7 @@ const StyledFormPaper = styled(Paper)`
     align-items: center;
     padding: 2px;
     gap: 18px;
-    width: 821px;
+    width: 100%;
     height: 40px;
     border: 1px solid #bdbdbd;
     border-radius: 8px;
@@ -72,7 +72,7 @@ const StyledFormPaper = styled(Paper)`
 `
 
 const MuiInputBase = styled(InputBase)`
-    width: 721px;
+    width: 100%;
     height: 17px;
     font-style: normal;
     font-weight: 400;

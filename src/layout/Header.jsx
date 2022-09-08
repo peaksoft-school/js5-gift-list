@@ -1,31 +1,16 @@
-import { useState } from 'react'
-
 import styled from '@emotion/styled'
 
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg'
-import MainSearchInput from '../components/ui/MainSearchInput'
-
 // import MainSearchInput from '../components/ui/MainSearchInput'
+
 import MenuAccaunt from './MenuAccaount'
 
 export const Header = () => {
-    const options = [{ name: 'Ann', id: '1' }]
-    const [value, setValue] = useState('')
-    const valueChangeHandler = (e) => {
-        setValue(e.target.value)
-    }
-    const inputClickHandler = (user) => {
-        console.log(user)
-    }
     return (
         <Headers>
             <InputDiv>
-                <MainSearchInput
-                    options={options}
-                    onChange={valueChangeHandler}
-                    value={value}
-                    onClick={inputClickHandler}
-                />
+                {/* <MainSearchInput
+                /> */}
             </InputDiv>
             <WarningSpan>
                 <WarningIcon />
@@ -53,6 +38,7 @@ const WarningSpan = styled('span')`
     margin-left: 30px;
 `
 const InputDiv = styled('div')`
+    width: 60%;
     display: flex;
     flex-direction: column;
 `
