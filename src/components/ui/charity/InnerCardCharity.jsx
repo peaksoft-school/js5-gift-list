@@ -14,9 +14,8 @@ const InnerPage = (props) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const id = useSelector((state) => state.authSlice?.user.id)
-    const bool = Boolean(props.data.gift)
     const link = () => {
-        navigate(`/${props.data.gift.giftId}/edit_charity/${bool}`)
+        navigate(`/${props.data.gift.giftId}/edit_charity`)
     }
     const reserve = () => {
         dispatch(toBookCharity(props.data?.gift.giftId))

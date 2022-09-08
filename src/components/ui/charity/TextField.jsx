@@ -1,6 +1,6 @@
-import { InputLabel } from '@mui/material'
+import { InputLabel, TextField } from '@mui/material'
 
-const TextField = (props) => {
+const TextFields = (props) => {
     return (
         <InputLabel style={props.style}>
             {props.label}
@@ -15,4 +15,4 @@ const TextField = (props) => {
         </InputLabel>
     )
 }
-export default TextField
+export default TextFields

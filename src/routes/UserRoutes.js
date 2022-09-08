@@ -67,7 +67,7 @@ const UserRoutes = () => {
                 <Route path="/charity" element={<CharityUser />} />
                 <Route path="/charity/add_charity" element={<EditCharity />} />
                 <Route
-                    path="/:editId/edit_charity/:true"
+                    path="/:editId/edit_charity"
                     element={<EditMyCharity />}
                 />
                 <Route path="/:id/innerPage" element={<CharityInnerPage />} />

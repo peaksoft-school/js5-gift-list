@@ -29,7 +29,6 @@ export const postCharity = createAsyncThunk(
             showSuccessMessage('Успешно добавлено!')
             dispatch(getCharity())
             dispatch(getMyCharity())
-            // window.location.reload()
             return post
         } catch (error) {
             showErrorMessage(error.message)
@@ -89,7 +88,6 @@ export const toBookCharity = createAsyncThunk(
 )
 export const toCancelCharity = createAsyncThunk(
     'toBook/toBookCharity',
-    // , { dispatch }
     async (id, { dispatch }) => {
         const response = await appFetch({
             method: 'POST',
@@ -106,7 +104,6 @@ export const getSingleCharityById = createAsyncThunk(
     'addCharity/charityById',
     async (id) => {
         const response = await appFetch({ url: `api/gifts/${id}` })
-        console.log(response)
         return response
     }
 )
@@ -137,7 +134,6 @@ export const putCharity = createAsyncThunk(
                     description: obj.description,
                 },
             })
-            // showSuccessMessage('Ваш подарок отредактирован!')
             dispatch(getCharity())
             dispatch(getMyCharity())
             return response

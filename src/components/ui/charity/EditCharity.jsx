@@ -15,7 +15,7 @@ import ImagePicker from '../ImagePicker'
 import Notification from '../notification/Notification'
 
 import SelectCharity from './SelectCharity'
-import TextField from './TextField'
+import TextFields from './TextField'
 
 export default function EditCharity() {
     const [category, setCategory] = useState()
@@ -61,23 +61,8 @@ export default function EditCharity() {
                     <Title>Добавление вещи </Title>
                     <Questionaire>
                         <div>
-                            {/* <InputLabel style={InputLabelstyle}>
-                                Название подарка
-                                <TextField
-                                    value={allvalue.name}
-                                    onChange={(e) => {
-                                        setallvalue({
-                                            ...allvalue,
-                                            name: e.target.value,
-                                        })
-                                    }}
-                                    variant="outlined"
-                                    InputProps={{
-                                        style: textFieldstyle,
-                                    }}
-                                />
-                            </InputLabel> */}
-                            <TextField
+                            <TextFields
+                                label=" Название подарка"
                                 style={InputLabelstyle}
                                 value={allvalue.name}
                                 onChange={(e) => {
@@ -131,22 +116,7 @@ export default function EditCharity() {
                         </div>
                         {/* --------------------------------  --------------------- */}
                     </Questionaire>
-                    {/* <InputLabel style={TextAreaStyle}>
-                        Описание подарка */}
-                    {/* <TextField
-                            value={allvalue.description}
-                            onChange={(e) => {
-                                setallvalue({
-                                    ...allvalue,
-                                    description: e.target.value,
-                                })
-                            }}
-                            InputProps={{
-                                style: styles,
-                            }}
-                            variant="outlined"
-                        /> */}
-                    <TextField
+                    <TextFields
                         style={TextAreaStyle}
                         label="Описание подарка"
                         value={allvalue.description}
@@ -158,7 +128,6 @@ export default function EditCharity() {
                         }}
                         propsstyle={styles}
                     />
-                    {/* </InputLabel> */}
                     {/* -------------------------  --------------------- */}
                     <Buttons>
                         <Button variant="outlined">Отмена</Button>
@@ -205,11 +174,6 @@ const textFieldstyle = {
     borderRadius: '6px',
     margin: '5px 0',
 }
-// const InputLabelstyle = {
-//     display: 'flex',
-//     flexDirection: 'column',
-//     height: '70px',
-// }
 const TextAreaStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -240,16 +204,3 @@ const styles = {
     alignItems: 'flex-start',
     padding: '8px 8px',
 }
-// const AboutGift = styled('textarea')`
-//     width: auto;
-//     height: 111px;
-//     border: 1px solid #bdbdbd;
-//     border-radius: 6px;
-//     align-items: flex-start;
-//     padding: 8px 18px;
-//     text-decoration: none;
-//     :active {
-//         border: 1px solid red;
-//     }
-//     /* background-color: red; */
-// `

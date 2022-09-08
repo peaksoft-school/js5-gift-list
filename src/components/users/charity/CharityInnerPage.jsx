@@ -1,5 +1,3 @@
-// import { useState, useEffect } from 'react'
-
 import { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -19,7 +17,6 @@ const CharityInnerPage = () => {
 
     return (
         <Container>
-            {/* breadCrambs */}
             breadCrambs
             {state && <InnerPage notMy data={state} />}
         </Container>

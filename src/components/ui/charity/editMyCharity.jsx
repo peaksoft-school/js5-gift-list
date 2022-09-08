@@ -13,35 +13,48 @@ import {
 } from '../../../store/slices/GiftActions'
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
-// import Notification from '../notification/Notification'
 
 export default function EditMyCharity() {
-    const [category, setCategory] = useState()
-    const [subCategory, setSubCategory] = useState()
-    const state = useSelector((state) => state.addCharity.single)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { editId } = useParams()
-    useEffect(() => {
-        dispatch(getCategory(setCategory))
-        dispatch(getSingleCharityById(editId))
-        dispatch(
-            getSubCategory({ id: state?.gift?.category.id, setSubCategory })
-        )
-    }, [])
+    const [category, setCategory] = useState()
+    const [subCategory, setSubCategory] = useState()
+    const state = useSelector((state) => state.addCharity.single)
+
     const [allvalue, setallvalue] = useState({
-        name: state?.gift.name,
-        photo: state?.gift.photo,
-        categoryId: state?.gift.category.id,
-        subCategoryId: state?.gift.subCategory.id,
-        status: state?.gift.status,
-        description: state?.gift.description,
+        name: '',
+        photo: '',
+        categoryId: '',
+        subCategoryId: '',
+        status: '',
+        description: '',
     })
+    useEffect(() => {
+        const fetch = async () => {
+            dispatch(getCategory(setCategory))
+            const res = await dispatch(getSingleCharityById(editId)).unwrap()
+            setallvalue({
+                name: res?.gift.name,
+                photo: res?.gift.photo,
+                categoryId: res?.gift.category.id,
+                subCategoryId: res?.gift.subCategory.id,
+                status: res?.gift.status,
+                description: res?.gift.description,
+            })
+            dispatch(
+                getSubCategory({
+                    id: res?.gift?.category.id,
+                    setSubCategory,
+                })
+            )
+        }
+        fetch()
+    }, [])
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(putCharity({ id: state?.gift.giftId, ...allvalue }))
         navigate('/charity')
-        // window.location.reload()
     }
     const getsubcategory = (id) => {
         dispatch(getSubCategory({ id, setSubCategory }))
@@ -49,7 +62,6 @@ export default function EditMyCharity() {
     const img = state?.gift.photo?.name ? null : state?.gift.photo
     return (
         <div style={styleForCard}>
-            {/* <Notification /> */}
             breadCrambs
             <Anketa onSubmit={submitHandler}>
                 {state && (
@@ -126,7 +138,6 @@ export default function EditMyCharity() {
                             <InputLabel>Подкатегория</InputLabel>
                             <Select
                                 value={allvalue.subCategoryId}
-                                // defaultValue={allvalue.subCategoryId}
                                 onChange={(e) => {
                                     setallvalue({
                                         ...allvalue,
@@ -147,7 +158,6 @@ export default function EditMyCharity() {
                     </Questionaire>
                     <InputLabel style={TextAreaStyle}>
                         Описание подарка
-                        {/* <AboutGift /> */}
                         <TextField
                             value={allvalue.description}
                             onChange={(e) => {
@@ -179,11 +189,7 @@ export default function EditMyCharity() {
 }
 const styleForCard = {
     margin: '30px auto',
-    // padding: '20px',
     width: '100%',
-    // height: '100%',
-    // backgroundColor: '#ffffff',
-    // borderRadius: '10px',
 }
 const Questionaire = styled('div')`
     display: flex;
@@ -247,16 +253,3 @@ const styles = {
     alignItems: 'flex-start',
     padding: '8px 8px',
 }
-// const AboutGift = styled('textarea')`
-//     width: auto;
-//     height: 111px;
-//     border: 1px solid #bdbdbd;
-//     border-radius: 6px;
-//     align-items: flex-start;
-//     padding: 8px 18px;
-//     text-decoration: none;
-//     :active {
-//         border: 1px solid red;
-//     }
-//     /* background-color: red; */
-// `

@@ -11,7 +11,6 @@ import {
     toBookCharity,
     toCancelCharity,
 } from '../../../store/slices/GiftActions'
-// import photo from '../../admin/Rectangle 8 (1).png'
 import Button from '../../ui/Button'
 import CharityCard from '../../ui/charity/CharityCard'
 import Notification from '../../ui/notification/Notification'
@@ -80,24 +79,13 @@ const CharityUser = () => {
 }
 export default CharityUser
 const CardList = styled.div`
-    /* width: 100%; */
     min-width: 1086px;
     margin: 30px 20px;
-    /* display: flex;
-    flex-wrap: wrap;
-    min-width: 1086px;
-    margin: 30px auto;
-    padding: 0px; */
-    /* min-width: 1086px;
-    margin: 30px auto; */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 19px;
     grid-row-gap: 15px;
-    /* & div {
-        margin: 10px;
-    } */
 `
 const Header = styled.div`
     display: flex;
@@ -120,19 +108,14 @@ const Header = styled.div`
         justify-content: flex-start;
     }
     & h2 {
-        /* margin: 0px 20px; */
         font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
         font-size: 20px;
-        /* height: auto; */
         line-height: 24px;
         display: flex;
         align-items: center;
         letter-spacing: 0.2px;
-
-        /* black */
-
         color: #020202;
     }
     & img {

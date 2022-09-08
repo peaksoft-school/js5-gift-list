@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-// import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
-
-// import { postCharity } from './GiftActions'
 import { getCharity, getMyCharity, getSingleCharityById } from './GiftActions'
 
 const initial = {
@@ -16,16 +13,6 @@ const addCharity = createSlice({
     name: 'addCharity',
     initialState: initial,
     extraReducers: {
-        // [postCharity.fulfilled]: (state, action) => {
-        //     console.log(action.payload)
-        //     state.status = 'success'
-        //     state.data = action.payload
-        //     showSuccessMessage('ExtraReducer')
-        // },
-        // [postCharity.rejected]: (state) => {
-        //     state.status = 'error'
-        //     showErrorMessage('Rejected')
-        // },
         [getCharity.fulfilled]: (state, action) => {
             state.data = action.payload.reverse()
         },
