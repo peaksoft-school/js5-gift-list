@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 
 import styled from '@emotion/styled'
 import MenuItem from '@mui/material/MenuItem'
-import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -22,7 +21,6 @@ const EditWishCardPage = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const id = location.pathname.split('/')[2]
-
     const dispatch = useDispatch()
 
     const { dataWishCardWithId, holidaysToSelect } = useSelector(
@@ -73,8 +71,7 @@ const EditWishCardPage = () => {
         })
     }
     const DateHandler = (e) => {
-        const date = format(e, 'MM.dd.yy')
-        setDateWish(date)
+        setDateWish(e)
     }
     wishGift.wishDate = dateWish
     wishGift.holidayId = wishSelect
@@ -89,7 +86,7 @@ const EditWishCardPage = () => {
                 dispatch,
             })
         )
-        navigate('/wish_list')
+        // navigate('/wish_list')
     }
     const addHolidayHandler = () => {}
     const img = wishPhoto?.name ? null : wishPhoto

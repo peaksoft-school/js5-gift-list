@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import styled from '@emotion/styled'
 import MenuItem from '@mui/material/MenuItem'
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -51,8 +51,8 @@ const AddWishCardPage = () => {
         setWishGiftPhoto(e)
     }
     const addDateWishGift = (e) => {
-        const date = format(e, 'dd.MM.yy')
-        setDateWishGift(date)
+        // const date = format(e, 'yyyy-MM-dd')
+        setDateWishGift(e)
     }
     const chooseHoliday = (e) => {
         setHolidays(e.id)

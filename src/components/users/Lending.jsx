@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import SignUp from '../authorization/SingUp'
+import SignUp from '../../components/authorization/SignUp'
 
 export default function Lending() {
     const [state, setState] = useState(false)

@@ -1,4 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { format } from 'date-fns'
+// import parseISO from 'date-fns/parseISO'
 
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
@@ -7,6 +9,8 @@ export const addGift = createAsyncThunk(
     'addWishCard/fetchByIdStatus',
     async ({ wishPhoto, wishGift, dispatch }) => {
         const formData = new FormData()
+        const date = format(wishGift.wishDate, 'yyyy-MM-dd')
+        console.log(date)
         try {
             formData.set('file', wishPhoto)
             const response = await appFetchFile({
@@ -22,14 +26,14 @@ export const addGift = createAsyncThunk(
                     wishLink: wishGift.wishLink,
                     description: wishGift.description,
                     holidayId: wishGift.holidayId,
-                    wishDate: '2022-09-01',
+                    wishDate: date,
                 },
             })
             if (!responseAll.wish) {
                 showErrorMessage('error')
             }
             if (responseAll.wish) {
-                showSuccessMessage('успешно!')
+                showSuccessMessage('Успешно!')
             }
             dispatch(getWishGift())
             return responseAll
@@ -53,11 +57,16 @@ export const getWishGift = createAsyncThunk('get/wishGift', async () => {
 export const deleteWishGift = createAsyncThunk(
     'delete/wishGift',
     async (id) => {
-        const deleteResponse = await appFetch({
-            method: 'DELETE',
-            url: `api/wish/${id}`,
-        })
-        return deleteResponse
+        try {
+            const deleteResponse = await appFetch({
+                method: 'DELETE',
+                url: `api/wish/${id}`,
+            })
+            showSuccessMessage('Успешно!')
+            return deleteResponse
+        } catch (error) {
+            throw new Error(showErrorMessage('Что-то пошло не так'))
+        }
     }
 )
 
@@ -75,6 +84,12 @@ export const putWishCard = createAsyncThunk(
     'wishCard/putWishCard',
     async (object) => {
         const formData = new FormData()
+        const date = object.wishGift.wishDate
+        // const wishDate =
+        //     date === 'yyyy.MM.dd' ? date : format(date, 'yyyy-MM-dd')
+        // console.log(wishDate)
+        // // const date = format(object.wishGift.wishDate, 'yyyy-MM-dd')
+
         try {
             const photoresponse = {}
             if (object.wishPhoto.name) {
@@ -95,9 +110,10 @@ export const putWishCard = createAsyncThunk(
                     wishLink: object.wishGift.wishLink,
                     description: object.wishGift.description,
                     holidayId: object.wishGift.holidayId,
-                    wishDate: '2022-09-01',
+                    wishDate: date,
                 },
             })
+            console.log(response, 'hello')
             object.dispatch(getWishGift())
             return response
         } catch (error) {
