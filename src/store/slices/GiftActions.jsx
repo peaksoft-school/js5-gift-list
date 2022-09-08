@@ -82,6 +82,7 @@ export const toBookCharity = createAsyncThunk(
         })
         dispatch(getCharity())
         dispatch(getMyCharity())
+        dispatch(getSingleCharityById(id))
         return response
     }
 )
@@ -95,6 +96,7 @@ export const toCancelCharity = createAsyncThunk(
         })
         dispatch(getCharity())
         dispatch(getMyCharity())
+        dispatch(getSingleCharityById(id))
         return response
     }
 )
@@ -103,6 +105,7 @@ export const getSingleCharityById = createAsyncThunk(
     'addCharity/charityById',
     async (id) => {
         const response = await appFetch({ url: `api/gifts/${id}` })
+        console.log(response)
         return response
     }
 )

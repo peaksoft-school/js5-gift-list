@@ -25,24 +25,25 @@ export default function EditMyCharity() {
     useEffect(() => {
         dispatch(getCategory(setCategory))
         dispatch(getSingleCharityById(editId))
+        dispatch(
+            getSubCategory({ id: state?.gift?.category.id, setSubCategory })
+        )
     }, [])
     const [allvalue, setallvalue] = useState({
         name: state?.gift.name,
         photo: state?.gift.photo,
         categoryId: state?.gift.category.id,
-        subCategoryId: '',
+        subCategoryId: state?.gift.subCategory.id,
         status: state?.gift.status,
         description: state?.gift.description,
     })
-
     const submitHandler = (e) => {
         e.preventDefault()
-
         dispatch(putCharity({ id: state?.gift.giftId, ...allvalue }))
         navigate('/charity')
         // window.location.reload()
     }
-    const getCategotyById = (id) => {
+    const getsubcategory = (id) => {
         dispatch(getSubCategory({ id, setSubCategory }))
     }
     const img = state?.gift.photo?.name ? null : state?.gift.photo
@@ -93,18 +94,17 @@ export default function EditMyCharity() {
                                 }}
                                 style={textFieldstyle}
                             >
-                                {category &&
-                                    category.map((el) => (
-                                        <MenuItem
-                                            onClick={() => {
-                                                getCategotyById(el.id)
-                                            }}
-                                            key={el.id}
-                                            value={el.id}
-                                        >
-                                            {el.name}
-                                        </MenuItem>
-                                    ))}
+                                {category?.map((el) => (
+                                    <MenuItem
+                                        onClick={() => {
+                                            getsubcategory(el.id)
+                                        }}
+                                        key={el.id}
+                                        value={el.id}
+                                    >
+                                        {el.name}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </div>
                         {/* ------------------------------------------------------------ */}
@@ -126,6 +126,7 @@ export default function EditMyCharity() {
                             <InputLabel>Подкатегория</InputLabel>
                             <Select
                                 value={allvalue.subCategoryId}
+                                // defaultValue={allvalue.subCategoryId}
                                 onChange={(e) => {
                                     setallvalue({
                                         ...allvalue,

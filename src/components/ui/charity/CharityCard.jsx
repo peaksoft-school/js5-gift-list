@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import styled from '@emotion/styled'
 import Avatar from '@mui/material/Avatar'
 import MuiCard from '@mui/material/Card'
@@ -10,15 +8,11 @@ import { useSelector } from 'react-redux'
 import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
-    const reserved = useState(
-        props.data.booking == null ? 'в ожидании' : 'забронирован'
-    )
     const userId = useSelector((state) => state.authSlice?.user.id)
     const notReserved = [
         {
             icon: props.icon,
             title: 'забронировать',
-            // props.data?.booking !== null ? 'снять бронь' : 'забронировать',
             id: '1',
             clickItem: (id) => {
                 props.clickItem(id)
@@ -29,7 +23,6 @@ export default function CharityCard(props) {
         {
             icon: props.icon,
             title: 'снять бронь',
-            // props.data?.booking !== null ? 'снять бронь' : 'забронировать',
             id: '1',
             clickItem: (id) => {
                 props.cancelBooking(id)
@@ -62,13 +55,17 @@ export default function CharityCard(props) {
                 <Wrapper>
                     <StyledAvatarOnBook
                         alt="Cindy Baker"
-                        src={props.data.avatarInBooking}
+                        src={props.bookedUser?.photo}
                     />
-                    <StyledText>{reserved}</StyledText>
+                    <StyledText>
+                        {props.data.booking == null
+                            ? 'в ожидании'
+                            : 'забронирован'}
+                    </StyledText>
                     {props.data.booking == null && (
                         <MeatBalls navigations={notReserved} id={props.id} />
                     )}
-                    {props.bookedUser === userId && (
+                    {props.bookedUser?.userId === userId && (
                         <MeatBalls navigations={reservedByMe} id={props.id} />
                     )}
                     {props.data.booking !== null && ''}

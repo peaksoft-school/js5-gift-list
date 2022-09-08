@@ -64,7 +64,7 @@ const CharityUser = () => {
                         clickItem={(id) => dispatch(toBookCharity(id))}
                         cancelBooking={(id) => dispatch(toCancelCharity(id))}
                         userName={el.ownerUser.firstName}
-                        bookedUser={el.bookedUser?.userId}
+                        bookedUser={el?.bookedUser}
                         key={el.gift.giftId}
                         data={el.gift}
                         clickCard={(event) => {
