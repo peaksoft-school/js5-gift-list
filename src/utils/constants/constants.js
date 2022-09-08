@@ -26,7 +26,7 @@ export const RolePaths = {
         },
         {
             pathName: 'Забронированные',
-            path: '/bookeds',
+            path: '/bookedPage',
             icon: <Bron />,
         },
         {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 // import moment from 'moment'
+// import { format, parse } from 'date-fns'
 import { useDispatch } from 'react-redux'
 
 import BasicModal from '../components/ui/BasicModal'
@@ -14,12 +15,16 @@ import { clearHoliday } from '../store/slices/HolidaySlice'
 
 const EditHolidaysModal = (props) => {
     const { open, onClose, locationId } = props
-    const [prevHolidayDate, setPrevHolidayDate] = useState(null)
+    const [prevHolidayDate, setPrevHolidayDate] = useState('')
     const [prevImage, setPrevImage] = useState(null)
     const [prevName, setPrevName] = useState('')
     const dispatch = useDispatch()
+
     useEffect(() => {
-        setPrevHolidayDate(props.data.holidayDate)
+        if (props.data.holidayDate) {
+            const sd = props.data.holidayDate.split('.')
+            setPrevHolidayDate(new Date(sd[2], sd[1] - 1, sd[0]))
+        }
         setPrevName(props.data.name)
         setPrevImage(props.data.photo)
     }, [props.data.name, props.data.photo, props.data.holidayDate])
@@ -52,43 +57,44 @@ const EditHolidaysModal = (props) => {
     const newImage = prevImage?.name ? null : prevImage
     return (
         <BasicModal open={open} onClose={onClose}>
-            <form onSubmit={editCardHandler}>
-                <ModalChildDiv>
-                    <AddTitle>Редактировать праздник</AddTitle>
-                    <ImagePicker onChange={setPrevImage} newFile={newImage} />
-                    <InModalChildDiv>
-                        <LabelInputDiv>
-                            <label htmlFor="Название праздника">
-                                Название праздника
-                            </label>
-                            <Input
-                                onChange={holidayNameChangeHandler}
-                                value={prevName}
-                                type="text"
-                                placholder="Введите название праздника"
-                            />
-                        </LabelInputDiv>
+            <ModalChildDiv>
+                <AddTitle>Редактировать праздник</AddTitle>
+                <ImagePicker onChange={setPrevImage} newFile={newImage} />
+                <InModalChildDiv>
+                    <LabelInputDiv>
+                        <label htmlFor="Название праздника">
+                            Название праздника
+                        </label>
+                        <Input
+                            onChange={holidayNameChangeHandler}
+                            value={prevName}
+                            type="text"
+                            placholder="Введите название праздника"
+                        />
+                    </LabelInputDiv>
 
-                        <>
-                            <ViewsDatePicker
-                                width="100%"
-                                value={prevHolidayDate}
-                                onChange={dateChangeHandler}
-                                label="Дата праздника"
-                                placeholder="Укажите дату праздника"
-                            />
-                            <CancelAddDiv>
-                                <Button variant="outlined" onClick={onClose}>
-                                    Отмена
-                                </Button>
-                                <Button type="submit" variant="contained">
-                                    Сохранить
-                                </Button>
-                            </CancelAddDiv>
-                        </>
-                    </InModalChildDiv>
-                </ModalChildDiv>
-            </form>
+                    <>
+                        <ViewsDatePicker
+                            width="100%"
+                            value={prevHolidayDate}
+                            onChange={dateChangeHandler}
+                            label="Дата праздника"
+                            placeholder="Укажите дату праздника"
+                        />
+                        <CancelAddDiv>
+                            <Button variant="outlined" onClick={onClose}>
+                                Отмена
+                            </Button>
+                            <Button
+                                variant="contained"
+                                onClick={editCardHandler}
+                            >
+                                Сохранить
+                            </Button>
+                        </CancelAddDiv>
+                    </>
+                </InModalChildDiv>
+            </ModalChildDiv>
         </BasicModal>
     )
 }
