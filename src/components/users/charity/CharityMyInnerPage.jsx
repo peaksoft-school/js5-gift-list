@@ -9,12 +9,12 @@ import styled from 'styled-components'
 import { getSingleCharityById } from '../../../store/slices/GiftActions'
 import InnerPage from '../../ui/charity/InnerCardCharity'
 
-const CharityInnerPage = () => {
+const CharityMyInnerPage = () => {
     const state = useSelector((state) => state.addCharity.single)
-    const { id } = useParams()
+    const { myId } = useParams()
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getSingleCharityById(id))
+        dispatch(getSingleCharityById(myId))
     }, [])
 
     return (
@@ -27,12 +27,12 @@ const CharityInnerPage = () => {
                 </div>
             )}
 
-            {state && <InnerPage notMy data={state} />}
+            {state && <InnerPage my data={state} />}
         </Container>
     )
 }
-export default CharityInnerPage
+export default CharityMyInnerPage
 const Container = styled.div`
-    width: 1099px;
+    width: 1086px;
     margin: 30px auto;
 `

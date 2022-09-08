@@ -1,13 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
-import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
+// import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 export const postCharity = createAsyncThunk(
     'addCharity/post_Charity',
-    // , { dispatch }
-    async (props) => {
-        // console.log(props)
+    async (props, { dispatch }) => {
         const formData = new FormData()
         try {
             formData.append('file', props.photo)
@@ -16,7 +14,6 @@ export const postCharity = createAsyncThunk(
                 url: 'api/file/upload',
                 body: formData,
             })
-            // console.log(response)
             const post = await appFetch({
                 method: 'POST',
                 url: 'api/gifts',
@@ -29,21 +26,28 @@ export const postCharity = createAsyncThunk(
                     description: props.description,
                 },
             })
-            // console.log(post)
-            // dispatch(getCharity())
-            showSuccessMessage('SUCCESS')
+            // showSuccessMessage('Успешно добавлено!')
+            dispatch(getCharity())
+            dispatch(getMyCharity())
+            // window.location.reload()
             return post
         } catch (error) {
-            showErrorMessage('Failed')
+            // showErrorMessage(error.message)
             return error
         }
     }
 )
 export const getCharity = createAsyncThunk(
     'addCharity/getCharity',
-    async (setCharity) => {
+    async () => {
         const response = await appFetch({ url: 'api/gifts' })
-        setCharity(response)
+        return response
+    }
+)
+export const getMyCharity = createAsyncThunk(
+    'addCharity/getMyCharity',
+    async () => {
+        const response = await appFetch({ url: 'api/gifts/my-gifts' })
         return response
     }
 )
@@ -69,6 +73,31 @@ export const getSubCategory = createAsyncThunk(
         return subCategory
     }
 )
+export const toBookCharity = createAsyncThunk(
+    'toBook/toBookCharity',
+    async (id, { dispatch }) => {
+        const response = await appFetch({
+            method: 'POST',
+            url: `api/bookings/gift-create/${id}`,
+        })
+        dispatch(getCharity())
+        dispatch(getMyCharity())
+        return response
+    }
+)
+export const toCancelCharity = createAsyncThunk(
+    'toBook/toBookCharity',
+    // , { dispatch }
+    async (id, { dispatch }) => {
+        const response = await appFetch({
+            method: 'POST',
+            url: `api/bookings/gift-cancel/${id}`,
+        })
+        dispatch(getCharity())
+        dispatch(getMyCharity())
+        return response
+    }
+)
 
 export const getSingleCharityById = createAsyncThunk(
     'addCharity/charityById',
@@ -79,34 +108,49 @@ export const getSingleCharityById = createAsyncThunk(
 )
 export const putCharity = createAsyncThunk(
     'addCharity/putCharity',
-    async (obj) => {
+    async (obj, { dispatch }) => {
         const formData = new FormData()
         try {
             const charityResponse = {}
-            if (obj.body.bool) {
-                formData.set('file', obj.body.bool)
+            if (obj.photo.name) {
+                formData.set('file', obj.photo)
                 charityResponse.link = await appFetchFile({
                     url: 'api/file/upload',
                     body: formData,
                 })
             }
-            if (!obj.body.bool) {
-                charityResponse.link = obj.body.photo
-            }
             const response = await appFetch({
                 method: 'PUT',
                 url: `api/gifts/${obj.id}`,
                 body: {
-                    name: obj.body.name,
-                    date: obj.body.date,
-                    photo: obj.body.bool
+                    name: obj.name,
+                    photo: obj.photo.name
                         ? charityResponse.link.link
-                        : charityResponse.link,
+                        : obj.photo,
+                    categoryId: obj.categoryId,
+                    subCategoryId: obj.subCategoryId,
+                    status: obj.status,
+                    description: obj.description,
                 },
             })
+            // showSuccessMessage('Ваш подарок отредактирован!')
+            dispatch(getCharity())
+            dispatch(getMyCharity())
             return response
         } catch (error) {
             return error.message
         }
+    }
+)
+export const deletecharity = createAsyncThunk(
+    'delete/deleteCharity',
+    async (id, { dispatch }) => {
+        const response = await appFetch({
+            method: 'DELETE',
+            url: `api/gifts/${id}`,
+        })
+        dispatch(getCharity())
+        dispatch(getMyCharity())
+        return response
     }
 )

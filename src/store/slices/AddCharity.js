@@ -3,12 +3,13 @@ import { createSlice } from '@reduxjs/toolkit'
 // import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 // import { postCharity } from './GiftActions'
-import { getCharity, getSingleCharityById } from './GiftActions'
+import { getCharity, getMyCharity, getSingleCharityById } from './GiftActions'
 
 const initial = {
     data: null,
     status: null,
     single: null,
+    myCharity: null,
 }
 
 const addCharity = createSlice({
@@ -26,13 +27,13 @@ const addCharity = createSlice({
         //     showErrorMessage('Rejected')
         // },
         [getCharity.fulfilled]: (state, action) => {
-            console.log(action.payload)
             state.data = action.payload.reverse()
-            console.log(state.data)
         },
         [getSingleCharityById.fulfilled]: (state, action) => {
             state.single = action.payload
-            console.log(state.single)
+        },
+        [getMyCharity.fulfilled]: (state, action) => {
+            state.myCharity = action.payload
         },
     },
 })

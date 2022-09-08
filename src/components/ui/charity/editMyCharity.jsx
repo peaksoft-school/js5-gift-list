@@ -2,60 +2,68 @@ import { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 import { InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import {
     getCategory,
+    getSingleCharityById,
     getSubCategory,
-    postCharity,
+    putCharity,
 } from '../../../store/slices/GiftActions'
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
-import Notification from '../notification/Notification'
+// import Notification from '../notification/Notification'
 
-export default function EditCharity() {
+export default function EditMyCharity() {
     const [category, setCategory] = useState()
     const [subCategory, setSubCategory] = useState()
+    const state = useSelector((state) => state.addCharity.single)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const { editId } = useParams()
     useEffect(() => {
         dispatch(getCategory(setCategory))
+        dispatch(getSingleCharityById(editId))
     }, [])
     const [allvalue, setallvalue] = useState({
-        name: '',
-        photo: null,
-        categoryId: '',
+        name: state?.gift.name,
+        photo: state?.gift.photo,
+        categoryId: state?.gift.category.id,
         subCategoryId: '',
-        status: '',
-        description: '',
+        status: state?.gift.status,
+        description: state?.gift.description,
     })
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(postCharity(allvalue))
+
+        dispatch(putCharity({ id: state?.gift.giftId, ...allvalue }))
         navigate('/charity')
+        // window.location.reload()
     }
     const getCategotyById = (id) => {
         dispatch(getSubCategory({ id, setSubCategory }))
     }
-    const img = allvalue?.photo ? null : allvalue.photo
+    const img = state?.gift.photo?.name ? null : state?.gift.photo
     return (
         <div style={styleForCard}>
-            <Notification />
+            {/* <Notification /> */}
             breadCrambs
             <Anketa onSubmit={submitHandler}>
-                <ImagePicker
-                    onChange={(file) => {
-                        setallvalue({
-                            ...allvalue,
-                            photo: file,
-                        })
-                    }}
-                    newFile={img}
-                />
+                {state && (
+                    <ImagePicker
+                        onChange={(file) => {
+                            setallvalue({
+                                ...allvalue,
+                                photo: file,
+                            })
+                        }}
+                        newFile={img}
+                    />
+                )}
                 <Container>
-                    <Title>Добавление вещи </Title>
+                    <Title>Редактировать </Title>
                     <Questionaire>
                         <div>
                             <InputLabel style={InputLabelstyle}>
@@ -155,7 +163,12 @@ export default function EditCharity() {
                     </InputLabel>
                     {/* -------------------------  --------------------- */}
                     <Buttons>
-                        <Button variant="outlined">Отмена</Button>
+                        <Button
+                            onClick={() => window.history.back()}
+                            variant="outlined"
+                        >
+                            Отмена
+                        </Button>
                         <Button type="submit">Сохранить</Button>
                     </Buttons>
                 </Container>

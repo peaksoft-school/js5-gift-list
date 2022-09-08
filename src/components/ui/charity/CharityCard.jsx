@@ -1,33 +1,49 @@
-import * as React from 'react'
+import { useState } from 'react'
 
 import styled from '@emotion/styled'
 import Avatar from '@mui/material/Avatar'
 import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+import { useSelector } from 'react-redux'
 
-import photonotfound from '../../../assets/images/photonotfound.png'
 import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
+    const reserved = useState(
+        props.data.booking == null ? 'в ожидании' : 'забронирован'
+    )
+    const userId = useSelector((state) => state.authSlice?.user.id)
+    const notReserved = [
+        {
+            icon: props.icon,
+            title: 'забронировать',
+            // props.data?.booking !== null ? 'снять бронь' : 'забронировать',
+            id: '1',
+            clickItem: (id) => {
+                props.clickItem(id)
+            },
+        },
+    ]
+    const reservedByMe = [
+        {
+            icon: props.icon,
+            title: 'снять бронь',
+            // props.data?.booking !== null ? 'снять бронь' : 'забронировать',
+            id: '1',
+            clickItem: (id) => {
+                props.cancelBooking(id)
+            },
+        },
+    ]
     return (
         <StyledCard style={cursor} onClick={props.clickCard}>
-            {props.data.photo === 'string' && (
-                <StyledCardMedia
-                    style={cursor}
-                    component="img"
-                    image={photonotfound}
-                    alt="greena"
-                />
-            )}
-            {props.data.photo !== 'string' && (
-                <StyledCardMedia
-                    style={cursor}
-                    component="img"
-                    image={props.data.photo}
-                    alt="green iguana"
-                />
-            )}
+            <StyledCardMedia
+                style={cursor}
+                component="img"
+                image={props.data.photo}
+                alt="green iguana"
+            />
 
             <StyledCardContentFirst>
                 <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
@@ -48,14 +64,14 @@ export default function CharityCard(props) {
                         alt="Cindy Baker"
                         src={props.data.avatarInBooking}
                     />
+                    <StyledText>{reserved}</StyledText>
                     {props.data.booking == null && (
-                        <StyledText>в ожидании</StyledText>
+                        <MeatBalls navigations={notReserved} id={props.id} />
                     )}
-                    {props.data.booking !== null && (
-                        <StyledText>забронирован</StyledText>
+                    {props.bookedUser === userId && (
+                        <MeatBalls navigations={reservedByMe} id={props.id} />
                     )}
-                    {/* <StyledText>{props.data.booking}</StyledText> */}
-                    <MeatBalls navigations={props.meatBallsOptions} />
+                    {props.data.booking !== null && ''}
                 </Wrapper>
             </StyledCardContentSecond>
         </StyledCard>

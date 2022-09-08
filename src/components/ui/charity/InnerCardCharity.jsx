@@ -1,27 +1,43 @@
-import { useState } from 'react'
-
 import styled from '@emotion/styled'
 import Avatar from '@mui/material/Avatar'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import {
+    deletecharity,
+    toBookCharity,
+    toCancelCharity,
+} from '../../../store/slices/GiftActions'
 import Button from '../Button'
 
 const InnerPage = (props) => {
-    const [reserved, setReserved] = useState()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const id = useSelector((state) => state.authSlice?.user.id)
     const link = () => {
-        navigate(`/charity/${props.data.id}/edit_charity`)
+        navigate(`/${props.data.gift.giftId}/edit_charity`)
     }
     const reserve = () => {
-        setReserved((prev) => !prev)
+        dispatch(toBookCharity(props.data?.gift.giftId))
     }
+    const deleteCharity = () => {
+        dispatch(deletecharity(props.data?.gift.giftId))
+        navigate('/charity')
+    }
+    const cancelBook = () => {
+        dispatch(toCancelCharity(props.data?.gift.giftId))
+    }
+
     return (
         <div style={styleForCard}>
             <Img src={props.data.gift.photo} alt="image" />
             <WrapperDiv>
                 <User>
-                    <StyledAvatar src={props.data.user.avatar} alt="avatar" />
-                    <UserName>{props.data.user.firstName}</UserName>
+                    <StyledAvatar
+                        src={props.data.ownerUser.photo}
+                        alt="avatar"
+                    />
+                    <UserName>{props.data.ownerUser.firstName}</UserName>
 
                     <ToBooking>
                         {' '}
@@ -40,7 +56,9 @@ const InnerPage = (props) => {
                     <NameGiftProps>
                         {props.data.gift.category.name}
                     </NameGiftProps>
-                    <DateGiftProps>{props.data.gift.status}</DateGiftProps>
+                    <DateGiftProps>
+                        {props.data.gift.status === 'USED' ? 'Б/У' : 'Новый'}
+                    </DateGiftProps>
                 </WrapperPropsGiftAndDate>
                 <WrapperNameGiftAndDate>
                     <NameGift>Подкатегория:</NameGift>
@@ -56,26 +74,28 @@ const InnerPage = (props) => {
                 <WrapperButtons>
                     {props.my && (
                         <>
-                            <Button variant="outlined">Удалить</Button>
+                            <Button onClick={deleteCharity} variant="outlined">
+                                Удалить
+                            </Button>
                             <Button onClick={link}>Редактировать</Button>
                         </>
                     )}
                     {props.notMy && (
                         <But>
-                            {!reserved && (
+                            {props.data?.gift.booking === null && (
                                 <Button onClick={reserve}>Забронировать</Button>
                             )}
-                            {reserved && (
-                                <Button onClick={reserve}>
+                            {props.data?.bookedUser?.userId === id && (
+                                <Button onClick={cancelBook}>
                                     Отменить бронь
                                 </Button>
                             )}
+                            {props.data?.gift.booking !== null && ''}
                         </But>
                     )}
                     {props.admin && <Button>Заблокировать</Button>}
                 </WrapperButtons>
             </WrapperDiv>
-            {/* </WrapperAll> */}
         </div>
     )
 }
