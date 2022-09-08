@@ -33,6 +33,7 @@ const ImagePicker = ({ onChange, newFile }) => {
                 ref={refs}
                 onChange={imageHandler}
                 type="file"
+                value=""
                 accept="image/jpeg,image/png,image/gif"
             />
             <DeleteButton onClick={deleteImageHandler}>Удалить</DeleteButton>

@@ -20,19 +20,13 @@ const CharityMyInnerPage = () => {
     return (
         <Container>
             {/* breadCrambs */}
-            {state && (
-                <div>
-                    <div>Благотворительность /</div>
-                    <strong>{state.gift.name}</strong>
-                </div>
-            )}
-
+            breadCrambs
             {state && <InnerPage my data={state} />}
         </Container>
     )
 }
 export default CharityMyInnerPage
 const Container = styled.div`
-    width: 1086px;
+    width: 100%;
     margin: 30px auto;
 `

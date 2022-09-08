@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Suspense } from 'react'
 
 import styled from '@emotion/styled'
@@ -47,11 +48,30 @@ const MainRouter = () => {
                 </Route>
             </Routes>
         </Suspense>
+=======
+import React from 'react'
+
+import { Routes, Route, Navigate } from 'react-router-dom'
+
+import Lending from '../components/users/Lending'
+
+const MainRouter = () => {
+    return (
+        <div>
+            <Routes>
+                <Route path="/" element={<Navigate replace to="/lending" />} />
+                <Route path="lending" element={<Lending />} />
+            </Routes>
+        </div>
+>>>>>>> d04bfa8e76e79200385d2d93d6d311c8167f94cd
     )
 }
 
 export default MainRouter
+<<<<<<< HEAD
 
 const SpinnerLoading = styled('div')`
     margin: 0 auto;
 `
+=======
+>>>>>>> d04bfa8e76e79200385d2d93d6d311c8167f94cd

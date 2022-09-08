@@ -77,6 +77,7 @@ export default function CharityCard(props) {
 
 const StyledCard = styled(MuiCard)(() => ({
     width: '349px',
+    margin: '10px auto',
     height: '301px',
     display: 'flex',
     flexDirection: 'column',

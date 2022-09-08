@@ -13,6 +13,7 @@ const FriendsCard = ({
 }) => {
     const acceptRequestHandler = (event, id) => {
         console.log(id)
+
         event.stopPropagation()
         console.log(id)
     }

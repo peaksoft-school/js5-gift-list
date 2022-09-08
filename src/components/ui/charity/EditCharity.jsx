@@ -166,7 +166,7 @@ export default function EditCharity() {
 const styleForCard = {
     margin: '30px auto',
     // padding: '20px',
-    width: '1086px',
+    width: '100%',
     // height: '100%',
     // backgroundColor: '#ffffff',
     // borderRadius: '10px',

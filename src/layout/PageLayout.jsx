@@ -55,11 +55,11 @@ const ContentWrapper = styled('div')`
 const Box = styled('div')`
     position: relative;
     margin: 0 auto;
-    width: 1146px;
+    width: 100%;
 `
 const Layout = styled('div')`
     display: grid;
-    grid-template-columns: 284px 1067px;
+    grid-template-columns: 293px auto;
 `
 const SideBar = styled('div')`
     background: linear-gradient(180deg, #8639b5 0%, #092056 100%);

@@ -83,17 +83,17 @@ export default CharityUser
 const CardList = styled.div`
     display: flex;
     flex-wrap: wrap;
-    width: 1099px;
+    min-width: 1086px;
     margin: 30px auto;
     padding: 0px;
-    & div {
-        margin: 10px 8px;
-    }
+    /* & div {
+        margin: 10px;
+    } */
 `
 const Header = styled.div`
     display: flex;
     align-items: flex-start;
-    width: 1099px;
+    max-width: 1146px;
     margin: 5px auto;
     padding: 0px;
     justify-content: space-between;
