@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 const Notification = (props) => {
     const { status } = props
     const style = {
-        height: '120px',
+        height: '20px',
         width: '390px',
     }
     if (status === 'success') {

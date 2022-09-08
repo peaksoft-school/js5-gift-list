@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { friendsAction, requestsToFriendAction } from './friendTabAction'
 
-const initialState = { requestToFriend: [], status: null, friends: null }
+const initialState = { requestToFriend: [], status: null, friends: [] }
 export const requestToFriendSlice = createSlice({
     name: 'requestsToFriend',
     initialState,

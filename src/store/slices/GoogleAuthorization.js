@@ -16,6 +16,7 @@ export const googleAuthorization = (memorizee) => {
                 method: 'POST',
                 url: `api/public/auth/google?token=${user.accessToken}`,
             })
+            console.log(response)
             const users = {
                 id: response.id,
                 jwt: response.jwt,

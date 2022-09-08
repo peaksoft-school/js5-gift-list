@@ -11,7 +11,7 @@ const Input = forwardRef((props, ref) => {
         id,
         error,
         onBlur,
-        onchange,
+        onChange,
         value,
         width,
         height,
@@ -19,12 +19,13 @@ const Input = forwardRef((props, ref) => {
     } = props
     return (
         <StyledTextField
+            autoComplete="off"
             error={error}
             placeholder={placeholder}
             name={name}
             id={id}
+            onChange={onChange}
             onBlur={onBlur}
-            onChange={onchange}
             ref={ref}
             value={value}
             width={width}
@@ -41,7 +42,6 @@ const StyledTextField = styled(OutlinedInput)((props) => ({
 
     fontSize: '16px',
     display: 'flex',
-
     borderRadius: '6px',
     alignItems: 'center',
     width: props.width || '482px',

@@ -19,10 +19,11 @@ export default function GiftCard(props) {
         isBooked,
         id,
         navigation,
-        idOfUser,
+        navigateToInnerPage,
+        idOfOwnerUser,
     } = props
     return (
-        <StyledCard variants={variant}>
+        <StyledCard onClick={navigateToInnerPage} variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
@@ -44,7 +45,7 @@ export default function GiftCard(props) {
                                         src={avatarBooked}
                                         alt="avatar"
                                     />
-                                    {isBooked.userId === idOfUser
+                                    {isBooked.userId === idOfOwnerUser
                                         ? 'Вы забронировали'
                                         : 'Забронирован'}
                                 </SpanAvatar>
@@ -77,6 +78,7 @@ const StyledAvatar = styled(Avatar)`
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    display: inline-flex;
 `
 const SpanAvatar = styled('span')`
     display: flex;

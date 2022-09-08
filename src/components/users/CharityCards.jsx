@@ -18,7 +18,7 @@ export default function GiftCard(props) {
         date,
         isBooked,
         navigation,
-        idOfUser,
+        idOfOwnerUser,
         id,
     } = props
     return (
@@ -46,7 +46,7 @@ export default function GiftCard(props) {
                                         src={avatarBooked}
                                         alt="avatar"
                                     />
-                                    {isBooked.userId === idOfUser
+                                    {isBooked.userId === idOfOwnerUser
                                         ? ' Вы забронировали'
                                         : 'Забронирован'}
                                 </SpanAvatar>
@@ -56,13 +56,7 @@ export default function GiftCard(props) {
                         </StyledText>
                     </WrapperToBooking>
                     <WrapperMeatBalls variants={variant}>
-                        {isBooked?.userId === idOfUser ? (
-                            <MeatBalls navigations={navigation} id={id} />
-                        ) : (
-                            !isBooked && (
-                                <MeatBalls navigations={navigation} id={id} />
-                            )
-                        )}
+                        <MeatBalls navigations={navigation} id={id} />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>
             </Wrapper>

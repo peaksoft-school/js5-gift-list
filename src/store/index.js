@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import { AddWishCardSlice } from './slices/addWishCardSlice'
 import { authSlice } from './slices/AuthSlice'
 import friendProfileSlice from './slices/friendProfileSlice'
 import { requestToFriendSlice, friendsSlice } from './slices/friendTabSlice'
@@ -12,6 +13,7 @@ export const store = configureStore({
         friends: friendsSlice.reducer,
         requestToFriend: requestToFriendSlice.reducer,
         friend: friendProfileSlice.reducer,
+        wishCard: AddWishCardSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

@@ -6,8 +6,11 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { store } from './store'
 
+// import { injectStore } from './api/CustomFetch'
 import App from './App'
 import './index.css'
+
+// injectStore(store)
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 import FriendsCard from './FriendsCard'
 
-export default function FriendTabs({ options, requestToFriend }) {
+export default function FriendTabs({ friends, requestToFriend }) {
     const [value, setValue] = useState('1')
     const navigate = useNavigate()
 
@@ -23,7 +23,7 @@ export default function FriendTabs({ options, requestToFriend }) {
     const myFriends = (
         <StyledSpan>
             Мои друзья
-            <h4>{options && options.length}</h4>
+            <h4>{friends && friends.length}</h4>
         </StyledSpan>
     )
 
@@ -43,7 +43,7 @@ export default function FriendTabs({ options, requestToFriend }) {
                     </StyledTabList>
                 </StyledBox>
                 <StyledTabPanel value="1">
-                    {options?.map((el) => {
+                    {friends?.map((el) => {
                         return (
                             <FriendsCard
                                 name={el.firstName}

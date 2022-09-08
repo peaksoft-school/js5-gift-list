@@ -7,9 +7,12 @@ import { Bookeds } from '../components/users/Bookeds'
 import { Charity } from '../components/users/Charity'
 import { Lenta } from '../components/users/Lenta'
 import { MyHalidays } from '../components/users/MyHalidays'
-import { WissList } from '../components/users/WissList'
-import FriendProfilePage from '../containers/FriendProfilePage'
+import AddWishCardPage from '../containers/AddWishCardPage'
+import EditWishCardPage from '../containers/EditWishCardPage'
+import FriendProfile from '../containers/FriendProfilePage'
 import { Friends } from '../containers/FriendsPage'
+import InnerPageWishCard from '../containers/InnerPageWishCard'
+import WishList from '../containers/WishList'
 import { PageLayout } from '../layout/PageLayout'
 import { DEFAULT_ROUTES } from '../utils/constants/constants'
 
@@ -19,11 +22,17 @@ const UserRoutes = () => {
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
                 <Route path="/lenta" element={<Lenta />} />
                 <Route path="/friends" element={<Friends />} />
+                <Route path="/friends/:userId" element={<FriendProfile />} />
+                <Route path="/wish_list" element={<WishList />} />
                 <Route
-                    path="/friends/:userId"
-                    element={<FriendProfilePage />}
+                    path="/wish_list/:wishListId"
+                    element={<InnerPageWishCard />}
                 />
-                <Route path="/wish_list" element={<WissList />} />
+                <Route path="/wish_list/add" element={<AddWishCardPage />} />
+                <Route
+                    path="/wish_list/:id/edit"
+                    element={<EditWishCardPage />}
+                />
                 <Route path="/bookeds" element={<Bookeds />} />
                 <Route path="/my_halidays" element={<MyHalidays />} />
                 <Route path="/charity" element={<Charity />} />

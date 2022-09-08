@@ -345,7 +345,8 @@
 import React, { useState } from 'react'
 
 import { styled } from '@mui/material/styles'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux/es/exports'
+import { useNavigate } from 'react-router-dom'
 
 import ExitIcon from '../../assets/icons/ExitModal.svg'
 import Google from '../../assets/icons/google.svg'
@@ -361,6 +362,8 @@ const SignUp = ({ setSignupState }) => {
     const [error, setError] = useState('')
     const [checkboxState, setCheckboxState] = useState(false)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const signUpHandler = () => {
         setSignupState(false)
     }
@@ -431,6 +434,7 @@ const SignUp = ({ setSignupState }) => {
     }
     const googleHandler = () => {
         dispatch(googleAuthorization())
+        navigate('/lenta')
     }
     return (
         <BasicModal open onClose={signUpHandler}>
@@ -444,7 +448,7 @@ const SignUp = ({ setSignupState }) => {
                         <Input
                             error={firstNameInputHasError}
                             value={firstName}
-                            onchange={firstNameChangeHanlder}
+                            onChange={firstNameChangeHanlder}
                             onBlur={firstNameBlurHandler}
                             name="firstName"
                             type="text"
@@ -458,7 +462,7 @@ const SignUp = ({ setSignupState }) => {
                         <Input
                             error={lastNameInputHasError}
                             value={lastName}
-                            onchange={lastNameChangeHanlder}
+                            onChange={lastNameChangeHanlder}
                             onBlur={lastNameBlurHandler}
                             name="lastName"
                             type="text"
@@ -472,7 +476,7 @@ const SignUp = ({ setSignupState }) => {
                         <Input
                             error={emailInputHasError}
                             value={enteredEmail}
-                            onchange={emailChangeHanlder}
+                            onChange={emailChangeHanlder}
                             onBlur={emailBlurHandler}
                             name="email"
                             type="email"

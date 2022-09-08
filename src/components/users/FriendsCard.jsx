@@ -17,11 +17,11 @@ const FriendsCard = ({
     variant,
 }) => {
     const dispatch = useDispatch()
-    const acceptRequestHandler = (event, id) => {
+    const acceptRequestHandler = (event) => {
         event.stopPropagation()
         dispatch(acceptRequestToFriend({ dispatch, id }))
     }
-    const rejectRequestHandler = (event, id) => {
+    const rejectRequestHandler = (event) => {
         dispatch(rejectRequestToFriendAction({ id, dispatch }))
         event.stopPropagation()
     }
@@ -43,7 +43,7 @@ const FriendsCard = ({
                 <StyledDiv1>
                     <Button
                         onClick={(event) => {
-                            acceptRequestHandler(event, id)
+                            acceptRequestHandler(event)
                         }}
                     >
                         Принять заявку
@@ -51,7 +51,7 @@ const FriendsCard = ({
                     <Button
                         variant="outlined"
                         onClick={(event) => {
-                            rejectRequestHandler(event, id)
+                            rejectRequestHandler(event)
                         }}
                     >
                         Отклонить

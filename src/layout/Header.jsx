@@ -25,7 +25,7 @@ export const Header = () => {
         setValue('')
     }
 
-    const stopPropagationFunction = (event) => {
+    const stopPropagationHandler = (event) => {
         event.stopPropagation()
     }
     return (
@@ -36,7 +36,7 @@ export const Header = () => {
                     onChange={valueChangeHandler}
                     value={value}
                     onClick={inputClickHandler}
-                    stopPropagationFunction={stopPropagationFunction}
+                    stopPropagationHandler={stopPropagationHandler}
                 />
             </InputDiv>
             <WarningSpan>
@@ -46,6 +46,7 @@ export const Header = () => {
         </Headers>
     )
 }
+export default Header
 
 const Headers = styled('header')`
     width: 100%;
@@ -59,7 +60,6 @@ const Headers = styled('header')`
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.03);
     z-index: 2;
 `
-
 const WarningSpan = styled('span')`
     margin-left: 30px;
 `

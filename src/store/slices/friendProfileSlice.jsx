@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { friendProfileAction } from './friendProfileAction'
+import { getFriendPageAction } from './friendProfileAction'
 
 const initialState = {
     friend: [],
@@ -15,14 +15,12 @@ const friendProfileSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
-        [friendProfileAction.fulfilled]: (state, action) => {
+        [getFriendPageAction.fulfilled]: (state, action) => {
             state.friend = action.payload
             state.userInfo = action.payload.userInfo
             state.gifts = action.payload.gifts
             state.holidays = action.payload.holidays
             state.wishes = action.payload.wishes
-            // console.log(state.wishes)
-            // console.log(action.payload.holidays)
             state.status = 'success'
         },
     },

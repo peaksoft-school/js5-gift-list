@@ -6,7 +6,7 @@ export default function MainSearchInput({
     onChange,
     value,
     onClick,
-    stopPropagationFunction,
+    stopPropagationHandler,
 }) {
     const renderSearchResults = () => {
         if (options?.length > 0) {
@@ -16,7 +16,7 @@ export default function MainSearchInput({
                         key={user.id}
                         onClick={(event) => {
                             onClick(user.id)
-                            stopPropagationFunction(event)
+                            stopPropagationHandler(event)
                         }}
                     >
                         <StyledAvatar alt="Remy Sharp" src={user.photo} />

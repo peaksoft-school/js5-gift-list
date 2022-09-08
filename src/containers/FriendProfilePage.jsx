@@ -10,9 +10,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import addInMyGiftIcon from '../assets/icons/addInMyGifts.svg'
-import cancelBooking from '../assets/icons/cancelBooking.svg'
-import complaintIcon from '../assets/icons/complaintss.svg'
 import { ReactComponent as Facebook } from '../assets/icons/facebookFriendProfilePage.svg'
 import { ReactComponent as GrayFacebook } from '../assets/icons/grayFacebook.svg'
 import { ReactComponent as GrayInstagram } from '../assets/icons/grayInstagram.svg'
@@ -20,154 +17,53 @@ import { ReactComponent as GrayTelegram } from '../assets/icons/grayTelegram.svg
 import { ReactComponent as GrayVk } from '../assets/icons/grayVk.svg'
 import { ReactComponent as Instagram } from '../assets/icons/instagram.svg'
 import { ReactComponent as Telegram } from '../assets/icons/telegram.svg'
-import toBookIcon from '../assets/icons/toBook.svg'
 import { ReactComponent as Vk } from '../assets/icons/vkFriendProfile.svg'
 import Button from '../components/ui/Button'
 import Notification from '../components/ui/notification/Notification'
-import CharityCards from '../components/users/CharityCards'
-import GiftCard from '../components/users/GiftCard'
 import MyHolidays from '../components/users/MyHolidaysCard'
-import ReportModal from '../components/users/ReportModal'
 import {
     friendDeleteAction,
-    addToRequestFriendAction,
-    friendProfileAction,
-    toBookWish,
-    cancelBookingWish,
-    copmlainToWish,
-    toBookGift,
-    cancelBookingGift,
-    copmlainToGift,
-    addtoMyWish,
+    addToFriendAction,
+    getFriendPageAction,
 } from '../store/slices/friendProfileAction'
 import {
-    acceptRequestToFriend,
-    rejectRequestToFriendAction,
+    acceptRequestToFriendInnerPage,
+    rejectRequestToFriendActionInnerPage,
 } from '../store/slices/friendTabAction'
 
-const FriendProfile = () => {
+import FriendGiftCards from './FriendGiftCards'
+import FriendWishCards from './FriendWishCards'
+
+const FriendProfilePage = () => {
     const [showMoreWishCard, setShowMoreWishCard] = useState(false)
     const [showMoreHolidayCard, setShowMoreHolidayCard] = useState(false)
     const [showMoreCharityCard, setShowMoreCharityCard] = useState(false)
-    const [open, setOpen] = useState(false)
-    const [title, setTitle] = useState('')
-    const idOfUser = useSelector((state) => state.authSlice.user.id)
+    const idOfOwnerUser = useSelector((state) => state.authSlice.user.id)
     const { userId } = useParams()
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(friendProfileAction(userId))
-    }, [userId])
-
     const { friend, userInfo, gifts, holidays, wishes } = useSelector(
         (state) => state.friend
     )
+
+    useEffect(() => {
+        if (userId) {
+            dispatch(getFriendPageAction(userId))
+        }
+    }, [userId, dispatch])
+
     const friendId = useSelector((state) => state.friend.friend.id)
 
-    const toBookWishNavigatian = [
-        {
-            icon: toBookIcon,
-            title: 'Забронировать',
-            id: '1',
-            clickItem: (id) => toBookFunction(id),
-        },
-        {
-            icon: addInMyGiftIcon,
-            title: 'Добавить в мои подарки',
-            id: '2',
-            clickItem: (id) => addToMyWishHandler(id),
-        },
-        {
-            icon: complaintIcon,
-            title: 'Пожаловаться',
-            id: '3',
-            clickItem: (id) => {
-                openModal(id)
-            },
-        },
-    ]
-    const cancelBookingWishNavigation = [
-        {
-            icon: toBookIcon,
-            title: ' Снять бронь',
-            id: '1',
-            clickItem: (id) => cancelBookingWishFunction(id),
-        },
-        {
-            icon: addInMyGiftIcon,
-            title: 'Добавить в мои подарки',
-            id: '2',
-            clickItem: (id) => addToMyWishHandler(id),
-        },
-        {
-            icon: complaintIcon,
-            title: 'Пожаловаться',
-            id: '3',
-            clickItem: (id) => {
-                openModal(id)
-            },
-        },
-    ]
-    const toBookGiftNavigation = [
-        {
-            icon: toBookIcon,
-            title: 'Забронировать',
-            id: '1',
-            clickItem: (id) => toBookGiftFunction(id),
-        },
-        {
-            icon: complaintIcon,
-            title: 'Пожаловаться',
-            id: '2',
-            clickItem: openModal,
-        },
-    ]
-    const cancelBookingGiftNavigation = [
-        {
-            icon: cancelBooking,
-            title: ' Снять бронь',
-            id: '1',
-            clickItem: (id) => cancelBookingGiftFunction(id),
-        },
-        {
-            icon: complaintIcon,
-            title: 'Пожаловаться',
-            id: '2',
-            clickItem: openModal,
-        },
-    ]
-    const [idRep, setIdRep] = useState('')
-    function openModal(id) {
-        setIdRep(id)
-        setOpen(!open)
-    }
-    function cancelBookingGiftFunction(id) {
-        dispatch(cancelBookingGift({ id, dispatch, userId }))
-    }
-    function toBookGiftFunction(id) {
-        dispatch(toBookGift({ dispatch, id, userId }))
-    }
-    function toBookFunction(id) {
-        dispatch(toBookWish({ id, userId, dispatch }))
-    }
-
-    function cancelBookingWishFunction(id) {
-        dispatch(cancelBookingWish({ id, friendId, dispatch }))
-    }
-    // function addToMyWishFunction(id) {
-    //     dispatch(addToMyWish(id))
-    // }
-
     const addToFriendHandler = () => {
-        dispatch(addToRequestFriendAction({ friendId, dispatch }))
+        dispatch(addToFriendAction({ friendId, userId, dispatch }))
     }
     const deleteFriendHandler = () => {
-        dispatch(friendDeleteAction({ dispatch, friendId }))
+        dispatch(friendDeleteAction({ friendId, userId, dispatch }))
     }
     const acceptToFriendHandler = () => {
-        dispatch(acceptRequestToFriend({ dispatch, friendId }))
+        dispatch(acceptRequestToFriendInnerPage({ userId, dispatch }))
     }
     const rejectRequestHandler = () => {
-        dispatch(rejectRequestToFriendAction({ dispatch, friendId }))
+        dispatch(rejectRequestToFriendActionInnerPage({ userId, dispatch }))
     }
 
     const isShowMoreHandler = () => {
@@ -179,19 +75,7 @@ const FriendProfile = () => {
     const isShowMoreGiftHandler = () => {
         setShowMoreCharityCard(!showMoreCharityCard)
     }
-    const sendComplainToWishHandler = () => {
-        dispatch(copmlainToWish({ idRep, title }))
-        setOpen(false)
-        console.log('wish')
-    }
-    const sendComplainToGiftHandler = (id) => {
-        dispatch(copmlainToGift(id, title))
-        setOpen(false)
-        console.log('gift')
-    }
-    const addToMyWishHandler = (id) => {
-        dispatch(addtoMyWish(id))
-    }
+
     const holidayLength = holidays.length
     const wichIsShowHoliday = showMoreHolidayCard ? holidayLength : 3
     const whichTextHoliday = wichIsShowHoliday < 4 ? 'Смотреть все' : 'Скрыть'
@@ -201,6 +85,7 @@ const FriendProfile = () => {
     const giftLength = gifts.length
     const wichIsShowGift = showMoreCharityCard ? giftLength : 3
     const whichIsTextGift = wichIsShowGift < 4 ? 'Смотреть все' : 'Скрыть'
+
     const renderButtons = () => {
         if (friend.friendStatus === 'FRIEND') {
             return (
@@ -240,32 +125,8 @@ const FriendProfile = () => {
         )
     }
 
-    const change = (e) => {
-        setTitle(e.title)
-    }
-    const closeModalHandler = () => {
-        setOpen(false)
-    }
-    console.log(title, wishes)
-
     return (
         <ContainerDiv>
-            {open && (
-                <ReportModal
-                    open={open}
-                    onClose={closeModalHandler}
-                    onChange={change}
-                    onClick={sendComplainToWishHandler}
-                />
-            )}
-            {open && (
-                <ReportModal
-                    open={open}
-                    onClose={closeModalHandler}
-                    onChange={change}
-                    onClick={sendComplainToGiftHandler}
-                />
-            )}
             <div>
                 <RouteTitle>
                     {friend.friendStatus === 'FRIEND'
@@ -417,22 +278,10 @@ const FriendProfile = () => {
             <StyledCardDiv>
                 {wishes.slice(0, wichIsShowWish).map((el) => {
                     return (
-                        <GiftCard
+                        <FriendWishCards
                             key={el.wish?.wishId}
-                            variant="board"
-                            id={el.wish?.wishId}
-                            nameGift={el.wish?.wishName}
-                            image={el?.wish?.photo}
-                            avatarBooked={el?.bookedUser?.photo}
-                            holiday={el.wish?.holiday?.name}
-                            date={el.wish?.wishDate}
-                            isBooked={el?.bookedUser}
-                            idOfUser={idOfUser}
-                            navigation={
-                                el?.bookedUser === null
-                                    ? toBookWishNavigatian
-                                    : cancelBookingWishNavigation
-                            }
+                            el={el}
+                            idOfOwnerUser={idOfOwnerUser}
                         />
                     )
                 })}
@@ -481,22 +330,10 @@ const FriendProfile = () => {
                 <StyledCardDiv>
                     {gifts.slice(0, wichIsShowGift).map((el) => {
                         return (
-                            <CharityCards
-                                id={el.gift?.giftId}
+                            <FriendGiftCards
                                 key={el.gift?.giftId}
-                                variant="board"
-                                nameGift={el.gift?.name}
-                                image={el.ownerUser?.photo}
-                                avatarBooked={el.bookedUser?.photo}
-                                holiday={el.gift?.status}
-                                date={el.gift?.createdAt}
-                                isBooked={el?.bookedUser}
-                                idOfUser={idOfUser}
-                                navigation={
-                                    el?.bookedUser === null
-                                        ? toBookGiftNavigation
-                                        : cancelBookingGiftNavigation
-                                }
+                                el={el}
+                                idOfOwnerUser={idOfOwnerUser}
                             />
                         )
                     })}
@@ -506,7 +343,7 @@ const FriendProfile = () => {
         </ContainerDiv>
     )
 }
-export default FriendProfile
+export default FriendProfilePage
 
 const ContainerDiv = styled('div')`
     width: 1086px;

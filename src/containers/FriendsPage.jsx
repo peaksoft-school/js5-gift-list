@@ -11,12 +11,12 @@ import {
 
 export const Friends = () => {
     const dispatch = useDispatch()
-    const [user, setUser] = useState()
+    const [friends, setFriends] = useState()
     const [requestToFriend, setRequestToFriend] = useState()
 
     useEffect(() => {
-        dispatch(friendsAction(setUser))
-    }, [])
+        dispatch(friendsAction(setFriends))
+    }, [friends])
 
     const store = useSelector((state) => state.users.friends)
 
@@ -25,12 +25,12 @@ export const Friends = () => {
     )
 
     useEffect(() => {
-        setUser(store)
+        setFriends(store)
     }, [store])
 
     useEffect(() => {
         dispatch(requestsToFriendAction(setRequestToFriend))
-    }, [])
+    }, [requestToFriend])
 
     useEffect(() => {
         setRequestToFriend(requestToFriendData)
@@ -39,9 +39,9 @@ export const Friends = () => {
         <MainDiv>
             <StyledMainTitle>Друзья</StyledMainTitle>
             <StyledDivTab>
-                {user && (
+                {friends && (
                     <FriendTabs
-                        options={user}
+                        friends={friends}
                         requestToFriend={requestToFriend}
                     />
                 )}
