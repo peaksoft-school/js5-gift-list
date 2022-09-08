@@ -81,11 +81,21 @@ const CharityUser = () => {
 }
 export default CharityUser
 const CardList = styled.div`
-    display: flex;
+    /* width: 100%; */
+    min-width: 1086px;
+    margin: 30px 20px;
+    /* display: flex;
     flex-wrap: wrap;
     min-width: 1086px;
     margin: 30px auto;
-    padding: 0px;
+    padding: 0px; */
+    /* min-width: 1086px;
+    margin: 30px auto; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 19px;
+    grid-row-gap: 15px;
     /* & div {
         margin: 10px;
     } */
@@ -93,8 +103,8 @@ const CardList = styled.div`
 const Header = styled.div`
     display: flex;
     align-items: flex-start;
-    max-width: 1146px;
-    margin: 5px auto;
+    width: inherit;
+    margin: 5px 20px;
     padding: 0px;
     justify-content: space-between;
     & button {
@@ -111,7 +121,7 @@ const Header = styled.div`
         justify-content: flex-start;
     }
     & h2 {
-        margin: 0px 20px;
+        /* margin: 0px 20px; */
         font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
