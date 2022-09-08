@@ -9,32 +9,33 @@ import CardMedia from '@mui/material/CardMedia'
 import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
+    console.log(props.data)
     return (
         <StyledCard style={cursor} onClick={props.clickCard}>
             <StyledCardMedia
                 style={cursor}
                 component="img"
-                image={props.data.image}
+                image={props.data?.image}
                 alt="green iguana"
             />
             <StyledCardContentFirst>
-                <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
-                <UserName>{props.data.userName}</UserName>
+                <StyledAvatar alt="Cindy Baker" src={props.data?.avatar} />
+                <UserName>{props.data?.userName}</UserName>
             </StyledCardContentFirst>
 
             <NameGift>
-                {props.data.giftName}
-                <Status sts={props.data.status}>{props.data.status}</Status>
+                {props.data?.giftName}
+                <Status sts={props.data?.status}>{props.data?.status}</Status>
             </NameGift>
 
             <StyledCardContentSecond>
-                <StyledDate>{props.data.date}</StyledDate>
+                <StyledDate>{props.data?.date}</StyledDate>
                 <Wrapper>
                     <StyledAvatarOnBook
                         alt="Cindy Baker"
-                        src={props.data.avatarInBooking}
+                        src={props.data?.avatarInBooking}
                     />
-                    <StyledText>{props.data.toBook}</StyledText>
+                    <StyledText>{props.data?.toBook}</StyledText>
                     <MeatBalls navigations={props.meatBallsOptions} />
                 </Wrapper>
             </StyledCardContentSecond>
