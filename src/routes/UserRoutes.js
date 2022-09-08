@@ -3,14 +3,15 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import Error from '../components/ui/Error'
-import { Bookeds } from '../components/users/Bookeds'
 import { Charity } from '../components/users/Charity'
 import { Lenta } from '../components/users/Lenta'
-import { MyHalidays } from '../components/users/MyHalidays'
+import MyHolidays from '../components/users/MyHolidays'
 import AddWishCardPage from '../containers/AddWishCardPage'
+import BookedPage from '../containers/BookedPage'
 import EditWishCardPage from '../containers/EditWishCardPage'
 import FriendProfile from '../containers/FriendProfilePage'
 import { Friends } from '../containers/FriendsPage'
+import HolidayCardInnerPage from '../containers/HolidayCardInnerPage'
 import InnerPageWishCard from '../containers/InnerPageWishCard'
 import WishList from '../containers/WishList'
 import { PageLayout } from '../layout/PageLayout'
@@ -33,8 +34,12 @@ const UserRoutes = () => {
                     path="/wish_list/:id/edit"
                     element={<EditWishCardPage />}
                 />
-                <Route path="/bookeds" element={<Bookeds />} />
-                <Route path="/my_halidays" element={<MyHalidays />} />
+                <Route path="/my_halidays" element={<MyHolidays />} />
+                <Route
+                    path="/my_halidays/:holidayGifts"
+                    element={<HolidayCardInnerPage />}
+                />
+                <Route path="/bookedPage" element={<BookedPage />} />
                 <Route path="/charity" element={<Charity />} />
             </Route>
             <Route path={DEFAULT_ROUTES.NOT_FOUND.PATH} element={<Error />} />

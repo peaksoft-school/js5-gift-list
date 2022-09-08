@@ -95,7 +95,7 @@ export const putWishCard = createAsyncThunk(
                     wishLink: object.wishGift.wishLink,
                     description: object.wishGift.description,
                     holidayId: object.wishGift.holidayId,
-                    wishDate: object.wishGift.wishDate,
+                    wishDate: '2022-09-01',
                 },
             })
             object.dispatch(getWishGift())

@@ -93,11 +93,14 @@ const StyledButton = styled(MuiButton)`
     justify-content: center;
     align-items: center;
     padding: 10px;
+    font-family: 'Inter' sans-serif;
     font-family: 'Inter', sans-serif;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
+    line-height: 19px;
     border-radius: 6px;
+    text-transform: none;
     &:active {
         ${(props) => props.active}
     }

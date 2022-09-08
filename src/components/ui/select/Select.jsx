@@ -48,6 +48,7 @@ export default function SelectFilter(props) {
                 <Box>
                     <FormControl fullWidth>
                         <Label>{props.label}</Label>
+
                         {name === '' ? (
                             <StyledInputLabel
                                 shrink={false}
@@ -86,6 +87,7 @@ export default function SelectFilter(props) {
         </div>
     )
 }
+
 const StyledInputLabel = styled(InputLabel)`
     padding: 10px 0 8px 0;
     color: #bfc0c4;

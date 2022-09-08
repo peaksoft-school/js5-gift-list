@@ -12,7 +12,9 @@ const ImagePicker = ({ onChange, newFile }) => {
             setIcons(newFile)
         }
     }, [newFile])
-    const deleteImageHandler = () => {
+    const deleteImageHandler = (e) => {
+        e.stopPropagation()
+        e.preventDefault()
         refs.current.value = ''
         setIcons('')
     }
@@ -31,6 +33,7 @@ const ImagePicker = ({ onChange, newFile }) => {
                 ref={refs}
                 onChange={imageHandler}
                 type="file"
+                value=""
                 accept="image/jpeg,image/png,image/gif"
             />
             <DeleteButton onClick={deleteImageHandler}>Удалить</DeleteButton>

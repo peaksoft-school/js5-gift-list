@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
@@ -64,6 +64,7 @@ const WarningSpan = styled('span')`
     margin-left: 30px;
 `
 const InputDiv = styled('div')`
+    width: 60%;
     display: flex;
     flex-direction: column;
 `
