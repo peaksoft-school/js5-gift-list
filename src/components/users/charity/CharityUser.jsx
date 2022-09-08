@@ -19,7 +19,6 @@ import Notification from '../../ui/notification/Notification'
 const CharityUser = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state.addCharity)
-    // const myCharity = useSelector((state) => state.addCharity?.myCharity)
     const navigate = useNavigate()
     const link = (b) => {
         navigate(`${b}`)

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
-// import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
+import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 export const postCharity = createAsyncThunk(
     'addCharity/post_Charity',
@@ -26,13 +26,13 @@ export const postCharity = createAsyncThunk(
                     description: props.description,
                 },
             })
-            // showSuccessMessage('Успешно добавлено!')
+            showSuccessMessage('Успешно добавлено!')
             dispatch(getCharity())
             dispatch(getMyCharity())
             // window.location.reload()
             return post
         } catch (error) {
-            // showErrorMessage(error.message)
+            showErrorMessage(error.message)
             return error
         }
     }
@@ -80,6 +80,7 @@ export const toBookCharity = createAsyncThunk(
             method: 'POST',
             url: `api/bookings/gift-create/${id}`,
         })
+        showSuccessMessage('Успешно забронировано!')
         dispatch(getCharity())
         dispatch(getMyCharity())
         dispatch(getSingleCharityById(id))

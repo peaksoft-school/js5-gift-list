@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
-import { InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { InputLabel, MenuItem, Select } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,6 +13,9 @@ import {
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
 import Notification from '../notification/Notification'
+
+import SelectCharity from './SelectCharity'
+import TextField from './TextField'
 
 export default function EditCharity() {
     const [category, setCategory] = useState()
@@ -58,7 +61,7 @@ export default function EditCharity() {
                     <Title>Добавление вещи </Title>
                     <Questionaire>
                         <div>
-                            <InputLabel style={InputLabelstyle}>
+                            {/* <InputLabel style={InputLabelstyle}>
                                 Название подарка
                                 <TextField
                                     value={allvalue.name}
@@ -73,31 +76,30 @@ export default function EditCharity() {
                                         style: textFieldstyle,
                                     }}
                                 />
-                            </InputLabel>
+                            </InputLabel> */}
+                            <TextField
+                                style={InputLabelstyle}
+                                value={allvalue.name}
+                                onChange={(e) => {
+                                    setallvalue({
+                                        ...allvalue,
+                                        name: e.target.value,
+                                    })
+                                }}
+                                propsstyle={textFieldstyle}
+                            />
                             <InputLabel>Категория</InputLabel>
-                            <Select
+                            <SelectCharity
+                                onClick={getCategotyById}
                                 value={allvalue.categoryId}
+                                data={category}
                                 onChange={(e) => {
                                     setallvalue({
                                         ...allvalue,
                                         categoryId: e.target.value,
                                     })
                                 }}
-                                style={textFieldstyle}
-                            >
-                                {category &&
-                                    category.map((el) => (
-                                        <MenuItem
-                                            onClick={() => {
-                                                getCategotyById(el.id)
-                                            }}
-                                            key={el.id}
-                                            value={el.id}
-                                        >
-                                            {el.name}
-                                        </MenuItem>
-                                    ))}
-                            </Select>
+                            />
                         </div>
                         {/* ------------------------------------------------------------ */}
                         <div>
@@ -116,7 +118,7 @@ export default function EditCharity() {
                                 <MenuItem value="NEW">Новое</MenuItem>
                             </Select>
                             <InputLabel>Подкатегория</InputLabel>
-                            <Select
+                            <SelectCharity
                                 value={allvalue.subCategoryId}
                                 onChange={(e) => {
                                     setallvalue({
@@ -124,22 +126,14 @@ export default function EditCharity() {
                                         subCategoryId: e.target.value,
                                     })
                                 }}
-                                style={textFieldstyle}
-                            >
-                                {subCategory &&
-                                    subCategory.map((el) => (
-                                        <MenuItem key={el.id} value={el.id}>
-                                            {el.name}
-                                        </MenuItem>
-                                    ))}
-                            </Select>
+                                data={subCategory}
+                            />
                         </div>
                         {/* --------------------------------  --------------------- */}
                     </Questionaire>
-                    <InputLabel style={TextAreaStyle}>
-                        Описание подарка
-                        {/* <AboutGift /> */}
-                        <TextField
+                    {/* <InputLabel style={TextAreaStyle}>
+                        Описание подарка */}
+                    {/* <TextField
                             value={allvalue.description}
                             onChange={(e) => {
                                 setallvalue({
@@ -151,8 +145,20 @@ export default function EditCharity() {
                                 style: styles,
                             }}
                             variant="outlined"
-                        />
-                    </InputLabel>
+                        /> */}
+                    <TextField
+                        style={TextAreaStyle}
+                        label="Описание подарка"
+                        value={allvalue.description}
+                        onChange={(e) => {
+                            setallvalue({
+                                ...allvalue,
+                                description: e.target.value,
+                            })
+                        }}
+                        propsstyle={styles}
+                    />
+                    {/* </InputLabel> */}
                     {/* -------------------------  --------------------- */}
                     <Buttons>
                         <Button variant="outlined">Отмена</Button>
@@ -165,11 +171,7 @@ export default function EditCharity() {
 }
 const styleForCard = {
     margin: '30px auto',
-    // padding: '20px',
     width: '100%',
-    // height: '100%',
-    // backgroundColor: '#ffffff',
-    // borderRadius: '10px',
 }
 const Questionaire = styled('div')`
     display: flex;
@@ -177,6 +179,11 @@ const Questionaire = styled('div')`
     width: 808px;
     border-radius: 10px;
 `
+const InputLabelstyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '70px',
+}
 const Container = styled('div')`
     height: auto;
     width: 808px;
@@ -198,11 +205,11 @@ const textFieldstyle = {
     borderRadius: '6px',
     margin: '5px 0',
 }
-const InputLabelstyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '70px',
-}
+// const InputLabelstyle = {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     height: '70px',
+// }
 const TextAreaStyle = {
     display: 'flex',
     flexDirection: 'column',

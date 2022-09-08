@@ -134,7 +134,7 @@ const StyledCardContentSecond = styled(CardContent)(() => ({
 
 const StyledCardMedia = styled(CardMedia)(() => ({
     borderRadius: '6px',
-    width: '317px',
+    width: 'auto',
     height: '149px',
     margin: '0 16px 0 16px',
     order: '0',
