@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import MenuItem from '@mui/material/MenuItem'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
 import Button from '../components/ui/Button'
 import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
@@ -17,11 +17,15 @@ import {
     putWishCard,
 } from '../store/slices/AddWishCardActions'
 
+import AddHolidayModal from './AddHolidayModal'
+
 const EditWishCardPage = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const id = location.pathname.split('/')[2]
     const dispatch = useDispatch()
+    const [params, setParams] = useSearchParams()
+    const { addHoliday } = Object.fromEntries([...params])
 
     const { dataWishCardWithId, holidaysToSelect } = useSelector(
         (state) => state.wishCard
@@ -52,7 +56,6 @@ const EditWishCardPage = () => {
             wishLink: dataWishCardWithId?.wish?.wishLink,
             description: dataWishCardWithId?.wish?.description,
         })
-        // setDateWish(dataWishCardWithId?.wish?.wishDate)
         setWishSelect(dataWishCardWithId?.wish?.holiday.id)
         setWishPhoto(dataWishCardWithId?.wish?.photo)
     }, [dataWishCardWithId?.wish?.photo, dataWishCardWithId?.wish?.wishDate])
@@ -77,6 +80,13 @@ const EditWishCardPage = () => {
     const DateHandler = (e) => {
         setDateWish(e)
     }
+    const openAddModalHandler = () => {
+        setParams({ addHoliday: true })
+    }
+    const closeModalHandler = () => {
+        setParams({})
+    }
+
     wishGift.wishDate = dateWish
     wishGift.holidayId = wishSelect
 
@@ -92,8 +102,14 @@ const EditWishCardPage = () => {
         )
         navigate('/wish_list')
     }
-    const addHolidayHandler = () => {}
     const img = wishPhoto?.name ? null : wishPhoto
+    const a = (
+        <AddHolidayModal
+            onOpen={openAddModalHandler}
+            open={addHoliday === 'true'}
+            onClose={closeModalHandler}
+        />
+    )
     return (
         <WrapperAll onSubmit={putDataWishCard}>
             <ImagePicker newFile={img} onChange={editImageHandler} />
@@ -127,7 +143,7 @@ const EditWishCardPage = () => {
                             label="Праздник"
                             getValue={holidayNameHandler}
                             additionalOption={
-                                <MenuItemButton onClick={addHolidayHandler}>
+                                <MenuItemButton onClick={openAddModalHandler}>
                                     <Plus>+</Plus> Добавить праздник
                                 </MenuItemButton>
                             }
@@ -156,6 +172,7 @@ const EditWishCardPage = () => {
                     </Button>
                 </WrapperButton>
             </WrapperEdit>
+            {a}
         </WrapperAll>
     )
 }

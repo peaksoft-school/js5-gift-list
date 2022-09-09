@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import { styled } from '@mui/system'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { ReactComponent as BoardIcon } from '../assets/icons/boardIcon.svg'
 import deleteIcon from '../assets/icons/deleteIcon.svg'
@@ -17,6 +17,8 @@ import {
     deleteWishGift,
     getWishWithId,
 } from '../store/slices/AddWishCardActions'
+
+import AddHolidayModal from './AddHolidayModal'
 
 const WishList = () => {
     const dispatch = useDispatch()
@@ -66,9 +68,25 @@ const WishList = () => {
         setFormat(true)
     }
     const formatCard = format ? 'list' : 'board'
+    const [params, setParams] = useSearchParams()
+    const { addHoliday } = Object.fromEntries([...params])
+
+    const openAddModalHandler = () => {
+        setParams({ addHoliday: true })
+    }
+    const closeModalHandler = () => {
+        setParams({})
+    }
+
     return (
         <DivWishList>
+            <AddHolidayModal
+                onOpen={openAddModalHandler}
+                open={addHoliday === 'true'}
+                onClose={closeModalHandler}
+            />
             <WrapperTop>
+                <p onClick={openAddModalHandler}>click</p>
                 <H2>Список желаний</H2>
                 <WrapperIcon>
                     <ButtonIcon onClick={boardHandler}>

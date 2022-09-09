@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import MenuItem from '@mui/material/MenuItem'
 // import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import Button from '../components/ui/Button'
 import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
@@ -18,9 +18,14 @@ import {
     getHolidaysToSelect,
 } from '../store/slices/AddWishCardActions'
 
+import AddHolidayModal from './AddHolidayModal'
+
 const AddWishCardPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [params, setParams] = useSearchParams()
+    const { addHoliday } = Object.fromEntries([...params])
+
     const { holidaysToSelect } = useSelector((state) => state.wishCard)
 
     useEffect(() => {
@@ -56,9 +61,13 @@ const AddWishCardPage = () => {
     const chooseHoliday = (e) => {
         setHolidays(e.id)
     }
-    const addHolidayHandler = () => {
-        
+    const openAddModalHandler = () => {
+        setParams({ addHoliday: true })
     }
+    const closeModalHandler = () => {
+        setParams({})
+    }
+
     wishGift.holidayId = holidayId
     wishGift.wishDate = wishDate
     const postHandler = (e) => {
@@ -109,7 +118,7 @@ const AddWishCardPage = () => {
                             showButton="button"
                             options={holidaysToSelect}
                             additionalOption={
-                                <MenuItemButton onClick={addHolidayHandler}>
+                                <MenuItemButton onClick={openAddModalHandler}>
                                     <Plus>+</Plus> Добавить праздник
                                 </MenuItemButton>
                             }
@@ -140,6 +149,11 @@ const AddWishCardPage = () => {
                     </Button>
                 </WrapperButton>
             </WrapperEdit>
+            <AddHolidayModal
+                onOpen={openAddModalHandler}
+                open={addHoliday === 'true'}
+                onClose={closeModalHandler}
+            />
         </WrapperAll>
     )
 }
