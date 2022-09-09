@@ -16,18 +16,23 @@ const theme = createTheme({
     },
 })
 
-const ViewsDatePicker = ({ onChange, value, label, placeholder }) => {
+const ViewsDatePicker = ({ onChange, value, label, placeholder, width }) => {
     return (
         <Div>
             <Label htmlFor={label}>{label}</Label>
-
-            <LocalizationProvider locale={ru} dateAdapter={AdapterDateFns}>
+            <LocalizationProvider
+                adapterLocale={ru}
+                dateAdapter={AdapterDateFns}
+            >
                 <ThemeProvider theme={theme}>
                     <DatePicker
+                        inputFormat="dd.MM.yyyy"
+                        autoComplete="off"
                         value={value}
                         onChange={onChange}
                         renderInput={(params) => (
                             <StyledTextField
+                                width={width}
                                 autoComplete="off"
                                 {...params}
                                 helperText={null}

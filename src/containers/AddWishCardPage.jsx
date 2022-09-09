@@ -51,13 +51,14 @@ const AddWishCardPage = () => {
         setWishGiftPhoto(e)
     }
     const addDateWishGift = (e) => {
-        // const date = format(e, 'yyyy-MM-dd')
         setDateWishGift(e)
     }
     const chooseHoliday = (e) => {
         setHolidays(e.id)
     }
-    const addHolidayHandler = () => {}
+    const addHolidayHandler = () => {
+        
+    }
     wishGift.holidayId = holidayId
     wishGift.wishDate = wishDate
     const postHandler = (e) => {

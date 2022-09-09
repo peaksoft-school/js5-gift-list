@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { format } from 'date-fns'
-// import parseISO from 'date-fns/parseISO'
 
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
@@ -10,7 +9,6 @@ export const addGift = createAsyncThunk(
     async ({ wishPhoto, wishGift, dispatch }) => {
         const formData = new FormData()
         const date = format(wishGift.wishDate, 'yyyy-MM-dd')
-        console.log(date)
         try {
             formData.set('file', wishPhoto)
             const response = await appFetchFile({
@@ -84,11 +82,7 @@ export const putWishCard = createAsyncThunk(
     'wishCard/putWishCard',
     async (object) => {
         const formData = new FormData()
-        const date = object.wishGift.wishDate
-        // const wishDate =
-        //     date === 'yyyy.MM.dd' ? date : format(date, 'yyyy-MM-dd')
-        // console.log(wishDate)
-        // // const date = format(object.wishGift.wishDate, 'yyyy-MM-dd')
+        const date = format(object.wishGift.wishDate, 'yyyy-MM-dd')
 
         try {
             const photoresponse = {}
@@ -113,7 +107,7 @@ export const putWishCard = createAsyncThunk(
                     wishDate: date,
                 },
             })
-            console.log(response, 'hello')
+            // console.log(response, 'hello')
             object.dispatch(getWishGift())
             return response
         } catch (error) {

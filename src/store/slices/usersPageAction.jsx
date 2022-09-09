@@ -32,3 +32,18 @@ export const getUserProfileWithId = createAsyncThunk(
         }
     }
 )
+export const toBlockUser = createAsyncThunk(
+    'toBlock/toBlockUser',
+    async (obj) => {
+        try {
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/admin/users/block/${obj.id}`,
+            })
+            console.log(response)
+            return response
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+)

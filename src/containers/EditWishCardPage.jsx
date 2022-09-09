@@ -43,15 +43,19 @@ const EditWishCardPage = () => {
     }, [])
 
     useEffect(() => {
+        if (dataWishCardWithId?.wish?.wishDate) {
+            const sd = dataWishCardWithId?.wish?.wishDate.split('.')
+            setDateWish(new Date(sd[2], sd[1] - 1, sd[0]))
+        }
         setWishGift({
             wishName: dataWishCardWithId?.wish?.wishName,
             wishLink: dataWishCardWithId?.wish?.wishLink,
             description: dataWishCardWithId?.wish?.description,
         })
-        setDateWish(dataWishCardWithId?.wish?.wishDate)
+        // setDateWish(dataWishCardWithId?.wish?.wishDate)
         setWishSelect(dataWishCardWithId?.wish?.holiday.id)
         setWishPhoto(dataWishCardWithId?.wish?.photo)
-    }, [dataWishCardWithId?.wish?.photo])
+    }, [dataWishCardWithId?.wish?.photo, dataWishCardWithId?.wish?.wishDate])
 
     const cancel = () => {
         navigate('/wish_list')
@@ -86,7 +90,7 @@ const EditWishCardPage = () => {
                 dispatch,
             })
         )
-        // navigate('/wish_list')
+        navigate('/wish_list')
     }
     const addHolidayHandler = () => {}
     const img = wishPhoto?.name ? null : wishPhoto

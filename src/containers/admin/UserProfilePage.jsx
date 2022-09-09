@@ -8,9 +8,13 @@ import { ReactComponent as Gray } from '../../assets/icons/bron.svg'
 import { ReactComponent as Facebook } from '../../assets/icons/facebook.svg'
 import toBookIcon from '../../assets/icons/toBook.svg'
 import BookedGiftsCard from '../../components/ui/BookedGiftsCard'
+import Button from '../../components/ui/Button'
 import GiftCard from '../../components/users/GiftCard'
 import MyHolidaysCard from '../../components/users/MyHolidaysCard'
-import { getUserProfileWithId } from '../../store/slices/usersPageAction'
+import {
+    getUserProfileWithId,
+    toBlockUser,
+} from '../../store/slices/usersPageAction'
 
 function UserProfilePage() {
     const optionWishes = [
@@ -21,12 +25,12 @@ function UserProfilePage() {
             // clickItem: (id) => toBookGiftHandler(id),
         },
     ]
-    const optionBookedCard = [
+    const optionToBlock = [
         {
             icon: toBookIcon,
             title: 'Забронировать',
             id: '1',
-            // clickItem: (id) => toBookGiftHandler(id),
+            clickItem: (id) => toBlockUserHandler(id),
         },
     ]
     const [showMoreWishCard, setShowMoreWishCard] = useState(false)
@@ -39,6 +43,9 @@ function UserProfilePage() {
     useEffect(() => {
         dispatch(getUserProfileWithId())
     }, [])
+    function toBlockUserHandler(id) {
+        dispatch(toBlockUser({ id }))
+    }
     const isShowMoreHandler = () => {
         setShowMoreHolidayCard(!showMoreHolidayCard)
     }
@@ -63,15 +70,11 @@ function UserProfilePage() {
         <ContainerDiv>
             <div>
                 <RouteTitle>
-                    {/* {friend.friendStatus === 'FRIEND'
-                        ? 'Друзья'
-                        : 'Запросы в друзья'} */}
                     <RouteNameTitle>
                         /{userProfile?.firstName} {userProfile.lastName}
                     </RouteNameTitle>
                 </RouteTitle>
             </div>
-
             <ContentDiv>
                 <DivWrap>
                     <StyledCard>
@@ -213,6 +216,9 @@ function UserProfilePage() {
                     ) : (
                         ''
                     )}
+                    <WrapperButton>
+                        <Button>Блокировать</Button>
+                    </WrapperButton>
                 </InfoDiv>
             </ContentDiv>
             {userProfile?.wishes?.length > 0 ? (
@@ -227,18 +233,11 @@ function UserProfilePage() {
                     <p>{whichTextWish}</p>
                 </StyledShowMoreDiv>
             )}
-
             <StyledCardDiv>
                 {userProfile?.wishes?.slice(0, wichIsShowWish).map((el) => {
                     return (
-                        // <FriendCards
-                        //     key={el.wish?.wishId}
-                        //     el={el}
-                        //     idOfOwnerUser={idOfOwnerUser}
-                        // />
-                        <Div>
+                        <Div key={el.wish.wishId}>
                             <GiftCard
-                                key={el.wish?.wishId}
                                 variant="board"
                                 id={el.wish?.wishId}
                                 nameGift={el.wish?.wishName}
@@ -248,12 +247,6 @@ function UserProfilePage() {
                                 date={el.wish?.wishDate}
                                 isBooked={el?.bookedUser}
                                 navigation={optionWishes}
-                                // idOfOwnerUser={idOfOwnerUser}
-                                // navigation={
-                                //     el?.bookedUser === null
-                                //         ? toBookWishNavigation
-                                //         : cancelBookingWishNavigation
-                                // }
                             />
                         </Div>
                     )
@@ -271,13 +264,12 @@ function UserProfilePage() {
                     <p>{whichTextHoliday}</p>
                 </StyledShowMoreDiv>
             )}
-
-            <StyledCardDiv>
+            <Wrapper>
                 {userProfile?.holidays
                     ?.slice(0, wichIsShowHoliday)
                     .map((el) => {
                         return (
-                            <Div>
+                            <WrapperHolidayCard key={el.id}>
                                 <MyHolidaysCard
                                     key={el.id}
                                     id={el.id}
@@ -286,10 +278,10 @@ function UserProfilePage() {
                                     img={el.photo}
                                     variant="withoutMeatBalls"
                                 />
-                            </Div>
+                            </WrapperHolidayCard>
                         )
                     })}
-            </StyledCardDiv>
+            </Wrapper>
             {userProfile?.gifts?.length > 0 ? (
                 <MainCardTitle>Благотворительность</MainCardTitle>
             ) : (
@@ -302,7 +294,6 @@ function UserProfilePage() {
                     <p>{whichIsTextGift}</p>
                 </StyledShowMoreDiv>
             )}
-
             <div>
                 <StyledCardDiv>
                     {userProfile?.gifts?.slice(0, wichIsShowGift).map((el) => {
@@ -310,15 +301,13 @@ function UserProfilePage() {
                             <BookedGiftsCard
                                 id={el.gift?.giftId}
                                 key={el.gift?.giftId}
-                                // variant="board"
                                 nameGift={el.gift?.name}
                                 image={el.gift?.photo}
                                 avatarBooked={el.bookedUser?.photo}
                                 holiday={el.gift?.status}
                                 date={el.gift?.createdAt}
                                 isBooked={el?.bookedUser}
-                                // idOfOwnerUser={idOfOwnerUser}
-                                navigation={optionBookedCard}
+                                navigation={optionToBlock}
                             />
                         )
                     })}
@@ -330,13 +319,15 @@ function UserProfilePage() {
 }
 
 export default UserProfilePage
-
+const WrapperButton = styled('div')`
+    margin-left: 100%;
+`
 const ContainerDiv = styled('div')`
-    width: 1120px;
+    width: 97%;
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin-left: 50px;
+    margin-left: 30px;
 `
 const RouteTitle = styled('p')`
     font-family: 'Inter', sans-serif;
@@ -411,7 +402,7 @@ const StyledShowMoreDiv = styled('div')`
     display: flex;
     justify-content: flex-end;
     margin-top: -34px;
-    margin-right: 30px;
+    margin-right: 50px;
     & p {
         display: inline;
         color: blue;
@@ -421,19 +412,30 @@ const StyledShowMoreDiv = styled('div')`
 `
 
 const StyledCardDiv = styled('div')`
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin-top: 20px;
     padding-bottom: 20px;
-    /* height: 550px; */
 `
-
+const Wrapper = styled('div')`
+    display: flex;
+    flex-wrap: wrap;
+`
+const WrapperHolidayCard = styled('div')`
+    margin: 1%;
+    width: 30%;
+    margin-top: 20px;
+    padding-bottom: 20px;
+`
 const Div = styled('div')`
-    margin-right: 2%;
-    margin-bottom: 2%;
+    margin: 1%;
+    width: 30%;
+    margin-top: 20px;
+    padding-bottom: 20px;
 `
 const DivWrap = styled('div')`
-    margin-top: 20px;
+    margin-top: 10px;
 `
 const StyledCard = styled('div')`
     display: flex;

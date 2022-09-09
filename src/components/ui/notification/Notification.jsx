@@ -4,11 +4,11 @@ import 'react-toastify/dist/ReactToastify.css'
 const Notification = (props) => {
     const { status } = props
     const style = {
-        height: '120px',
-        width: '390px',
+        height: '20px',
+        width: '290px',
     }
     if (status === 'success') {
-        style.backgroundColor = '#C6F0C2'
+        style.backgroundColor = '#8639B5'
         style.color = '#328048'
     } else if (status === 'warning') {
         style.backgroundColor = '#FFF3D8'
@@ -33,7 +33,7 @@ const Notification = (props) => {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            style={{ width: '400px' }}
+            style={{ width: '400px', height: '50px' }}
             toastStyle={style}
         />
     )
