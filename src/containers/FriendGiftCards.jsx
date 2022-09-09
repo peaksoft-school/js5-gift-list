@@ -88,16 +88,13 @@ function FriendGiftCards({ gifts, idOfOwnerUser }) {
         dispatch(toBookGift({ dispatch, id, userId }))
     }
 
-    const sendComplainToGiftHandler = () => {
-        const fetch = async () => {
-            try {
-                await dispatch(copmlainToGift({ complaintId, title })).unwrap()
-                setOpenModal(false)
-            } catch (error) {
-                showErrorMessage('Не удалось отправить')
-            }
+    const sendComplainToGiftHandler = async () => {
+        try {
+            await dispatch(copmlainToGift({ complaintId, title })).unwrap()
+            setOpenModal(false)
+        } catch (error) {
+            showErrorMessage('Не удалось отправить')
         }
-        fetch()
     }
     function openModalHandler(id) {
         setcomplaintId(id)

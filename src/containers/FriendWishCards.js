@@ -178,16 +178,13 @@ function FriendWishCards({ wishes, idOfOwnerUser }) {
     const addToMyWishHandler = (id) => {
         dispatch(addtoMyWish({ id, userId, dispatch }))
     }
-    const sendComplainToWishHandler = () => {
-        const fetch = async () => {
-            try {
-                await dispatch(copmlainToWish({ complaintId, title })).unwrap()
-                setOpenModal(false)
-            } catch (error) {
-                showErrorMessage('Не удалось отправить')
-            }
+    const sendComplainToWishHandler = async () => {
+        try {
+            await dispatch(copmlainToWish({ complaintId, title })).unwrap()
+            setOpenModal(false)
+        } catch (error) {
+            showErrorMessage('Не удалось отправить')
         }
-        fetch()
     }
 
     function openModalHandler(id) {
