@@ -3,32 +3,22 @@ import Avatar from '@mui/material/Avatar'
 import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import { useSelector } from 'react-redux'
 
 import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
-    const userId = useSelector((state) => state.authSlice?.user.id)
-    const notReserved = [
-        {
-            icon: props.icon,
-            title: 'забронировать',
-            id: '1',
-            clickItem: (id) => {
-                props.clickItem(id)
-            },
-        },
-    ]
-    const reservedByMe = [
-        {
-            icon: props.icon,
-            title: 'снять бронь',
-            id: '1',
-            clickItem: (id) => {
-                props.cancelBooking(id)
-            },
-        },
-    ]
+    const getIsBookedStaText = () => {
+        const booked = 'Забронирован'
+        const pending = 'В ожидании'
+        if (props.data.toBook === null) {
+            return pending
+        }
+        if (props.data.toBook !== null) {
+            return booked
+        }
+        return booked
+    }
+
     return (
         <StyledCard style={cursor} onClick={props.clickCard}>
             <StyledCardMedia
@@ -57,18 +47,8 @@ export default function CharityCard(props) {
                         alt="Cindy Baker"
                         src={props.bookedUser?.photo}
                     />
-                    <StyledText>
-                        {props.data.booking == null
-                            ? 'в ожидании'
-                            : 'забронирован'}
-                    </StyledText>
-                    {props.data.booking == null && (
-                        <MeatBalls navigations={notReserved} id={props.id} />
-                    )}
-                    {props.bookedUser?.userId === userId && (
-                        <MeatBalls navigations={reservedByMe} id={props.id} />
-                    )}
-                    {props.data.booking !== null && ''}
+                    <StyledText>{getIsBookedStaText()}</StyledText>
+                    <MeatBalls navigations={props.meatBallsOptions} />
                 </Wrapper>
             </StyledCardContentSecond>
         </StyledCard>
@@ -76,15 +56,8 @@ export default function CharityCard(props) {
 }
 
 const StyledCard = styled(MuiCard)(() => ({
-    // width: '97%',
-    // margin: '10px',
-    // // height: '42vh',
-    // boxSizing: 'border-box',
     width: '100%',
     height: '42vh',
-    // borderRadius: '8px',
-    // padding: '16px',
-    // marginTop: '24px',
     display: 'flex',
     flexDirection: 'column',
 }))

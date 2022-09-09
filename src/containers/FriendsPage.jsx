@@ -1,20 +1,48 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 
 import { styled } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
 
 import FriendTabs from '../components/users/FriendTabs'
+import {
+    getFriendsAction,
+    requestsToFriendAction,
+} from '../store/slices/friendTabAction'
 
-const options = {
-    friends: [{ name: 'Ann', id: '1', amountOfFriends: '1' }],
-    requestToFriends: [{ name: 'Ali', id: '1', amountOfFriends: '1' }],
-}
+export const FriendsPage = () => {
+    const dispatch = useDispatch()
+    const [friends, setFriends] = useState()
+    const [requestToFriend, setRequestToFriend] = useState()
+    const store = useSelector((state) => state.users.friends)
+    const requestToFriendData = useSelector(
+        (state) => state.users.requestToFriend
+    )
 
-export const Friends = () => {
+    useEffect(() => {
+        dispatch(getFriendsAction(setFriends)).unwrap()
+    }, [])
+
+    useEffect(() => {
+        setFriends(store)
+    }, [store])
+
+    useEffect(() => {
+        dispatch(requestsToFriendAction(setRequestToFriend)).unwrap()
+    }, [])
+
+    useEffect(() => {
+        setRequestToFriend(requestToFriendData)
+    }, [requestToFriendData])
     return (
         <MainDiv>
             <StyledMainTitle>Друзья</StyledMainTitle>
             <StyledDivTab>
-                <FriendTabs options={options} />
+                {friends && (
+                    <FriendTabs
+                        friends={friends}
+                        requestToFriend={requestToFriend}
+                    />
+                )}
             </StyledDivTab>
         </MainDiv>
     )

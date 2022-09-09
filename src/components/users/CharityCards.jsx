@@ -17,12 +17,10 @@ export default function GiftCard(props) {
         holiday,
         date,
         isBooked,
-        id,
         navigation,
-        navigateToInnerPage,
         idOfOwnerUser,
+        id,
     } = props
-
     const isMyId = () => {
         const booked = (
             <SpanAvatar>
@@ -41,8 +39,19 @@ export default function GiftCard(props) {
         }
         return booked
     }
+    const isNewStateTex = () => {
+        const oldState = 'Б/У'
+        const newState = 'Новый'
+        if (holiday === 'USED') {
+            return oldState
+        }
+        if (holiday !== 'USED') {
+            return newState
+        }
+        return oldState
+    }
     return (
-        <StyledCard onClick={navigateToInnerPage} variants={variant}>
+        <StyledCard variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
@@ -52,7 +61,9 @@ export default function GiftCard(props) {
             <Wrapper>
                 <StyledCardContentFirst variants={variant}>
                     <NameGift>{nameGift}</NameGift>
-                    <StyledBirthday>{holiday}</StyledBirthday>
+                    <StyledBirthday status={isNewStateTex()}>
+                        {isNewStateTex()}
+                    </StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
                     <StyledDate variants={variant}>{date}</StyledDate>
@@ -67,6 +78,7 @@ export default function GiftCard(props) {
         </StyledCard>
     )
 }
+
 const WrapperToBooking = styled('div')(({ variants }) => ({
     display: 'flex',
     ...(variants === 'board' && {
@@ -77,18 +89,18 @@ const WrapperToBooking = styled('div')(({ variants }) => ({
         justifyContent: 'flex-start',
     }),
 }))
+
 const StyledAvatar = styled(Avatar)`
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    display: inline-flex;
 `
 const SpanAvatar = styled('span')`
     display: flex;
 `
 const StyledCard = styled(Card)(({ variants }) => ({
     ...(variants === 'board' && {
-        width: '100%',
+        width: '349px',
         height: '250px',
         cursor: 'pointer',
     }),
@@ -115,15 +127,16 @@ const StyledCardContentFirst = styled(CardContent)(({ variants }) => ({
         padding: '3px 16px 3px 16px',
     }),
     ...(variants === 'list' && {
-        width: '100%',
+        width: '335px',
         justifyContent: 'space-between',
         paddingLeft: '0',
     }),
 }))
+
 const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
     display: 'grid',
     ...(variants === 'board' && {
-        gridTemplateColumns: '80px 164px 10px',
+        gridTemplateColumns: '80px 190px 10px',
         padding: '10px 16px 0 16px',
     }),
     ...(variants === 'list' && {
@@ -133,6 +146,7 @@ const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
         padding: '10px 16px 0 0px',
     }),
 }))
+
 const NameGift = styled('span')`
     font-size: Inter;
     font-weight: 600;
@@ -145,7 +159,7 @@ const StyledDate = styled('span')(({ variants }) => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#636C84',
+    color: '#636c84',
     ...(variants === 'list' && {
         display: 'flex',
         justifyContent: 'flex-end',
@@ -161,15 +175,16 @@ const StyledText = styled('span')`
 const StyledBirthday = styled('span')`
     font-size: Inter;
     font-weight: 400;
-    font-size: 13px;
-    line-height: 15px;
-    color: #0ba360;
+    font-size: 14px;
+    line-height: 17px;
+    color: ${(props) => (props.status === 'Б/У' ? '#fd5200' : '#0ba360')};
 `
 const StyledCardMedia = styled(CardMedia)(({ variants }) => ({
     borderRadius: '6px',
+
     ...(variants === 'board' && {
-        width: '90%',
-        height: '58%',
+        width: '317px',
+        height: '149px',
         margin: '16px',
     }),
     ...(variants === 'list' && {

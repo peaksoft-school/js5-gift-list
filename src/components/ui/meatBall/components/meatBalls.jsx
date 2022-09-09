@@ -10,7 +10,6 @@ import balls from '../../../../assets/images/Vector (4).png'
 export default function MeatBalls(props) {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
-
     const handleClick = (event) => {
         event.stopPropagation()
         setAnchorEl(event.currentTarget)
