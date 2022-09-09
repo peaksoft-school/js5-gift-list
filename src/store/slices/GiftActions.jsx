@@ -109,7 +109,7 @@ export const getSingleCharityById = createAsyncThunk(
 )
 export const putCharity = createAsyncThunk(
     'addCharity/putCharity',
-    async (obj, { dispatch }) => {
+    async (obj, { dispatch, rejectWithValue }) => {
         const formData = new FormData()
         try {
             const charityResponse = {}
@@ -138,7 +138,7 @@ export const putCharity = createAsyncThunk(
             dispatch(getMyCharity())
             return response
         } catch (error) {
-            return error.message
+            return rejectWithValue(error)
         }
     }
 )

@@ -126,7 +126,8 @@ const StyledCardContentFirst = styled(CardContent)(() => ({
 const StyledCardContentSecond = styled(CardContent)(() => ({
     height: '20px',
     padding: '10px',
-    width: '317px',
+    width: 'auto',
+    margin: '0px 10px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',

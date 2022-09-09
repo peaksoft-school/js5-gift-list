@@ -11,8 +11,10 @@ import {
     getSubCategory,
     putCharity,
 } from '../../../store/slices/GiftActions'
+import { showErrorMessage } from '../../../utils/helpers'
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
+import Notification from '../notification/Notification'
 
 export default function EditMyCharity() {
     const navigate = useNavigate()
@@ -53,8 +55,18 @@ export default function EditMyCharity() {
     }, [])
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(putCharity({ id: state?.gift.giftId, ...allvalue }))
-        navigate('/charity')
+        const fetch = async () => {
+            try {
+                await dispatch(
+                    putCharity({ id: state?.gift.giftId, ...allvalue })
+                ).unwrap()
+                // console.log(response)
+                navigate('/charity')
+            } catch (error) {
+                showErrorMessage('Не удалось изменить!')
+            }
+        }
+        fetch()
     }
     const getsubcategory = (id) => {
         dispatch(getSubCategory({ id, setSubCategory }))
@@ -62,6 +74,7 @@ export default function EditMyCharity() {
     const img = state?.gift.photo?.name ? null : state?.gift.photo
     return (
         <div style={styleForCard}>
+            <Notification />
             breadCrambs
             <Anketa onSubmit={submitHandler}>
                 {state && (
@@ -189,7 +202,7 @@ export default function EditMyCharity() {
 }
 const styleForCard = {
     margin: '30px auto',
-    width: '100%',
+    // width: '100%',
 }
 const Questionaire = styled('div')`
     display: flex;
@@ -230,9 +243,9 @@ const TextAreaStyle = {
 const Anketa = styled('form')`
     display: flex;
     justify-content: space-around;
-    width: 1086px;
+    max-width: 1086px;
     border-radius: 10px;
-    margin: 30px auto;
+    margin: 30px 20px;
     padding: 20px;
     height: 871px;
     background-color: white;
