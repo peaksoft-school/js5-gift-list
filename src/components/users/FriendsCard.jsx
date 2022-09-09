@@ -18,6 +18,8 @@ const FriendsCard = ({
         console.log(id)
     }
     const rejectHandler = (event, id) => {
+        console.log(id)
+
         event.stopPropagation()
         console.log(id)
     }

@@ -45,7 +45,7 @@ export default function FriendTabs({ options }) {
     )
     return (
         <StyledBoxContainer>
-            <TabContext value={value}>
+            <TabContext value="numbers">
                 <StyledBox>
                     <StyledTabList onChange={handleChange}>
                         <StyledTab label={myFriends} value="1" />

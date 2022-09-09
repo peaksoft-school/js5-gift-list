@@ -50,12 +50,12 @@ export const LandingPage = () => {
             <WhiteSection>
                 <Content>
                     <Div>
-                        <Statistic number="100 К+" name="Пользователей" />
+                        <Statistic number="100К+" name="Пользователей" />
                         <Statistic number="10 К+" name="Размещенных подарков" />
                         <Statistic number="15 К+" name="Подаренных подарков" />
                         <Statistic
                             number="9 К+"
-                            name="Реализованной благотворительной помощи"
+                            name="Благотворительной помощи"
                         />
                     </Div>
                     <AdvantagePage advant={advant} />

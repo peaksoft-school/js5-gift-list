@@ -27,7 +27,7 @@ const Headers = styled('header')`
     display: flex;
     align-items: center;
     padding-left: 20px;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     /* left: 0; */
     background: #ffffff;
