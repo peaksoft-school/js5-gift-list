@@ -1,7 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+// <<<<<<< HEAD
+import addCharity from './slices/AddCharity'
+// =======
 // eslint-disable-next-line import/no-cycle
 import { AddWishCardSlice } from './slices/addWishCardSlice'
+// >>>>>>> d04bfa8e76e79200385d2d93d6d311c8167f94cd
 import { authSlice } from './slices/AuthSlice'
 import bookedPageSlice from './slices/bookedPageSlice'
 import friendProfileSlice from './slices/friendProfileSlice'
@@ -18,6 +22,7 @@ export const store = configureStore({
         friends: friendsSlice.reducer,
         requestToFriend: requestToFriendSlice.reducer,
         friend: friendProfileSlice.reducer,
+        addCharity: addCharity.reducer,
         holidayUserGifts: HolidayGiftsSlice.reducer,
         wishCard: AddWishCardSlice.reducer,
         bookedCards: bookedPageSlice.reducer,

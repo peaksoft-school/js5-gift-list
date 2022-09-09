@@ -9,7 +9,7 @@ import {
     requestsToFriendAction,
 } from '../store/slices/friendTabAction'
 
-export const Friends = () => {
+export const FriendsPage = () => {
     const dispatch = useDispatch()
     const [friends, setFriends] = useState()
     const [requestToFriend, setRequestToFriend] = useState()
@@ -20,7 +20,7 @@ export const Friends = () => {
 
     useEffect(() => {
         dispatch(getFriendsAction(setFriends)).unwrap()
-    }, [friends])
+    }, [])
 
     useEffect(() => {
         setFriends(store)
@@ -28,7 +28,7 @@ export const Friends = () => {
 
     useEffect(() => {
         dispatch(requestsToFriendAction(setRequestToFriend)).unwrap()
-    }, [requestToFriend])
+    }, [])
 
     useEffect(() => {
         setRequestToFriend(requestToFriendData)

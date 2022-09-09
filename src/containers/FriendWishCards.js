@@ -15,17 +15,19 @@ import {
     copmlainToWish,
     cancelBookingWish,
 } from '../store/slices/friendProfileAction'
+import { showErrorMessage } from '../utils/helpers'
 
 function FriendWishCards({ wishes, idOfOwnerUser }) {
+    const dispatch = useDispatch()
     const { bookedUser } = wishes
     const { wish } = wishes
     const { userId } = useParams()
     const [title, setTitle] = useState('')
     const [complaintId, setcomplaintId] = useState('')
     const [openModal, setOpenModal] = useState(false)
-    const dispatch = useDispatch()
     const friendId = useSelector((state) => state.friend.friend.id)
-    const options = useMemo(() => checkOwnBook(), [])
+
+    const options = useMemo(() => checkOwnBook(), [bookedUser])
 
     function checkOwnBook() {
         const isIWillBookAddAndComplainByMe = [
@@ -177,8 +179,15 @@ function FriendWishCards({ wishes, idOfOwnerUser }) {
         dispatch(addtoMyWish({ id, userId, dispatch }))
     }
     const sendComplainToWishHandler = () => {
-        dispatch(copmlainToWish({ complaintId, title })).unwrap()
-        setOpenModal(false)
+        const fetch = async () => {
+            try {
+                await dispatch(copmlainToWish({ complaintId, title })).unwrap()
+                setOpenModal(false)
+            } catch (error) {
+                showErrorMessage('Не удалось отправить')
+            }
+        }
+        fetch()
     }
 
     function openModalHandler(id) {

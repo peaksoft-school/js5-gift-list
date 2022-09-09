@@ -94,7 +94,7 @@ const FriendProfilePage = () => {
         if (friend.friendStatus === FRIEND) {
             return (
                 <ButtonDiv>
-                    <Button variant="outlined" onClick={deleteFriendHandler}>
+                    <Button variant="contained" onClick={deleteFriendHandler}>
                         Удалить из друзей
                     </Button>
                 </ButtonDiv>

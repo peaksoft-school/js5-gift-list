@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign */
 import React, { useState, useMemo } from 'react'
 
 import { useDispatch } from 'react-redux'
@@ -7,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import cancelBooking from '../assets/icons/cancelBooking.svg'
 import complaintIcon from '../assets/icons/complaintss.svg'
 import toBookIcon from '../assets/icons/toBook.svg'
+import Notification from '../components/ui/notification/Notification'
 import CharityCards from '../components/users/CharityCards'
 import ReportModal from '../components/users/ReportModal'
 import {
@@ -14,6 +14,7 @@ import {
     cancelBookingGift,
     toBookGift,
 } from '../store/slices/friendProfileAction'
+import { showErrorMessage } from '../utils/helpers'
 
 function FriendGiftCards({ gifts, idOfOwnerUser }) {
     const dispatch = useDispatch()
@@ -22,6 +23,7 @@ function FriendGiftCards({ gifts, idOfOwnerUser }) {
     const [complaintId, setcomplaintId] = useState('')
     const [openModal, setOpenModal] = useState(false)
     const { bookedUser } = gifts
+
     const options = useMemo(() => checkOwnBook(), [bookedUser])
 
     function checkOwnBook() {
@@ -87,8 +89,15 @@ function FriendGiftCards({ gifts, idOfOwnerUser }) {
     }
 
     const sendComplainToGiftHandler = () => {
-        dispatch(copmlainToGift({ complaintId, title }))
-        setOpenModal(false)
+        const fetch = async () => {
+            try {
+                await dispatch(copmlainToGift({ complaintId, title })).unwrap()
+                setOpenModal(false)
+            } catch (error) {
+                showErrorMessage('Не удалось отправить')
+            }
+        }
+        fetch()
     }
     function openModalHandler(id) {
         setcomplaintId(id)
@@ -110,7 +119,7 @@ function FriendGiftCards({ gifts, idOfOwnerUser }) {
                     onClick={sendComplainToGiftHandler}
                 />
             )}
-
+            <Notification />
             <div>
                 <CharityCards
                     id={gifts?.gift?.giftId}

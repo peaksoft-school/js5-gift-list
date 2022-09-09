@@ -11,6 +11,7 @@ export default function MeatBalls(props) {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
     const handleClick = (event) => {
+        event.stopPropagation()
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {
@@ -39,7 +40,8 @@ export default function MeatBalls(props) {
                 {props.navigations.map((el) => (
                     <MenuItem
                         key={el.id}
-                        onClick={() => {
+                        onClick={(e) => {
+                            e.stopPropagation()
                             el.clickItem(props.id)
                             handleClose()
                         }}
@@ -54,4 +56,6 @@ export default function MeatBalls(props) {
 }
 const Img = styled.img`
     margin-right: 10px;
+    width: 16px;
+    height: auto;
 `

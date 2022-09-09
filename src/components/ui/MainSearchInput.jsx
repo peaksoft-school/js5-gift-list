@@ -55,12 +55,14 @@ export default function MainSearchInput({
 }
 
 const ResultDiv = styled('div')`
-    background-color: #eef2f2;
+    background-color: white;
     border-radius: 8px;
     position: absolute;
     height: auto;
     top: 69px;
-    width: 100%;
+    width: 60%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 99;
 `
 
 const StyledFormPaper = styled(Paper)`
@@ -137,7 +139,6 @@ const StyledContentTitle = styled('span')`
     line-height: 19px;
     letter-spacing: 0.2px;
     color: #020202;
-    /* z-index: 99; */
 `
 
 const StyledAvatar = styled(Avatar)`

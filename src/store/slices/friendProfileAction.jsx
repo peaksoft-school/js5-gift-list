@@ -61,32 +61,32 @@ export const cancelBookingWish = createAsyncThunk(
 
 export const copmlainToWish = createAsyncThunk(
     'complain/copmlainToWish',
-    async (obj) => {
+    async (obj, { rejectWithValue }) => {
         try {
             const response = await appFetch({
                 method: 'POST',
                 url: `api/complaints/wish/${obj.complaintId}?text=${obj.title}`,
             })
-            showSuccessMessage('SuccessFull')
+            showSuccessMessage('Успешно отправлено')
             return response
         } catch (error) {
-            throw new Error(showErrorMessage('error'))
+            return rejectWithValue(error)
         }
     }
 )
 
 export const copmlainToGift = createAsyncThunk(
     'complain/copmlainToGift',
-    async (obj) => {
+    async (obj, { rejectWithValue }) => {
         try {
             const response = await appFetch({
                 method: 'POST',
                 url: `api/complaints/gift/${obj.complaintId}?text=${obj.title}`,
             })
-            showSuccessMessage('SuccessFull')
+            showSuccessMessage('Успешно отправлено')
             return response
         } catch (error) {
-            throw new Error(showErrorMessage('error'))
+            return rejectWithValue(error)
         }
     }
 )
@@ -122,11 +122,11 @@ export const addtoMyWish = createAsyncThunk(
                 method: 'POST',
                 url: `api/wish/add/${obj.id}`,
             })
-            showSuccessMessage('SuccessFull')
+            showSuccessMessage('Успешно добавлено')
             obj.dispatch(getFriendProfileAction(obj.userId))
             return response
         } catch (error) {
-            throw new Error(showErrorMessage('error'))
+            throw new Error(showErrorMessage('Не удалось добавить'))
         }
     }
 )

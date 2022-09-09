@@ -54,7 +54,7 @@ const Headers = styled('header')`
     display: flex;
     align-items: center;
     padding-left: 20px;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     background: #ffffff;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.03);
