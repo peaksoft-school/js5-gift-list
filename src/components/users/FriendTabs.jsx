@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom'
 
 import FriendsCard from './FriendsCard'
 
+const REQUESTTOFRIENDS = 'REQUESTTOFRIENDS'
+
 export default function FriendTabs({ friends, requestToFriend }) {
     const [value, setValue] = useState('1')
     const navigate = useNavigate()
@@ -16,7 +18,7 @@ export default function FriendTabs({ friends, requestToFriend }) {
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
-    const handleInnerPage = (userId) => {
+    const goToInnerPage = (userId) => {
         navigate(`/friends/${userId}`)
     }
 
@@ -54,7 +56,7 @@ export default function FriendTabs({ friends, requestToFriend }) {
                                 holidayCount={el.holidayCount}
                                 wishCount={el.wishCount}
                                 onClick={() => {
-                                    handleInnerPage(el.userId)
+                                    goToInnerPage(el.userId)
                                 }}
                             />
                         )
@@ -70,11 +72,11 @@ export default function FriendTabs({ friends, requestToFriend }) {
                                     id={el.userId}
                                     key={el.userId}
                                     onClick={() => {
-                                        handleInnerPage(el.userId)
+                                        goToInnerPage(el.userId)
                                     }}
                                     holidayCount={el.holidayCount}
                                     wishCount={el.wishCount}
-                                    variant="requestToFriends"
+                                    variant={REQUESTTOFRIENDS}
                                 />
                             )
                         })}

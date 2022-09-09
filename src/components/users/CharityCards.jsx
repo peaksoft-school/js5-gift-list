@@ -21,39 +21,54 @@ export default function GiftCard(props) {
         idOfOwnerUser,
         id,
     } = props
+    const isMyId = () => {
+        const booked = (
+            <SpanAvatar>
+                <StyledAvatar src={avatarBooked} alt="avatar" />
+                {isBooked?.userId === idOfOwnerUser
+                    ? 'Вы забронировали'
+                    : 'Забронирован'}
+            </SpanAvatar>
+        )
+        const pending = 'В ожидании'
+        if (isBooked) {
+            return booked
+        }
+        if (!isBooked) {
+            return pending
+        }
+        return booked
+    }
+    const isNewStateTex = () => {
+        const oldState = 'Б/У'
+        const newState = 'Новый'
+        if (holiday === 'USED') {
+            return oldState
+        }
+        if (holiday !== 'USED') {
+            return newState
+        }
+        return oldState
+    }
     return (
         <StyledCard variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
                 image={image}
-                alt="green iguana"
+                alt={nameGift}
             />
             <Wrapper>
                 <StyledCardContentFirst variants={variant}>
                     <NameGift>{nameGift}</NameGift>
-                    <StyledBirthday>
-                        {holiday === 'USED' ? 'Б/У' : 'Новый'}
+                    <StyledBirthday status={isNewStateTex()}>
+                        {isNewStateTex()}
                     </StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
                     <StyledDate variants={variant}>{date}</StyledDate>
                     <WrapperToBooking variants={variant}>
-                        <StyledText>
-                            {isBooked ? (
-                                <SpanAvatar>
-                                    <StyledAvatar
-                                        src={avatarBooked}
-                                        alt="avatar"
-                                    />
-                                    {isBooked.userId === idOfOwnerUser
-                                        ? ' Вы забронировали'
-                                        : 'Забронирован'}
-                                </SpanAvatar>
-                            ) : (
-                                'В ожидании'
-                            )}
-                        </StyledText>
+                        <StyledText>{isMyId()}</StyledText>
                     </WrapperToBooking>
                     <WrapperMeatBalls variants={variant}>
                         <MeatBalls navigations={navigation} id={id} />
@@ -162,7 +177,7 @@ const StyledBirthday = styled('span')`
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
-    color: #fd5200;
+    color: ${(props) => (props.status === 'Б/У' ? '#fd5200' : '#0ba360')};
 `
 const StyledCardMedia = styled(CardMedia)(({ variants }) => ({
     borderRadius: '6px',

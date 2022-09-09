@@ -22,9 +22,9 @@ import Button from '../components/ui/Button'
 import Notification from '../components/ui/notification/Notification'
 import MyHolidays from '../components/users/MyHolidaysCard'
 import {
-    friendDeleteAction,
+    deleteFriendAction,
     addToFriendAction,
-    getFriendPageAction,
+    getFriendProfileAction,
 } from '../store/slices/friendProfileAction'
 import {
     acceptRequestToFriendInnerPage,
@@ -33,6 +33,11 @@ import {
 
 import FriendGiftCards from './FriendGiftCards'
 import FriendWishCards from './FriendWishCards'
+
+const FRIEND = 'FRIEND'
+const NOT_FRIEND = 'NOT_FRIEND'
+const REQUEST_TO_FRIEND = 'REQUEST_TO_FRIEND'
+const WITHOUTMEATBALLS = 'withoutMeatBalls'
 
 const FriendProfilePage = () => {
     const [showMoreWishCard, setShowMoreWishCard] = useState(false)
@@ -44,20 +49,19 @@ const FriendProfilePage = () => {
     const { friend, userInfo, gifts, holidays, wishes } = useSelector(
         (state) => state.friend
     )
+    const friendId = useSelector((state) => state.friend.friend.id)
 
     useEffect(() => {
         if (userId) {
-            dispatch(getFriendPageAction(userId))
+            dispatch(getFriendProfileAction(userId))
         }
     }, [userId, dispatch])
-
-    const friendId = useSelector((state) => state.friend.friend.id)
 
     const addToFriendHandler = () => {
         dispatch(addToFriendAction({ friendId, userId, dispatch }))
     }
     const deleteFriendHandler = () => {
-        dispatch(friendDeleteAction({ friendId, userId, dispatch }))
+        dispatch(deleteFriendAction({ friendId, userId, dispatch }))
     }
     const acceptToFriendHandler = () => {
         dispatch(acceptRequestToFriendInnerPage({ userId, dispatch }))
@@ -87,7 +91,7 @@ const FriendProfilePage = () => {
     const whichIsTextGift = wichIsShowGift < 4 ? 'Смотреть все' : 'Скрыть'
 
     const renderButtons = () => {
-        if (friend.friendStatus === 'FRIEND') {
+        if (friend.friendStatus === FRIEND) {
             return (
                 <ButtonDiv>
                     <Button variant="outlined" onClick={deleteFriendHandler}>
@@ -96,7 +100,7 @@ const FriendProfilePage = () => {
                 </ButtonDiv>
             )
         }
-        if (friend.friendStatus === 'NOT_FRIEND') {
+        if (friend.friendStatus === NOT_FRIEND) {
             return (
                 <ButtonDiv>
                     <Button variant="contained" onClick={addToFriendHandler}>
@@ -105,7 +109,7 @@ const FriendProfilePage = () => {
                 </ButtonDiv>
             )
         }
-        if (friend.friendStatus === 'REQUEST_TO_FRIEND') {
+        if (friend.friendStatus === REQUEST_TO_FRIEND) {
             return (
                 <ButtonDiv>
                     <Button variant="contained" onClick={acceptToFriendHandler}>
@@ -129,7 +133,7 @@ const FriendProfilePage = () => {
         <ContainerDiv>
             <div>
                 <RouteTitle>
-                    {friend.friendStatus === 'FRIEND'
+                    {friend.friendStatus === FRIEND
                         ? 'Друзья'
                         : 'Запросы в друзья'}
                     <RouteNameTitle>/{friend?.firstName}</RouteNameTitle>
@@ -276,11 +280,11 @@ const FriendProfilePage = () => {
             )}
 
             <StyledCardDiv>
-                {wishes.slice(0, wichIsShowWish).map((el) => {
+                {wishes.slice(0, wichIsShowWish).map((wishes) => {
                     return (
                         <FriendWishCards
-                            key={el.wish?.wishId}
-                            el={el}
+                            key={wishes.wish?.wishId}
+                            wishes={wishes}
                             idOfOwnerUser={idOfOwnerUser}
                         />
                     )
@@ -308,7 +312,7 @@ const FriendProfilePage = () => {
                             date={el.holidayDate}
                             title={el.name}
                             img={el.photo}
-                            variant="withoutMeatBalls"
+                            variant={WITHOUTMEATBALLS}
                         />
                     )
                 })}
@@ -328,11 +332,11 @@ const FriendProfilePage = () => {
 
             <div>
                 <StyledCardDiv>
-                    {gifts.slice(0, wichIsShowGift).map((el) => {
+                    {gifts.slice(0, wichIsShowGift).map((gifts) => {
                         return (
                             <FriendGiftCards
-                                key={el.gift?.giftId}
-                                el={el}
+                                key={gifts.gift?.giftId}
+                                gifts={gifts}
                                 idOfOwnerUser={idOfOwnerUser}
                             />
                         )

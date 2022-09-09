@@ -12,6 +12,7 @@ import { getHoliday, getHolidayById } from '../store/slices/HolidayActions'
 import AddHolidayModal from './AddHolidayModal'
 import EditHolidaysModal from './EditHolidaysModal'
 
+const WITHMEATBALLS = 'withMeatBalls'
 const HolidaysPage = () => {
     const [params, setParams] = useSearchParams()
     const holiday = useSelector((state) => state.holiday)
@@ -75,7 +76,7 @@ const HolidaysPage = () => {
                             getId={getItemChangehandler}
                             onOpen={openEditModalHandler}
                             navigate={() => navigateToInnerPage(el.id)}
-                            variant="withMeatBalls"
+                            variant={WITHMEATBALLS}
                         />
                     )
                 })}

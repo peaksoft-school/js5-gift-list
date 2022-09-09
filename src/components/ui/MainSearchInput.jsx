@@ -19,7 +19,7 @@ export default function MainSearchInput({
                             stopPropagationHandler(event)
                         }}
                     >
-                        <StyledAvatar alt="Remy Sharp" src={user.photo} />
+                        <StyledAvatar alt={user.firstName} src={user.photo} />
                         <StyledSpan>{user.firstName}</StyledSpan>
                         <StyledSpan>{user.lastName}</StyledSpan>
                     </StyledUserDiv>

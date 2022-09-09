@@ -2,14 +2,14 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { mainSearchAction } from './mainSearchAction'
 
-const initialState = { result: [], status: null }
+const initialState = { options: [], status: null }
 const mainSearchSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {},
     extraReducers: {
         [mainSearchAction.fulfilled]: (state, action) => {
-            state.result = action.payload
+            state.options = action.payload
             state.status = 'success'
         },
     },

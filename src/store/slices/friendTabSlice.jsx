@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { friendsAction, requestsToFriendAction } from './friendTabAction'
+import { getFriendsAction, requestsToFriendAction } from './friendTabAction'
 
 const initialState = { requestToFriend: [], status: null, friends: [] }
 export const requestToFriendSlice = createSlice({
@@ -21,7 +21,7 @@ export const friendsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
-        [friendsAction.fulfilled]: (state, action) => {
+        [getFriendsAction.fulfilled]: (state, action) => {
             state.allUsers = action.payload
             state.status = 'success'
         },

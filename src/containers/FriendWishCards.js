@@ -1,5 +1,4 @@
-/* eslint-disable no-return-assign */
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -8,7 +7,6 @@ import addInMyGiftIcon from '../assets/icons/addInMyGifts.svg'
 import cancelBooking from '../assets/icons/cancelBooking.svg'
 import complaintIcon from '../assets/icons/complaintss.svg'
 import toBookIcon from '../assets/icons/toBook.svg'
-// import CharityCards from '../components/users/CharityCards'
 import GiftCard from '../components/users/GiftCard'
 import ReportModal from '../components/users/ReportModal'
 import {
@@ -18,17 +16,19 @@ import {
     cancelBookingWish,
 } from '../store/slices/friendProfileAction'
 
-function FriendWishCards({ el, idOfOwnerUser }) {
-    const { bookedUser } = el
-    const { wish } = el
+function FriendWishCards({ wishes, idOfOwnerUser }) {
+    const { bookedUser } = wishes
+    const { wish } = wishes
     const { userId } = useParams()
     const [title, setTitle] = useState('')
     const [complaintId, setcomplaintId] = useState('')
     const [openModal, setOpenModal] = useState(false)
     const dispatch = useDispatch()
     const friendId = useSelector((state) => state.friend.friend.id)
-    const checkOwnBook = () => {
-        const variantOne = [
+    const options = useMemo(() => checkOwnBook(), [])
+
+    function checkOwnBook() {
+        const isIWillBookAddAndComplainByMe = [
             {
                 icon: toBookIcon,
                 title: 'Забронировать',
@@ -51,7 +51,7 @@ function FriendWishCards({ el, idOfOwnerUser }) {
             },
         ]
 
-        const variantTwo = [
+        const isIWillCancelBookAddAndComplainByMe = [
             {
                 icon: cancelBooking,
                 title: 'Снять бронь',
@@ -73,7 +73,7 @@ function FriendWishCards({ el, idOfOwnerUser }) {
                 },
             },
         ]
-        const variantThree = [
+        const isIWillCancelBookandComplainByMe = [
             {
                 icon: cancelBooking,
                 title: 'Снять бронь',
@@ -89,7 +89,7 @@ function FriendWishCards({ el, idOfOwnerUser }) {
                 },
             },
         ]
-        const variantFour = [
+        const isIWillBookAndComplainByMe = [
             {
                 icon: toBookIcon,
                 title: 'Забронировать',
@@ -106,7 +106,7 @@ function FriendWishCards({ el, idOfOwnerUser }) {
             },
         ]
 
-        const variantFive = [
+        const isIWillAddAndComplainByMe = [
             {
                 icon: addInMyGiftIcon,
                 title: 'Добавить в мои подарки',
@@ -123,7 +123,7 @@ function FriendWishCards({ el, idOfOwnerUser }) {
             },
         ]
 
-        const variantSix = [
+        const isIWillComplainByMe = [
             {
                 icon: complaintIcon,
                 title: 'Пожаловаться',
@@ -134,36 +134,36 @@ function FriendWishCards({ el, idOfOwnerUser }) {
             },
         ]
         if (bookedUser === null && wish?.addWishStatus === 'NOT_ADD') {
-            return variantOne
+            return isIWillBookAddAndComplainByMe
         }
         if (bookedUser === null && wish?.addWishStatus === 'ADDED') {
-            return variantFour
+            return isIWillBookAndComplainByMe
         }
         if (
             bookedUser?.userId === idOfOwnerUser &&
             wish?.addWishStatus === 'NOT_ADD'
         ) {
-            return variantTwo
+            return isIWillCancelBookAddAndComplainByMe
         }
         if (
             bookedUser?.userId === idOfOwnerUser &&
             wish?.addWishStatus === 'ADDED'
         ) {
-            return variantThree
+            return isIWillCancelBookandComplainByMe
         }
         if (
             bookedUser?.userId !== idOfOwnerUser &&
             wish?.addWishStatus === 'NOT_ADD'
         ) {
-            return variantFive
+            return isIWillAddAndComplainByMe
         }
         if (
             bookedUser?.userId !== idOfOwnerUser &&
             wish?.addWishStatus === 'ADDED'
         ) {
-            return variantSix
+            return isIWillComplainByMe
         }
-        return variantOne
+        return isIWillBookAddAndComplainByMe
     }
 
     function toBookWishHandler(id) {
@@ -177,7 +177,7 @@ function FriendWishCards({ el, idOfOwnerUser }) {
         dispatch(addtoMyWish({ id, userId, dispatch }))
     }
     const sendComplainToWishHandler = () => {
-        dispatch(copmlainToWish({ complaintId, title }))
+        dispatch(copmlainToWish({ complaintId, title })).unwrap()
         setOpenModal(false)
     }
 
@@ -185,7 +185,7 @@ function FriendWishCards({ el, idOfOwnerUser }) {
         setcomplaintId(id)
         setOpenModal(!openModal)
     }
-    const valueChangeHandler = (e) => {
+    const titleChangeHandler = (e) => {
         setTitle(e.title)
     }
     const closeModalHandler = () => {
@@ -197,23 +197,23 @@ function FriendWishCards({ el, idOfOwnerUser }) {
                 <ReportModal
                     open={openModal}
                     onClose={closeModalHandler}
-                    onChange={valueChangeHandler}
+                    onChange={titleChangeHandler}
                     onClick={sendComplainToWishHandler}
                 />
             )}
             <div>
                 <GiftCard
-                    key={el.wish?.wishId}
+                    key={wishes.wish?.wishId}
                     variant="board"
-                    id={el.wish?.wishId}
-                    nameGift={el.wish?.wishName}
-                    image={el?.wish?.photo}
-                    avatarBooked={el?.bookedUser?.photo}
-                    holiday={el.wish?.holiday?.name}
-                    date={el.wish?.wishDate}
-                    isBooked={el?.bookedUser}
+                    id={wishes.wish?.wishId}
+                    nameGift={wishes.wish?.wishName}
+                    image={wishes?.wish?.photo}
+                    avatarBooked={wishes?.bookedUser?.photo}
+                    holiday={wishes.wish?.holiday?.name}
+                    date={wishes.wish?.wishDate}
+                    isBooked={wishes?.bookedUser}
                     idOfOwnerUser={idOfOwnerUser}
-                    navigation={checkOwnBook()}
+                    navigation={options}
                 />
             </div>
         </div>

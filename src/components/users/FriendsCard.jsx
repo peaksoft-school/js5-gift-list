@@ -7,6 +7,8 @@ import {
 } from '../../store/slices/friendTabAction'
 import Button from '../ui/Button'
 
+const REQUESTTOFRIENDS = 'REQUESTTOFRIENDS'
+
 const FriendsCard = ({
     wishCount,
     photo,
@@ -27,7 +29,7 @@ const FriendsCard = ({
     }
     return (
         <StyledContainer id={id} variant={variant} onClick={onClick}>
-            <StyledAvatar src={photo} alt="photo" />
+            <StyledAvatar src={photo} alt={name} />
             <StyledNameOfFriend>{name}</StyledNameOfFriend>
             <StyledDiv>
                 <div>
@@ -39,21 +41,12 @@ const FriendsCard = ({
                     <StyledTitle>Праздников</StyledTitle>
                 </div>
             </StyledDiv>
-            {variant === 'requestToFriends' && (
+            {variant === REQUESTTOFRIENDS && (
                 <StyledDiv1>
-                    <Button
-                        onClick={(event) => {
-                            acceptRequestHandler(event)
-                        }}
-                    >
+                    <Button onClick={acceptRequestHandler}>
                         Принять заявку
                     </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={(event) => {
-                            rejectRequestHandler(event)
-                        }}
-                    >
+                    <Button variant="outlined" onClick={rejectRequestHandler}>
                         Отклонить
                     </Button>
                 </StyledDiv1>

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import FriendTabs from '../components/users/FriendTabs'
 import {
-    friendsAction,
+    getFriendsAction,
     requestsToFriendAction,
 } from '../store/slices/friendTabAction'
 
@@ -13,23 +13,21 @@ export const Friends = () => {
     const dispatch = useDispatch()
     const [friends, setFriends] = useState()
     const [requestToFriend, setRequestToFriend] = useState()
-
-    useEffect(() => {
-        dispatch(friendsAction(setFriends))
-    }, [friends])
-
     const store = useSelector((state) => state.users.friends)
-
     const requestToFriendData = useSelector(
         (state) => state.users.requestToFriend
     )
+
+    useEffect(() => {
+        dispatch(getFriendsAction(setFriends)).unwrap()
+    }, [friends])
 
     useEffect(() => {
         setFriends(store)
     }, [store])
 
     useEffect(() => {
-        dispatch(requestsToFriendAction(setRequestToFriend))
+        dispatch(requestsToFriendAction(setRequestToFriend)).unwrap()
     }, [requestToFriend])
 
     useEffect(() => {

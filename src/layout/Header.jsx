@@ -14,13 +14,13 @@ export const Header = () => {
     const navigate = useNavigate()
     const [value, setValue] = useState('')
     const dispatch = useDispatch()
-    const data = useSelector((state) => state.users.result)
+    const { options } = useSelector((state) => state.users)
 
     const valueChangeHandler = (e) => {
         setValue(e.target.value)
         dispatch(mainSearchAction(e.target.value))
     }
-    const inputClickHandler = (id) => {
+    const searchResultOptionSelecHandler = (id) => {
         navigate(`/friends/${id}`)
         setValue('')
     }
@@ -32,10 +32,10 @@ export const Header = () => {
         <Headers>
             <InputDiv>
                 <MainSearchInput
-                    options={data}
+                    options={options}
                     onChange={valueChangeHandler}
                     value={value}
-                    onClick={inputClickHandler}
+                    onClick={searchResultOptionSelecHandler}
                     stopPropagationHandler={stopPropagationHandler}
                 />
             </InputDiv>

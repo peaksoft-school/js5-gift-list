@@ -22,14 +22,32 @@ export default function GiftCard(props) {
         navigateToInnerPage,
         idOfOwnerUser,
     } = props
-    const newDate = date?.split('-').reverse('-').join('.')
+
+    const isMyId = () => {
+        const booked = (
+            <SpanAvatar>
+                <StyledAvatar src={avatarBooked} alt="avatar" />
+                {isBooked?.userId === idOfOwnerUser
+                    ? 'Вы забронировали'
+                    : 'Забронирован'}
+            </SpanAvatar>
+        )
+        const pending = 'В ожидании'
+        if (isBooked) {
+            return booked
+        }
+        if (!isBooked) {
+            return pending
+        }
+        return booked
+    }
     return (
         <StyledCard onClick={navigateToInnerPage} variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
                 image={image}
-                alt="green iguana"
+                alt={nameGift}
             />
             <Wrapper>
                 <StyledCardContentFirst variants={variant}>
@@ -37,23 +55,9 @@ export default function GiftCard(props) {
                     <StyledBirthday>{holiday}</StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
-                    <StyledDate variants={variant}>{newDate}</StyledDate>
+                    <StyledDate variants={variant}>{date}</StyledDate>
                     <WrapperToBooking variants={variant}>
-                        <StyledText>
-                            {isBooked ? (
-                                <SpanAvatar>
-                                    <StyledAvatar
-                                        src={avatarBooked}
-                                        alt="avatar"
-                                    />
-                                    {isBooked.userId === idOfOwnerUser
-                                        ? 'Вы забронировали'
-                                        : 'Забронирован'}
-                                </SpanAvatar>
-                            ) : (
-                                'В ожидании'
-                            )}
-                        </StyledText>
+                        <StyledText>{isMyId()}</StyledText>
                     </WrapperToBooking>
                     <WrapperMeatBalls variants={variant}>
                         <MeatBalls navigations={navigation} id={id} />

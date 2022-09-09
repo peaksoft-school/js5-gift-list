@@ -1,5 +1,5 @@
 /* eslint-disable no-return-assign */
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -15,16 +15,17 @@ import {
     toBookGift,
 } from '../store/slices/friendProfileAction'
 
-function FriendGiftCards({ el, idOfOwnerUser }) {
-    const { bookedUser } = el
+function FriendGiftCards({ gifts, idOfOwnerUser }) {
+    const dispatch = useDispatch()
     const { userId } = useParams()
     const [title, setTitle] = useState('')
     const [complaintId, setcomplaintId] = useState('')
     const [openModal, setOpenModal] = useState(false)
-    const dispatch = useDispatch()
+    const { bookedUser } = gifts
+    const options = useMemo(() => checkOwnBook(), [bookedUser])
 
-    const checkOwnBook = () => {
-        const variantOne = [
+    function checkOwnBook() {
+        const toBookGift = [
             {
                 icon: toBookIcon,
                 title: 'Забронировать',
@@ -40,7 +41,7 @@ function FriendGiftCards({ el, idOfOwnerUser }) {
                 },
             },
         ]
-        const variantTwo = [
+        const cancelBookingGift = [
             {
                 icon: cancelBooking,
                 title: 'Снять бронь',
@@ -56,7 +57,7 @@ function FriendGiftCards({ el, idOfOwnerUser }) {
                 },
             },
         ]
-        const variantThree = [
+        const complainGift = [
             {
                 icon: complaintIcon,
                 title: 'Пожаловаться',
@@ -67,15 +68,15 @@ function FriendGiftCards({ el, idOfOwnerUser }) {
             },
         ]
         if (bookedUser === null) {
-            return variantOne
+            return toBookGift
         }
         if (bookedUser.userId === idOfOwnerUser) {
-            return variantTwo
+            return cancelBookingGift
         }
         if (bookedUser.userId !== idOfOwnerUser) {
-            return variantThree
+            return complainGift
         }
-        return variantOne
+        return toBookGift
     }
 
     function cancelBookingGiftHandler(id) {
@@ -91,9 +92,9 @@ function FriendGiftCards({ el, idOfOwnerUser }) {
     }
     function openModalHandler(id) {
         setcomplaintId(id)
-        setOpenModal(!openModal)
+        setOpenModal((prev) => !prev)
     }
-    const valueChangeHandler = (e) => {
+    const titleChangeHandler = (e) => {
         setTitle(e.title)
     }
     const closeModalHandler = () => {
@@ -105,24 +106,24 @@ function FriendGiftCards({ el, idOfOwnerUser }) {
                 <ReportModal
                     open={openModal}
                     onClose={closeModalHandler}
-                    onChange={valueChangeHandler}
+                    onChange={titleChangeHandler}
                     onClick={sendComplainToGiftHandler}
                 />
             )}
 
             <div>
                 <CharityCards
-                    id={el?.gift?.giftId}
-                    key={el?.gift?.giftId}
+                    id={gifts?.gift?.giftId}
+                    key={gifts?.gift?.giftId}
                     variant="board"
-                    nameGift={el?.gift?.name}
-                    image={el?.gift?.photo}
-                    avatarBooked={el?.bookedUser?.photo}
-                    holiday={el?.gift?.status}
-                    date={el?.gift?.createdAt}
-                    isBooked={el?.bookedUser}
+                    nameGift={gifts?.gift?.name}
+                    image={gifts?.gift?.photo}
+                    avatarBooked={gifts?.bookedUser?.photo}
+                    holiday={gifts?.gift?.status}
+                    date={gifts?.gift?.createdAt}
+                    isBooked={gifts?.bookedUser}
                     idOfOwnerUser={idOfOwnerUser}
-                    navigation={checkOwnBook()}
+                    navigation={options}
                 />
             </div>
         </div>

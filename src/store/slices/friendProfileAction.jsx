@@ -5,7 +5,7 @@ import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 // import { friendsAction } from './friendTabAction'
 
-export const getFriendPageAction = createAsyncThunk(
+export const getFriendProfileAction = createAsyncThunk(
     'friend/friendProfileAction',
     async (userId) => {
         const response = await appFetch({
@@ -15,14 +15,14 @@ export const getFriendPageAction = createAsyncThunk(
     }
 )
 
-export const friendDeleteAction = createAsyncThunk(
+export const deleteFriendAction = createAsyncThunk(
     'friend/friendDeleteAction',
     async (obj) => {
         const response = await appFetch({
             method: 'POST',
             url: `api/users/friends/${obj.friendId}`,
         })
-        obj.dispatch(getFriendPageAction(obj.userId))
+        obj.dispatch(getFriendProfileAction(obj.userId))
         return response
     }
 )
@@ -34,7 +34,7 @@ export const addToFriendAction = createAsyncThunk(
             method: 'POST',
             url: `api/users/friends/request/${obj.friendId}`,
         })
-        obj.dispatch(getFriendPageAction(obj.userId))
+        obj.dispatch(getFriendProfileAction(obj.userId))
         return response
     }
 )
@@ -44,7 +44,7 @@ export const toBookWish = createAsyncThunk('toBook/toBookWish', async (obj) => {
         method: 'POST',
         url: `api/bookings/wish-create/${obj.id}`,
     })
-    obj.dispatch(getFriendPageAction(obj.userId))
+    obj.dispatch(getFriendProfileAction(obj.userId))
     return response
 })
 export const cancelBookingWish = createAsyncThunk(
@@ -54,7 +54,7 @@ export const cancelBookingWish = createAsyncThunk(
             method: 'POST',
             url: `api/bookings/wish-cancel/${obj.id}`,
         })
-        obj.dispatch(getFriendPageAction(obj.friendId))
+        obj.dispatch(getFriendProfileAction(obj.friendId))
         return response
     }
 )
@@ -97,7 +97,7 @@ export const toBookGift = createAsyncThunk(
             method: 'POST',
             url: `api/bookings/gift-create/${obj.id}`,
         })
-        obj.dispatch(getFriendPageAction(obj.userId))
+        obj.dispatch(getFriendProfileAction(obj.userId))
         return response
     }
 )
@@ -109,7 +109,7 @@ export const cancelBookingGift = createAsyncThunk(
             method: 'POST',
             url: `api/bookings/gift-cancel/${obj.id}`,
         })
-        obj.dispatch(getFriendPageAction(obj.userId))
+        obj.dispatch(getFriendProfileAction(obj.userId))
         return response
     }
 )
@@ -123,7 +123,7 @@ export const addtoMyWish = createAsyncThunk(
                 url: `api/wish/add/${obj.id}`,
             })
             showSuccessMessage('SuccessFull')
-            obj.dispatch(getFriendPageAction(obj.userId))
+            obj.dispatch(getFriendProfileAction(obj.userId))
             return response
         } catch (error) {
             throw new Error(showErrorMessage('error'))

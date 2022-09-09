@@ -9,6 +9,18 @@ import CardMedia from '@mui/material/CardMedia'
 import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
+    const getIsBookedStaText = () => {
+        const booked = 'Забронирован'
+        const pending = 'В ожидании'
+        if (props.data.toBook === null) {
+            return pending
+        }
+        if (props.data.toBook !== null) {
+            return booked
+        }
+        return booked
+    }
+
     return (
         <StyledCard style={cursor} onClick={props.clickCard}>
             <StyledCardMedia
@@ -18,11 +30,7 @@ export default function CharityCard(props) {
                 alt="green iguana"
             />
             <StyledCardContentFirst>
-                {props.variant === 'a' ? (
-                    ''
-                ) : (
-                    <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
-                )}
+                <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
                 <UserName>{props.data.userName}</UserName>
             </StyledCardContentFirst>
 
@@ -38,11 +46,7 @@ export default function CharityCard(props) {
                         alt="Cindy Baker"
                         src={props.data.avatarInBooking}
                     />
-                    <StyledText>
-                        {props.data.toBook === null
-                            ? 'В ожидании'
-                            : ' Забронирован'}
-                    </StyledText>
+                    <StyledText>{getIsBookedStaText()}</StyledText>
                     <MeatBalls navigations={props.meatBallsOptions} />
                 </Wrapper>
             </StyledCardContentSecond>
