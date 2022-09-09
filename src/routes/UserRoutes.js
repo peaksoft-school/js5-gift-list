@@ -2,14 +2,20 @@ import React from 'react'
 
 import { Routes, Route } from 'react-router-dom'
 
+import EditCharity from '../components/ui/charity/EditCharity'
+import EditMyCharity from '../components/ui/charity/editMyCharity'
 import Error from '../components/ui/Error'
-import { Charity } from '../components/users/Charity'
+import { Bookeds } from '../components/users/Bookeds'
+import CharityInnerPage from '../components/users/charity/CharityInnerPage'
+import CharityMyInnerPage from '../components/users/charity/CharityMyInnerPage'
+import CharityUser from '../components/users/charity/CharityUser'
 import { Lenta } from '../components/users/Lenta'
 import MyHolidays from '../components/users/MyHolidays'
 import AddWishCardPage from '../containers/AddWishCardPage'
 import BookedPage from '../containers/BookedPage'
 import EditWishCardPage from '../containers/EditWishCardPage'
-import { Friends } from '../containers/FriendsPage'
+import FriendProfilePage from '../containers/FriendProfilePage'
+import { FriendsPage } from '../containers/FriendsPage'
 import HolidayCardInnerPage from '../containers/HolidayCardInnerPage'
 import InnerPageWishCard from '../containers/InnerPageWishCard'
 import WishList from '../containers/WishList'
@@ -21,7 +27,12 @@ const UserRoutes = () => {
         <Routes>
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
                 <Route path="/lenta" element={<Lenta />} />
-                <Route path="/friends" element={<Friends />} />
+                <Route path="/friends" element={<FriendsPage />} />
+                <Route
+                    path="/friends/:userId"
+                    element={<FriendProfilePage />}
+                />
+                <Route path="/bookeds" element={<Bookeds />} />
                 <Route path="/wish_list" element={<WishList />} />
                 <Route
                     path="/wish_list/:wishListId"
@@ -38,7 +49,17 @@ const UserRoutes = () => {
                     element={<HolidayCardInnerPage />}
                 />
                 <Route path="/bookedPage" element={<BookedPage />} />
-                <Route path="/charity" element={<Charity />} />
+                <Route path="/charity" element={<CharityUser />} />
+                <Route path="/charity/add_charity" element={<EditCharity />} />
+                <Route
+                    path="/:editId/edit_charity"
+                    element={<EditMyCharity />}
+                />
+                <Route path="/:id/innerPage" element={<CharityInnerPage />} />
+                <Route
+                    path="/:myId/my_charity"
+                    element={<CharityMyInnerPage />}
+                />
             </Route>
             <Route path={DEFAULT_ROUTES.NOT_FOUND.PATH} element={<Error />} />
         </Routes>

@@ -1,55 +1,52 @@
 import { styled, Avatar } from '@mui/material'
+import { useDispatch } from 'react-redux'
 
+import {
+    rejectRequestToFriendAction,
+    acceptRequestToFriend,
+} from '../../store/slices/friendTabAction'
 import Button from '../ui/Button'
 
+const REQUESTTOFRIENDS = 'REQUESTTOFRIENDS'
+
 const FriendsCard = ({
-    amountOfWishes,
-    img,
+    wishCount,
+    photo,
     name,
-    amountOfHolidays,
+    holidayCount,
     id,
     onClick,
     variant,
 }) => {
-    const acceptRequestHandler = (event, id) => {
-        console.log(id)
-
+    const dispatch = useDispatch()
+    const acceptRequestHandler = (event) => {
         event.stopPropagation()
-        console.log(id)
+        dispatch(acceptRequestToFriend({ dispatch, id }))
     }
-    const rejectHandler = (event, id) => {
+    const rejectRequestHandler = (event) => {
+        dispatch(rejectRequestToFriendAction({ id, dispatch }))
         event.stopPropagation()
-        console.log(id)
     }
     return (
         <StyledContainer id={id} variant={variant} onClick={onClick}>
-            <StyledAvatar src={img} alt="photo" />
+            <StyledAvatar src={photo} alt={name} />
             <StyledNameOfFriend>{name}</StyledNameOfFriend>
             <StyledDiv>
                 <div>
-                    <StyledNumberSpan>{amountOfWishes}</StyledNumberSpan>
+                    <StyledNumberSpan>{wishCount}</StyledNumberSpan>
                     <StyledTitle>Желаний</StyledTitle>
                 </div>
                 <div>
-                    <StyledNumberSpan>{amountOfHolidays}</StyledNumberSpan>
+                    <StyledNumberSpan>{holidayCount}</StyledNumberSpan>
                     <StyledTitle>Праздников</StyledTitle>
                 </div>
             </StyledDiv>
-            {variant === 'requestToFriends' && (
+            {variant === REQUESTTOFRIENDS && (
                 <StyledDiv1>
-                    <Button
-                        onClick={(event) => {
-                            acceptRequestHandler(event, id)
-                        }}
-                    >
+                    <Button onClick={acceptRequestHandler}>
                         Принять заявку
                     </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={(event) => {
-                            rejectHandler(event, id)
-                        }}
-                    >
+                    <Button variant="outlined" onClick={rejectRequestHandler}>
                         Отклонить
                     </Button>
                 </StyledDiv1>
@@ -87,6 +84,7 @@ const StyledContainer = styled('div')(({ variant }) => ({
     alignItems: 'center',
     width: '260px',
     height: '256px',
+    cursor: 'pointer',
     background:
         'linear-gradient(to bottom, rgba(134, 57, 181, 0.2) 30%, white 30% 100%)',
     ...(variant === 'requestToFriends' && {

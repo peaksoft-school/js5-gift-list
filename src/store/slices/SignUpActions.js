@@ -30,7 +30,7 @@ export const signUp = ({ userData, setError }) => {
                 })
             )
         } catch (error) {
-            setError('бул аккаунть бар')
+            setError('этот аккаунт уже зарегистрирован')
         }
     }
 }

@@ -11,24 +11,43 @@ import MeatBalls from '../ui/meatBall/components/meatBalls'
 export default function GiftCard(props) {
     const {
         variant,
-        id,
         image,
         nameGift,
         avatarBooked,
         holiday,
         date,
         isBooked,
-        navigateToInnerPage,
+        id,
         navigation,
+        navigateToInnerPage,
+        idOfOwnerUser,
     } = props
-    const newDate = date?.split('-').reverse('-').join('.')
+
+    const isMyId = () => {
+        const booked = (
+            <SpanAvatar>
+                <StyledAvatar src={avatarBooked} alt="avatar" />
+                {isBooked?.userId === idOfOwnerUser
+                    ? 'Вы забронировали'
+                    : 'Забронирован'}
+            </SpanAvatar>
+        )
+        const pending = 'В ожидании'
+        if (isBooked) {
+            return booked
+        }
+        if (!isBooked) {
+            return pending
+        }
+        return booked
+    }
     return (
         <StyledCard onClick={navigateToInnerPage} variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
                 image={image}
-                alt="green iguana"
+                alt={nameGift}
             />
             <Wrapper>
                 <StyledCardContentFirst variants={variant}>
@@ -36,26 +55,11 @@ export default function GiftCard(props) {
                     <StyledBirthday>{holiday}</StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
-                    <StyledDate variants={variant}>{newDate}</StyledDate>
+                    <StyledDate variants={variant}>{date}</StyledDate>
                     <WrapperToBooking variants={variant}>
-                        <StyledText>
-                            {isBooked ? (
-                                <SpanAvatar>
-                                    <StyledAvatar
-                                        src={avatarBooked}
-                                        alt="avatar"
-                                    />
-                                    Забронирован
-                                </SpanAvatar>
-                            ) : (
-                                'В ожидании'
-                            )}
-                        </StyledText>
+                        <StyledText>{isMyId()}</StyledText>
                     </WrapperToBooking>
-                    <WrapperMeatBalls
-                        variants={variant}
-                        onClick={(e) => e.stopPropagation()}
-                    >
+                    <WrapperMeatBalls variants={variant}>
                         <MeatBalls navigations={navigation} id={id} />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>
@@ -82,16 +86,17 @@ const StyledAvatar = styled(Avatar)`
 const SpanAvatar = styled('span')`
     display: flex;
 `
-
 const StyledCard = styled(Card)(({ variants }) => ({
     ...(variants === 'board' && {
         width: '100%',
         height: '250px',
+        cursor: 'pointer',
     }),
     ...(variants === 'list' && {
         display: 'flex',
         width: '533px',
         height: '134px',
+        cursor: 'pointer',
     }),
 }))
 const Wrapper = styled('div')``
