@@ -21,6 +21,7 @@ export default function CharityCard(props) {
             <StyledCardContentFirst>
                 <StyledAvatar alt="Cindy Baker" src={props.data?.avatar} />
                 <UserName>{props.data?.userName}</UserName>
+                <UserName>{props.data?.userLastName}</UserName>
             </StyledCardContentFirst>
 
             <NameGift>

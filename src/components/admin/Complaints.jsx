@@ -13,25 +13,28 @@ export const Complaints = () => {
     useEffect(() => {
         dispatch(getAllComplaintsAction())
     }, [])
-    // console.log(complaints)
+    console.log(complaints)
     const meatBallsOptions = [{ id: '1', title: 'dff' }]
-    const data = complaints?.find((el) => {
+    const data = complaints?.map((el) => {
         return {
+            id: el.id,
             key: el?.id,
             image: el?.userWish?.wishPhoto,
-            avatar: el?.fromUserPhoto,
-            userName: el?.fromUserName,
-            giftName: el?.userWish.wishName,
-            date: el?.userWish.createdAt,
+            avatar: el?.userPhoto,
+            userName: el?.userName,
+            userLastName: el?.userLastName,
+            giftName: el?.userWish?.wishName,
+            date: el?.userWish?.createdAt,
             toBook: el?.text,
         }
     })
-    console.log(data)
     return (
         <div>
             <div>Жалобы</div>
             <div>
-                <CharityCard data={data} meatBallsOptions={meatBallsOptions} />
+                {data?.map((i) => (
+                    <CharityCard data={i} meatBallsOptions={meatBallsOptions} />
+                ))}
             </div>
         </div>
     )
