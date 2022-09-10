@@ -2,14 +2,24 @@ import { styled, Avatar } from '@mui/material'
 
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-const UserCard = ({ amountWishes, img, name, id, onClick, option }) => {
+const UserCard = ({
+    amountWishes,
+    img,
+    lastName,
+    firstName,
+    id,
+    onClick,
+    option,
+}) => {
     return (
         <StyledContainer id={id} onClick={onClick}>
             <StyledAvatar src={img} alt="photo" />
-            <StyledNameOfFriend>{name}Anna</StyledNameOfFriend>
+            <StyledNameOfFriend>
+                {firstName} {lastName}
+            </StyledNameOfFriend>
             <StyledDiv>
                 <div>
-                    <StyledNumberSpan>{amountWishes}15</StyledNumberSpan>
+                    <StyledNumberSpan>{amountWishes}</StyledNumberSpan>
                     <StyledTitle>желаемых</StyledTitle>
                     <StyledTitle>подарков</StyledTitle>
                 </div>

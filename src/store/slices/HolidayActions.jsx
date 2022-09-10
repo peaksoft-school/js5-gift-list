@@ -5,6 +5,8 @@ import { format } from 'date-fns'
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
+import { getHolidaysToSelect } from './AddWishCardActions'
+
 export const postHoliday = createAsyncThunk(
     'holiday/postHoliday',
     async (props, { dispatch }) => {
@@ -29,6 +31,7 @@ export const postHoliday = createAsyncThunk(
             props.onClose()
             showSuccessMessage('Успешно добавлен')
             dispatch(getHoliday())
+            dispatch(getHolidaysToSelect())
             return response
         } catch (error) {
             showErrorMessage('Вышла ошибка!')

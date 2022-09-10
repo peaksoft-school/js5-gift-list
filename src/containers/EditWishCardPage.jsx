@@ -103,16 +103,13 @@ const EditWishCardPage = () => {
         navigate('/wish_list')
     }
     const img = wishPhoto?.name ? null : wishPhoto
-    const a = (
-        <AddHolidayModal
-            onOpen={openAddModalHandler}
-            open={addHoliday === 'true'}
-            onClose={closeModalHandler}
-        />
-    )
     return (
         <WrapperAll onSubmit={putDataWishCard}>
-            <ImagePicker newFile={img} onChange={editImageHandler} />
+            <ImagePicker
+                newFile={img}
+                onChange={editImageHandler}
+                id="editImagePicker"
+            />
             <WrapperEdit>
                 <H2>Добавление желаемого подарка</H2>
                 <WrapperLabels>
@@ -172,7 +169,11 @@ const EditWishCardPage = () => {
                     </Button>
                 </WrapperButton>
             </WrapperEdit>
-            {a}
+            <AddHolidayModal
+                onOpen={openAddModalHandler}
+                open={addHoliday === 'true'}
+                onClose={closeModalHandler}
+            />
         </WrapperAll>
     )
 }
@@ -192,6 +193,7 @@ const WrapperAll = styled('form')`
     display: flex;
     background: #fff;
     width: 100%;
+    margin-top: 110px;
 `
 
 const WrapperEdit = styled('div')`

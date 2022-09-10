@@ -130,7 +130,7 @@ const WishList = () => {
 export default WishList
 
 const DivWishList = styled('div')`
-    margin: 32px 40px 0 20px;
+    margin: 100px 40px 0 20px;
 `
 
 const WrapperTop = styled('div')`

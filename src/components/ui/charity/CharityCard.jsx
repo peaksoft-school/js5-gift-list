@@ -37,19 +37,16 @@ export default function CharityCard(props) {
                 image={props.data.photo}
                 alt="green iguana"
             />
-
             <StyledCardContentFirst>
                 <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
                 <UserName>{props.userName}</UserName>
             </StyledCardContentFirst>
-
             <NameGift>
                 {props.data.name}
                 <Status sts={props.data.status}>
                     {props.data.status === 'NEW' ? 'Новый' : 'Б/У'}
                 </Status>
             </NameGift>
-
             <StyledCardContentSecond>
                 <StyledDate>{props.data.createdAt}</StyledDate>
                 <Wrapper>
@@ -74,7 +71,6 @@ export default function CharityCard(props) {
         </StyledCard>
     )
 }
-
 const StyledCard = styled(MuiCard)(() => ({
     // width: '97%',
     // margin: '10px',
@@ -122,7 +118,6 @@ const StyledCardContentFirst = styled(CardContent)(() => ({
     order: '-1',
     gridTemplateColumns: '48px 168px 101px',
 }))
-
 const StyledCardContentSecond = styled(CardContent)(() => ({
     height: '20px',
     padding: '10px',
@@ -132,7 +127,6 @@ const StyledCardContentSecond = styled(CardContent)(() => ({
     alignItems: 'center',
     justifyContent: 'space-between',
 }))
-
 const StyledCardMedia = styled(CardMedia)(() => ({
     borderRadius: '6px',
     width: 'auto',
@@ -140,7 +134,6 @@ const StyledCardMedia = styled(CardMedia)(() => ({
     margin: '0 16px 0 16px',
     order: '0',
 }))
-
 const NameGift = styled('span')(() => ({
     fontFamily: 'sans-serif',
     fontWeight: '500',
@@ -160,7 +153,7 @@ const StyledDate = styled('span')(() => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16.94px',
-    color: '#636c84',
+    color: '#636C84',
 }))
 const StyledText = styled('span')`
     font-family: sans-serif;
@@ -175,9 +168,9 @@ const Status = styled('span')(({ sts }) => ({
     fontSize: '13px',
     lineHeight: '15px',
     ...(sts === 'NEW' && {
-        color: ' #0ba360',
+        color: ' #0BA360',
     }),
     ...(sts === 'USED' && {
-        color: ' #fd5200',
+        color: ' #FD5200',
     }),
 }))

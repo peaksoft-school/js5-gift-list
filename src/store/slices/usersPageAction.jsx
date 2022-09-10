@@ -9,8 +9,6 @@ export const getAllUsers = createAsyncThunk(
             const response = await appFetch({
                 url: 'api/admin/users',
             })
-            console.log('test1')
-            console.log(response)
             return response
         } catch (error) {
             throw new Error(error)
@@ -20,12 +18,11 @@ export const getAllUsers = createAsyncThunk(
 
 export const getUserProfileWithId = createAsyncThunk(
     'userCard/getUserProfileWithId',
-    async () => {
+    async (id) => {
         try {
             const response = await appFetch({
-                url: `api/admin/users/${'2'}`,
+                url: `api/admin/users/${id}`,
             })
-            // console.log(response, 'one')
             return response
         } catch (error) {
             throw new Error(error)
@@ -40,7 +37,20 @@ export const toBlockUser = createAsyncThunk(
                 method: 'PUT',
                 url: `api/admin/users/block/${obj.id}`,
             })
-            console.log(response)
+            return response
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+)
+export const toUnBlockUser = createAsyncThunk(
+    'toBlock/toBlockUser',
+    async (obj) => {
+        try {
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/admin/users/unBlock/${obj.id}`,
+            })
             return response
         } catch (error) {
             throw new Error(error)

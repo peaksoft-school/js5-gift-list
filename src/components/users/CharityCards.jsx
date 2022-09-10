@@ -17,12 +17,10 @@ export default function GiftCard(props) {
         holiday,
         date,
         isBooked,
-        id,
         navigation,
-        navigateToInnerPage,
         idOfOwnerUser,
+        id,
     } = props
-
     const isMyId = () => {
         const booked = (
             <SpanAvatar>
@@ -41,8 +39,19 @@ export default function GiftCard(props) {
         }
         return booked
     }
+    const isNewStateTex = () => {
+        const oldState = 'Б/У'
+        const newState = 'Новый'
+        if (holiday === 'USED') {
+            return oldState
+        }
+        if (holiday !== 'USED') {
+            return newState
+        }
+        return oldState
+    }
     return (
-        <StyledCard onClick={navigateToInnerPage} variants={variant}>
+        <StyledCard variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
@@ -52,7 +61,9 @@ export default function GiftCard(props) {
             <Wrapper>
                 <StyledCardContentFirst variants={variant}>
                     <NameGift>{nameGift}</NameGift>
-                    <StyledBirthday>{holiday}</StyledBirthday>
+                    <StyledBirthday status={isNewStateTex()}>
+                        {isNewStateTex()}
+                    </StyledBirthday>
                 </StyledCardContentFirst>
                 <StyledCardContentSecond variants={variant}>
                     <StyledDate variants={variant}>{date}</StyledDate>
@@ -83,7 +94,6 @@ const StyledAvatar = styled(Avatar)`
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    display: inline-flex;
 `
 const SpanAvatar = styled('span')`
     display: flex;
@@ -165,9 +175,9 @@ const StyledText = styled('span')`
 const StyledBirthday = styled('span')`
     font-size: Inter;
     font-weight: 400;
-    font-size: 13px;
-    line-height: 15px;
-    color: #0ba360;
+    font-size: 14px;
+    line-height: 17px;
+    color: ${(props) => (props.status === 'Б/У' ? '#fd5200' : '#0ba360')};
 `
 const StyledCardMedia = styled(CardMedia)(({ variants }) => ({
     borderRadius: '6px',

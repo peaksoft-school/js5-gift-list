@@ -8,17 +8,22 @@ import { AddWishCardSlice } from './slices/addWishCardSlice'
 // >>>>>>> d04bfa8e76e79200385d2d93d6d311c8167f94cd
 import { authSlice } from './slices/AuthSlice'
 import bookedPageSlice from './slices/bookedPageSlice'
+import friendProfileSlice from './slices/friendProfileSlice'
+import { requestToFriendSlice, friendsSlice } from './slices/friendTabSlice'
 import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
 import HolidaySlice from './slices/HolidaySlice'
+import getUserSlice from './slices/mainSearchSlise'
 import usersCardSlice from './slices/usersPageSlice'
 
 export const store = configureStore({
     reducer: {
         holiday: HolidaySlice.reducer,
         authSlice: authSlice.reducer,
-        // <<<<<<< HEAD
+        users: getUserSlice.reducer,
+        friends: friendsSlice.reducer,
+        requestToFriend: requestToFriendSlice.reducer,
+        friend: friendProfileSlice.reducer,
         addCharity: addCharity.reducer,
-        // =======
         holidayUserGifts: HolidayGiftsSlice.reducer,
         wishCard: AddWishCardSlice.reducer,
         bookedCards: bookedPageSlice.reducer,

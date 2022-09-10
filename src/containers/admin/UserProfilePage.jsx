@@ -3,10 +3,17 @@ import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
-import { ReactComponent as Gray } from '../../assets/icons/bron.svg'
-import { ReactComponent as Facebook } from '../../assets/icons/facebook.svg'
-import toBookIcon from '../../assets/icons/toBook.svg'
+import { ReactComponent as Facebook } from '../../assets/icons/facebookFriendProfilePage.svg'
+import { ReactComponent as GrayFacebook } from '../../assets/icons/grayFacebook.svg'
+import { ReactComponent as GrayInstagram } from '../../assets/icons/grayInstagram.svg'
+import { ReactComponent as GrayTelegram } from '../../assets/icons/grayTelegram.svg'
+import { ReactComponent as WkFriendProfile } from '../../assets/icons/grayVk.svg'
+import { ReactComponent as Instagram } from '../../assets/icons/instagram.svg'
+import { ReactComponent as Telegram } from '../../assets/icons/telegram.svg'
+import blockIcon from '../../assets/icons/toBook.svg'
+import { ReactComponent as Wk } from '../../assets/icons/vkFriendProfile.svg'
 import BookedGiftsCard from '../../components/ui/BookedGiftsCard'
 import Button from '../../components/ui/Button'
 import GiftCard from '../../components/users/GiftCard'
@@ -17,20 +24,21 @@ import {
 } from '../../store/slices/usersPageAction'
 
 function UserProfilePage() {
-    const optionWishes = [
+    const { id } = useParams()
+    const blockWishOption = [
         {
-            icon: toBookIcon,
-            title: 'Забронировать',
+            icon: blockIcon,
+            title: 'Блокировать',
             id: '1',
             // clickItem: (id) => toBookGiftHandler(id),
         },
     ]
-    const optionToBlock = [
+    const toBlockGiftOption = [
         {
-            icon: toBookIcon,
-            title: 'Забронировать',
+            icon: blockIcon,
+            title: 'Блокировать',
             id: '1',
-            clickItem: (id) => toBlockUserHandler(id),
+            clickItem: (id) => toBlockGiftHandler(id),
         },
     ]
     const [showMoreWishCard, setShowMoreWishCard] = useState(false)
@@ -41,9 +49,12 @@ function UserProfilePage() {
     console.log(userProfile)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getUserProfileWithId())
+        dispatch(getUserProfileWithId(id))
     }, [])
-    function toBlockUserHandler(id) {
+    const toBlockUserHandler = () => {
+        dispatch(toBlockUser({ id }))
+    }
+    function toBlockGiftHandler(id) {
         dispatch(toBlockUser({ id }))
     }
     const isShowMoreHandler = () => {
@@ -97,28 +108,28 @@ function UserProfilePage() {
                                 {userProfile?.userInfo?.facebookLink ? (
                                     <Facebook />
                                 ) : (
-                                    <Gray />
+                                    <GrayFacebook />
                                 )}
                             </a>{' '}
                             <a href={userProfile?.userInfo?.instagramLink}>
                                 {userProfile?.userInfo?.instagramLink ? (
-                                    <Facebook />
+                                    <Instagram />
                                 ) : (
-                                    <Gray />
+                                    <GrayInstagram />
                                 )}
                             </a>
                             <a href={userProfile?.userInfo?.telegramLink}>
                                 {userProfile?.userInfo?.telegramLink ? (
-                                    <Facebook />
+                                    <Telegram />
                                 ) : (
-                                    <Gray />
+                                    <GrayTelegram />
                                 )}
                             </a>
                             <a href={userProfile?.userInfo?.vkLink}>
                                 {userProfile?.userInfo?.vkLink ? (
-                                    <Facebook />
+                                    <Wk />
                                 ) : (
-                                    <Gray />
+                                    <WkFriendProfile />
                                 )}
                             </a>
                         </StyledCardActions>
@@ -217,7 +228,9 @@ function UserProfilePage() {
                         ''
                     )}
                     <WrapperButton>
-                        <Button>Блокировать</Button>
+                        <Button onClick={toBlockUserHandler}>
+                            Блокировать
+                        </Button>
                     </WrapperButton>
                 </InfoDiv>
             </ContentDiv>
@@ -246,7 +259,7 @@ function UserProfilePage() {
                                 holiday={el.wish?.holiday?.name}
                                 date={el.wish?.wishDate}
                                 isBooked={el?.bookedUser}
-                                navigation={optionWishes}
+                                navigation={blockWishOption}
                             />
                         </Div>
                     )
@@ -307,7 +320,7 @@ function UserProfilePage() {
                                 holiday={el.gift?.status}
                                 date={el.gift?.createdAt}
                                 isBooked={el?.bookedUser}
-                                navigation={optionToBlock}
+                                navigation={toBlockGiftOption}
                             />
                         )
                     })}
@@ -328,6 +341,7 @@ const ContainerDiv = styled('div')`
     flex-direction: column;
     height: 100%;
     margin-left: 30px;
+    margin-top: 110px;
 `
 const RouteTitle = styled('p')`
     font-family: 'Inter', sans-serif;

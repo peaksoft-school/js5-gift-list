@@ -86,7 +86,7 @@ const AddWishCardPage = () => {
     return (
         <WrapperAll onSubmit={postHandler}>
             <Notification />
-            <ImagePicker onChange={addImageGift} />
+            <ImagePicker onChange={addImageGift} id="addWishes" />
             <WrapperEdit>
                 <H2>Добавление желаемого подарка</H2>
                 <WrapperLabels>
@@ -173,6 +173,7 @@ const WrapperAll = styled('form')`
     padding: 20px;
     display: flex;
     background: #fff;
+    margin-top: 110px;
 `
 
 const WrapperEdit = styled('div')`

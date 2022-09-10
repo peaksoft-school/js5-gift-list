@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import styled from '@emotion/styled'
 import TabContext from '@mui/lab/TabContext'
@@ -9,43 +9,35 @@ import { useNavigate } from 'react-router-dom'
 
 import FriendsCard from './FriendsCard'
 
-export default function FriendTabs({ options }) {
-    const [value, setValue] = useState('1')
+const REQUESTTOFRIENDS = 'REQUESTTOFRIENDS'
 
-    useEffect(() => {
-        localStorage.setItem('items', JSON.stringify(value))
-    }, [value])
-    useEffect(() => {
-        const value = JSON.parse(localStorage.getItem('items'))
-        if (value) {
-            setValue(value)
-        }
-    }, [])
+export default function FriendTabs({ friends, requestToFriend }) {
+    const [value, setValue] = useState('1')
     const navigate = useNavigate()
 
     const handleChange = (event, newValue) => {
         setValue(newValue)
     }
-    const handleInnerPage = (id) => {
-        navigate(`/friends/${id}`)
+    const goToInnerPage = (userId) => {
+        navigate(`/friends/${userId}`)
     }
 
     const myFriends = (
         <StyledSpan>
             Мои друзья
-            <h4>{options.friends.length}</h4>
+            <h4>{friends && friends.length}</h4>
         </StyledSpan>
     )
 
     const requstToFriends = (
         <StyledSpan>
             Запросы в друзья
-            <h4>{options.requestToFriends.length}</h4>
+            <h4>{requestToFriend && requestToFriend.length}</h4>
         </StyledSpan>
     )
     return (
         <StyledBoxContainer>
-            <TabContext value="numbers">
+            <TabContext value={value}>
                 <StyledBox>
                     <StyledTabList onChange={handleChange}>
                         <StyledTab label={myFriends} value="1" />
@@ -53,16 +45,18 @@ export default function FriendTabs({ options }) {
                     </StyledTabList>
                 </StyledBox>
                 <StyledTabPanel value="1">
-                    {options.friends.map((el) => {
+                    {friends?.map((el) => {
                         return (
                             <FriendsCard
-                                name={el.name}
-                                id={el.id}
-                                key={el.id}
-                                amountOfHolidays={el.amountOfHolidays}
-                                amountOfWishes={el.amountOfWishes}
+                                name={el.firstName}
+                                lastName={el.lastName}
+                                id={el.userId}
+                                key={el.userId}
+                                photo={el.photo}
+                                holidayCount={el.holidayCount}
+                                wishCount={el.wishCount}
                                 onClick={() => {
-                                    handleInnerPage(el.id)
+                                    goToInnerPage(el.userId)
                                 }}
                             />
                         )
@@ -70,18 +64,19 @@ export default function FriendTabs({ options }) {
                 </StyledTabPanel>
                 <StyledTabPanel value="2">
                     <StyledDivRequestToFriends>
-                        {options.requestToFriends.map((el) => {
+                        {requestToFriend?.map((el) => {
                             return (
                                 <FriendsCard
-                                    name={el.name}
-                                    id={el.id}
-                                    key={el.id}
+                                    name={el.firstName}
+                                    photo={el.photo}
+                                    id={el.userId}
+                                    key={el.userId}
                                     onClick={() => {
-                                        handleInnerPage(el.id)
+                                        goToInnerPage(el.userId)
                                     }}
-                                    amountOfHolidays={el.amountOfHolidays}
-                                    amountOfWishes={el.amountOfWishes}
-                                    variant="requestToFriends"
+                                    holidayCount={el.holidayCount}
+                                    wishCount={el.wishCount}
+                                    variant={REQUESTTOFRIENDS}
                                 />
                             )
                         })}

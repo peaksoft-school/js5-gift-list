@@ -1,14 +1,27 @@
 import SearchIcon from '@mui/icons-material/Search'
 import { InputBase, IconButton, Paper, styled, Avatar } from '@mui/material'
 
-export default function MainSearchInput({ options, onChange, value, onClick }) {
+export default function MainSearchInput({
+    options,
+    onChange,
+    value,
+    onClick,
+    stopPropagationHandler,
+}) {
     const renderSearchResults = () => {
-        if (options.length > 0) {
-            return options.map((user) => {
+        if (options?.length > 0) {
+            return options?.map((user) => {
                 return (
-                    <StyledUserDiv key={user.id} onClick={() => onClick(user)}>
-                        <StyledAvatar alt="Remy Sharp" src={user.img} />
-                        <StyledSpan>{user.name}</StyledSpan>
+                    <StyledUserDiv
+                        key={user.id}
+                        onClick={(event) => {
+                            onClick(user.id)
+                            stopPropagationHandler(event)
+                        }}
+                    >
+                        <StyledAvatar alt={user.firstName} src={user.photo} />
+                        <StyledSpan>{user.firstName}</StyledSpan>
+                        <StyledSpan>{user.lastName}</StyledSpan>
                     </StyledUserDiv>
                 )
             })
@@ -26,7 +39,6 @@ export default function MainSearchInput({ options, onChange, value, onClick }) {
                     placeholder="Введите имя"
                     value={value}
                     onChange={onChange}
-                    onClick={onClick}
                 />
             </StyledFormPaper>
             {value.trim().length >= 1 && (
@@ -43,12 +55,14 @@ export default function MainSearchInput({ options, onChange, value, onClick }) {
 }
 
 const ResultDiv = styled('div')`
-    background-color: #eef2f2;
+    background-color: white;
     border-radius: 8px;
     position: absolute;
     height: auto;
     top: 69px;
-    width: 100%;
+    width: 60%;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 99;
 `
 
 const StyledFormPaper = styled(Paper)`
@@ -104,6 +118,8 @@ const StyledTitle = styled('p')`
 const StyledSpan = styled('span')`
     padding: 5px;
     cursor: pointer;
+    color: black;
+    z-index: 99;
 `
 
 const StyledUserDiv = styled('div')`
@@ -111,6 +127,7 @@ const StyledUserDiv = styled('div')`
     justify-content: flex-start;
     align-items: center;
     margin: 16px;
+    border: 2px solid white;
 `
 
 const StyledContentTitle = styled('span')`

@@ -12,6 +12,8 @@ import {
 } from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
+const WITHMEATBALLS = 'WITHMEATBALLS'
+
 export default function MyHolidaysCard({
     id,
     img,
@@ -20,6 +22,7 @@ export default function MyHolidaysCard({
     onOpen,
     getId,
     navigate,
+    variant,
 }) {
     const dispatch = useDispatch()
     const navigations = [
@@ -50,15 +53,17 @@ export default function MyHolidaysCard({
     }
     return (
         <StyledCard onClick={navigate}>
-            <StyledCardMedia alt="green iguana" image={image.image} />
+            <StyledCardMedia alt={title} image={image.image} />
             <HolidayTitleDiv>
                 <HolidayTitle>{title}</HolidayTitle>
             </HolidayTitleDiv>
             <StyledFooter>
                 <StyledDate>{date}</StyledDate>
-                <MeatBallsWrapper onClick={(e) => e.stopPropagation()}>
-                    <MeatBalls navigations={navigations} />
-                </MeatBallsWrapper>
+                {variant === WITHMEATBALLS && (
+                    <MeatBallsWrapper onClick={(e) => e.stopPropagation()}>
+                        <MeatBalls navigations={navigations} />
+                    </MeatBallsWrapper>
+                )}
             </StyledFooter>
         </StyledCard>
     )
@@ -72,7 +77,6 @@ const StyledCard = styled(Card)`
     height: 38vh;
     border-radius: 8px;
     padding: 16px;
-    margin-top: 24px;
 `
 const StyledCardMedia = styled(CardMedia)`
     width: 100%;

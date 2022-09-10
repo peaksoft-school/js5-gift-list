@@ -16,7 +16,7 @@ const AdminRoutes = () => {
         <Routes>
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
                 <Route path="/users" element={<UsersPage />} />
-                <Route path="users/userId" element={<UserProfilePage />} />
+                <Route path="users/:id" element={<UserProfilePage />} />
                 <Route path="/complaints" element={<Complaints />} />
                 <Route path="/mailing" element={<Mailing />} />
                 <Route path="/charity_users" element={<CharityUsers />} />

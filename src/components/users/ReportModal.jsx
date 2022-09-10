@@ -4,7 +4,7 @@ import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
 import Radio from '../ui/Radio'
 
-const ReportModal = ({ open, onClose, onChange }) => {
+const ReportModal = ({ open, onClose, onChange, onClick }) => {
     const radio = [
         { title: 'Жестокость и шокирующий контент', id: '1' },
         { title: 'Проявление ненависти', id: '2' },
@@ -37,8 +37,12 @@ const ReportModal = ({ open, onClose, onChange }) => {
                     ))}
                 </Div>
                 <WrapperButton>
-                    <Button variant="outlined">Отмена</Button>
-                    <Button variant="contained">Отправить</Button>
+                    <Button variant="outlined" onClick={onClose}>
+                        Отмена
+                    </Button>
+                    <Button variant="contained" onClick={onClick}>
+                        Отправить
+                    </Button>
                 </WrapperButton>
             </Wrapper>
         </BasicModal>

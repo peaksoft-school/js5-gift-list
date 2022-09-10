@@ -13,11 +13,9 @@ const usersCardSlice = createSlice({
     extraReducers: {
         [getAllUsers.fulfilled]: (state, { payload }) => {
             state.users = payload
-            console.log(payload, 'text')
         },
         [getUserProfileWithId.fulfilled]: (state, { payload }) => {
             state.userProfile = payload
-            console.log(payload)
         },
     },
 })
