@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import { CharityUsers } from '../components/admin/CharityUsers'
 import { Complaints } from '../components/admin/Complaints'
-import { Mailing } from '../components/admin/Mailing'
+import ComplaintsInnerPage from '../components/admin/ComplaintsInnerPage'
 import { Users } from '../components/admin/Users'
 import Error from '../components/ui/Error'
 import { PageLayout } from '../layout/PageLayout'
@@ -16,8 +16,11 @@ const AdminRoutes = () => {
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
                 <Route path="/users" element={<Users />} />
                 <Route path="/complaints" element={<Complaints />} />
-                <Route path="/mailing" element={<Mailing />} />
                 <Route path="/charity_users" element={<CharityUsers />} />
+                <Route
+                    path="/complaints/:complaintId"
+                    element={<ComplaintsInnerPage />}
+                />
             </Route>
             <Route path={DEFAULT_ROUTES.NOT_FOUND.PATH} element={<Error />} />
         </Routes>

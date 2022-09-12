@@ -1,58 +1,138 @@
 import React, { useEffect } from 'react'
 
+import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { getAllComplaintsAction } from '../../store/slices/getAllComplaintsAction'
-// import CharityCard from '../ui/charity/CharityCard'
+import cancelBooking from '../../assets/icons/cancelBooking.svg'
+import deleteIcon from '../../assets/icons/deleteIcon.svg'
+import block from '../../assets/icons/toBook.svg'
+import {
+    deleteComplaintAction,
+    getAllComplaintsAction,
+} from '../../store/slices/getAllComplaintsAction'
 import BookedWishesCard from '../ui/BookedWishesCard'
 
+const WITHBOTTOMTITLE = 'WITHBOTTOMTITLE'
 export const Complaints = () => {
-    const complaints = useSelector((state) => state.complaints.complaints)
-
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
+    const complaints = useSelector((state) => state.complaints.complaints)
+    console.log(complaints)
     useEffect(() => {
         dispatch(getAllComplaintsAction())
     }, [])
-    console.log(complaints)
-    const meatBallsOptions = [{ id: '1', title: 'dff' }]
-    // const data = complaints?.map((el) => {
-    //     return {
-    //         id: el.id,
-    //         key: el?.id,
-    //         image: el?.userWish?.wishPhoto,
-    //         avatar: el?.userPhoto,
-    //         userName: el?.userName,
-    //         userLastName: el?.userLastName,
-    //         giftName: el?.userWish?.wishName,
-    //         date: el?.userWish?.createdAt,
-    //         toBook: el?.text,
-    //     }
-    // })
+    const meatBallsOptionBlock = [
+        { id: '1', title: 'Блокировать', icon: block, clickItem: () => {} },
+        {
+            id: '2',
+            title: 'Удалить',
+            icon: deleteIcon,
+            clickItem: (id) => deleteComplaintHandler(id),
+        },
+    ]
+    const meatBallsOptionsUnBlock = [
+        {
+            id: '1',
+            title: 'Разблокировать',
+            icon: cancelBooking,
+            clickItem: () => {},
+        },
+        {
+            id: '2',
+            title: 'Удалить',
+            icon: deleteIcon,
+            clickItem: (id) => deleteComplaintHandler(id),
+        },
+    ]
+    const deleteComplaintHandler = (complaintId) => {
+        dispatch(deleteComplaintAction({ complaintId, dispatch }))
+    }
+    const goToInnerPage = (id) => {
+        console.log(id)
+        navigate(`/complaints/${id}`)
+    }
     return (
-        <div>
-            <div>Жалобы</div>
+        <Div>
+            <ComplaintTitle>Жалобы</ComplaintTitle>
             <div>
-                {complaints.map((el) => (
-                    <div style={{ border: '1px solid red' }}>
+                <Container>
+                    {complaints.map((el) => (
                         <BookedWishesCard
                             key={el?.id}
                             id={el?.id}
-                            giftName={el?.userWish?.wishName}
-                            // holiday={el.wish.holiday.name}
-                            date={el?.userWish.createdAt}
-                            img={el?.userWish.wishPhoto}
-                            navigation={meatBallsOptions}
-                            firstName={el?.firstName}
-                            lastName={el?.lastName}
+                            giftName={
+                                el?.userWish
+                                    ? el.userWish.wishName
+                                    : el.userGift.name
+                            }
+                            holiday={
+                                el?.userWish?.holidayName
+                                    ? el?.userWish.holidayName
+                                    : ''
+                            }
+                            date={
+                                el?.userWish
+                                    ? el.userWish?.wishDate
+                                    : el?.userGift?.createdAt
+                            }
+                            img={
+                                el?.userWish
+                                    ? el?.userWish?.wishPhoto
+                                    : el?.userGift.photo
+                            }
+                            navigation={
+                                el?.userWish === null ||
+                                (el?.userGift?.isBlock === false &&
+                                    el?.userWish?.isBlock === false) ||
+                                el?.userGift === null
+                                    ? meatBallsOptionBlock
+                                    : meatBallsOptionsUnBlock
+                            }
+                            text="причина жалобы"
+                            complaintUser={el?.fromUserPhoto}
+                            variant={WITHBOTTOMTITLE}
+                            complaintBorder="orange"
+                            firstName={el?.userName}
+                            lastName={el?.userLastName}
                             avatar={el?.fromUserPhoto}
+                            status={
+                                el?.userWish
+                                    ? el?.userWish.isBlock
+                                    : el?.userGift.isBlock
+                            }
+                            onClick={() => {
+                                goToInnerPage(el.id)
+                            }}
                         />
-                    </div>
-                ))}
-                {/* {data?.map((i) => (
-                    <CharityCard data={i} meatBallsOptions={meatBallsOptions} />
-                ))} */}
+                    ))}
+                </Container>
             </div>
-        </div>
+        </Div>
     )
 }
+
+const Div = styled('div')`
+    width: 94%;
+    margin-top: 100px;
+    margin-left: 20px;
+`
+const Container = styled('div')`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 40px;
+`
+const ComplaintTitle = styled('div')`
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2px;
+    color: #020202;
+    margin-bottom: 31px;
+`

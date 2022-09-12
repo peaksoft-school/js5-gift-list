@@ -11,3 +11,17 @@ export const getAllComplaintsAction = createAsyncThunk(
         return response
     }
 )
+
+export const deleteComplaintAction = createAsyncThunk(
+    'deleteComplaint/deleteComplaintAction',
+    async (obj) => {
+        console.log(obj.complaintId)
+        const response = await appFetch({
+            method: 'DELETE',
+            url: `api/complaints/${obj.complaintId}`,
+        })
+        obj.dispatch(getAllComplaintsAction())
+        // console.log(response)
+        return response
+    }
+)

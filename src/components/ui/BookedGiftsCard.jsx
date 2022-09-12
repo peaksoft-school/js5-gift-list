@@ -18,6 +18,7 @@ export default function BookedGiftsCard({
     img,
     id,
 }) {
+    console.log('start')
     const statusGift = status === 'USED' ? 'Б/У' : 'новый'
     return (
         <StyledCard>
