@@ -4,9 +4,12 @@ import addCharity from './slices/AddCharity'
 import { AddWishCardSlice } from './slices/addWishCardSlice'
 import { authSlice } from './slices/AuthSlice'
 import bookedPageSlice from './slices/bookedPageSlice'
+import {
+    giftsComplaintsSlice,
+    wishesComplaintsSlice,
+} from './slices/complaintsSlice'
 import friendProfileSlice from './slices/friendProfileSlice'
 import { requestToFriendSlice, friendsSlice } from './slices/friendTabSlice'
-import getAllComplaintsSlice from './slices/getAllComplaintsSlice'
 import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
 import HolidaySlice from './slices/HolidaySlice'
 import getUserSlice from './slices/mainSearchSlise'
@@ -23,7 +26,8 @@ export const store = configureStore({
         holidayUserGifts: HolidayGiftsSlice.reducer,
         wishCard: AddWishCardSlice.reducer,
         bookedCards: bookedPageSlice.reducer,
-        complaints: getAllComplaintsSlice.reducer,
+        giftComplaints: giftsComplaintsSlice.reducer,
+        wishesComplaints: wishesComplaintsSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

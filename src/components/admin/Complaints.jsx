@@ -7,20 +7,33 @@ import { useNavigate } from 'react-router-dom'
 import cancelBooking from '../../assets/icons/cancelBooking.svg'
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import block from '../../assets/icons/toBook.svg'
+// import {
+//     deleteComplaintAction,
+//     getAllComplaintsAction,
+// } from '../../store/slices/complaintsAction'
 import {
-    deleteComplaintAction,
-    getAllComplaintsAction,
-} from '../../store/slices/getAllComplaintsAction'
+    giftsComplaintsAction,
+    wishesComplaintsAction,
+} from '../../store/slices/complaintsAction'
 import BookedWishesCard from '../ui/BookedWishesCard'
 
 const WITHBOTTOMTITLE = 'WITHBOTTOMTITLE'
 export const Complaints = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const complaints = useSelector((state) => state.complaints.complaints)
-    console.log(complaints)
+    const giftComplaints = useSelector(
+        (state) => state.giftComplaints.complaintOnGifts
+    )
+    const wishComplaints = useSelector(
+        (state) => state.wishesComplaints.complaintOnWishes
+    )
+    console.log(wishComplaints)
+    console.log(giftComplaints)
     useEffect(() => {
-        dispatch(getAllComplaintsAction())
+        dispatch(giftsComplaintsAction())
+    }, [])
+    useEffect(() => {
+        dispatch(wishesComplaintsAction())
     }, [])
     const meatBallsOptionBlock = [
         { id: '1', title: 'Блокировать', icon: block, clickItem: () => {} },
@@ -28,7 +41,7 @@ export const Complaints = () => {
             id: '2',
             title: 'Удалить',
             icon: deleteIcon,
-            clickItem: (id) => deleteComplaintHandler(id),
+            // clickItem: (id) => deleteComplaintHandler(id),
         },
     ]
     const meatBallsOptionsUnBlock = [
@@ -42,12 +55,12 @@ export const Complaints = () => {
             id: '2',
             title: 'Удалить',
             icon: deleteIcon,
-            clickItem: (id) => deleteComplaintHandler(id),
+            // clickItem: (id) => deleteComplaintHandler(id),
         },
     ]
-    const deleteComplaintHandler = (complaintId) => {
-        dispatch(deleteComplaintAction({ complaintId, dispatch }))
-    }
+    // const deleteComplaintHandler = (complaintId) => {
+    //     dispatch(deleteComplaintAction({ complaintId, dispatch }))
+    // }
     const goToInnerPage = (id) => {
         console.log(id)
         navigate(`/complaints/${id}`)
@@ -56,57 +69,112 @@ export const Complaints = () => {
         <Div>
             <ComplaintTitle>Жалобы</ComplaintTitle>
             <div>
-                <Container>
-                    {complaints.map((el) => (
-                        <BookedWishesCard
-                            key={el?.id}
-                            id={el?.id}
-                            giftName={
-                                el?.userWish
-                                    ? el.userWish.wishName
-                                    : el.userGift.name
-                            }
-                            holiday={
-                                el?.userWish?.holidayName
-                                    ? el?.userWish.holidayName
-                                    : ''
-                            }
-                            date={
-                                el?.userWish
-                                    ? el.userWish?.wishDate
-                                    : el?.userGift?.createdAt
-                            }
-                            img={
-                                el?.userWish
-                                    ? el?.userWish?.wishPhoto
-                                    : el?.userGift.photo
-                            }
-                            navigation={
-                                el?.userWish === null ||
-                                (el?.userGift?.isBlock === false &&
-                                    el?.userWish?.isBlock === false) ||
-                                el?.userGift === null
-                                    ? meatBallsOptionBlock
-                                    : meatBallsOptionsUnBlock
-                            }
-                            text="причина жалобы"
-                            complaintUser={el?.fromUserPhoto}
-                            variant={WITHBOTTOMTITLE}
-                            complaintBorder="orange"
-                            firstName={el?.userName}
-                            lastName={el?.userLastName}
-                            avatar={el?.fromUserPhoto}
-                            status={
-                                el?.userWish
-                                    ? el?.userWish.isBlock
-                                    : el?.userGift.isBlock
-                            }
-                            onClick={() => {
-                                goToInnerPage(el.id)
-                            }}
-                        />
-                    ))}
-                </Container>
+                <div>
+                    <Container>
+                        <h4>Жалобы на подарки</h4>
+                        {giftComplaints?.map((el) => (
+                            <BookedWishesCard
+                                key={el?.id}
+                                id={el?.id}
+                                giftName={
+                                    el?.userWish
+                                        ? el.userWish?.wishName
+                                        : el.userGift?.name
+                                }
+                                holiday={
+                                    el?.userWish?.holidayName
+                                        ? el?.userWish?.holidayName
+                                        : ''
+                                }
+                                date={
+                                    el?.userWish
+                                        ? el.userWish?.wishDate
+                                        : el?.userGift?.createdAt
+                                }
+                                img={
+                                    el?.userWish
+                                        ? el?.userWish?.wishPhoto
+                                        : el?.userGift?.photo
+                                }
+                                navigation={
+                                    el?.userWish === null ||
+                                    (el?.userGift?.isBlock === false &&
+                                        el?.userWish?.isBlock === false) ||
+                                    el?.userGift === null
+                                        ? meatBallsOptionBlock
+                                        : meatBallsOptionsUnBlock
+                                }
+                                text="причина жалобы"
+                                complaintUser={el?.fromUserPhoto}
+                                variant={WITHBOTTOMTITLE}
+                                complaintBorder="orange"
+                                firstName={el?.userName}
+                                lastName={el?.userLastName}
+                                avatar={el?.fromUserPhoto}
+                                status={
+                                    el?.userWish
+                                        ? el?.userWish?.isBlock
+                                        : el?.userGift?.isBlock
+                                }
+                                onClick={() => {
+                                    goToInnerPage(el?.id)
+                                }}
+                            />
+                        ))}
+                    </Container>
+                    <Container>
+                        <h4>Жалобы на желание</h4>
+                        {wishComplaints?.map((el) => (
+                            <BookedWishesCard
+                                key={el?.id}
+                                id={el?.id}
+                                giftName={
+                                    el?.userWish
+                                        ? el.userWish?.wishName
+                                        : el.userGift?.name
+                                }
+                                holiday={
+                                    el?.userWish?.holidayName
+                                        ? el?.userWish?.holidayName
+                                        : ''
+                                }
+                                date={
+                                    el?.userWish
+                                        ? el.userWish?.wishDate
+                                        : el?.userGift?.createdAt
+                                }
+                                img={
+                                    el?.userWish
+                                        ? el?.userWish?.wishPhoto
+                                        : el?.userGift?.photo
+                                }
+                                navigation={
+                                    el?.userWish === null ||
+                                    (el?.userGift?.isBlock === false &&
+                                        el?.userWish?.isBlock === false) ||
+                                    el?.userGift === null
+                                        ? meatBallsOptionBlock
+                                        : meatBallsOptionsUnBlock
+                                }
+                                text="причина жалобы"
+                                complaintUser={el?.fromUserPhoto}
+                                variant={WITHBOTTOMTITLE}
+                                complaintBorder="orange"
+                                firstName={el?.userName}
+                                lastName={el?.userLastName}
+                                avatar={el?.fromUserPhoto}
+                                status={
+                                    el?.userWish
+                                        ? el?.userWish?.isBlock
+                                        : el?.userGift?.isBlock
+                                }
+                                onClick={() => {
+                                    goToInnerPage(el?.id)
+                                }}
+                            />
+                        ))}
+                    </Container>
+                </div>
             </div>
         </Div>
     )
