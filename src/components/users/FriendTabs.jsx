@@ -12,6 +12,8 @@ import FriendsCard from './FriendsCard'
 const REQUESTTOFRIENDS = 'REQUESTTOFRIENDS'
 
 export default function FriendTabs({ friends, requestToFriend }) {
+    console.log(friends)
+    console.log(requestToFriend)
     const [value, setValue] = useState('1')
     const navigate = useNavigate()
 
