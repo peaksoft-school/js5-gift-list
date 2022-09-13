@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import styled from 'styled-components'
+
 import Button from '../ui/Button'
 
 import CreatingMailingList from './CreatingMailingList'
@@ -13,8 +15,8 @@ export const Mailing = () => {
         setOpen(false)
     }
     return (
-        <div>
-            <div>Рассылка</div>
+        <Container>
+            <TitleMailing>Рассылка</TitleMailing>
             <Button variant="contained" onClick={openHandler}>
                 Отправить рассылку
             </Button>
@@ -24,6 +26,21 @@ export const Mailing = () => {
                     onClose={closeMailingListHandler}
                 />
             )}
-        </div>
+        </Container>
     )
 }
+
+const TitleMailing = styled('p')`
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.2px;
+    color: #020202;
+`
+const Container = styled('div')`
+    margin-left: 20px;
+`

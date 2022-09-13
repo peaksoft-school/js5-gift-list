@@ -24,6 +24,7 @@ export const postMailingAction = createAsyncThunk(
             })
             showSuccessMessage('Успешно добавлен')
             props.onClose()
+            console.log(response)
             return response
         } catch (error) {
             showErrorMessage('Вышла ошибка!')
