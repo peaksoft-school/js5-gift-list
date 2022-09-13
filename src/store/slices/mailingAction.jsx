@@ -3,8 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
-export const postMailingAction = createAsyncThunk(
-    'mailing/postMailingAction',
+export const mailingAction = createAsyncThunk(
+    'mailing/mailingAction',
     async (props) => {
         const formData = new FormData()
         try {
@@ -17,14 +17,13 @@ export const postMailingAction = createAsyncThunk(
                 method: 'POST',
                 url: 'api/mailing/send',
                 body: {
-                    photo: fileResponse.link,
+                    photo: fileResponse.photo,
                     title: props.mailingTitle,
                     text: props.mailingText,
                 },
             })
-            showSuccessMessage('Успешно добавлен')
             props.onClose()
-            console.log(response)
+            showSuccessMessage('Успешно добавлен')
             return response
         } catch (error) {
             showErrorMessage('Вышла ошибка!')

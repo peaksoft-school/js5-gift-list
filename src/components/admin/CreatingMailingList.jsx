@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
 
-// import defaultImage from '../../assets/images/placeholder.webp'
-import { postMailingAction } from '../../store/slices/mailingAction'
+import { mailingAction } from '../../store/slices/mailingAction'
 import BasicModal from '../ui/BasicModal'
 import Button from '../ui/Button'
 import ImagePicker from '../ui/ImagePicker'
@@ -30,7 +29,7 @@ const CreatingMailingList = (props) => {
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(
-            postMailingAction({
+            mailingAction({
                 photo,
                 mailingTitle,
                 mailingText,
@@ -59,20 +58,19 @@ const CreatingMailingList = (props) => {
                             />
                         </LabelInputDiv>
                         <DateDiv>
-                            <label
-                                htmlFor="Текст рассылки"
-                                style={{ fontSize: '12px', color: '#464444' }}
-                            >
-                                Текст рассылки
-                            </label>
-                            <Input
-                                name="Текст рассылки"
-                                // width="100%"
-                                type="text"
-                                value={mailingText}
-                                onChange={onChangeInputText}
-                                placeholder="Введите текст рассылки"
-                            />
+                            <LabelInputDiv>
+                                <label htmlFor="Текст рассылки">
+                                    Текст рассылки
+                                </label>
+                                <Input
+                                    name="Текст рассылки"
+                                    type="text"
+                                    value={mailingText}
+                                    onChange={onChangeInputText}
+                                    placeholder="Введите текст рассылки"
+                                />
+                            </LabelInputDiv>
+
                             <CancelAddDiv>
                                 <Button variant="outlined" onClick={onClose}>
                                     Отмена
