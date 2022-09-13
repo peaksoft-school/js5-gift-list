@@ -2,11 +2,12 @@ import React from 'react'
 
 import { Routes, Route } from 'react-router-dom'
 
-import { CharityUsers } from '../components/admin/CharityUsers'
-import { Complaints } from '../components/admin/Complaints'
-import { Mailing } from '../components/admin/Mailing'
-import { Users } from '../components/admin/Users'
 import Error from '../components/ui/Error'
+import { CharityUsers } from '../containers/admin/CharityPage'
+import { Complaints } from '../containers/admin/Complaints'
+import InnerPageCharity from '../containers/admin/InnerPageCharity'
+import { Mailing } from '../containers/admin/Mailing'
+import { Users } from '../containers/admin/Users'
 import { PageLayout } from '../layout/PageLayout'
 import { DEFAULT_ROUTES } from '../utils/constants/constants'
 
@@ -18,6 +19,10 @@ const AdminRoutes = () => {
                 <Route path="/complaints" element={<Complaints />} />
                 <Route path="/mailing" element={<Mailing />} />
                 <Route path="/charity_users" element={<CharityUsers />} />
+                <Route
+                    path="/charity_users/:id"
+                    element={<InnerPageCharity />}
+                />
             </Route>
             <Route path={DEFAULT_ROUTES.NOT_FOUND.PATH} element={<Error />} />
         </Routes>

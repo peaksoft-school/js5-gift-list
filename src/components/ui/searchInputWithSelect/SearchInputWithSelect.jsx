@@ -9,8 +9,8 @@ const SearchInputwithSelect = ({
     stateOption,
     category,
     subCategory,
-    country,
     onChange,
+    isCategory,
 }) => {
     const [isActived, setISActived] = useState(false)
     const [isFocused, setIsFocused] = useState('')
@@ -66,24 +66,18 @@ const SearchInputwithSelect = ({
                     value={value.category}
                     category="Категория"
                 />
-                <SearchSelect
-                    valueKey="id"
-                    labelKey="name"
-                    options={subCategory}
-                    onChange={(newVaal) =>
-                        changeHandler('subCategory', newVaal)
-                    }
-                    value={value.subCategory}
-                    category="Подкатегория"
-                />
-                <SearchSelect
-                    valueKey="id"
-                    labelKey="name"
-                    options={country}
-                    onChange={(newVaal) => changeHandler('country', newVaal)}
-                    value={value.country}
-                    category="Страна"
-                />
+                {isCategory && (
+                    <SearchSelect
+                        valueKey="id"
+                        labelKey="name"
+                        options={subCategory}
+                        onChange={(newVaal) =>
+                            changeHandler('subCategory', newVaal)
+                        }
+                        value={value.subCategory}
+                        category="Подкатегория"
+                    />
+                )}
             </SelectContainer>
         </StyleDiv>
     )
@@ -97,6 +91,7 @@ const SelectContainer = styled.div`
 `
 
 const StyleDiv = styled.div`
+    /* margin-right: 300px; */
     width: 821px;
     height: 40px;
     border: 1px solid #bdbdbd;

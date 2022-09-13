@@ -15,6 +15,7 @@ const initialState = {
     holidaysToSelect: [],
     status: null,
     deleteId: false,
+    photo: '',
 }
 
 export const AddWishCardSlice = createSlice({

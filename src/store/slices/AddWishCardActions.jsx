@@ -7,17 +7,21 @@ export const addGift = createAsyncThunk(
     'addWishCard/fetchByIdStatus',
     async ({ wishPhoto, wishGift, dispatch }) => {
         const formData = new FormData()
+        const a = []
         try {
-            formData.set('file', wishPhoto)
-            const response = await appFetchFile({
-                url: 'api/file/upload',
-                body: formData,
-            })
+            if (wishPhoto) {
+                formData.set('file', wishPhoto)
+                const response = await appFetchFile({
+                    url: 'api/file/upload',
+                    body: formData,
+                })
+                a.push(response)
+            }
             const responseAll = await appFetch({
                 method: 'POST',
                 url: 'api/wish',
                 body: {
-                    photo: response.link,
+                    photo: wishPhoto ? a[0].link : null,
                     wishName: wishGift.wishName,
                     wishLink: wishGift.wishLink,
                     description: wishGift.description,
