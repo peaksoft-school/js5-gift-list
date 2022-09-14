@@ -44,10 +44,10 @@ export const UsersPage = () => {
         navigate(`${id}`)
     }
     function blockingUser(id) {
-        dispatch(toBlockUser({ id, dispatch }))
+        dispatch(toBlockUser(id))
     }
     function unBlockingUser(id) {
-        dispatch(toUnBlockUser({ id, dispatch }))
+        dispatch(toUnBlockUser(id))
     }
     return (
         <WrapperPage>

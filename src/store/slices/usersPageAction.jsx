@@ -32,9 +32,7 @@ export const getUserProfileWithId = createAsyncThunk(
 )
 export const toBlockUser = createAsyncThunk(
     'toBlock/toBlockUser',
-    async ({ id, dispatch }) => {
-        console.log(id)
-
+    async (id, { dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'PUT',
@@ -50,7 +48,7 @@ export const toBlockUser = createAsyncThunk(
 )
 export const toUnBlockUser = createAsyncThunk(
     'toUnBlock/toUnBlockUser',
-    async ({ id, dispatch }) => {
+    async (id, { dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'PUT',
