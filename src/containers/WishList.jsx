@@ -104,7 +104,7 @@ const WishList = () => {
                                 }}
                                 navigation={navigation}
                             />
-                        ) && <h1>Wishes Page</h1>
+                        ) && <h1>Wishes</h1>
                 )}
             </WrapperCards>
             <Notification />
