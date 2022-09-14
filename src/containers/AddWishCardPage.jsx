@@ -22,7 +22,6 @@ const AddWishCardPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { holidaysToSelect } = useSelector((state) => state.wishCard)
-
     useEffect(() => {
         dispatch(getHolidaysToSelect())
     }, [])
@@ -57,7 +56,6 @@ const AddWishCardPage = () => {
     const chooseHoliday = (e) => {
         setHolidays(e.id)
     }
-    const addHolidayHandler = () => {}
     wishGift.holidayId = holidayId
     wishGift.wishDate = wishDate
     const postHandler = (e) => {
@@ -108,7 +106,7 @@ const AddWishCardPage = () => {
                             showButton="button"
                             options={holidaysToSelect}
                             additionalOption={
-                                <MenuItemButton onClick={addHolidayHandler}>
+                                <MenuItemButton>
                                     <Plus>+</Plus> Добавить праздник
                                 </MenuItemButton>
                             }

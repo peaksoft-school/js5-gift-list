@@ -17,10 +17,11 @@ export default function BookedGiftsCard({
     navigation,
     img,
     id,
+    toInnerPage,
 }) {
     const statusGift = status === 'USED' ? 'Б/У' : 'новый'
     return (
-        <StyledCard>
+        <StyledCard onClick={toInnerPage}>
             <StyledCardContentFirst>
                 <Div>
                     <StyledAvatar alt="Cindy Baker" src={avatar} />

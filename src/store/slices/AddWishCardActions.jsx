@@ -7,17 +7,21 @@ export const addGift = createAsyncThunk(
     'addWishCard/fetchByIdStatus',
     async ({ wishPhoto, wishGift, dispatch }) => {
         const formData = new FormData()
+        let responsePhoto = null
         try {
-            formData.set('file', wishPhoto)
-            const response = await appFetchFile({
-                url: 'api/file/upload',
-                body: formData,
-            })
+            if (wishPhoto) {
+                formData.set('file', wishPhoto)
+                const response = await appFetchFile({
+                    url: 'api/file/upload',
+                    body: formData,
+                })
+                responsePhoto = response.link
+            }
             const responseAll = await appFetch({
                 method: 'POST',
                 url: 'api/wish',
                 body: {
-                    photo: response.link,
+                    photo: wishPhoto ? responsePhoto : null,
                     wishName: wishGift.wishName,
                     wishLink: wishGift.wishLink,
                     description: wishGift.description,
@@ -34,7 +38,7 @@ export const addGift = createAsyncThunk(
             dispatch(getWishGift())
             return responseAll
         } catch (e) {
-            throw showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так')
         }
     }
 )

@@ -21,7 +21,7 @@ import {
 const WishList = () => {
     const dispatch = useDispatch()
     const navigateEdit = useNavigate()
-    const { card, deleteId } = useSelector((data) => data.wishCard)
+    const { cards, deleteId } = useSelector((data) => data.wishCard)
     const navigation = [
         {
             icon: editIcon,
@@ -86,23 +86,26 @@ const WishList = () => {
                 </WrapperIcon>
             </WrapperTop>
             <WrapperCards variant={formatCard}>
-                {card?.map((el) => (
-                    <GiftCard
-                        key={el.wish.wishId}
-                        id={el.wish.wishId}
-                        variant={formatCard}
-                        image={el.wish.photo}
-                        nameGift={el.wish.wishName}
-                        date={el.wish.wishDate}
-                        holiday={el.wish.holiday.name}
-                        toBook={el.toBooking}
-                        avatarBooked={el?.bookedUser?.photo}
-                        navigateToInnerPage={() => {
-                            toInnerPage(el.wish.wishId)
-                        }}
-                        navigation={navigation}
-                    />
-                ))}
+                {cards?.map(
+                    (el) =>
+                        (
+                            <GiftCard
+                                key={el.wish.wishId}
+                                id={el.wish.wishId}
+                                variant={formatCard}
+                                image={el.wish.photo}
+                                nameGift={el.wish.wishName}
+                                date={el.wish.wishDate}
+                                holiday={el.wish.holiday.name}
+                                toBook={el.toBooking}
+                                avatarBooked={el?.bookedUser?.photo}
+                                navigateToInnerPage={() => {
+                                    toInnerPage(el.wish.wishId)
+                                }}
+                                navigation={navigation}
+                            />
+                        ) && <h1>Wishes</h1>
+                )}
             </WrapperCards>
             <Notification />
         </DivWishList>
@@ -110,9 +113,8 @@ const WishList = () => {
 }
 
 export default WishList
-
 const DivWishList = styled('div')`
-    margin: 32px 40px 0 20px;
+    margin: 110px 40px 0 20px;
 `
 
 const WrapperTop = styled('div')`
