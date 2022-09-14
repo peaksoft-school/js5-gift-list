@@ -38,7 +38,7 @@ export const addGift = createAsyncThunk(
             dispatch(getWishGift())
             return responseAll
         } catch (e) {
-            throw showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так')
         }
     }
 )
