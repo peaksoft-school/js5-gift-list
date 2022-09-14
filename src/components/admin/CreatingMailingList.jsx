@@ -37,7 +37,7 @@ const CreatingMailingList = (props) => {
             })
         )
         setPhoto(null)
-        setMailingText('')
+        setMailingTitle('')
         setMailingText('')
     }
     return (

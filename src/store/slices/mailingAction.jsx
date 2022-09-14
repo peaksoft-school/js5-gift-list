@@ -5,25 +5,29 @@ import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 export const mailingAction = createAsyncThunk(
     'mailing/mailingAction',
-    async (props) => {
+    async ({ photo, mailingText, mailingTitle, onClose }) => {
         const formData = new FormData()
+        let copy
         try {
-            formData.set('file', props.photo)
-            const fileResponse = await appFetchFile({
-                url: 'api/file/upload',
-                body: formData,
-            })
+            if (photo) {
+                formData.set('file', photo)
+                const fileResponse = await appFetchFile({
+                    url: 'api/file/upload',
+                    body: formData,
+                })
+                copy = fileResponse
+            }
             const response = await appFetch({
                 method: 'POST',
                 url: 'api/mailing/send',
                 body: {
-                    photo: fileResponse.photo,
-                    title: props.mailingTitle,
-                    text: props.mailingText,
+                    link: photo ? copy.photo : null,
+                    title: mailingTitle,
+                    text: mailingText,
                 },
             })
-            props.onClose()
-            showSuccessMessage('Успешно добавлен')
+            onClose()
+            showSuccessMessage('Успешно отправлен')
             return response
         } catch (error) {
             showErrorMessage('Вышла ошибка!')

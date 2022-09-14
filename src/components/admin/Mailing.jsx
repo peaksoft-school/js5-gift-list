@@ -10,7 +10,7 @@ import CreatingMailingList from './CreatingMailingList'
 export const Mailing = () => {
     const [open, setOpen] = useState(false)
     const openHandler = () => {
-        setOpen((prev) => !prev)
+        setOpen(true)
     }
     const closeMailingListHandler = () => {
         setOpen(false)
