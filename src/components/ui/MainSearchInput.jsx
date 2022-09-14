@@ -28,36 +28,6 @@ export default function MainSearchInput({
         }
         return <p>Такого пользователя не существует</p>
     }
-    console.log(options)
-    // const renderSearchResults = () => {
-    //     if (options?.length > 0) {
-    //         return options?.map((user) => {
-    //             if (user.isBlock === false) {
-    //                 return (
-    //                     <StyledUserDiv
-    //                         key={user.id}
-    //                         onClick={(event) => {
-    //                             onClick(user.id)
-    //                             stopPropagationHandler(event)
-    //                         }}
-    //                     >
-    //                         <StyledAvatar
-    //                             alt={user.firstName}
-    //                             src={user.photo}
-    //                         />
-    //                         <StyledSpan>{user.firstName}</StyledSpan>
-    //                         <StyledSpan>{user.lastName}</StyledSpan>
-    //                     </StyledUserDiv>
-    //                 )
-    //             }
-    //             if (user.isBlock === true) {
-    //                 return <p>Такого </p>
-    //             }
-    //             return <p>Такого пользователя</p>
-    //         })
-    //     }
-    //     return <p>Такого пользователя не существует</p>
-    // }
 
     return (
         <>

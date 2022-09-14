@@ -67,6 +67,7 @@ export default function GiftCard(props) {
         </StyledCard>
     )
 }
+
 const WrapperToBooking = styled('div')(({ variants }) => ({
     display: 'flex',
     ...(variants === 'board' && {
