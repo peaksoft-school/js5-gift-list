@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appFetch } from '../../../api/CustomFetch'
-import { showSuccessMessage } from '../../../utils/helpers'
+import { showErrorMessage, showSuccessMessage } from '../../../utils/helpers'
 
 export const getCategories = createAsyncThunk(
     'categories/getCategories',
@@ -44,14 +44,14 @@ export const getCharitiesWithFilter = createAsyncThunk(
 )
 export const getGiftsById = createAsyncThunk(
     'giftById/getGiftsById',
-    async (id, { rejectWithValue }) => {
+    async (id) => {
         try {
             const response = await appFetch({
                 url: `api/gifts/${id}`,
             })
             return response
         } catch (error) {
-            return rejectWithValue(error)
+            throw showErrorMessage('Что-то пошло не так')
         }
     }
 )
@@ -69,7 +69,7 @@ export const toBlockGifts = createAsyncThunk(
             dispatch(getGiftsById(id))
             return response
         } catch (error) {
-            throw new Error(error)
+            throw showErrorMessage('Что-то пошло не так')
         }
     }
 )
@@ -86,7 +86,7 @@ export const toUnBlockGifts = createAsyncThunk(
             dispatch(getGiftsById(id))
             return response
         } catch (error) {
-            throw new Error(error)
+            throw showErrorMessage('Что-то пошло не так')
         }
     }
 )
