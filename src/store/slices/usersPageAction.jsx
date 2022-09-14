@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appFetch } from '../../api/CustomFetch'
+import { showSuccessMessage } from '../../utils/helpers'
 
 export const getAllUsers = createAsyncThunk(
     'usersCard/getAllUsers',
@@ -21,7 +22,7 @@ export const getUserProfileWithId = createAsyncThunk(
     async (id) => {
         try {
             const response = await appFetch({
-                url: `api/admin/users/${id}`,
+                url: `api/admin/${id}`,
             })
             return response
         } catch (error) {
@@ -31,12 +32,16 @@ export const getUserProfileWithId = createAsyncThunk(
 )
 export const toBlockUser = createAsyncThunk(
     'toBlock/toBlockUser',
-    async (obj) => {
+    async ({ id, dispatch }) => {
+        console.log(id)
+
         try {
             const response = await appFetch({
                 method: 'PUT',
-                url: `api/admin/users/block/${obj.id}`,
+                url: `api/admin/blockUser/${id}`,
             })
+            dispatch(getUserProfileWithId(id))
+            showSuccessMessage('Успешно!')
             return response
         } catch (error) {
             throw new Error(error)
@@ -44,13 +49,47 @@ export const toBlockUser = createAsyncThunk(
     }
 )
 export const toUnBlockUser = createAsyncThunk(
-    'toBlock/toBlockUser',
-    async (obj) => {
+    'toUnBlock/toUnBlockUser',
+    async ({ id, dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'PUT',
-                url: `api/admin/users/unBlock/${obj.id}`,
+                url: `api/admin/unBlockUser/${id}`,
             })
+            dispatch(getUserProfileWithId(id))
+            showSuccessMessage('Успешно!')
+            return response
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+)
+export const toBlockGift = createAsyncThunk(
+    'blockGift/toBlockGift',
+    async ({ id, dispatch }) => {
+        try {
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/admin/blockGift/${id}`,
+            })
+            dispatch(getAllUsers())
+            showSuccessMessage('Успешно!')
+            return response
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+)
+export const toUnBlockGift = createAsyncThunk(
+    'unBlockGift/toUnBlockGift',
+    async ({ id, dispatch }) => {
+        try {
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/admin/unBlockGift/${id}`,
+            })
+            dispatch(getAllUsers())
+            showSuccessMessage('Успешно!')
             return response
         } catch (error) {
             throw new Error(error)

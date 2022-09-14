@@ -4,13 +4,13 @@ import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-// import unBlockIcon from '../../assets/icons/cancelBooking.svg'
+import unBlockIcon from '../../assets/icons/cancelBooking.svg'
 import blockIcon from '../../assets/icons/toBooking.svg'
 import UserCard from '../../components/users/UserCard'
 import {
     getAllUsers,
     toBlockUser,
-    // toUnBlockUser,
+    toUnBlockUser,
 } from '../../store/slices/usersPageAction'
 
 export const UsersPage = () => {
@@ -20,23 +20,23 @@ export const UsersPage = () => {
     const blockOption = [
         {
             icon: blockIcon,
-            title: 'Блокировать',
+            title: 'Заблокировать',
             id: '3',
             clickItem: (id) => {
                 blockingUser(id)
             },
         },
     ]
-    // const unBlockOption = [
-    //     {
-    //         icon: unBlockIcon,
-    //         title: 'Разблокировать',
-    //         id: '3',
-    //         clickItem: (id) => {
-    //             unBlockingUser(id)
-    //         },
-    //     },
-    // ]
+    const unBlockOption = [
+        {
+            icon: unBlockIcon,
+            title: 'Разблокировать',
+            id: '3',
+            clickItem: (id) => {
+                unBlockingUser(id)
+            },
+        },
+    ]
     useEffect(() => {
         dispatch(getAllUsers())
     }, [])
@@ -44,12 +44,11 @@ export const UsersPage = () => {
         navigate(`${id}`)
     }
     function blockingUser(id) {
-        dispatch(toBlockUser({ id }))
+        dispatch(toBlockUser({ id, dispatch }))
     }
-    // function unBlockingUser(id) {
-    //     dispatch(toUnBlockUser({ id }))
-    // }
-    console.log(users)
+    function unBlockingUser(id) {
+        dispatch(toUnBlockUser({ id, dispatch }))
+    }
     return (
         <WrapperPage>
             <H1>Пользователи</H1>
@@ -62,7 +61,7 @@ export const UsersPage = () => {
                         amountWishes={el.countGift}
                         lastName={el.last_name}
                         firstName={el.first_name}
-                        option={blockOption}
+                        option={el.isBlock ? unBlockOption : blockOption}
                         onClick={() => toInnerPage(el.id)}
                     />
                 ))}

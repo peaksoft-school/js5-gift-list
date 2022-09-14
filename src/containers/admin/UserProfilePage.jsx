@@ -5,6 +5,7 @@ import { CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import unBlockIcon from '../../assets/icons/cancelBooking.svg'
 import { ReactComponent as Facebook } from '../../assets/icons/facebookFriendProfilePage.svg'
 import { ReactComponent as GrayFacebook } from '../../assets/icons/grayFacebook.svg'
 import { ReactComponent as GrayInstagram } from '../../assets/icons/grayInstagram.svg'
@@ -20,25 +21,34 @@ import GiftCard from '../../components/users/GiftCard'
 import MyHolidaysCard from '../../components/users/MyHolidaysCard'
 import {
     getUserProfileWithId,
+    toBlockGift,
     toBlockUser,
+    toUnBlockGift,
+    toUnBlockUser,
 } from '../../store/slices/usersPageAction'
 
 function UserProfilePage() {
     const { id } = useParams()
-    const blockWishOption = [
+    const blockOption = [
         {
             icon: blockIcon,
-            title: 'Блокировать',
+            title: 'Заблокировать',
             id: '1',
-            // clickItem: (id) => toBookGiftHandler(id),
+            clickItem: (id) => {
+                toBlockGiftHandler(id)
+                toBlockWishHandler(id)
+            },
         },
     ]
-    const toBlockGiftOption = [
+    const unBlockOption = [
         {
-            icon: blockIcon,
-            title: 'Блокировать',
-            id: '1',
-            clickItem: (id) => toBlockGiftHandler(id),
+            icon: unBlockIcon,
+            title: 'Разблокировать',
+            id: '2',
+            clickItem: (id) => {
+                toUnBlockGiftHandler(id)
+                toUnBlockWishHandler(id)
+            },
         },
     ]
     const [showMoreWishCard, setShowMoreWishCard] = useState(false)
@@ -52,10 +62,23 @@ function UserProfilePage() {
         dispatch(getUserProfileWithId(id))
     }, [])
     const toBlockUserHandler = () => {
-        dispatch(toBlockUser({ id }))
+        dispatch(toBlockUser({ id, dispatch }))
+    }
+    const toUnBlockUserHandler = () => {
+        dispatch(toUnBlockUser({ id, dispatch }))
     }
     function toBlockGiftHandler(id) {
-        dispatch(toBlockUser({ id }))
+        dispatch(toBlockGift({ id }))
+    }
+    function toUnBlockGiftHandler(id) {
+        dispatch(toUnBlockGift({ id }))
+    }
+    //--------------------
+    function toBlockWishHandler(id) {
+        dispatch(toBlockGift({ id }))
+    }
+    function toUnBlockWishHandler(id) {
+        dispatch(toUnBlockGift({ id }))
     }
     const isShowMoreHandler = () => {
         setShowMoreHolidayCard(!showMoreHolidayCard)
@@ -77,6 +100,7 @@ function UserProfilePage() {
     const wichIsShowGift = showMoreCharityCard ? giftLength : 3
     const whichIsTextGift = wichIsShowGift < 4 ? 'Смотреть все' : 'Скрыть'
 
+    const isBlockUser = userProfile.isBlock ? 'Разблокировать' : 'Блокировать'
     return (
         <ContainerDiv>
             <div>
@@ -228,8 +252,14 @@ function UserProfilePage() {
                         ''
                     )}
                     <WrapperButton>
-                        <Button onClick={toBlockUserHandler}>
-                            Блокировать
+                        <Button
+                            onClick={
+                                userProfile.isBlock
+                                    ? toUnBlockUserHandler
+                                    : toBlockUserHandler
+                            }
+                        >
+                            {isBlockUser}
                         </Button>
                     </WrapperButton>
                 </InfoDiv>
@@ -259,7 +289,7 @@ function UserProfilePage() {
                                 holiday={el.wish?.holiday?.name}
                                 date={el.wish?.wishDate}
                                 isBooked={el?.bookedUser}
-                                navigation={blockWishOption}
+                                navigation={blockOption}
                             />
                         </Div>
                     )
@@ -320,7 +350,11 @@ function UserProfilePage() {
                                 holiday={el.gift?.status}
                                 date={el.gift?.createdAt}
                                 isBooked={el?.bookedUser}
-                                navigation={toBlockGiftOption}
+                                navigation={
+                                    el.gift.isBlock
+                                        ? unBlockOption
+                                        : blockOption
+                                }
                             />
                         )
                     })}
