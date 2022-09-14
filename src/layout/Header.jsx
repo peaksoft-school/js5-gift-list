@@ -13,15 +13,16 @@ import {
     getSubCategories,
 } from '../store/slices/admin/charityAction'
 import { mainSearchAction } from '../store/slices/mainSearchAction'
+import { array } from '../utils/constants/constants'
 
 import MenuAccaunt from './MenuAccaount'
 
 export const Header = () => {
     const navigate = useNavigate()
     const [value, setValue] = useState('')
-    const [idCategory, setIdCategory] = useState('')
+    const [categoryId, setIdCategory] = useState('')
     const dispatch = useDispatch()
-    const loc = useLocation()
+    const location = useLocation()
     const { options } = useSelector((state) => state.users)
     const { searching } = useSelector((state) => state)
     const [searchParams, setSearchParams] = useSearchParams()
@@ -33,8 +34,8 @@ export const Header = () => {
         dispatch(getCharitiesWithFilter(searchParams.toString()))
     }, [searchParams.toString()])
     useEffect(() => {
-        dispatch(getSubCategories(idCategory))
-    }, [idCategory])
+        dispatch(getSubCategories(categoryId))
+    }, [categoryId])
 
     const valueChangeHandler = (e) => {
         setValue(e.target.value)
@@ -48,10 +49,6 @@ export const Header = () => {
     const stopPropagationHandler = (event) => {
         event.stopPropagation()
     }
-    const opt3 = [
-        { id: 'NEW', name: 'Новый' },
-        { id: 'USED', name: 'Б/У' },
-    ]
     const getIdCategory = (e) => {
         if (e.state) {
             setSearchParams({ ...searchParams, status: e.state })
@@ -70,13 +67,13 @@ export const Header = () => {
     return (
         <Headers>
             <InputDiv>
-                {loc.pathname === '/charity_users' ? (
+                {location.pathname === '/charity' ? (
                     <SearchInputWithSelect
-                        isCategory={idCategory}
+                        showSubCategory={categoryId}
                         onChange={getIdCategory}
-                        category={searching.categories}
-                        stateOption={opt3}
-                        subCategory={searching.subCategories}
+                        categories={searching.categories}
+                        stateOption={array}
+                        subCategories={searching.subCategories}
                     />
                 ) : (
                     <MainSearchInput

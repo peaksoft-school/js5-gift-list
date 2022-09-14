@@ -12,7 +12,7 @@ import {
     toUnBlockGifts,
 } from '../../store/slices/admin/charityAction'
 
-export const CharityUsers = () => {
+export const CharityPage = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { charities } = useSelector((state) => state.searching)
@@ -37,13 +37,13 @@ export const CharityUsers = () => {
         },
     ]
     function blockGiftHandler(id) {
-        dispatch(toBlockGifts({ id, dispatch }))
+        dispatch(toBlockGifts(id))
     }
     function unBlockGiftHandler(id) {
-        dispatch(toUnBlockGifts({ id, dispatch }))
+        dispatch(toUnBlockGifts(id))
     }
     const toInnerPageById = (id) => {
-        navigate(`/charity_users/${id}`)
+        navigate(`/charity/${id}`)
     }
     return (
         <WrapperCharityPage>

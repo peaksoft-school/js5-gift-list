@@ -21,7 +21,7 @@ import {
 const WishList = () => {
     const dispatch = useDispatch()
     const navigateEdit = useNavigate()
-    const { card, deleteId } = useSelector((data) => data.wishCard)
+    const { cards, deleteId } = useSelector((data) => data.wishCard)
     const navigation = [
         {
             icon: editIcon,
@@ -86,26 +86,25 @@ const WishList = () => {
                 </WrapperIcon>
             </WrapperTop>
             <WrapperCards variant={formatCard}>
-                {card.length === 0 ? (
-                    <h1>Wishes</h1>
-                ) : (
-                    card?.map((el) => (
-                        <GiftCard
-                            key={el.wish.wishId}
-                            id={el.wish.wishId}
-                            variant={formatCard}
-                            image={el.wish.photo}
-                            nameGift={el.wish.wishName}
-                            date={el.wish.wishDate}
-                            holiday={el.wish.holiday.name}
-                            toBook={el.toBooking}
-                            avatarBooked={el?.bookedUser?.photo}
-                            navigateToInnerPage={() => {
-                                toInnerPage(el.wish.wishId)
-                            }}
-                            navigation={navigation}
-                        />
-                    ))
+                {cards?.map(
+                    (el) =>
+                        (
+                            <GiftCard
+                                key={el.wish.wishId}
+                                id={el.wish.wishId}
+                                variant={formatCard}
+                                image={el.wish.photo}
+                                nameGift={el.wish.wishName}
+                                date={el.wish.wishDate}
+                                holiday={el.wish.holiday.name}
+                                toBook={el.toBooking}
+                                avatarBooked={el?.bookedUser?.photo}
+                                navigateToInnerPage={() => {
+                                    toInnerPage(el.wish.wishId)
+                                }}
+                                navigation={navigation}
+                            />
+                        ) && <h1>Wishes Page</h1>
                 )}
             </WrapperCards>
             <Notification />

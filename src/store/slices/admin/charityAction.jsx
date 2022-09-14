@@ -58,15 +58,15 @@ export const getGiftsById = createAsyncThunk(
 
 export const toBlockGifts = createAsyncThunk(
     'toBlock/toBlockGifts',
-    async ({ id, dispatch, userId }) => {
+    async (id, { dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'PUT',
                 url: `api/admin/blockGift/${id}`,
             })
-            showSuccessMessage('успешно Заблокировать!')
+            showSuccessMessage('Успешно заблокирован!')
             dispatch(getCharitiesWithFilter())
-            dispatch(getGiftsById(userId))
+            dispatch(getGiftsById(id))
             return response
         } catch (error) {
             throw new Error(error)
@@ -75,15 +75,15 @@ export const toBlockGifts = createAsyncThunk(
 )
 export const toUnBlockGifts = createAsyncThunk(
     'toUnBlock/toUnBlockGifts',
-    async ({ id, userId, dispatch }) => {
+    async (id, { dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'PUT',
                 url: `api/admin/unBlockGift/${id}`,
             })
-            showSuccessMessage('успешно Разблокировать!')
+            showSuccessMessage('Успешно разблокирован!')
             dispatch(getCharitiesWithFilter())
-            dispatch(getGiftsById(userId))
+            dispatch(getGiftsById(id))
             return response
         } catch (error) {
             throw new Error(error)

@@ -30,6 +30,10 @@ const InnerPage = (props) => {
     const isBlocked = props.data?.gift?.isBlock
         ? 'Разблокировать'
         : 'Заблокировать'
+    const blockOrUnBlock = props.data?.gift?.isBlock
+        ? () => props.onClickUnBlock(props.data?.gift?.giftId)
+        : () => props.onClickBlock(props.data?.gift?.giftId)
+
     return (
         <div style={styleForCard}>
             <Img src={props.data.gift?.photo} alt="image" />
@@ -99,21 +103,7 @@ const InnerPage = (props) => {
                         </But>
                     )}
                     {props.admin && (
-                        <Button
-                            onClick={
-                                props.data?.gift?.isBlock
-                                    ? () =>
-                                          props.onClickUnBlock(
-                                              props.data?.gift?.giftId
-                                          )
-                                    : () =>
-                                          props.onClickBlock(
-                                              props.data?.gift?.giftId
-                                          )
-                            }
-                        >
-                            {isBlocked}
-                        </Button>
+                        <Button onClick={blockOrUnBlock}>{isBlocked}</Button>
                     )}
                 </WrapperButtons>
             </WrapperDiv>

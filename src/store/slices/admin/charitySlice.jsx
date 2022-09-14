@@ -29,7 +29,6 @@ const charitySearching = createSlice({
         },
         [getGiftsById.fulfilled]: (state, { payload }) => {
             state.giftById = payload
-            console.log(payload)
         },
     },
 })

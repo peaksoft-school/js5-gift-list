@@ -7,10 +7,10 @@ import SearchSelect from './SearchSelect'
 
 const SearchInputwithSelect = ({
     stateOption,
-    category,
-    subCategory,
+    categories,
+    subCategories,
     onChange,
-    isCategory,
+    showSubCategory,
 }) => {
     const [isActived, setISActived] = useState(false)
     const [isFocused, setIsFocused] = useState('')
@@ -61,16 +61,16 @@ const SearchInputwithSelect = ({
                 <SearchSelect
                     valueKey="id"
                     labelKey="name"
-                    options={category}
+                    options={categories}
                     onChange={(newVaal) => changeHandler('category', newVaal)}
                     value={value.category}
                     category="Категория"
                 />
-                {isCategory && (
+                {showSubCategory && (
                     <SearchSelect
                         valueKey="id"
                         labelKey="name"
-                        options={subCategory}
+                        options={subCategories}
                         onChange={(newVaal) =>
                             changeHandler('subCategory', newVaal)
                         }

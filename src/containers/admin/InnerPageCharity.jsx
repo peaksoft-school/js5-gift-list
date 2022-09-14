@@ -14,16 +14,15 @@ import {
 function InnerPageCharity() {
     const dispatch = useDispatch()
     const { id } = useParams()
-    const userId = id
     const { giftById } = useSelector((state) => state.searching)
     useEffect(() => {
         dispatch(getGiftsById(id))
     }, [])
     const blockHandler = (id) => {
-        dispatch(toBlockGifts({ id, dispatch, userId }))
+        dispatch(toBlockGifts(id))
     }
     const unblockHandler = (id) => {
-        dispatch(toUnBlockGifts({ id, dispatch, userId }))
+        dispatch(toUnBlockGifts(id))
     }
     return (
         <Wrapper>
