@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components'
 
 import File from '../../assets/icons/ImageFile.svg'
 
-const ImagePicker = ({ onChange, newFile }) => {
+const ImagePicker = ({ onChange, newFile, id, ...otherProps }) => {
     const refs = useRef()
     const [icons, setIcons] = useState()
     useEffect(() => {
@@ -27,9 +27,10 @@ const ImagePicker = ({ onChange, newFile }) => {
     }
     return (
         <ImagePickerContainer icons={icons}>
-            <Label icons={icons} htmlFor="file" />
+            <Label icons={icons} htmlFor={id} />
             <Input
-                id="file"
+                id={id}
+                {...otherProps}
                 ref={refs}
                 onChange={imageHandler}
                 type="file"

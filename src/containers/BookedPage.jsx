@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import addInMyGifts from '../assets/icons/addInMyGifts.svg'
 import cacelBooking from '../assets/icons/cancelBooking.svg'
+import notFoundImg from '../assets/images/notFoundImg.svg'
 import BookedGiftsCard from '../components/ui/BookedGiftsCard'
 import BookedWishesCard from '../components/ui/BookedWishesCard'
 import Notification from '../components/ui/notification/Notification'
@@ -138,6 +139,14 @@ const BookedPage = () => {
                         status={el.gift.status}
                     />
                 ))}
+                {bookedWishesCard.length || bookedGiftsCard.length ? (
+                    ''
+                ) : (
+                    <WrapperNotFoundImg>
+                        <NotFoundImg src={notFoundImg} />
+                        <h3>Вы пока не добавили желание!</h3>
+                    </WrapperNotFoundImg>
+                )}
                 <Notification />
             </WrapperCard>
         </WrapperPage>
@@ -145,6 +154,18 @@ const BookedPage = () => {
 }
 
 export default BookedPage
+
+const WrapperNotFoundImg = styled('div')`
+    position: relative;
+    top: 0px;
+    left: 270px;
+    text-align: center;
+    h3 {
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+`
+const NotFoundImg = styled('img')``
 
 const WrapperPage = styled('div')`
     margin: 0 0 0 10px;

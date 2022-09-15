@@ -78,6 +78,7 @@ const WrapperToBooking = styled('div')(({ variants }) => ({
         justifyContent: 'flex-start',
     }),
 }))
+
 const StyledAvatar = styled(Avatar)`
     width: 20px;
     height: 20px;
@@ -89,7 +90,7 @@ const SpanAvatar = styled('span')`
 `
 const StyledCard = styled(Card)(({ variants }) => ({
     ...(variants === 'board' && {
-        width: '100%',
+        width: '349px',
         height: '250px',
         cursor: 'pointer',
     }),
@@ -116,15 +117,16 @@ const StyledCardContentFirst = styled(CardContent)(({ variants }) => ({
         padding: '3px 16px 3px 16px',
     }),
     ...(variants === 'list' && {
-        width: '100%',
+        width: '335px',
         justifyContent: 'space-between',
         paddingLeft: '0',
     }),
 }))
+
 const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
     display: 'grid',
     ...(variants === 'board' && {
-        gridTemplateColumns: '80px 164px 110px',
+        gridTemplateColumns: '80px 194px 10px',
         padding: '10px 16px 0 16px',
         textAlign: 'end',
     }),
@@ -135,6 +137,7 @@ const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
         padding: '10px 16px 0 0px',
     }),
 }))
+
 const NameGift = styled('span')`
     font-size: Inter;
     font-weight: 600;
@@ -147,7 +150,7 @@ const StyledDate = styled('span')(({ variants }) => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '17px',
-    color: '#636C84',
+    color: '#636c84',
     ...(variants === 'list' && {
         display: 'flex',
         justifyContent: 'flex-end',
@@ -169,9 +172,10 @@ const StyledBirthday = styled('span')`
 `
 const StyledCardMedia = styled(CardMedia)(({ variants }) => ({
     borderRadius: '6px',
+
     ...(variants === 'board' && {
-        width: '90%',
-        height: '58%',
+        width: '317px',
+        height: '149px',
         margin: '16px',
     }),
     ...(variants === 'list' && {

@@ -45,7 +45,7 @@ export default function BookedGiftsCard({
 }
 
 const StyledCard = styled(MuiCard)`
-    width: 29%;
+    width: 28%;
     height: 31%;
     margin: 1%;
     padding: 1%;

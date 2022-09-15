@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
 
+import BasicModal from '../../components/ui/BasicModal'
+import Button from '../../components/ui/Button'
+import ImagePicker from '../../components/ui/ImagePicker'
+import Input from '../../components/ui/Input'
 import { mailingAction } from '../../store/slices/mailingAction'
-import BasicModal from '../ui/BasicModal'
-import Button from '../ui/Button'
-import ImagePicker from '../ui/ImagePicker'
-import Input from '../ui/Input'
 
 const CreatingMailingList = (props) => {
     const { open, onClose } = props

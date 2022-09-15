@@ -18,6 +18,7 @@ const AddHolidayModal = (props) => {
     const [holidayDate, setHolidayDate] = useState(null)
     const dispatch = useDispatch()
     const onChangeImageValue = (file) => {
+        // eslint-disable-next-line no-debugger
         if (file.size <= 1000000) {
             setPhoto(file)
         }
@@ -50,7 +51,10 @@ const AddHolidayModal = (props) => {
             <form onSubmit={submitHandler}>
                 <ModalChildDiv>
                     <AddTitle>Добавление праздника</AddTitle>
-                    <ImagePicker onChange={onChangeImageValue} />
+                    <ImagePicker
+                        onChange={onChangeImageValue}
+                        id="addHolidayImagePicker"
+                    />
                     <InModalChildDiv>
                         <LabelInputDiv>
                             <label htmlFor="Название праздника">

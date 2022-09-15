@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 import styled from '@emotion/styled'
 import MenuItem from '@mui/material/MenuItem'
-import { format } from 'date-fns'
+// import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import Button from '../components/ui/Button'
 import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
@@ -18,9 +18,14 @@ import {
     getHolidaysToSelect,
 } from '../store/slices/AddWishCardActions'
 
+import AddHolidayModal from './AddHolidayModal'
+
 const AddWishCardPage = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [params, setParams] = useSearchParams()
+    const { addHoliday } = Object.fromEntries([...params])
+
     const { holidaysToSelect } = useSelector((state) => state.wishCard)
     useEffect(() => {
         dispatch(getHolidaysToSelect())
@@ -50,12 +55,18 @@ const AddWishCardPage = () => {
         setWishGiftPhoto(e)
     }
     const addDateWishGift = (e) => {
-        const date = format(e, 'dd.MM.yy')
-        setDateWishGift(date)
+        setDateWishGift(e)
     }
     const chooseHoliday = (e) => {
         setHolidays(e.id)
     }
+    const openAddModalHandler = () => {
+        setParams({ addHoliday: true })
+    }
+    const closeModalHandler = () => {
+        setParams({})
+    }
+
     wishGift.holidayId = holidayId
     wishGift.wishDate = wishDate
     const postHandler = (e) => {
@@ -74,7 +85,7 @@ const AddWishCardPage = () => {
     return (
         <WrapperAll onSubmit={postHandler}>
             <Notification />
-            <ImagePicker onChange={addImageGift} />
+            <ImagePicker onChange={addImageGift} id="addWishes" />
             <WrapperEdit>
                 <H2>Добавление желаемого подарка</H2>
                 <WrapperLabels>
@@ -106,7 +117,7 @@ const AddWishCardPage = () => {
                             showButton="button"
                             options={holidaysToSelect}
                             additionalOption={
-                                <MenuItemButton>
+                                <MenuItemButton onClick={openAddModalHandler}>
                                     <Plus>+</Plus> Добавить праздник
                                 </MenuItemButton>
                             }
@@ -137,6 +148,11 @@ const AddWishCardPage = () => {
                     </Button>
                 </WrapperButton>
             </WrapperEdit>
+            <AddHolidayModal
+                onOpen={openAddModalHandler}
+                open={addHoliday === 'true'}
+                onClose={closeModalHandler}
+            />
         </WrapperAll>
     )
 }
@@ -156,6 +172,7 @@ const WrapperAll = styled('form')`
     padding: 20px;
     display: flex;
     background: #fff;
+    margin-top: 110px;
 `
 
 const WrapperEdit = styled('div')`

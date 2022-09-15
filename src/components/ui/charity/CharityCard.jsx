@@ -3,22 +3,32 @@ import Avatar from '@mui/material/Avatar'
 import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+import { useSelector } from 'react-redux'
 
 import MeatBalls from '../meatBall/components/meatBalls'
 
 export default function CharityCard(props) {
-    const getIsBookedStaText = () => {
-        const booked = 'Забронирован'
-        const pending = 'В ожидании'
-        if (props.data.toBook === null) {
-            return pending
-        }
-        if (props.data.toBook !== null) {
-            return booked
-        }
-        return booked
-    }
-
+    const userId = useSelector((state) => state.authSlice?.user.id)
+    const notReserved = [
+        {
+            icon: props.icon,
+            title: 'забронировать',
+            id: '1',
+            clickItem: (id) => {
+                props.clickItem(id)
+            },
+        },
+    ]
+    const reservedByMe = [
+        {
+            icon: props.icon,
+            title: 'снять бронь',
+            id: '1',
+            clickItem: (id) => {
+                props.cancelBooking(id)
+            },
+        },
+    ]
     return (
         <StyledCard style={cursor} onClick={props.clickCard}>
             <StyledCardMedia
@@ -27,19 +37,16 @@ export default function CharityCard(props) {
                 image={props.data.photo}
                 alt="green iguana"
             />
-
             <StyledCardContentFirst>
                 <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
                 <UserName>{props.userName}</UserName>
             </StyledCardContentFirst>
-
             <NameGift>
                 {props.data.name}
                 <Status sts={props.data.status}>
                     {props.data.status === 'NEW' ? 'Новый' : 'Б/У'}
                 </Status>
             </NameGift>
-
             <StyledCardContentSecond>
                 <StyledDate>{props.data.createdAt}</StyledDate>
                 <Wrapper>
@@ -47,17 +54,33 @@ export default function CharityCard(props) {
                         alt="Cindy Baker"
                         src={props.bookedUser?.photo}
                     />
-                    <StyledText>{getIsBookedStaText()}</StyledText>
-                    <MeatBalls navigations={props.meatBallsOptions} />
+                    <StyledText>
+                        {props.data.booking == null
+                            ? 'в ожидании'
+                            : 'забронирован'}
+                    </StyledText>
+                    {props.data.booking == null && (
+                        <MeatBalls navigations={notReserved} id={props.id} />
+                    )}
+                    {props.bookedUser?.userId === userId && (
+                        <MeatBalls navigations={reservedByMe} id={props.id} />
+                    )}
+                    {props.data.booking !== null && ''}
                 </Wrapper>
             </StyledCardContentSecond>
         </StyledCard>
     )
 }
-
 const StyledCard = styled(MuiCard)(() => ({
+    // width: '97%',
+    // margin: '10px',
+    // // height: '42vh',
+    // boxSizing: 'border-box',
     width: '100%',
     height: '42vh',
+    // borderRadius: '8px',
+    // padding: '16px',
+    // marginTop: '24px',
     display: 'flex',
     flexDirection: 'column',
 }))
@@ -95,7 +118,6 @@ const StyledCardContentFirst = styled(CardContent)(() => ({
     order: '-1',
     gridTemplateColumns: '48px 168px 101px',
 }))
-
 const StyledCardContentSecond = styled(CardContent)(() => ({
     height: '20px',
     padding: '10px',
@@ -105,7 +127,6 @@ const StyledCardContentSecond = styled(CardContent)(() => ({
     alignItems: 'center',
     justifyContent: 'space-between',
 }))
-
 const StyledCardMedia = styled(CardMedia)(() => ({
     borderRadius: '6px',
     width: 'auto',
@@ -113,7 +134,6 @@ const StyledCardMedia = styled(CardMedia)(() => ({
     margin: '0 16px 0 16px',
     order: '0',
 }))
-
 const NameGift = styled('span')(() => ({
     fontFamily: 'sans-serif',
     fontWeight: '500',
@@ -133,7 +153,7 @@ const StyledDate = styled('span')(() => ({
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16.94px',
-    color: '#636c84',
+    color: '#636C84',
 }))
 const StyledText = styled('span')`
     font-family: sans-serif;
@@ -148,9 +168,9 @@ const Status = styled('span')(({ sts }) => ({
     fontSize: '13px',
     lineHeight: '15px',
     ...(sts === 'NEW' && {
-        color: ' #0ba360',
+        color: ' #0BA360',
     }),
     ...(sts === 'USED' && {
-        color: ' #fd5200',
+        color: ' #FD5200',
     }),
 }))
