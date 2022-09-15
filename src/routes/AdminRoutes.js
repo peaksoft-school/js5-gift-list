@@ -18,7 +18,7 @@ const AdminRoutes = () => {
                 <Route path="/complaints" element={<Complaints />} />
                 <Route path="/charity_users" element={<CharityUsers />} />
                 <Route
-                    path="/complaints/:complaintId"
+                    path="/complaints/:id"
                     element={<ComplaintsInnerPage />}
                 />
             </Route>

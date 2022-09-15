@@ -5,6 +5,8 @@ import { AddWishCardSlice } from './slices/addWishCardSlice'
 import { authSlice } from './slices/AuthSlice'
 import bookedPageSlice from './slices/bookedPageSlice'
 import {
+    getComlaintWishSlice,
+    getComplaintGiftSlice,
     giftsComplaintsSlice,
     wishesComplaintsSlice,
 } from './slices/complaintsSlice'
@@ -28,6 +30,8 @@ export const store = configureStore({
         bookedCards: bookedPageSlice.reducer,
         giftComplaints: giftsComplaintsSlice.reducer,
         wishesComplaints: wishesComplaintsSlice.reducer,
+        complaintWish: getComlaintWishSlice.reducer,
+        complaintGift: getComplaintGiftSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

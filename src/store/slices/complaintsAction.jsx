@@ -20,16 +20,41 @@ export const wishesComplaintsAction = createAsyncThunk(
         return response
     }
 )
-// export const deleteComplaintAction = createAsyncThunk(
-//     'deleteComplaint/deleteComplaintAction',
-//     async (obj) => {
-//         console.log(obj.complaintId)
-//         const response = await appFetch({
-//             method: 'DELETE',
-//             url: `api/complaints/${obj.complaintId}`,
-//         })
-//         obj.dispatch(getAllComplaintsAction())
-//         // console.log(response)
-//         return response
-//     }
-// )
+export const deleteComplaintAction = createAsyncThunk(
+    'deleteComplaint/deleteComplaintAction',
+    async (obj) => {
+        console.log(obj.complaintId)
+        const response = await appFetch({
+            method: 'DELETE',
+            url: `api/complaints/${obj.complaintId}`,
+        })
+        obj.dispatch(giftsComplaintsAction())
+        obj.dispatch(wishesComplaintsAction())
+        console.log(response)
+        return response
+    }
+)
+
+export const getWishAction = createAsyncThunk(
+    'complaintWish/getWishAction',
+    async (wishId) => {
+        console.log(wishId)
+        const response = await appFetch({
+            url: `api/complaints/wish/${wishId}`,
+        })
+        console.log(response)
+        return response
+    }
+)
+
+export const getGiftAction = createAsyncThunk(
+    'complaintWish/getWishAction',
+    async (giftId) => {
+        console.log(giftId)
+        const response = await appFetch({
+            url: `api/complaints/gift/${giftId}`,
+        })
+        console.log(response)
+        return response
+    }
+)

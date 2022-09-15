@@ -1,43 +1,96 @@
+import { useEffect } from 'react'
+
 import styled from '@emotion/styled'
 import Avatar from '@mui/material/Avatar'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
+import {
+    getGiftAction,
+    getWishAction,
+} from '../../store/slices/complaintsAction'
 import Button from '../ui/Button'
 
-const ComplaintsInnerPage = (props) => {
-    console.log(props.onClick)
+const ComplaintsInnerPage = () => {
+    const { id } = useParams()
+    console.log(id)
+    // console.log(props.onClick)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getWishAction(id))
+    }, [])
+    useEffect(() => {
+        dispatch(getGiftAction(id))
+    }, [])
+    // const wish = useSelector((state) => state)
+    const giftData = useSelector((state) => state.complaintGift.complaintGift)
+    const wishData = useSelector((state) => state.complaintWish.complaintWish)
+    const { wish } = wishData
+    console.log(wish)
+    const { ownerUser } = wishData
+    const { bookedUser } = wishData
+    const gift = giftData?.wish
+    const giftOwnerUser = giftData.ownerUser
+    const giftBookeduser = giftData.bookedUser
+    console.log(giftBookeduser)
 
+    const avatarBookedUser = () => {
+        if (bookedUser) {
+            return bookedUser.photo
+        }
+        if (giftBookeduser) {
+            return giftBookeduser.photo
+        }
+        return null
+    }
+    const titleIsBooked = () => {
+        if (bookedUser) {
+            return 'Забронирован'
+        }
+        if (giftBookeduser) {
+            return 'Забронирован'
+        }
+        return 'В ожидании'
+    }
     return (
         <div>
             <RouteTitle>
                 Жалобы/
-                <RouteNameTitle>Жакет</RouteNameTitle>
+                <RouteNameTitle>
+                    {/* {wish?.wishName || gift?.wishName} */}
+                    {gift?.wishName || wish?.wishName}
+                </RouteNameTitle>
             </RouteTitle>
             <div style={styleForCard}>
                 <Img
-                    src="https://i.pinimg.com/originals/1b/58/e7/1b58e747469daa0da0370d7636775502.jpg"
-                    alt="image"
+                    src={wish?.photo || gift?.photo}
+                    alt={wish?.wishName || gift?.wishName}
                 />
                 <WrapperDiv>
                     <User>
                         <StyledAvatar
-                            src="https://giftlist-bucket.s3.amazonaws.com/1661869658858user_photo1.jpg"
-                            alt="avatar"
+                            src={ownerUser?.photo || giftOwnerUser?.photo}
+                            alt={
+                                ownerUser?.firstName || giftOwnerUser?.firstName
+                            }
                         />
-                        <UserName>Bill Gates</UserName>
+                        <UserName>
+                            {ownerUser?.firstName || giftOwnerUser?.firstName}
+                        </UserName>
+                        {/* <UserName>
+                            {ownerUser?.lastName || giftOwnerUser?.lastName}
+                        </UserName> */}
 
                         <StyledToBookUserDiv>
                             <ToBookUserAvatar
-                                src="https://giftlist-bucket.s3.amazonaws.com/1661869658858user_photo1.jpg"
+                                src={avatarBookedUser()}
                                 alt="avatar"
                             />
-                            <ToBooking>Забронирован</ToBooking>
+                            <ToBooking>{titleIsBooked()}</ToBooking>
                         </StyledToBookUserDiv>
                     </User>
-                    <StyledH1>ЖАКЕТ</StyledH1>
-                    <Styledp>
-                        Жакет с однобортной застежкой на пуговицу выполнен в
-                        двух цветах: черном и синем
-                    </Styledp>
+                    <StyledH1>{wish?.wishName || gift?.wishName}</StyledH1>
+                    <Styledp>{wish?.description || gift?.description}</Styledp>
                     <WrapperNameGiftAndDate>
                         <NameGift>Категория:</NameGift>
                         <DateGift>Состояние:</DateGift>
@@ -118,6 +171,7 @@ const UserComplainedName = styled('h2')`
     margin-top: -4px;
 `
 const UserName = styled('h2')`
+    /* display: flex; */
     box-sizing: border-box;
     margin: 0;
 `
