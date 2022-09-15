@@ -11,7 +11,7 @@ import {
     getAllUsers,
     toBlockUser,
     toUnBlockUser,
-} from '../../store/slices/usersPageAction'
+} from '../../store/slices/admin/usersPageAction'
 
 export const UsersPage = () => {
     const dispatch = useDispatch()

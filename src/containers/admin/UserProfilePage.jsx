@@ -23,31 +23,52 @@ import {
     getUserProfileWithId,
     toBlockGift,
     toBlockUser,
+    toBlockWish,
     toUnBlockGift,
     toUnBlockUser,
-} from '../../store/slices/usersPageAction'
+    toUnBlockWish,
+} from '../../store/slices/admin/usersPageAction'
 
 function UserProfilePage() {
     const { id } = useParams()
-    const blockOption = [
+    const userId = id
+    const blockWishOption = [
+        {
+            icon: blockIcon,
+            title: 'Заблокировать',
+            id: '1',
+            clickItem: (id) => {
+                toBlockWishHandler(id)
+            },
+        },
+    ]
+    const unBlockWishOption = [
+        {
+            icon: unBlockIcon,
+            title: 'Разблокировать',
+            id: '2',
+            clickItem: (id) => {
+                toUnBlockWishHandler(id)
+            },
+        },
+    ]
+    const blockGiftOption = [
         {
             icon: blockIcon,
             title: 'Заблокировать',
             id: '1',
             clickItem: (id) => {
                 toBlockGiftHandler(id)
-                toBlockWishHandler(id)
             },
         },
     ]
-    const unBlockOption = [
+    const unBlockGiftOption = [
         {
             icon: unBlockIcon,
             title: 'Разблокировать',
             id: '2',
             clickItem: (id) => {
                 toUnBlockGiftHandler(id)
-                toUnBlockWishHandler(id)
             },
         },
     ]
@@ -56,29 +77,27 @@ function UserProfilePage() {
     const [showMoreCharityCard, setShowMoreCharityCard] = useState(false)
 
     const { userProfile } = useSelector((state) => state.usersCard)
-    console.log(userProfile)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getUserProfileWithId(id))
     }, [])
     const toBlockUserHandler = () => {
-        dispatch(toBlockUser({ id, dispatch }))
+        dispatch(toBlockUser(userId))
     }
     const toUnBlockUserHandler = () => {
-        dispatch(toUnBlockUser({ id, dispatch }))
+        dispatch(toUnBlockUser(userId))
     }
     function toBlockGiftHandler(id) {
-        dispatch(toBlockGift({ id }))
+        dispatch(toBlockGift({ id, userId }))
     }
     function toUnBlockGiftHandler(id) {
-        dispatch(toUnBlockGift({ id }))
+        dispatch(toUnBlockGift({ id, userId }))
     }
-    //--------------------
     function toBlockWishHandler(id) {
-        dispatch(toBlockGift({ id }))
+        dispatch(toBlockWish({ id, userId }))
     }
     function toUnBlockWishHandler(id) {
-        dispatch(toUnBlockGift({ id }))
+        dispatch(toUnBlockWish({ id, userId }))
     }
     const isShowMoreHandler = () => {
         setShowMoreHolidayCard(!showMoreHolidayCard)
@@ -101,6 +120,9 @@ function UserProfilePage() {
     const whichIsTextGift = wichIsShowGift < 4 ? 'Смотреть все' : 'Скрыть'
 
     const isBlockUser = userProfile.isBlock ? 'Разблокировать' : 'Блокировать'
+    const blockOrUnBlockUser = userProfile.isBlock
+        ? toUnBlockUserHandler
+        : toBlockUserHandler
     return (
         <ContainerDiv>
             <div>
@@ -252,13 +274,7 @@ function UserProfilePage() {
                         ''
                     )}
                     <WrapperButton>
-                        <Button
-                            onClick={
-                                userProfile.isBlock
-                                    ? toUnBlockUserHandler
-                                    : toBlockUserHandler
-                            }
-                        >
+                        <Button onClick={blockOrUnBlockUser}>
                             {isBlockUser}
                         </Button>
                     </WrapperButton>
@@ -289,7 +305,11 @@ function UserProfilePage() {
                                 holiday={el.wish?.holiday?.name}
                                 date={el.wish?.wishDate}
                                 isBooked={el?.bookedUser}
-                                navigation={blockOption}
+                                navigation={
+                                    el.wish.isBlock
+                                        ? unBlockWishOption
+                                        : blockWishOption
+                                }
                             />
                         </Div>
                     )
@@ -352,15 +372,14 @@ function UserProfilePage() {
                                 isBooked={el?.bookedUser}
                                 navigation={
                                     el.gift.isBlock
-                                        ? unBlockOption
-                                        : blockOption
+                                        ? unBlockGiftOption
+                                        : blockGiftOption
                                 }
                             />
                         )
                     })}
                 </StyledCardDiv>
             </div>
-            {/* <Notification /> */}
         </ContainerDiv>
     )
 }

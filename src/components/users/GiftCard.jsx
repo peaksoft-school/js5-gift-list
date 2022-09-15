@@ -126,8 +126,9 @@ const StyledCardContentFirst = styled(CardContent)(({ variants }) => ({
 const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
     display: 'grid',
     ...(variants === 'board' && {
-        gridTemplateColumns: '80px 190px 10px',
+        gridTemplateColumns: '80px 194px 10px',
         padding: '10px 16px 0 16px',
+        textAlign: 'end',
     }),
     ...(variants === 'list' && {
         width: '335px',

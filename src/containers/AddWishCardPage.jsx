@@ -27,7 +27,6 @@ const AddWishCardPage = () => {
     const { addHoliday } = Object.fromEntries([...params])
 
     const { holidaysToSelect } = useSelector((state) => state.wishCard)
-
     useEffect(() => {
         dispatch(getHolidaysToSelect())
     }, [])

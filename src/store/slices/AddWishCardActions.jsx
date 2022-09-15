@@ -9,17 +9,21 @@ export const addGift = createAsyncThunk(
     async ({ wishPhoto, wishGift, dispatch }) => {
         const formData = new FormData()
         const date = format(wishGift.wishDate, 'yyyy-MM-dd')
+        let responsePhoto = null
         try {
-            formData.set('file', wishPhoto)
-            const response = await appFetchFile({
-                url: 'api/file/upload',
-                body: formData,
-            })
+            if (wishPhoto) {
+                formData.set('file', wishPhoto)
+                const response = await appFetchFile({
+                    url: 'api/file/upload',
+                    body: formData,
+                })
+                responsePhoto = response.link
+            }
             const responseAll = await appFetch({
                 method: 'POST',
                 url: 'api/wish',
                 body: {
-                    photo: response.link,
+                    photo: wishPhoto ? responsePhoto : null,
                     wishName: wishGift.wishName,
                     wishLink: wishGift.wishLink,
                     description: wishGift.description,
@@ -31,12 +35,12 @@ export const addGift = createAsyncThunk(
                 showErrorMessage('error')
             }
             if (responseAll.wish) {
-                showSuccessMessage('Успешно!')
+                showSuccessMessage('Успешно добавлен!')
             }
             dispatch(getWishGift())
             return responseAll
         } catch (e) {
-            throw showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так')
         }
     }
 )
@@ -60,7 +64,7 @@ export const deleteWishGift = createAsyncThunk(
                 method: 'DELETE',
                 url: `api/wish/${id}`,
             })
-            showSuccessMessage('Успешно!')
+            showSuccessMessage('Успешно удален!')
             return deleteResponse
         } catch (error) {
             throw new Error(showErrorMessage('Что-то пошло не так'))
@@ -107,8 +111,8 @@ export const putWishCard = createAsyncThunk(
                     wishDate: date,
                 },
             })
-            // console.log(response, 'hello')
             object.dispatch(getWishGift())
+            showSuccessMessage('Успешно редактирован!')
             return response
         } catch (error) {
             throw new Error('Что-то пошло не так')

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 
 import { styled } from '@mui/system'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { ReactComponent as BoardIcon } from '../assets/icons/boardIcon.svg'
 import deleteIcon from '../assets/icons/deleteIcon.svg'
 import editIcon from '../assets/icons/editIcon.svg'
 import { ReactComponent as ListIcon } from '../assets/icons/listIcon.svg'
 import { ReactComponent as Plus } from '../assets/icons/plusIconInTheButton.svg'
+import notFoundImg from '../assets/images/notFoundImg.svg'
 import Button from '../components/ui/Button'
-import Notification from '../components/ui/notification/Notification'
 import GiftCard from '../components/users/GiftCard'
 import {
     getWishGift,
@@ -18,12 +18,10 @@ import {
     getWishWithId,
 } from '../store/slices/AddWishCardActions'
 
-import AddHolidayModal from './AddHolidayModal'
-
 const WishList = () => {
     const dispatch = useDispatch()
     const navigateEdit = useNavigate()
-    const { card, deleteId } = useSelector((data) => data.wishCard)
+    const { cards, deleteId } = useSelector((data) => data.wishCard)
     const navigation = [
         {
             icon: editIcon,
@@ -68,67 +66,88 @@ const WishList = () => {
         setFormat(true)
     }
     const formatCard = format ? 'list' : 'board'
-    const [params, setParams] = useSearchParams()
-    const { addHoliday } = Object.fromEntries([...params])
-
-    const openAddModalHandler = () => {
-        setParams({ addHoliday: true })
-    }
-    const closeModalHandler = () => {
-        setParams({})
-    }
-
     return (
         <DivWishList>
-            <AddHolidayModal
-                onOpen={openAddModalHandler}
-                open={addHoliday === 'true'}
-                onClose={closeModalHandler}
-            />
             <WrapperTop>
-                <p onClick={openAddModalHandler}>click</p>
                 <H2>Список желаний</H2>
-                <WrapperIcon>
-                    <ButtonIcon onClick={boardHandler}>
-                        <BoardIcons fill={formatCard} />
-                    </ButtonIcon>
-                    <ButtonIcon onClick={listHandler}>
-                        <ListIcons fill={formatCard} />
-                    </ButtonIcon>
-                    <Button
-                        onClick={() => toaddWish('add')}
-                        startIcon={<Plus />}
-                    >
-                        Добавить желание
-                    </Button>
-                </WrapperIcon>
+                {cards.length ? (
+                    <WrapperIcon>
+                        <ButtonIcon onClick={boardHandler}>
+                            <BoardIcons fill={formatCard} />
+                        </ButtonIcon>
+                        <ButtonIcon onClick={listHandler}>
+                            <ListIcons fill={formatCard} />
+                        </ButtonIcon>
+                        <Button
+                            onClick={() => toaddWish('add')}
+                            startIcon={<Plus />}
+                        >
+                            Добавить желание
+                        </Button>
+                    </WrapperIcon>
+                ) : (
+                    ''
+                )}
             </WrapperTop>
             <WrapperCards variant={formatCard}>
-                {card?.map((el) => (
-                    <GiftCard
-                        key={el.wish.wishId}
-                        id={el.wish.wishId}
-                        variant={formatCard}
-                        image={el.wish.photo}
-                        nameGift={el.wish.wishName}
-                        date={el.wish.wishDate}
-                        holiday={el.wish.holiday.name}
-                        toBook={el.toBooking}
-                        avatarBooked={el?.bookedUser?.photo}
-                        navigateToInnerPage={() => {
-                            toInnerPage(el.wish.wishId)
-                        }}
-                        navigation={navigation}
-                    />
-                ))}
+                {cards.length ? (
+                    cards?.map((el) => (
+                        <GiftCard
+                            key={el.wish.wishId}
+                            id={el.wish.wishId}
+                            variant={formatCard}
+                            image={el.wish.photo}
+                            nameGift={el.wish.wishName}
+                            date={el.wish.wishDate}
+                            holiday={el.wish.holiday.name}
+                            toBook={el.toBooking}
+                            avatarBooked={el?.bookedUser?.photo}
+                            navigateToInnerPage={() => {
+                                toInnerPage(el.wish.wishId)
+                            }}
+                            navigation={navigation}
+                        />
+                    ))
+                ) : (
+                    <WrapperNotFoundImg>
+                        <NotFoundImg src={notFoundImg} />
+                        <h3>Вы пока не добавили желание!</h3>
+                        <Button
+                            onClick={() => toaddWish('add')}
+                            startIcon={<Plus />}
+                        >
+                            Добавить желание
+                        </Button>
+                    </WrapperNotFoundImg>
+                )}
             </WrapperCards>
-            <Notification />
         </DivWishList>
     )
 }
 
 export default WishList
 
+const WrapperNotFoundImg = styled('div')`
+    position: relative;
+    top: 0px;
+    left: 270px;
+    text-align: center;
+    h3 {
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+    button {
+        width: 219px;
+        height: 39px;
+        font-family: 'Inter', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 19px;
+        margin-left: 180px;
+    }
+`
+const NotFoundImg = styled('img')``
 const DivWishList = styled('div')`
     margin: 100px 40px 0 20px;
 `

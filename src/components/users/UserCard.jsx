@@ -24,7 +24,7 @@ const UserCard = ({
                     <StyledTitle>подарков</StyledTitle>
                 </div>
             </StyledDiv>
-            <WrapperMeatBalls>
+            <WrapperMeatBalls onClick={(e) => e.stopPropagation()}>
                 <MeatBalls navigations={option} id={id} />
             </WrapperMeatBalls>
         </StyledContainer>
