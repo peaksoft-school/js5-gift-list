@@ -121,13 +121,14 @@ const Img = styled('img')`
 const WrapperDiv = styled('div')`
     padding-left: 20px;
     padding-top: 50px;
-    width: 683px;
+    /* width: 100%; */
 `
 const User = styled('div')`
     align-items: center;
     display: grid;
     grid-template-columns: 48px 500px 135px;
     margin-bottom: 14px;
+    border: 1px solid red;
 `
 const StyledAvatar = styled(Avatar)`
     width: 36px;
@@ -166,6 +167,7 @@ const WrapperPropsGiftAndDate = styled('div')`
     display: grid;
     grid-template-columns: 211px 472px;
     margin-bottom: 20px;
+    border: 1px solid;
 `
 const NameGiftProps = styled('div')`
     color: #0ba360;

@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
 
-import defaultImage from '../assets/images/placeholder.webp'
 import BasicModal from '../components/ui/BasicModal'
 import Button from '../components/ui/Button'
 import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
@@ -37,7 +36,6 @@ const AddHolidayModal = (props) => {
                 holidayName,
                 date: holidayDate,
                 onClose,
-                default: defaultImage,
             })
         )
         setPhoto(null)
@@ -57,7 +55,7 @@ const AddHolidayModal = (props) => {
                                 Название праздника
                             </label>
                             <Input
-                                name="holidayName"
+                                name="add"
                                 value={holidayName}
                                 onChange={onChangeInputValue}
                                 type="text"

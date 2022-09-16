@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
+import { getWishAction } from './HomePageActions'
+
 export const addGift = createAsyncThunk(
     'addWishCard/fetchByIdStatus',
     async ({ wishPhoto, wishGift, dispatch }) => {
@@ -52,12 +54,19 @@ export const getWishGift = createAsyncThunk('get/wishGift', async () => {
 
 export const deleteWishGift = createAsyncThunk(
     'delete/wishGift',
-    async (id) => {
-        const deleteResponse = await appFetch({
-            method: 'DELETE',
-            url: `api/wish/${id}`,
-        })
-        return deleteResponse
+    async (id, { dispatch }) => {
+        try {
+            const deleteResponse = await appFetch({
+                method: 'DELETE',
+                url: `api/wish/${id}`,
+            })
+            showSuccessMessage('Успешно удалено')
+            dispatch(getWishAction())
+            return deleteResponse
+        } catch (error) {
+            showErrorMessage('Что-то пошло не так')
+            throw new Error('Что-то пошло не так')
+        }
     }
 )
 

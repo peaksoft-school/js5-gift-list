@@ -11,11 +11,15 @@ export const postHoliday = createAsyncThunk(
         const formatDate = format(props.date, 'yyyy-MM-dd')
         const formData = new FormData()
         try {
-            formData.set('file', props.photo)
-            const fileResponse = await appFetchFile({
-                url: 'api/file/upload',
-                body: formData,
-            })
+            let responsePhoto = null
+            if (props.photo) {
+                formData.set('file', props.photo)
+                const fileResponse = await appFetchFile({
+                    url: 'api/file/upload',
+                    body: formData,
+                })
+                responsePhoto = fileResponse.link
+            }
 
             const response = await appFetch({
                 method: 'POST',
@@ -23,7 +27,7 @@ export const postHoliday = createAsyncThunk(
                 body: {
                     date: formatDate,
                     name: props.holidayName,
-                    photo: fileResponse.link,
+                    photo: props.photo ? responsePhoto : null,
                 },
             })
             props.onClose()

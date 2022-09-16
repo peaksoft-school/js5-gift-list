@@ -12,8 +12,6 @@ import {
 } from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-const WITHMEATBALLS = 'WITHMEATBALLS'
-
 export default function MyHolidaysCard({
     id,
     img,
@@ -30,18 +28,20 @@ export default function MyHolidaysCard({
             id: '1',
             icon: editIcon,
             title: 'Редактировать',
-            clickItem: () => {
+            clickItem: (e) => {
                 onOpen(id)
                 getId(id)
                 dispatch(getHolidayById(id))
+                e.stopPropagation()
             },
         },
         {
             id: '2',
             icon: deleteIcon,
             title: 'Удалить',
-            clickItem: () => {
+            clickItem: (e) => {
                 dispatch(deleteHoliday({ id, link: img }))
+                e.stopPropagation()
             },
         },
     ]
@@ -59,7 +59,7 @@ export default function MyHolidaysCard({
             </HolidayTitleDiv>
             <StyledFooter>
                 <StyledDate>{date}</StyledDate>
-                {variant === WITHMEATBALLS && (
+                {variant && (
                     <MeatBallsWrapper onClick={(e) => e.stopPropagation()}>
                         <MeatBalls navigations={navigations} />
                     </MeatBallsWrapper>

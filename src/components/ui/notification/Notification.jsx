@@ -8,8 +8,8 @@ const Notification = (props) => {
         width: '290px',
     }
     if (status === 'success') {
-        style.backgroundColor = '#8639B5'
-        style.color = '#328048'
+        style.backgroundColor = '#EAFBE7'
+        style.color = '#EAFBE7'
     } else if (status === 'warning') {
         style.backgroundColor = '#FFF3D8'
         style.color = '#ED9E44'

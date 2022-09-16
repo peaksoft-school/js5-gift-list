@@ -78,7 +78,7 @@ const HolidayCardInnerPage = () => {
 export default HolidayCardInnerPage
 
 const HolidayInnerDiv = styled('div')`
-    padding-top: 20px;
+    padding-top: 90px;
     margin-left: 20px;
     margin-right: 40px;
 `

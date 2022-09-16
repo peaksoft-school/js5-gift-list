@@ -1,244 +1,381 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useMemo } from 'react'
 
 import styled from '@emotion/styled'
 import Avatar from '@mui/material/Avatar'
 import MuiCard from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+import { useSelector } from 'react-redux'
 
-import addInMyGifts from '../../assets/icons/addInMyGifts.svg'
-import cacelBooking from '../../assets/icons/cancelBooking.svg'
-import reportIcon from '../../assets/icons/reportIcon.svg'
-import toBookanonymously from '../../assets/icons/toBookanonymously.svg'
-import toBooking from '../../assets/icons/toBooking.svg'
+import addInMyGiftIcon from '../../assets/icons/addInMyGifts.svg'
+import cancelBooking from '../../assets/icons/cancelBooking.svg'
+import complaintIcon from '../../assets/icons/complaintss.svg'
+import toBookIcon from '../../assets/icons/toBook.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-import ReportModal from './ReportModal'
+export default function Card(props) {
+    const {
+        variant,
+        photo,
+        addWishStatus,
+        isBooked,
+        wishPhoto,
+        userName,
+        lastName,
+        wishName,
+        holidayName,
+        holidayDate,
+        isAvatarInBooking,
+        navigate,
+        idOfOwnerUser,
+        toBookWishHandler,
+        addToMyWishHandler,
+        openModalHandler,
+        cancelBookingWishHandler,
+        editCard,
+        deleteCard,
+        navigateToUserProfile,
+    } = props
+    const myId = useSelector((state) => state.authSlice.user.id)
 
-export default function Card({
-    variant,
-    toBook,
-    image,
-    avatar,
-    date,
-    userName,
-    holiday,
-    giftName,
-    avatarInBooking,
-    onChange,
-}) {
-    const navigationFirst = [
-        {
-            icon: toBooking,
-            title: 'Забронировать',
-            id: '1',
-            clickItem: toBookHandler,
-        },
-        {
-            icon: toBookanonymously,
-            title: 'Забронировать ананимно',
-            id: '2',
-            clickItem: toBookHandler,
-        },
-        {
-            icon: addInMyGifts,
-            title: 'Добавить в мои подарки',
-            id: '3',
-            clickItem: () => {},
-        },
-        {
-            icon: reportIcon,
-            title: 'Пожаловаться',
-            id: '4',
-            clickItem: openClick,
-        },
-    ]
-    const navigationSecond = [
-        {
-            icon: addInMyGifts,
-            title: 'Добавить в мои подарки',
-            id: '3',
-            clickItem: () => {},
-        },
-        {
-            icon: cacelBooking,
-            title: 'снять бронь',
-            id: '2',
-            clickItem: toBookHandler,
-        },
-        {
-            icon: reportIcon,
-            title: 'Пожаловаться',
-            id: '4',
-            clickItem: openClick,
-        },
-    ]
+    const options = useMemo(() => checkOwnBook(), [isBooked?.userId])
 
-    const [open, setOpen] = useState(false)
-    const [booking, setTobooking] = useState(false)
+    function checkOwnBook() {
+        const isIWillBookAddAndComplainByMe = [
+            {
+                icon: toBookIcon,
+                title: 'Забронировать',
+                id: '1',
+                clickItem: (id) => toBookWishHandler(id),
+            },
+            {
+                icon: addInMyGiftIcon,
+                title: 'Добавить в мои подарки',
+                id: '2',
+                clickItem: (id) => addToMyWishHandler(id),
+            },
+            {
+                icon: complaintIcon,
+                title: 'Пожаловаться',
+                id: '3',
+                clickItem: (id) => {
+                    openModalHandler(id)
+                },
+            },
+        ]
+        const ownerDeleteEdit = [
+            {
+                icon: toBookIcon,
+                title: 'Редактировать',
+                id: '4',
+                clickItem: () => editCard(),
+            },
+            {
+                icon: addInMyGiftIcon,
+                title: 'Удалить',
+                id: '5',
+                clickItem: () => deleteCard(),
+            },
+        ]
 
-    function toBookHandler() {
-        setTobooking((prev) => !prev)
+        const isIWillCancelBookAddAndComplainByMe = [
+            {
+                icon: cancelBooking,
+                title: 'Снять бронь',
+                id: '1',
+                clickItem: (id) => cancelBookingWishHandler(id),
+            },
+            {
+                icon: addInMyGiftIcon,
+                title: 'Добавить в мои подарки',
+                id: '2',
+                clickItem: (id) => addToMyWishHandler({ id }),
+            },
+            {
+                icon: complaintIcon,
+                title: 'Пожаловаться',
+                id: '3',
+                clickItem: (id) => {
+                    openModalHandler(id)
+                },
+            },
+        ]
+        const isIWillCancelBookandComplainByMe = [
+            {
+                icon: cancelBooking,
+                title: 'Снять бронь',
+                id: '2',
+                clickItem: (id) => cancelBookingWishHandler(id),
+            },
+            {
+                icon: complaintIcon,
+                title: 'Пожаловаться',
+                id: '3',
+                clickItem: (id) => {
+                    openModalHandler(id)
+                },
+            },
+        ]
+        const isIWillBookAndComplainByMe = [
+            {
+                icon: toBookIcon,
+                title: 'Забронировать',
+                id: '1',
+                clickItem: (id) => toBookWishHandler(id),
+            },
+            {
+                icon: complaintIcon,
+                title: 'Пожаловаться',
+                id: '3',
+                clickItem: (id) => {
+                    openModalHandler(id)
+                },
+            },
+        ]
+
+        const isIWillAddAndComplainByMe = [
+            {
+                icon: addInMyGiftIcon,
+                title: 'Добавить в мои подарки',
+                id: '2',
+                clickItem: (id) => addToMyWishHandler(id),
+            },
+            {
+                icon: complaintIcon,
+                title: 'Пожаловаться',
+                id: '3',
+                clickItem: (id) => {
+                    openModalHandler(id)
+                },
+            },
+        ]
+
+        const isIWillComplainByMe = [
+            {
+                icon: complaintIcon,
+                title: 'Пожаловаться',
+                id: '3',
+                clickItem: (id) => {
+                    openModalHandler(id)
+                },
+            },
+        ]
+        if (isBooked === null && addWishStatus === 'NOT_ADD') {
+            return isIWillBookAddAndComplainByMe
+        }
+        if (idOfOwnerUser === myId) {
+            return ownerDeleteEdit
+        }
+        if (isBooked === null && addWishStatus === 'ADDED') {
+            return isIWillBookAndComplainByMe
+        }
+        if (isBooked?.userId === myId && addWishStatus === 'NOT_ADD') {
+            return isIWillCancelBookAddAndComplainByMe
+        }
+        if (isBooked?.userId === myId && addWishStatus === 'ADDED') {
+            return isIWillCancelBookandComplainByMe
+        }
+        if (isBooked?.userId !== idOfOwnerUser && addWishStatus === 'NOT_ADD') {
+            return isIWillAddAndComplainByMe
+        }
+        if (isBooked?.userId !== idOfOwnerUser && addWishStatus === 'ADDED') {
+            return isIWillComplainByMe
+        }
+        return isIWillBookAddAndComplainByMe
     }
-    function openClick() {
-        setOpen((prev) => !prev)
+
+    const isMyId = () => {
+        const booked = (
+            <StyledAvatarOnBook>
+                <StyledsmallAvatar src={isAvatarInBooking} alt="avatar" />
+                <span>
+                    {isBooked?.userId === myId
+                        ? 'Вы забронировали'
+                        : 'Забронирован'}
+                </span>
+            </StyledAvatarOnBook>
+        )
+        const pending = 'В ожидании'
+        if (isBooked) {
+            return booked
+        }
+        if (!isBooked) {
+            return pending
+        }
+        return booked
     }
-    const onCloseModal = () => {
-        setOpen((prev) => !prev)
-    }
-    const navigation = booking ? navigationSecond : navigationFirst
+
     return (
-        <StyledCard variants={variant}>
+        <StyledCard variants={variant} onClick={navigate}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
-                image={image}
+                image={wishPhoto}
                 alt="green iguana"
             />
 
             <StyledCardContentFirst variants={variant}>
-                <StyledAvatar alt="Cindy Baker" src={avatar} />
-                <UserName>{userName}</UserName>
-                <StyledBirthday>{holiday}</StyledBirthday>
-            </StyledCardContentFirst>
-            <NameGift variants={variant}>{giftName}</NameGift>
-            <StyledCardContentSecond variants={variant}>
-                <StyledDate variants={variant}>{date}</StyledDate>
-                <Wrapper>
-                    <StyledAvatarOnBook
-                        alt="Cindy Baker"
-                        src={avatarInBooking}
-                    />
-                    <StyledText>{toBook}</StyledText>
-                </Wrapper>
-                <MeatBalls navigations={navigation} />
-                <ReportModal
-                    open={open}
-                    onClose={onCloseModal}
-                    onChange={onChange}
+                <StyledAvatar
+                    alt="Cindy Baker"
+                    src={photo}
+                    variants={variant}
                 />
-            </StyledCardContentSecond>
+                <UserDiv onClick={navigateToUserProfile}>
+                    <UserName variants={variant}>
+                        {userName} {lastName}
+                    </UserName>
+                </UserDiv>
+                <StyledBirthday>{holidayName}</StyledBirthday>
+            </StyledCardContentFirst>
+            <NameGift variants={variant}>{wishName}</NameGift>
+            <CardSecondDiv>
+                <StyledCardContentSecond variants={variant}>
+                    <StyledDate variants={variant}>{holidayDate}</StyledDate>
+                    <Wrapper>
+                        <StyledText>{isMyId()}</StyledText>
+                    </Wrapper>
+                    <WrapperMeetballs onClick={(e) => e.stopPropagation()}>
+                        <MeatBalls navigations={options} />
+                    </WrapperMeetballs>
+                </StyledCardContentSecond>
+            </CardSecondDiv>
         </StyledCard>
     )
 }
-
+const WrapperMeetballs = styled('div')``
 const StyledCard = styled(MuiCard)(({ variants }) => ({
     ...(variants === 'board' && {
-        width: '349px',
-        height: '301px',
+        height: '75%',
         display: 'flex',
         flexDirection: 'column',
+        boxSizing: 'border-box',
+        background: '#FFFFFF',
+        border: '1px solid #FFFFFF',
+        borderRadius: '8px',
     }),
     ...(variants === 'list' && {
-        width: '533px',
-        height: '138px',
+        height: '95%',
         display: 'flex',
         position: 'relative',
     }),
 }))
+const StyledAvatar = styled(Avatar)(({ variants }) => ({
+    ...(variants === 'board' && {}),
+    ...(variants === 'list' && {
+        width: '35px',
+        height: '35px',
+    }),
+}))
 
-const StyledAvatar = styled(Avatar)`
-    width: 36px;
-    height: 36px;
+const StyledAvatarOnBook = styled('div')`
+    display: flex;
 `
-const StyledAvatarOnBook = styled(Avatar)`
+const StyledsmallAvatar = styled(Avatar)`
     width: 20px;
     height: 20px;
     margin-right: 10px;
 `
+const UserDiv = styled('div')`
+    padding: 0px;
+    cursor: pointer;
+`
 const UserName = styled('h1')`
-    font-family: 'Inter' sans-serif;
-    font-weight: 650;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
     font-size: 16px;
-    line-height: 19.36px;
+    line-height: 19px;
+    margin-top: 10px;
 `
 const Wrapper = styled('div')`
     display: flex;
     justify-content: flex-end;
 `
 const StyledCardContentFirst = styled(CardContent)(({ variants }) => ({
+    margin: '0px',
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height: '36px',
     ...(variants === 'board' && {
-        width: '317px',
         height: '36px',
         padding: '0',
         margin: '16px',
         order: '-1',
         display: 'grid',
-        gridTemplateColumns: '48px 168px 101px',
+        gridTemplateColumns: '43px 135px 101px',
     }),
     ...(variants === 'list' && {
         display: 'grid',
-        gridTemplateColumns: '48px 188px 101px',
-        width: '341px',
+        gridTemplateColumns: '43px 180px 101px',
         padding: '0',
         margin: '16px 16px 0 0',
     }),
 }))
 
+const CardSecondDiv = styled.div`
+    padding: 0px;
+    margin-top: 12px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+`
 const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
     display: 'grid',
-    height: '20px',
     padding: '0',
     ...(variants === 'board' && {
-        gridTemplateColumns: '80px 192px 10px',
-        order: '1',
-        width: '317px',
-        margin: '15px 16px 0 16px',
+        gridTemplateColumns: '80px 160px 10px',
+        gridTemplateRows: '0px',
+        margin: '23px 16px 0 16px',
     }),
     ...(variants === 'list' && {
-        gridTemplateColumns: '80px 214px 10px',
+        gridTemplateColumns: '30px 240px 10px',
         position: 'absolute',
-        width: '357px',
-        top: '100px',
-        left: '180px',
+        width: '20%',
+        top: '17vh',
+        left: '24.5vh',
     }),
 }))
 
 const StyledCardMedia = styled(CardMedia)(({ variants }) => ({
     borderRadius: '6px',
     ...(variants === 'board' && {
-        width: '317px',
-        height: '149px',
+        width: '90%',
+        height: '48%',
         margin: '0 16px 0 16px',
         order: '0',
     }),
     ...(variants === 'list' && {
-        width: '146px',
-        height: '106px',
+        width: '25%',
+        height: '78%',
         margin: '16px 14px 16px 16px',
     }),
 }))
 
 const NameGift = styled('span')(({ variants }) => ({
-    fontFamily: 'Inter sans-serif',
+    fontFamily: 'Inter',
     fontWeight: '500',
     fontSize: '14px',
     lineHeight: '18px',
     fontStyle: 'normal',
     color: '#000000',
     ...(variants === 'board' && {
-        margin: '0 0 10px 16px',
+        margin: '0 16px 10px 16px',
         order: '-1',
     }),
     ...(variants === 'list' && {
         position: 'absolute',
-        left: '180px',
+        left: '153px',
         top: '70px',
     }),
 }))
-const StyledDate = styled('span')(({ variants }) => ({
+const StyledDate = styled('p')(({ variants }) => ({
     fontStyle: 'Inter',
     fontWeight: '400',
     fontSize: '14px',
     lineHeight: '16.94px',
     color: '#636c84',
+    margin: '0px',
     ...(variants === 'board' && {}),
-    ...(variants === 'list' && {}),
+    ...(variants === 'list' && {
+        marginLeft: '0px',
+    }),
 }))
 const StyledText = styled('span')`
     font-size: Inter;
@@ -247,10 +384,12 @@ const StyledText = styled('span')`
     line-height: 17px;
     color: #636c84;
 `
-const StyledBirthday = styled('span')`
+const StyledBirthday = styled('p')`
+    margin-top: 12px;
     display: flex;
     justify-content: flex-end;
-    font-size: Inter;
+    margin-left: 30px;
+    font-size: 'Inter';
     font-weight: 400;
     font-size: 13px;
     line-height: 15px;

@@ -39,6 +39,8 @@ const HolidaysPage = () => {
     }
 
     useEffect(() => {
+        if (holiday.holiday.length < 0) <h1>Not Found</h1>
+
         dispatch(getHoliday())
     }, [holiday.editmodal, dispatch])
 
@@ -47,6 +49,7 @@ const HolidaysPage = () => {
             dispatch(getHolidayById(holidayById))
         }
     }, [holidayById, dispatch])
+
     return (
         <HolidayCardDiv>
             <TitleButtonWrapper>
@@ -60,29 +63,35 @@ const HolidaysPage = () => {
                 </Button>
             </TitleButtonWrapper>
             <AddHolidayModal
+                name="add"
                 onOpen={openAddModalHandler}
                 open={addHoliday === 'true'}
                 onClose={closeModalHandler}
             />
-            <CardDiv>
-                {holiday?.holiday?.map((el) => {
-                    return (
-                        <MyHolidaysCard
-                            key={el.id}
-                            id={el.id}
-                            img={el.photo}
-                            title={el.name}
-                            date={el.holidayDate}
-                            getId={getItemChangehandler}
-                            onOpen={openEditModalHandler}
-                            navigate={() => navigateToInnerPage(el.id)}
-                            variant={WITHMEATBALLS}
-                        />
-                    )
-                })}
-            </CardDiv>
+            {holiday.holiday.length <= 0 ? (
+                <NotServer>У вас еще нет праздников </NotServer>
+            ) : (
+                <CardDiv>
+                    {holiday?.holiday?.map((el) => {
+                        return (
+                            <MyHolidaysCard
+                                key={el.id}
+                                id={el.id}
+                                img={el.photo}
+                                title={el.name}
+                                date={el.holidayDate}
+                                getId={getItemChangehandler}
+                                onOpen={openEditModalHandler}
+                                navigate={() => navigateToInnerPage(el.id)}
+                                variant={WITHMEATBALLS}
+                            />
+                        )
+                    })}
+                </CardDiv>
+            )}
             {editHoliday === 'true' && (
                 <EditHolidaysModal
+                    name="edit"
                     locaionId={locaionId}
                     onOpen={openEditModalHandler}
                     onClose={closeModalHandler}
@@ -96,12 +105,21 @@ const HolidaysPage = () => {
 
 export default HolidaysPage
 
+const NotServer = styled('p')`
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    color: #0f0c10;
+    font-size: x-large;
+    font-family: Inter;
+`
 const HolidayCardDiv = styled('div')`
-    padding-top: 32px;
+    padding-top: 90px;
     margin-left: 20px;
     margin-right: 40px;
 `
 const CardDiv = styled('div')`
+    margin-top: 24px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);

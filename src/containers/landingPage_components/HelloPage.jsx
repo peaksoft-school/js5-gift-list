@@ -52,34 +52,22 @@ const HelloPage = ({ signupHandler }) => {
     }
     return (
         <>
-            <First>
+            <First data-aos="zoom-in-right">
                 <Icons>
                     <a href="https://www.facebook.com/">
-                        <img
-                            // onClick={props.toFacebook}
-                            src={landingFacebook}
-                            alt="landing"
-                        />
+                        <img src={landingFacebook} alt="landing" />
                     </a>
                     <a href="https://www.instagram.com/">
                         {' '}
-                        <img
-                            // onClick={props.toVk}
-                            src={vk}
-                            alt="landing"
-                        />
+                        <img src={vk} alt="landing" />
                     </a>
                     <a href="https://vk.com/">
-                        <img
-                            // onClick={props.toInstagram}
-                            src={landingInstagram}
-                            alt="landing"
-                        />
+                        <img src={landingInstagram} alt="landing" />
                     </a>
                 </Icons>
                 <img src={groupPhotoLeft} alt="landing" />
             </First>
-            <Second>
+            <Second data-aos="fade-up">
                 <h1>Социальная сеть нового поколения</h1>
                 <p>
                     Всегда подскажет, что подарить близким и осуществит твои
@@ -95,7 +83,7 @@ const HelloPage = ({ signupHandler }) => {
                     </Button>
                 </Buton>
             </Second>
-            <Third>
+            <Third data-aos="zoom-in-left">
                 <img src={groupPhotoRight} alt="third" />
                 <p onClick={downPage}>&#8592; Листай вниз </p>
             </Third>
@@ -118,17 +106,6 @@ const First = styled.div`
     justify-content: space-between;
     flex-direction: column;
     padding-top: 50px;
-    animation-duration: 3s;
-    animation-name: third;
-    @keyframes third {
-        from {
-            margin-right: 100px;
-        }
-
-        to {
-            margin-right: 0%;
-        }
-    }
 `
 const Icons = styled.div`
     width: 22px;
@@ -147,17 +124,7 @@ const Second = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation-duration: 3s;
-    animation-name: love;
-    @keyframes love {
-        from {
-            margin-top: 50%;
-        }
 
-        to {
-            margin-top: 0%;
-        }
-    }
     & h1 {
         font-size: 54px;
         font-family: 'Inter';
@@ -167,8 +134,6 @@ const Second = styled.div`
         font-style: normal;
         font-weight: 500;
         line-height: 120%;
-        /* or 65px */
-
         text-align: center;
     }
     & p {
@@ -189,17 +154,7 @@ const Third = styled.div`
     justify-content: space-between;
     flex-direction: column;
     padding-top: 50px;
-    animation-duration: 3s;
-    animation-name: first;
-    @keyframes first {
-        from {
-            margin-left: 100px;
-        }
 
-        to {
-            margin-left: 0%;
-        }
-    }
     & img {
         width: 270px;
         height: 330px;
