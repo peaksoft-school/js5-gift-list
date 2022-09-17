@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 import styled from '@emotion/styled'
-// import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import { ReactComponent as BoardIcon } from '../assets/icons/boardIcon.svg'
 import { ReactComponent as ListIcon } from '../assets/icons/listIcon.svg'
-import { ReactComponent as ImageNotFound } from '../assets/images/EmptyState.svg'
+import ImageNotFound from '../assets/images/EmptyState.png'
 import Card from '../components/users/Card'
 import ReportModal from '../components/users/ReportModal'
 import { deleteWishGift } from '../store/slices/AddWishCardActions'
@@ -20,6 +19,11 @@ import {
 import { getWishAction } from '../store/slices/HomePageActions'
 import { showErrorMessage } from '../utils/helpers'
 
+const Image = (props) => {
+    const { alt, ...otherProps } = props
+
+    return <img alt={alt} {...otherProps} />
+}
 const HomePage = () => {
     const [openModal, setOpenModal] = useState(false)
     const [boardList, setBoardList] = useState(false)
@@ -35,7 +39,7 @@ const HomePage = () => {
     }, [])
 
     function toBookWishHandler(id) {
-        dispatch(toBookWish({ id, dispatch }))
+        dispatch(toBookWish({ id }))
         setLoadSpinner(true)
     }
 
@@ -168,7 +172,7 @@ const HomePage = () => {
                         })
                     ) : (
                         <NotFound>
-                            <ImageNotFound />
+                            <Image src={ImageNotFound} alt="photo" />
                             <TextNotFound>
                                 <NothingSpan>Ничего нет</NothingSpan>
                                 <TextParagraph>
@@ -282,10 +286,10 @@ const CardDiv = styled('div')(({ variant }) => ({
         marginTop: '32px',
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-        gridTemplateRows: 'repeat(3, 1fr)',
+        gridTemplateRows: 'repeat(3, 320px)',
         gridColumnGap: '19px',
-        paddingBottom: '0px',
-        // gridRowGap: '15px',
+        // paddingBottom: '0px',
+        gridRowGap: '15px',
     }),
     ...(variant === 'list' && {
         marginTop: '32px',

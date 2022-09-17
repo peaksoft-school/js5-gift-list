@@ -49,7 +49,7 @@ export const toBookWish = createAsyncThunk(
             url: `api/bookings/wish-create/${obj.id}`,
         })
         dispatch(getWishAction())
-        obj.dispatch(getFriendProfileAction(obj.userId))
+        dispatch(getFriendProfileAction(obj.userId))
         return response
     }
 )
@@ -70,7 +70,6 @@ export const cancelBookingWish = createAsyncThunk(
 export const copmlainToWish = createAsyncThunk(
     'complain/copmlainToWish',
     async (obj, { rejectWithValue }) => {
-        console.log(obj)
         try {
             const response = await appFetch({
                 method: 'POST',

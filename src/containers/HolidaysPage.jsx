@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
+import NotHolidayImage from '../assets/icons/notHoliday.png'
 import { ReactComponent as PlusIcon } from '../assets/icons/plusIcon.svg'
 import Button from '../components/ui/Button'
 import MyHolidaysCard from '../components/users/MyHolidaysCard'
@@ -13,6 +14,11 @@ import AddHolidayModal from './AddHolidayModal'
 import EditHolidaysModal from './EditHolidaysModal'
 
 const WITHMEATBALLS = 'withMeatBalls'
+const Image = (props) => {
+    const { alt, ...otherProps } = props
+
+    return <img alt={alt} {...otherProps} />
+}
 const HolidaysPage = () => {
     const [params, setParams] = useSearchParams()
     const holiday = useSelector((state) => state.holiday)
@@ -39,8 +45,6 @@ const HolidaysPage = () => {
     }
 
     useEffect(() => {
-        if (holiday.holiday.length < 0) <h1>Not Found</h1>
-
         dispatch(getHoliday())
     }, [holiday.editmodal, dispatch])
 
@@ -52,25 +56,27 @@ const HolidaysPage = () => {
 
     return (
         <HolidayCardDiv>
-            <TitleButtonWrapper>
-                <NamePage>Мои праздники</NamePage>
-                <Button
-                    startIcon={<PlusIcon />}
-                    variant="addButton"
-                    onClick={openAddModalHandler}
-                >
-                    Добавить праздник
-                </Button>
-            </TitleButtonWrapper>
+            {holiday.holiday.length ? (
+                <TitleButtonWrapper>
+                    <NamePage>Мои праздники</NamePage>
+                    <Button
+                        startIcon={<PlusIcon />}
+                        variant="addButton"
+                        onClick={openAddModalHandler}
+                    >
+                        Добавить праздник
+                    </Button>
+                </TitleButtonWrapper>
+            ) : (
+                ''
+            )}
             <AddHolidayModal
                 name="add"
                 onOpen={openAddModalHandler}
                 open={addHoliday === 'true'}
                 onClose={closeModalHandler}
             />
-            {holiday.holiday.length <= 0 ? (
-                <NotServer>У вас еще нет праздников </NotServer>
-            ) : (
+            {holiday.holiday.length ? (
                 <CardDiv>
                     {holiday?.holiday?.map((el) => {
                         return (
@@ -88,6 +94,11 @@ const HolidaysPage = () => {
                         )
                     })}
                 </CardDiv>
+            ) : (
+                <NotFound>
+                    <Image src={NotHolidayImage} alt="photo" />
+                    <p style={{ textAlign: 'center' }}>У вас нет праздников</p>
+                </NotFound>
             )}
             {editHoliday === 'true' && (
                 <EditHolidaysModal
@@ -105,11 +116,10 @@ const HolidaysPage = () => {
 
 export default HolidaysPage
 
-const NotServer = styled('p')`
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    color: #0f0c10;
+const NotFound = styled('p')`
+    margin-top: 100px;
+    text-align: center;
+    margin: 0 auto;
     font-size: x-large;
     font-family: Inter;
 `

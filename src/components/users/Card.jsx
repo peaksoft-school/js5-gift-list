@@ -246,7 +246,7 @@ export default function Card(props) {
 const WrapperMeetballs = styled('div')``
 const StyledCard = styled(MuiCard)(({ variants }) => ({
     ...(variants === 'board' && {
-        height: '75%',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         boxSizing: 'border-box',
