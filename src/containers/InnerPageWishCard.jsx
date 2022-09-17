@@ -82,6 +82,7 @@ const InnerPageWishCard = () => {
 }
 export default InnerPageWishCard
 const WrapperAll = styled('div')`
+    margin-top: 100px;
     display: flex;
     padding: 20px;
     max-width: 1046px;

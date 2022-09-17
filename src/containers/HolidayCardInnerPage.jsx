@@ -16,6 +16,11 @@ import {
 import { getHoliday } from '../store/slices/HolidayActions'
 import { getHolidayWish } from '../store/slices/HolidayGiftsActions'
 
+const Image = (props) => {
+    const { alt, ...otherProps } = props
+
+    return <img alt={alt} {...otherProps} />
+}
 const HolidayCardInnerPage = () => {
     const { holidayGifts } = useParams()
     const dispatch = useDispatch()
@@ -75,7 +80,7 @@ const HolidayCardInnerPage = () => {
                 </GiftCardDiv>
             ) : (
                 <NotFound>
-                    <NotHolidayImage />
+                    <Image src={NotHolidayImage} alt="photo" />
                     <p style={{ textAlign: 'center' }}>
                         Еще нет желаний связанных с этим праздником
                     </p>

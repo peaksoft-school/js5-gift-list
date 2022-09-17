@@ -3,84 +3,80 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
 
-import BasicModal from '../components/ui/BasicModal'
-import Button from '../components/ui/Button'
-import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
-import ImagePicker from '../components/ui/ImagePicker'
-import Input from '../components/ui/Input'
-import { postHoliday } from '../store/slices/HolidayActions'
+import BasicModal from '../../components/ui/BasicModal'
+import Button from '../../components/ui/Button'
+import ImagePicker from '../../components/ui/ImagePicker'
+import Input from '../../components/ui/Input'
+import { mailingAction } from '../../store/slices/mailingAction'
 
-const AddHolidayModal = (props) => {
+const CreatingMailingList = (props) => {
     const { open, onClose } = props
     const [photo, setPhoto] = useState(null)
-    const [holidayName, setHolidayName] = useState('')
-    const [holidayDate, setHolidayDate] = useState(null)
+    const [mailingTitle, setMailingTitle] = useState('')
+    const [mailingText, setMailingText] = useState('')
     const dispatch = useDispatch()
     const onChangeImageValue = (file) => {
-        // eslint-disable-next-line no-debugger
         if (file.size <= 1000000) {
             setPhoto(file)
         }
     }
-    const onChangeInputValue = (e) => {
-        setHolidayName(e.target.value)
+    const onChangeInputTitle = (e) => {
+        setMailingTitle(e.target.value)
     }
-    const onChangeDateValue = (date) => {
-        setHolidayDate(date)
+    const onChangeInputText = (e) => {
+        setMailingText(e.target.value)
     }
-
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(
-            postHoliday({
+            mailingAction({
                 photo,
-                holidayName,
-                date: holidayDate,
+                mailingTitle,
+                mailingText,
                 onClose,
             })
         )
         setPhoto(null)
-        setHolidayName('')
-        setHolidayDate(null)
+        setMailingTitle('')
+        setMailingText('')
     }
-
     return (
         <BasicModal open={open} onClose={onClose}>
             <form onSubmit={submitHandler}>
                 <ModalChildDiv>
-                    <AddTitle>Добавление праздника</AddTitle>
-                    <ImagePicker
-                        onChange={onChangeImageValue}
-                        id="addHolidayImagePicker"
-                    />
+                    <AddTitle>Создание рассылки</AddTitle>
+                    <ImagePicker onChange={onChangeImageValue} />
                     <InModalChildDiv>
                         <LabelInputDiv>
-                            <label htmlFor="Название праздника">
-                                Название праздника
-                            </label>
+                            <label htmlFor="Заголовок">Заголовок</label>
                             <Input
-                                name="add"
-                                value={holidayName}
-                                onChange={onChangeInputValue}
+                                name="Заголовок"
+                                value={mailingTitle}
+                                onChange={onChangeInputTitle}
                                 type="text"
-                                placeholder="Введите название праздника"
+                                placeholder="Введите заголовок рассылки"
                             />
                         </LabelInputDiv>
-
                         <DateDiv>
-                            <ViewsDatePicker
-                                width="100%"
-                                value={holidayDate}
-                                onChange={onChangeDateValue}
-                                label="Дата праздника"
-                                placeholder="Укажите дату праздника"
-                            />
+                            <LabelInputDiv>
+                                <label htmlFor="Текст рассылки">
+                                    Текст рассылки
+                                </label>
+                                <Input
+                                    name="Текст рассылки"
+                                    type="text"
+                                    value={mailingText}
+                                    onChange={onChangeInputText}
+                                    placeholder="Введите текст рассылки"
+                                />
+                            </LabelInputDiv>
+
                             <CancelAddDiv>
                                 <Button variant="outlined" onClick={onClose}>
                                     Отмена
                                 </Button>
                                 <Button type="submit" variant="contained">
-                                    Добавить
+                                    Отправить
                                 </Button>
                             </CancelAddDiv>
                         </DateDiv>
@@ -90,9 +86,7 @@ const AddHolidayModal = (props) => {
         </BasicModal>
     )
 }
-
-export default AddHolidayModal
-
+export default CreatingMailingList
 const ModalChildDiv = styled('div')`
     display: flex;
     flex-direction: column;
@@ -112,12 +106,10 @@ const AddTitle = styled('p')`
     margin-bottom: 24px;
     color: #23262f;
 `
-
 const LabelInputDiv = styled('div')`
     height: 56px;
     margin-top: 32px;
     margin-bottom: 24px;
-
     & label {
         padding: 0px;
         font-family: 'Inter', sans-serif;
@@ -128,7 +120,6 @@ const LabelInputDiv = styled('div')`
         color: #464444;
     }
 `
-
 const CancelAddDiv = styled('div')`
     display: flex;
     justify-content: space-between;

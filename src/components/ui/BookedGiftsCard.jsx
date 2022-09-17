@@ -17,10 +17,11 @@ export default function BookedGiftsCard({
     navigation,
     img,
     id,
+    toInnerPage,
 }) {
     const statusGift = status === 'USED' ? 'Б/У' : 'новый'
     return (
-        <StyledCard>
+        <StyledCard onClick={toInnerPage}>
             <StyledCardContentFirst>
                 <Div>
                     <StyledAvatar alt="Cindy Baker" src={avatar} />
@@ -44,7 +45,7 @@ export default function BookedGiftsCard({
 }
 
 const StyledCard = styled(MuiCard)`
-    width: 29%;
+    width: 28%;
     height: 31%;
     margin: 1%;
     padding: 1%;
