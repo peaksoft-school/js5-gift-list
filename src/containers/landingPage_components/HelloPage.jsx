@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import landingFacebook from '../../assets/icons/landingFacebook.svg'
@@ -9,11 +10,38 @@ import groupPhotoLeft from '../../assets/images/groupPhotoLeft.png'
 import groupPhotoRight from '../../assets/images/groupPhotoRight.png'
 import SingIn from '../../components/authorization/SignIn'
 import Button from '../../components/ui/Button'
+import { actionAuth } from '../../store/slices/AuthSlice'
+import {
+    GIFTLIST_AUTH,
+    GIFTLIST_REMEMBER,
+} from '../../utils/constants/constants'
 
 const HelloPage = ({ signupHandler }) => {
     const [signInState, setSignInState] = useState(false)
+    const dispatch = useDispatch()
+
     const signInHandler = () => {
         setSignInState(true)
+        const user = localStorage.getItem(GIFTLIST_REMEMBER)
+        const { jwt, id, firstName, lastName, role, email, checked } =
+            JSON.parse(user)
+
+        if (checked) {
+            localStorage.setItem(
+                GIFTLIST_AUTH,
+                JSON.stringify({ jwt, id, firstName, lastName, role, email })
+            )
+            dispatch(
+                actionAuth.baseAuth({
+                    jwt,
+                    id,
+                    firstName,
+                    lastName,
+                    role,
+                    email,
+                })
+            )
+        }
     }
     const downPage = () => {
         window.scrollTo({

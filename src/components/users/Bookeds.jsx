@@ -1,7 +1,5 @@
 import React from 'react'
 
-const Bookeds = () => {
+export const Bookeds = () => {
     return <div>Bookeds </div>
 }
-
-export default Bookeds

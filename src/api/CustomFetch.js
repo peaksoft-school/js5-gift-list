@@ -1,8 +1,9 @@
-import store from '../store'
+import { store } from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
 export const appFetch = async (data) => {
     const { authSlice } = store.getState()
+    console.log(data)
     try {
         const requestOptions = {
             method: data.method || 'GET',
@@ -25,6 +26,26 @@ export const appFetch = async (data) => {
         }
         return response.json()
     } catch (error) {
-        return error
+        console.log(error)
+        throw error
+    }
+}
+export const appFetchFile = async (config) => {
+    const { authSlice } = store.getState()
+    try {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${authSlice.user.jwt || ''}`,
+            },
+            body: config.body,
+        }
+        const response = await fetch(URL_BASE + config.url, requestOptions)
+        if (!response.ok) {
+            throw new Error(response.message)
+        }
+        return response.json()
+    } catch (error) {
+        return new Error(error.message)
     }
 }

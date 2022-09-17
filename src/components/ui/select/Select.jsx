@@ -1,86 +1,102 @@
-import { Selects } from 'react-select'
-import styled from 'styled-components'
+import { useState } from 'react'
 
-const Select = ({ placeholder, label, options, ...props }) => {
-    const colourStyles = {
-        control: (style, { isFocused }) => ({
-            ...style,
-            backgroundColor: 'white',
-            borderRadius: '6px',
-            boxShadow: 'none',
-            border: `${props.border}`,
-            borderColor: isFocused ? '#8639B5;' : style.borderColor,
-            '&:hover': {
-                borderColor: isFocused ? '#8639B5;' : style.borderColor,
-            },
-        }),
-        option: (styles, { isSelected, isFocused }) => {
-            return {
-                ...styles,
-                backgroundColor: isSelected && 'rgba(189, 68, 205, 0.4);',
-                ':hover': {
-                    ...styles[':hover'],
-                    backgroundColor: isFocused && 'rgba(134, 57, 181, 0.2);',
-                },
-            }
-        },
-        placeholder: (provided) => ({
-            ...provided,
-            fontFamily: 'Inter;',
-            fontStyle: 'normal;',
-            fontWeight: '300;',
-            fontSize: '16px;',
-            lineHeight: '19px;',
-        }),
+import { createTheme, ThemeProvider } from '@mui/material'
+import Box from '@mui/material/Box'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import { styled } from '@mui/system'
+
+export default function SelectFilter(props) {
+    const [text, settext] = useState('')
+    const handleChange = (event) => {
+        settext(event.target.value)
     }
     return (
-        <SelectDiv>
-            <Label htmlFor={label}>{label}</Label>
-            <StyleSelect
-                placeholder={placeholder}
-                options={options}
-                styles={colourStyles}
-                {...props}
-            />
-        </SelectDiv>
+        <div>
+            <ThemeProvider
+                theme={createTheme({
+                    palette: {
+                        primary: { main: '#8639B5' },
+                        action: {
+                            hover: 'rgba(134, 57, 181, 0.2)',
+                        },
+                        '&.MuiTouchRipple-root': {
+                            backgroundColor: '#8639B5',
+                        },
+                    },
+                    components: {
+                        MuiMenuItem: {
+                            styleOverrides: {
+                                root: {
+                                    '&.Mui-selected': {
+                                        backgroundColor:
+                                            'rgba(134, 57, 181, 0.4)',
+                                    },
+                                },
+                            },
+                        },
+                    },
+                })}
+            >
+                <Box>
+                    <FormControl fullWidth>
+                        <Label>{props.label}</Label>
+                        {text === '' ? (
+                            <StyledInputLabel
+                                shrink={false}
+                                focused={false}
+                                id="item_type_label"
+                            >
+                                {props.placeholder}
+                            </StyledInputLabel>
+                        ) : null}
+                        <Select
+                            sx={{
+                                '& legend': { display: 'none' },
+                                '& fieldset': { top: 0 },
+                                minWidth: 120,
+                                height: 35,
+                            }}
+                            value={text}
+                            onChange={handleChange}
+                        >
+                            {props?.options?.map((i) => (
+                                <MenuItem
+                                    onClick={() => {
+                                        props.getValue(i)
+                                    }}
+                                    value={i.text}
+                                    key={i.id}
+                                >
+                                    {i.text}
+                                </MenuItem>
+                            ))}
+                            {props.showButton === 'button' ? (
+                                <MenuItem style={{ background: 'white' }}>
+                                    + Добавить праздник
+                                </MenuItem>
+                            ) : (
+                                ''
+                            )}
+                        </Select>
+                    </FormControl>
+                </Box>
+            </ThemeProvider>
+        </div>
     )
 }
-
-export default Select
-
-const SelectDiv = styled.div`
-    width: 396px;
-    height: 56px;
-    padding-bottom: 20px;
-
-    & .css-1okebmr-indicatorSeparator {
-        display: none;
-    }
-
-    & Select::placeholder {
-        color: #8d949e;
-        font-size: 16px;
-    }
+const StyledInputLabel = styled(InputLabel)`
+    padding: 10px 0 8px 0;
+    color: #bfc0c4;
 `
-const Label = styled.label`
-    color: #464444;
-    font-family: 'Inter';
-    font-weight: 400;
+const Label = styled('label')`
+    font-family: 'Inter', sans-serif;
     font-style: normal;
+    font-weight: 400;
     font-size: 12px;
     line-height: 15px;
-    margin-bottom: 20px;
-`
-const StyleSelect = styled(Selects)`
-    width: ${(props) => (props.width ? props.width : '396px')};
-    height: ${(props) => (props.height ? props.height : '35px')};
-    margin-top: 6px;
-    border: 1px solid #bdbdbd;
-    border-radius: 6px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    color: #020202;
+    color: #464444;
+    margin-bottom: 6px;
 `
