@@ -93,22 +93,16 @@ export const putHoliday = createAsyncThunk(
 
 export const deleteHoliday = createAsyncThunk(
     'holiday/deleteHoliday',
-    async (id, { dispatch }) => {
+    async (props, { dispatch }) => {
         try {
-            const resimg = await appFetch({
-                url: `api/file/delete?fileLink=${id.link}`,
-                method: 'DELETE',
-            })
             const response = await appFetch({
-                url: `api/holiday/${id.id}`,
+                url: `api/holiday/${props.id}`,
                 method: 'DELETE',
             })
+            props.onClose()
             showSuccessMessage('Успешное удаление')
             dispatch(getHoliday())
-            return {
-                data: response,
-                img: resimg,
-            }
+            return response
         } catch (error) {
             showErrorMessage('Вышла ошибка')
             throw new Error(error.message)

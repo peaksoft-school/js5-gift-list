@@ -8,9 +8,14 @@ import NotHolidayImage from '../assets/icons/notHoliday.png'
 import { ReactComponent as PlusIcon } from '../assets/icons/plusIcon.svg'
 import Button from '../components/ui/Button'
 import MyHolidaysCard from '../components/users/MyHolidaysCard'
-import { getHoliday, getHolidayById } from '../store/slices/HolidayActions'
+import {
+    deleteHoliday,
+    getHoliday,
+    getHolidayById,
+} from '../store/slices/HolidayActions'
 
 import AddHolidayModal from './AddHolidayModal'
+import DeleteModal from './DeleteModal'
 import EditHolidaysModal from './EditHolidaysModal'
 
 const WITHMEATBALLS = 'withMeatBalls'
@@ -25,9 +30,10 @@ const HolidaysPage = () => {
     const [holidayById, setHolidayById] = useState(params.get('id'))
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const locaionId = params.get('id')
-    const { editHoliday, addHoliday } = Object.fromEntries([...params])
-
+    const locationId = params.get('id')
+    const { editHoliday, addHoliday, deleteHolidays } = Object.fromEntries([
+        ...params,
+    ])
     const navigateToInnerPage = (id) => {
         navigate(`${id}`)
     }
@@ -54,9 +60,15 @@ const HolidaysPage = () => {
         }
     }, [holidayById, dispatch])
 
+    const openDeleteModal = (id) => {
+        setParams({ deleteHolidays: true, id })
+    }
+    const deleteHolidaysHandler = (id) => {
+        dispatch(deleteHoliday({ id, onClose: closeModalHandler }))
+    }
     return (
         <HolidayCardDiv>
-            {holiday.holiday.length ? (
+            {holiday.holiday.length && (
                 <TitleButtonWrapper>
                     <NamePage>Мои праздники</NamePage>
                     <Button
@@ -67,14 +79,19 @@ const HolidaysPage = () => {
                         Добавить праздник
                     </Button>
                 </TitleButtonWrapper>
-            ) : (
-                ''
             )}
             <AddHolidayModal
                 name="add"
                 onOpen={openAddModalHandler}
                 open={addHoliday === 'true'}
                 onClose={closeModalHandler}
+            />
+            <DeleteModal
+                openDeleteModal={openDeleteModal}
+                open={deleteHolidays === 'true'}
+                onClose={closeModalHandler}
+                deleteHolidays={deleteHolidaysHandler}
+                id={locationId}
             />
             {holiday.holiday.length ? (
                 <CardDiv>
@@ -90,6 +107,7 @@ const HolidaysPage = () => {
                                 onOpen={openEditModalHandler}
                                 navigate={() => navigateToInnerPage(el.id)}
                                 variant={WITHMEATBALLS}
+                                openDeleteModal={openDeleteModal}
                             />
                         )
                     })}
@@ -103,7 +121,7 @@ const HolidaysPage = () => {
             {editHoliday === 'true' && (
                 <EditHolidaysModal
                     name="edit"
-                    locaionId={locaionId}
+                    locaionId={locationId}
                     onOpen={openEditModalHandler}
                     onClose={closeModalHandler}
                     open={editHoliday === 'true'}

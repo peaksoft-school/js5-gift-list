@@ -7,7 +7,7 @@ import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
 import defaultimage from '../../assets/images/placeholder.webp'
 import {
-    deleteHoliday,
+    // deleteHoliday,
     getHolidayById,
 } from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
@@ -21,6 +21,7 @@ export default function MyHolidaysCard({
     getId,
     navigate,
     variant,
+    openDeleteModal,
 }) {
     const dispatch = useDispatch()
     const navigations = [
@@ -40,7 +41,9 @@ export default function MyHolidaysCard({
             icon: deleteIcon,
             title: 'Удалить',
             clickItem: (e) => {
-                dispatch(deleteHoliday({ id, link: img }))
+                // dispatch(deleteHoliday({ id, link: img }))
+                openDeleteModal(id)
+                getId(id)
                 e.stopPropagation()
             },
         },

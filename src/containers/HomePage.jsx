@@ -44,11 +44,11 @@ const HomePage = () => {
     }
 
     function cancelBookingWishHandler(id) {
-        dispatch(cancelBookingWish({ id, dispatch }))
+        dispatch(cancelBookingWish({ id }))
         setLoadSpinner(true)
     }
     const addToMyWishHandler = (id) => {
-        dispatch(addtoMyWish({ id, dispatch }))
+        dispatch(addtoMyWish({ id }))
     }
     const sendComplainToWishHandler = async () => {
         try {
@@ -100,7 +100,7 @@ const HomePage = () => {
             <HolidayCardDiv>
                 <TitleButtonWrapper>
                     <NamePage>Лента</NamePage>
-                    {homePageWishes.length ? (
+                    {homePageWishes.length && (
                         <IconDiv>
                             <ButtonBoard onClick={boardChangeHandler}>
                                 <BoardIcons fill={formatCard} />
@@ -109,8 +109,6 @@ const HomePage = () => {
                                 <ListIcons fill={formatCard} />
                             </ButtonList>
                         </IconDiv>
-                    ) : (
-                        ''
                     )}
                 </TitleButtonWrapper>
 

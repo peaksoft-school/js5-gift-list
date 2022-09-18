@@ -124,13 +124,14 @@ export const cancelBookingGift = createAsyncThunk(
 
 export const addtoMyWish = createAsyncThunk(
     'addToMyWish/addToMyWish',
-    async (obj) => {
+    async (obj, { dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'POST',
                 url: `api/wish/add/${obj.id}`,
             })
             showSuccessMessage('Успешно добавлено')
+            dispatch(getWishAction())
             obj.dispatch(getFriendProfileAction(obj.userId))
             return response
         } catch (error) {
