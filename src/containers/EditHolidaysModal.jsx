@@ -14,7 +14,7 @@ import { putHoliday } from '../store/slices/HolidayActions'
 import { clearHoliday } from '../store/slices/HolidaySlice'
 
 const EditHolidaysModal = (props) => {
-    const { open, onClose, locationId } = props
+    const { open, onClose, locationId, name } = props
     const [prevHolidayDate, setPrevHolidayDate] = useState('')
     const [prevImage, setPrevImage] = useState(null)
     const [prevName, setPrevName] = useState('')
@@ -70,6 +70,7 @@ const EditHolidaysModal = (props) => {
                             value={prevName}
                             type="text"
                             placholder="Введите название праздника"
+                            name={name}
                         />
                     </LabelInputDiv>
 

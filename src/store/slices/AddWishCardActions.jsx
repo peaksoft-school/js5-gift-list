@@ -4,6 +4,8 @@ import { format } from 'date-fns'
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
+import { getWishAction } from './HomePageActions'
+
 export const addGift = createAsyncThunk(
     'addWishCard/fetchByIdStatus',
     async ({ wishPhoto, wishGift, dispatch }) => {
@@ -58,16 +60,18 @@ export const getWishGift = createAsyncThunk('get/wishGift', async () => {
 
 export const deleteWishGift = createAsyncThunk(
     'delete/wishGift',
-    async (id) => {
+    async (id, { dispatch }) => {
         try {
             const deleteResponse = await appFetch({
                 method: 'DELETE',
                 url: `api/wish/${id}`,
             })
-            showSuccessMessage('Успешно удален!')
+            showSuccessMessage('Успешно удалено')
+            dispatch(getWishAction())
             return deleteResponse
         } catch (error) {
-            throw new Error(showErrorMessage('Что-то пошло не так'))
+            showErrorMessage('Что-то пошло не так')
+            throw new Error('Что-то пошло не так')
         }
     }
 )

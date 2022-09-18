@@ -132,7 +132,7 @@ const Img = styled('img')`
 const WrapperDiv = styled('div')`
     padding-left: 20px;
     padding-top: 50px;
-    width: 683px;
+    /* width: 100%; */
 `
 const User = styled('div')`
     align-items: center;

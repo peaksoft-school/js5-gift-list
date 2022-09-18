@@ -87,14 +87,14 @@ export const LandingPage = () => {
                             <h2 onClick={toTop}>GIFT LIST</h2>
                             <p>Социальная сеть нового поколения</p>
                             <div>
+                                <a href="https://www.facebook.com/">
+                                    <img src={facebook} alt="landing" />
+                                </a>
                                 <a href="https://vk.com/">
                                     <img src={vkontakte} alt="landing" />
                                 </a>
                                 <a href="https://www.instagram.com/">
                                     <img src={insta} alt="landing" />
-                                </a>
-                                <a href="https://www.facebook.com/">
-                                    <img src={facebook} alt="landing" />
                                 </a>
                             </div>
                         </Contacts>

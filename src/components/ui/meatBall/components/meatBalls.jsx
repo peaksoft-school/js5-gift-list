@@ -37,13 +37,13 @@ export default function MeatBalls(props) {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {props.navigations.map((el) => (
+                {props.navigations?.map((el) => (
                     <MenuItem
                         key={el.id}
                         onClick={(e) => {
                             e.stopPropagation()
-                            el.clickItem(props.id)
                             handleClose()
+                            el.clickItem(props.id)
                         }}
                     >
                         <Img src={el.icon} alt="navigation items" />

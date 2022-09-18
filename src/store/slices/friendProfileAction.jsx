@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import { appFetch } from '../../api/CustomFetch'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
+import { getWishAction } from './HomePageActions'
+
 // import { friendsAction } from './friendTabAction'
 
 export const getFriendProfileAction = createAsyncThunk(
@@ -39,21 +41,27 @@ export const addToFriendAction = createAsyncThunk(
     }
 )
 
-export const toBookWish = createAsyncThunk('toBook/toBookWish', async (obj) => {
-    const response = await appFetch({
-        method: 'POST',
-        url: `api/bookings/wish-create/${obj.id}`,
-    })
-    obj.dispatch(getFriendProfileAction(obj.userId))
-    return response
-})
+export const toBookWish = createAsyncThunk(
+    'toBook/toBookWish',
+    async (obj, { dispatch }) => {
+        const response = await appFetch({
+            method: 'POST',
+            url: `api/bookings/wish-create/${obj.id}`,
+        })
+        dispatch(getWishAction())
+        dispatch(getFriendProfileAction(obj.userId))
+        return response
+    }
+)
+
 export const cancelBookingWish = createAsyncThunk(
     'cancelBooking/cancelBookingWish',
-    async (obj) => {
+    async (obj, { dispatch }) => {
         const response = await appFetch({
             method: 'POST',
             url: `api/bookings/wish-cancel/${obj.id}`,
         })
+        dispatch(getWishAction())
         obj.dispatch(getFriendProfileAction(obj.friendId))
         return response
     }
@@ -116,13 +124,14 @@ export const cancelBookingGift = createAsyncThunk(
 
 export const addtoMyWish = createAsyncThunk(
     'addToMyWish/addToMyWish',
-    async (obj) => {
+    async (obj, { dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'POST',
                 url: `api/wish/add/${obj.id}`,
             })
             showSuccessMessage('Успешно добавлено')
+            dispatch(getWishAction())
             obj.dispatch(getFriendProfileAction(obj.userId))
             return response
         } catch (error) {

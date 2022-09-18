@@ -13,11 +13,15 @@ export const postHoliday = createAsyncThunk(
         const formatDate = format(props.date, 'yyyy-MM-dd')
         const formData = new FormData()
         try {
-            formData.set('file', props.photo)
-            const fileResponse = await appFetchFile({
-                url: 'api/file/upload',
-                body: formData,
-            })
+            let responsePhoto = null
+            if (props.photo) {
+                formData.set('file', props.photo)
+                const fileResponse = await appFetchFile({
+                    url: 'api/file/upload',
+                    body: formData,
+                })
+                responsePhoto = fileResponse.link
+            }
 
             const response = await appFetch({
                 method: 'POST',
@@ -25,7 +29,7 @@ export const postHoliday = createAsyncThunk(
                 body: {
                     date: formatDate,
                     name: props.holidayName,
-                    photo: fileResponse.link,
+                    photo: props.photo ? responsePhoto : null,
                 },
             })
             props.onClose()
@@ -89,22 +93,16 @@ export const putHoliday = createAsyncThunk(
 
 export const deleteHoliday = createAsyncThunk(
     'holiday/deleteHoliday',
-    async (id, { dispatch }) => {
+    async (props, { dispatch }) => {
         try {
-            const resimg = await appFetch({
-                url: `api/file/delete?fileLink=${id.link}`,
-                method: 'DELETE',
-            })
             const response = await appFetch({
-                url: `api/holiday/${id.id}`,
+                url: `api/holiday/${props.id}`,
                 method: 'DELETE',
             })
+            props.onClose()
             showSuccessMessage('Успешное удаление')
             dispatch(getHoliday())
-            return {
-                data: response,
-                img: resimg,
-            }
+            return response
         } catch (error) {
             showErrorMessage('Вышла ошибка')
             throw new Error(error.message)
