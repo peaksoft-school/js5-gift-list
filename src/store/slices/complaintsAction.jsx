@@ -48,12 +48,29 @@ export const getWishAction = createAsyncThunk(
 )
 
 export const getGiftAction = createAsyncThunk(
-    'complaintWish/getWishAction',
+    'complaintGift/getGiftAction',
     async (giftId) => {
         console.log(giftId)
         const response = await appFetch({
             url: `api/complaints/gift/${giftId}`,
         })
+        console.log(response)
+        return response
+    }
+)
+
+export const blockWishAction = createAsyncThunk(
+    'blockWish/blockWishAction',
+    async (id, { dispatch }) => {
+        console.log(id)
+        const response = await appFetch({
+            method: 'POST',
+            url: `api/admin/blockWish/${id}`,
+        })
+        dispatch(giftsComplaintsAction)
+        dispatch(wishesComplaintsAction)
+        dispatch(getGiftAction)
+        dispatch(getWishAction)
         console.log(response)
         return response
     }

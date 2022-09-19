@@ -22,12 +22,12 @@ export const Complaints = () => {
     const giftComplaints = useSelector(
         (state) => state.giftComplaints.complaintOnGifts
     )
-    console.log(giftComplaints)
+    // console.log(giftComplaints)
     const wishComplaints = useSelector(
         (state) => state.wishesComplaints.complaintOnWishes
     )
-    console.log(wishComplaints)
-    console.log(giftComplaints)
+    // console.log(wishComplaints)
+    // console.log(giftComplaints)
     useEffect(() => {
         dispatch(giftsComplaintsAction())
     }, [])
@@ -67,7 +67,6 @@ export const Complaints = () => {
     }
     return (
         <Div>
-            {/* <ComplaintTitle>Жалобы</ComplaintTitle> */}
             <div>
                 <div>
                     {giftComplaints?.length ? (

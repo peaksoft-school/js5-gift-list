@@ -13,26 +13,25 @@ import Button from '../ui/Button'
 
 const ComplaintsInnerPage = () => {
     const { id } = useParams()
-    console.log(id)
-    // console.log(props.onClick)
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getWishAction(id))
     }, [])
+
     useEffect(() => {
         dispatch(getGiftAction(id))
-    }, [])
-    // const wish = useSelector((state) => state)
+    }, [id])
     const giftData = useSelector((state) => state.complaintGift.complaintGift)
     const wishData = useSelector((state) => state.complaintWish.complaintWish)
-    const { wish } = wishData
-    console.log(wish)
+    console.log(giftData)
+    console.log(wishData)
+    const wish = wishData?.gift
     const { ownerUser } = wishData
     const { bookedUser } = wishData
-    const gift = giftData?.wish
-    const giftOwnerUser = giftData.ownerUser
-    const giftBookeduser = giftData.bookedUser
-    console.log(giftBookeduser)
+    const gift = giftData?.gift
+    const giftOwnerUser = giftData?.ownerUser
+    const giftBookeduser = giftData?.bookedUser
 
     const avatarBookedUser = () => {
         if (bookedUser) {
@@ -52,18 +51,62 @@ const ComplaintsInnerPage = () => {
         }
         return 'В ожидании'
     }
+    function complaint() {
+        if (gift?.complaints) {
+            return gift?.complaints?.map((el) => {
+                return (
+                    <>
+                        <Avatar
+                            src={el?.fromUser?.photo}
+                            alt={el?.fromUser?.firstName}
+                        />
+
+                        <UserComplainedName>
+                            <span>{el?.fromUser?.firstName}</span>
+                            <span>{el?.fromUser?.lastName}</span>
+                        </UserComplainedName>
+                        <ComplainText>{el?.text}</ComplainText>
+                    </>
+                )
+            })
+        }
+        if (wish?.complaints) {
+            return wish?.complaints.map((el) => {
+                return (
+                    <>
+                        <Avatar
+                            src={el?.fromUser?.photo}
+                            alt={el?.fromUser?.firstName}
+                        />
+                        <UserComplainedName>
+                            <span>{el?.fromUser?.firstName}</span>
+                            <span>{el?.fromUser?.lastName}</span>
+                        </UserComplainedName>
+                        <ComplainText>{el?.text}</ComplainText>
+                    </>
+                )
+            })
+        }
+        return null
+    }
+    function isUsedOrNew() {
+        if (gift?.status === 'USED') {
+            return 'Б/У'
+        }
+        if (gift?.status === 'NEW') {
+            return 'Новый'
+        }
+        return null
+    }
     return (
         <div>
             <RouteTitle>
                 Жалобы/
-                <RouteNameTitle>
-                    {/* {wish?.wishName || gift?.wishName} */}
-                    {gift?.wishName || wish?.wishName}
-                </RouteNameTitle>
+                <RouteNameTitle>{wish?.wishName || gift?.name}</RouteNameTitle>
             </RouteTitle>
             <div style={styleForCard}>
                 <Img
-                    src={wish?.photo || gift?.photo}
+                    src={gift?.photo || wish?.photo}
                     alt={wish?.wishName || gift?.wishName}
                 />
                 <WrapperDiv>
@@ -75,12 +118,15 @@ const ComplaintsInnerPage = () => {
                             }
                         />
                         <UserName>
-                            {ownerUser?.firstName || giftOwnerUser?.firstName}
+                            <span>
+                                {' '}
+                                {ownerUser?.firstName ||
+                                    giftOwnerUser?.firstName}
+                            </span>
+                            <span>
+                                {ownerUser?.lastName || giftOwnerUser?.lastName}
+                            </span>
                         </UserName>
-                        {/* <UserName>
-                            {ownerUser?.lastName || giftOwnerUser?.lastName}
-                        </UserName> */}
-
                         <StyledToBookUserDiv>
                             <ToBookUserAvatar
                                 src={avatarBookedUser()}
@@ -92,40 +138,49 @@ const ComplaintsInnerPage = () => {
                     <StyledH1>{wish?.wishName || gift?.wishName}</StyledH1>
                     <Styledp>{wish?.description || gift?.description}</Styledp>
                     <WrapperNameGiftAndDate>
-                        <NameGift>Категория:</NameGift>
-                        <DateGift>Состояние:</DateGift>
+                        {gift?.category ? (
+                            <>
+                                <NameGift>Категория:</NameGift>
+                                <DateGift>Состояние:</DateGift>{' '}
+                            </>
+                        ) : (
+                            ''
+                        )}
                     </WrapperNameGiftAndDate>
                     <WrapperPropsGiftAndDate>
-                        <NameGiftProps>Одежда</NameGiftProps>
-                        <DateGiftProps>Новый</DateGiftProps>
+                        {gift?.category ? (
+                            <>
+                                <NameGiftProps>
+                                    {gift?.category?.name}
+                                </NameGiftProps>
+                                {gift?.status ? (
+                                    <DateGiftProps>
+                                        {isUsedOrNew()}
+                                    </DateGiftProps>
+                                ) : (
+                                    ''
+                                )}
+                            </>
+                        ) : (
+                            ''
+                        )}
                     </WrapperPropsGiftAndDate>
                     <WrapperNameGiftAndDate>
-                        <NameGift>Подкатегория:</NameGift>
+                        {gift?.subCategory ? (
+                            <NameGift>Подкатегория:</NameGift>
+                        ) : (
+                            ''
+                        )}
                         <DateGift>Дата добавления:</DateGift>
                     </WrapperNameGiftAndDate>
                     <WrapperPropsGiftAndDate>
-                        <NameGiftProps>Часы</NameGiftProps>
-                        <DateGiftProps>2022-08-23</DateGiftProps>
+                        <NameGiftProps>{gift?.subCategory?.name}</NameGiftProps>
+                        <DateGiftProps>
+                            {wish?.wishDate || gift?.createdAt}
+                        </DateGiftProps>
                     </WrapperPropsGiftAndDate>
                     <WrapperButtons>
-                        <ComplainUserContainer>
-                            <div>
-                                <Avatar
-                                    src="https://giftlist-bucket.s3.amazonaws.com/1661869658858user_photo1.jpg"
-                                    alt="avatar"
-                                />
-                            </div>
-                            <div>
-                                <UserComplainedName>
-                                    Бекжанова Кунзаада
-                                </UserComplainedName>
-                                <ComplainText>
-                                    Нелегальные действия или регламентированные
-                                    товары
-                                </ComplainText>
-                            </div>
-                        </ComplainUserContainer>
-
+                        {complaint()}
                         <div>
                             <Button>Заблокировать</Button>
                         </div>
@@ -169,11 +224,16 @@ const StyledAvatar = styled(Avatar)`
 const UserComplainedName = styled('h2')`
     margin-left: 10px;
     margin-top: -4px;
+    span {
+        padding: 3px;
+    }
 `
 const UserName = styled('h2')`
-    /* display: flex; */
     box-sizing: border-box;
     margin: 0;
+    span {
+        padding: 3px;
+    }
 `
 const ToBooking = styled('p')`
     display: flex;
@@ -238,9 +298,15 @@ const ComplainText = styled('p')`
     margin-left: 11px;
 `
 const WrapperButtons = styled('div')`
-    display: flex;
+    h2 {
+        margin-top: -38px;
+        margin-left: 40px;
+    }
+    p {
+        margin-left: 40px;
+    }
     & button {
-        margin-left: 90px;
+        margin-left: 550px;
     }
 `
 const ToBookUserAvatar = styled(Avatar)`
@@ -248,9 +314,6 @@ const ToBookUserAvatar = styled(Avatar)`
     width: 20px;
 `
 const StyledToBookUserDiv = styled('div')`
-    display: flex;
-`
-const ComplainUserContainer = styled('div')`
     display: flex;
 `
 const RouteTitle = styled('p')`
