@@ -7,10 +7,10 @@ import SearchSelect from './SearchSelect'
 
 const SearchInputwithSelect = ({
     stateOption,
-    category,
-    subCategory,
-    country,
+    categories,
+    subCategories,
     onChange,
+    showSubCategory,
 }) => {
     const [isActived, setISActived] = useState(false)
     const [isFocused, setIsFocused] = useState('')
@@ -61,29 +61,23 @@ const SearchInputwithSelect = ({
                 <SearchSelect
                     valueKey="id"
                     labelKey="name"
-                    options={category}
+                    options={categories}
                     onChange={(newVaal) => changeHandler('category', newVaal)}
                     value={value.category}
                     category="Категория"
                 />
-                <SearchSelect
-                    valueKey="id"
-                    labelKey="name"
-                    options={subCategory}
-                    onChange={(newVaal) =>
-                        changeHandler('subCategory', newVaal)
-                    }
-                    value={value.subCategory}
-                    category="Подкатегория"
-                />
-                <SearchSelect
-                    valueKey="id"
-                    labelKey="name"
-                    options={country}
-                    onChange={(newVaal) => changeHandler('country', newVaal)}
-                    value={value.country}
-                    category="Страна"
-                />
+                {showSubCategory && (
+                    <SearchSelect
+                        valueKey="id"
+                        labelKey="name"
+                        options={subCategories}
+                        onChange={(newVaal) =>
+                            changeHandler('subCategory', newVaal)
+                        }
+                        value={value.subCategory}
+                        category="Подкатегория"
+                    />
+                )}
             </SelectContainer>
         </StyleDiv>
     )
@@ -97,6 +91,7 @@ const SelectContainer = styled.div`
 `
 
 const StyleDiv = styled.div`
+    /* margin-right: 300px; */
     width: 821px;
     height: 40px;
     border: 1px solid #bdbdbd;

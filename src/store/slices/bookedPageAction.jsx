@@ -7,7 +7,7 @@ export const getBookedWishes = createAsyncThunk(
     'bookedWishesCard/getBookedWishes',
     async () => {
         try {
-            const response = appFetch({
+            const response = await appFetch({
                 url: 'api/bookings/wishes',
             })
             return response

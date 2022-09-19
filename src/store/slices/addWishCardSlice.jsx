@@ -10,11 +10,12 @@ import {
 } from './AddWishCardActions'
 
 const initialState = {
-    card: [],
+    cards: [],
     dataWishCardWithId: {},
     holidaysToSelect: [],
     status: null,
     deleteId: false,
+    photo: '',
 }
 
 export const AddWishCardSlice = createSlice({
@@ -38,7 +39,7 @@ export const AddWishCardSlice = createSlice({
             state.status = 'rejected'
         },
         [getWishGift.fulfilled]: (state, { payload }) => {
-            state.card = payload.reverse()
+            state.cards = payload.reverse()
             state.status = 'success'
         },
         [deleteWishGift.pending]: (state) => {

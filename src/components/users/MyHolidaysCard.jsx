@@ -7,12 +7,10 @@ import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
 import defaultimage from '../../assets/images/placeholder.webp'
 import {
-    deleteHoliday,
+    // deleteHoliday,
     getHolidayById,
 } from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
-
-const WITHMEATBALLS = 'WITHMEATBALLS'
 
 export default function MyHolidaysCard({
     id,
@@ -23,6 +21,7 @@ export default function MyHolidaysCard({
     getId,
     navigate,
     variant,
+    openDeleteModal,
 }) {
     const dispatch = useDispatch()
     const navigations = [
@@ -30,18 +29,22 @@ export default function MyHolidaysCard({
             id: '1',
             icon: editIcon,
             title: 'Редактировать',
-            clickItem: () => {
+            clickItem: (e) => {
                 onOpen(id)
                 getId(id)
                 dispatch(getHolidayById(id))
+                e.stopPropagation()
             },
         },
         {
             id: '2',
             icon: deleteIcon,
             title: 'Удалить',
-            clickItem: () => {
-                dispatch(deleteHoliday({ id, link: img }))
+            clickItem: (e) => {
+                // dispatch(deleteHoliday({ id, link: img }))
+                openDeleteModal(id)
+                getId(id)
+                e.stopPropagation()
             },
         },
     ]
@@ -59,7 +62,7 @@ export default function MyHolidaysCard({
             </HolidayTitleDiv>
             <StyledFooter>
                 <StyledDate>{date}</StyledDate>
-                {variant === WITHMEATBALLS && (
+                {variant && (
                     <MeatBallsWrapper onClick={(e) => e.stopPropagation()}>
                         <MeatBalls navigations={navigations} />
                     </MeatBallsWrapper>

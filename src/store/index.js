@@ -2,6 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 
 import addCharity from './slices/AddCharity'
 import { AddWishCardSlice } from './slices/addWishCardSlice'
+// eslint-disable-next-line import/no-cycle
+import charitySearching from './slices/admin/charitySlice'
+import usersCardSlice from './slices/admin/usersPageSlice'
 import { authSlice } from './slices/AuthSlice'
 import bookedPageSlice from './slices/bookedPageSlice'
 import {
@@ -14,6 +17,7 @@ import friendProfileSlice from './slices/friendProfileSlice'
 import { requestToFriendSlice, friendsSlice } from './slices/friendTabSlice'
 import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
 import HolidaySlice from './slices/HolidaySlice'
+import HomePageSlice from './slices/HomePageSlice'
 import getUserSlice from './slices/mainSearchSlise'
 
 export const store = configureStore({
@@ -32,6 +36,9 @@ export const store = configureStore({
         wishesComplaints: wishesComplaintsSlice.reducer,
         complaintWish: getComlaintWishSlice.reducer,
         complaintGift: getComplaintGiftSlice.reducer,
+        homePageWishes: HomePageSlice.reducer,
+        usersCard: usersCardSlice.reducer,
+        searching: charitySearching.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

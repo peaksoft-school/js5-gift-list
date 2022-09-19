@@ -20,7 +20,7 @@ const StyleBox = styled(Box)`
     padding: 24px 32px;
     font-weight: 500;
     font-size: 24px;
-    color: #23262f;
+    color: #88898b;
     background-color: white;
     border-radius: 10px;
     outline: none;

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
 import { appFetch } from '../../api/CustomFetch'
+import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 export const giftsComplaintsAction = createAsyncThunk(
     'complaints/giftsComplaints',
@@ -59,19 +60,88 @@ export const getGiftAction = createAsyncThunk(
     }
 )
 
-export const blockWishAction = createAsyncThunk(
+export const toBlockWishAction = createAsyncThunk(
     'blockWish/blockWishAction',
     async (id, { dispatch }) => {
-        console.log(id)
-        const response = await appFetch({
-            method: 'POST',
-            url: `api/admin/blockWish/${id}`,
-        })
-        dispatch(giftsComplaintsAction)
-        dispatch(wishesComplaintsAction)
-        dispatch(getGiftAction)
-        dispatch(getWishAction)
-        console.log(response)
-        return response
+        try {
+            console.log(id)
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/admin/blockWish/${id}`,
+            })
+            dispatch(giftsComplaintsAction)
+            dispatch(wishesComplaintsAction)
+            dispatch(getGiftAction)
+            dispatch(getWishAction)
+            console.log(response)
+            return response
+        } catch (error) {
+            return showErrorMessage('Что-то пошло не так')
+        }
+    }
+)
+
+export const unBlockWishAction = createAsyncThunk(
+    'unBlockWish/unBlockWishAction',
+    async (id, { dispatch }) => {
+        try {
+            console.log(id)
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/admin/unBlockWish/${id}`,
+            })
+            dispatch(giftsComplaintsAction)
+            dispatch(wishesComplaintsAction)
+            dispatch(getGiftAction)
+            dispatch(getWishAction)
+            console.log(response)
+            showSuccessMessage('Успешно разблокирован!')
+            return response
+        } catch (error) {
+            return showErrorMessage('Что-то пошло не так')
+        }
+    }
+)
+
+export const toBlockGiftAction = createAsyncThunk(
+    'blockGift/toBlockGiftAction',
+    async (id, { dispatch }) => {
+        try {
+            console.log(id)
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/admin/blockGift/${id}`,
+            })
+            dispatch(giftsComplaintsAction)
+            dispatch(wishesComplaintsAction)
+            dispatch(getGiftAction)
+            dispatch(getWishAction)
+            console.log(response)
+            return response
+        } catch (error) {
+            return showErrorMessage('Что-то пошло не так')
+        }
+    }
+)
+
+export const unBlockGiftAction = createAsyncThunk(
+    'unBlockGift/unBlockGiftAction',
+    async (id, { dispatch }) => {
+        try {
+            console.log(id)
+            const response = await appFetch({
+                method: 'PUT',
+                url: `api/admin/unBlockGift/${id}`,
+            })
+            dispatch(giftsComplaintsAction)
+            dispatch(wishesComplaintsAction)
+            dispatch(getGiftAction)
+            dispatch(getWishAction)
+            console.log(response)
+            showSuccessMessage('Успешно разблокирован!')
+            return response
+        } catch (error) {
+            return showErrorMessage('Что-то пошло не так')
+        }
     }
 )

@@ -5,11 +5,11 @@ import Avatar from '@mui/material/Avatar'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import Button from '../../components/ui/Button'
 import {
     getGiftAction,
     getWishAction,
 } from '../../store/slices/complaintsAction'
-import Button from '../ui/Button'
 
 const ComplaintsInnerPage = () => {
     const { id } = useParams()
@@ -24,9 +24,9 @@ const ComplaintsInnerPage = () => {
     }, [id])
     const giftData = useSelector((state) => state.complaintGift.complaintGift)
     const wishData = useSelector((state) => state.complaintWish.complaintWish)
-    console.log(giftData)
-    console.log(wishData)
-    const wish = wishData?.gift
+    // console.log(giftData)
+    // console.log(wishData)
+    const wish = wishData?.wish
     const { ownerUser } = wishData
     const { bookedUser } = wishData
     const gift = giftData?.gift
@@ -97,6 +97,9 @@ const ComplaintsInnerPage = () => {
             return 'Новый'
         }
         return null
+    }
+    const isBlockHandler = () => {
+        dispatch()
     }
     return (
         <div>
@@ -182,7 +185,9 @@ const ComplaintsInnerPage = () => {
                     <WrapperButtons>
                         {complaint()}
                         <div>
-                            <Button>Заблокировать</Button>
+                            <Button onClick={isBlockHandler}>
+                                Заблокировать
+                            </Button>
                         </div>
                     </WrapperButtons>
                 </WrapperDiv>

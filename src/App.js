@@ -1,12 +1,19 @@
+import { useEffect } from 'react'
+
+import AOS from 'aos'
+
+import Notification from './components/ui/notification/Notification'
 import { AppRoutes } from './routes/AppRoutes'
 
-// import PageLayout from './layout/PageLayout'
-
 function App() {
+    useEffect(() => {
+        AOS.init()
+        AOS.refresh()
+    }, [])
     return (
         <div className="App">
             <AppRoutes />
-            {/* <PageLayout /> */}
+            <Notification />
         </div>
     )
 }

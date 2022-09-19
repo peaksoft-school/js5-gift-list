@@ -7,13 +7,19 @@ import { useNavigate } from 'react-router-dom'
 import cancelBooking from '../../assets/icons/cancelBooking.svg'
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import block from '../../assets/icons/toBook.svg'
+import BookedWishesCard from '../../components/ui/BookedWishesCard'
+import {
+    toBlockGifts,
+    toUnBlockGifts,
+} from '../../store/slices/admin/charityAction'
 import {
     deleteComplaintAction,
     giftsComplaintsAction,
+    toBlockWishAction,
+    unBlockWishAction,
     wishesComplaintsAction,
     // getAllComplaintsAction,
 } from '../../store/slices/complaintsAction'
-import BookedWishesCard from '../ui/BookedWishesCard'
 
 const WITHBOTTOMTITLE = 'WITHBOTTOMTITLE'
 export const Complaints = () => {
@@ -26,16 +32,23 @@ export const Complaints = () => {
     const wishComplaints = useSelector(
         (state) => state.wishesComplaints.complaintOnWishes
     )
-    // console.log(wishComplaints)
-    // console.log(giftComplaints)
+    console.log(wishComplaints)
+    console.log(giftComplaints)
     useEffect(() => {
         dispatch(giftsComplaintsAction())
     }, [])
     useEffect(() => {
         dispatch(wishesComplaintsAction())
     }, [])
-    const meatBallsOptionBlock = [
-        { id: '1', title: 'Блокировать', icon: block, clickItem: () => {} },
+    const toBlockGift = [
+        {
+            id: '1',
+            title: 'Блокировать',
+            icon: block,
+            clickItem: (id) => {
+                toBlockGiftHandler(id)
+            },
+        },
         {
             id: '2',
             title: 'Удалить',
@@ -43,12 +56,14 @@ export const Complaints = () => {
             clickItem: (id) => deleteComplaintHandler(id),
         },
     ]
-    const meatBallsOptionsUnBlock = [
+    const unBlockGift = [
         {
             id: '1',
             title: 'Разблокировать',
             icon: cancelBooking,
-            clickItem: () => {},
+            clickItem: (id) => {
+                unBlockGiftHandler(id)
+            },
         },
         {
             id: '2',
@@ -57,12 +72,55 @@ export const Complaints = () => {
             clickItem: (id) => deleteComplaintHandler(id),
         },
     ]
+
+    const toBlockWish = [
+        {
+            id: '1',
+            title: 'Блокировать',
+            icon: block,
+            clickItem: (id) => {
+                toBlockWishHandler(id)
+            },
+        },
+        {
+            id: '2',
+            title: 'Удалить',
+            icon: deleteIcon,
+            clickItem: (id) => deleteComplaintHandler(id),
+        },
+    ]
+    const unBlockWish = [
+        {
+            id: '1',
+            title: 'Разблокировать',
+            icon: cancelBooking,
+            clickItem: (id) => {
+                unBlockWishHandler(id)
+            },
+        },
+        {
+            id: '2',
+            title: 'Удалить',
+            icon: deleteIcon,
+            clickItem: (id) => deleteComplaintHandler(id),
+        },
+    ]
+    function toBlockWishHandler(id) {
+        dispatch(toBlockWishAction(id))
+    }
+    function unBlockWishHandler(id) {
+        dispatch(unBlockWishAction(id))
+    }
+    function toBlockGiftHandler(id) {
+        dispatch(toBlockGifts(id))
+    }
+    function unBlockGiftHandler(id) {
+        dispatch(toUnBlockGifts(id))
+    }
     const deleteComplaintHandler = (complaintId) => {
-        console.log(complaintId)
         dispatch(deleteComplaintAction({ complaintId, dispatch }))
     }
     const goToInnerPage = (id) => {
-        console.log(id)
         navigate(`/complaints/${id}`)
     }
     return (
@@ -86,8 +144,8 @@ export const Complaints = () => {
                                 img={el?.gift?.photo}
                                 navigation={
                                     el?.gift.isBlock === false
-                                        ? meatBallsOptionBlock
-                                        : meatBallsOptionsUnBlock
+                                        ? toBlockGift
+                                        : unBlockGift
                                 }
                                 text="причина жалобы"
                                 complaintUser={el?.gift?.complaints.map(
@@ -126,8 +184,8 @@ export const Complaints = () => {
                                     img={el?.wish?.photo}
                                     navigation={
                                         el?.wish.isBlock === false
-                                            ? meatBallsOptionBlock
-                                            : meatBallsOptionsUnBlock
+                                            ? toBlockWish
+                                            : unBlockWish
                                     }
                                     text="причина жалобы"
                                     complaintUser={el?.wish?.complaints.map(

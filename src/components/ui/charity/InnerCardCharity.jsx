@@ -27,37 +27,46 @@ const InnerPage = (props) => {
     const cancelBook = () => {
         dispatch(toCancelCharity(props.data?.gift.giftId))
     }
+    const isBlocked = props.data?.gift?.isBlock
+        ? 'Разблокировать'
+        : 'Заблокировать'
+    const blockOrUnBlock = props.data?.gift?.isBlock
+        ? () => props.onClickUnBlock(props.data?.gift?.giftId)
+        : () => props.onClickBlock(props.data?.gift?.giftId)
 
     return (
         <div style={styleForCard}>
-            <Img src={props.data.gift.photo} alt="image" />
+            <Img src={props.data.gift?.photo} alt="image" />
             <WrapperDiv>
                 <User>
                     <StyledAvatar
-                        src={props.data.ownerUser.photo}
+                        src={props.data.ownerUser?.photo}
                         alt="avatar"
                     />
-                    <UserName>{props.data.ownerUser.firstName}</UserName>
+                    <UserName>
+                        {props.data.ownerUser?.firstName}{' '}
+                        {props.data.ownerUser?.lastName}
+                    </UserName>
 
                     <ToBooking>
                         {' '}
-                        {props.data.gift.booking === null
+                        {props.data.gift?.booking === null
                             ? 'в ожидании'
                             : 'забронирован'}
                     </ToBooking>
                 </User>
-                <StyledH1>{props.data.gift.name}</StyledH1>
-                <Styledp>{props.data.gift.description}</Styledp>
+                <StyledH1>{props.data.gift?.name}</StyledH1>
+                <Styledp>{props.data.gift?.description}</Styledp>
                 <WrapperNameGiftAndDate>
                     <NameGift>Категория:</NameGift>
                     <DateGift>Состояние:</DateGift>
                 </WrapperNameGiftAndDate>
                 <WrapperPropsGiftAndDate>
                     <NameGiftProps>
-                        {props.data.gift.category.name}
+                        {props.data.gift?.category?.name}
                     </NameGiftProps>
                     <DateGiftProps>
-                        {props.data.gift.status === 'USED' ? 'Б/У' : 'Новый'}
+                        {props.data.gift?.status === 'USED' ? 'Б/У' : 'Новый'}
                     </DateGiftProps>
                 </WrapperPropsGiftAndDate>
                 <WrapperNameGiftAndDate>
@@ -66,9 +75,9 @@ const InnerPage = (props) => {
                 </WrapperNameGiftAndDate>
                 <WrapperPropsGiftAndDate>
                     <NameGiftProps>
-                        {props.data.gift.subCategory.name}
+                        {props.data.gift?.subCategory?.name}
                     </NameGiftProps>
-                    <DateGiftProps>{props.data.gift.createdAt}</DateGiftProps>
+                    <DateGiftProps>{props.data?.gift?.createdAt}</DateGiftProps>
                 </WrapperPropsGiftAndDate>
                 {/* --------------------------------------------- */}
                 <WrapperButtons>
@@ -82,7 +91,7 @@ const InnerPage = (props) => {
                     )}
                     {props.notMy && (
                         <But>
-                            {props.data?.gift.booking === null && (
+                            {props.data?.gift?.booking === null && (
                                 <Button onClick={reserve}>Забронировать</Button>
                             )}
                             {props.data?.bookedUser?.userId === id && (
@@ -90,10 +99,12 @@ const InnerPage = (props) => {
                                     Отменить бронь
                                 </Button>
                             )}
-                            {props.data?.gift.booking !== null && ''}
+                            {props.data?.gift?.booking !== null && ''}
                         </But>
                     )}
-                    {props.admin && <Button>Заблокировать</Button>}
+                    {props.admin && (
+                        <Button onClick={blockOrUnBlock}>{isBlocked}</Button>
+                    )}
                 </WrapperButtons>
             </WrapperDiv>
         </div>
@@ -121,7 +132,7 @@ const Img = styled('img')`
 const WrapperDiv = styled('div')`
     padding-left: 20px;
     padding-top: 50px;
-    width: 683px;
+    /* width: 100%; */
 `
 const User = styled('div')`
     align-items: center;
