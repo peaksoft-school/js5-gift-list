@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { ReactComponent as FacebookProf } from '../../assets/icons/facebookProf.svg'
 import { ReactComponent as Facebook } from '../../assets/icons/FacebookUser.svg'
-import { ReactComponent as Instagram } from '../../assets/icons/Instagram.svg'
+import { ReactComponent as Instagram } from '../../assets/icons/grayInstagram.svg'
+import { ReactComponent as GrayTelegram } from '../../assets/icons/grayTelegram.svg'
 import { ReactComponent as InstagtamProf } from '../../assets/icons/instagramProf.svg'
 import ProfileIcon from '../../assets/icons/Profile.svg'
-import { ReactComponent as Telegram } from '../../assets/icons/Telegram.svg'
 import { ReactComponent as TelegramProf } from '../../assets/icons/telegramProf.svg'
 import { ReactComponent as VkProf } from '../../assets/icons/vkProf.svg'
 import { ReactComponent as Vk } from '../../assets/icons/VKUser.svg'
@@ -86,7 +86,7 @@ const EditProfile = () => {
                         {userInfo?.telegramLink ? (
                             <TelegramProf />
                         ) : (
-                            <Telegram />
+                            <GrayTelegram />
                         )}
                     </LinkA>
                     <LinkA href={userInfo?.vkLink || ''}>
@@ -216,6 +216,7 @@ const EditContainer = styled('div')`
     width: 1086px;
     height: 938px;
     margin-left: 20px;
+    margin-top: 100px;
 `
 
 const EditWrapper = styled('div')`

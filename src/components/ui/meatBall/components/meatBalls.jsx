@@ -10,14 +10,13 @@ import balls from '../../../../assets/images/Vector (4).png'
 export default function MeatBalls(props) {
     const [anchorEl, setAnchorEl] = useState(null)
     const open = Boolean(anchorEl)
-
     const handleClick = (event) => {
+        event.stopPropagation()
         setAnchorEl(event.currentTarget)
     }
     const handleClose = () => {
         setAnchorEl(null)
     }
-
     return (
         <div style={{ width: '30px' }}>
             <Button
@@ -39,7 +38,14 @@ export default function MeatBalls(props) {
                 }}
             >
                 {props.navigations.map((el) => (
-                    <MenuItem key={el.id} onClick={el.clickItem}>
+                    <MenuItem
+                        key={el.id}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            el.clickItem(props.id)
+                            handleClose()
+                        }}
+                    >
                         <Img src={el.icon} alt="navigation items" />
                         {el.title}
                     </MenuItem>
@@ -50,4 +56,6 @@ export default function MeatBalls(props) {
 }
 const Img = styled.img`
     margin-right: 10px;
+    width: 16px;
+    height: auto;
 `

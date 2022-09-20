@@ -26,7 +26,7 @@ export const RolePaths = {
         },
         {
             pathName: 'Забронированные',
-            path: '/bookeds',
+            path: '/bookedPage',
             icon: <Bron />,
         },
         {
@@ -48,7 +48,7 @@ export const RolePaths = {
         },
         {
             pathName: 'Благотворительность',
-            path: '/charity_users',
+            path: '/charity',
             icon: <Charity />,
         },
         {
@@ -73,10 +73,9 @@ export const DEFAULT_ROUTES = {
         LABEL: 'Страница не найдена',
     },
 }
-export const arr = [
-    { value: 'Все', label: 'Все' },
-    { value: 'Б/У', label: 'Б/У' },
-    { value: 'Новое', label: 'Новое' },
+export const array = [
+    { id: 'NEW', name: 'Новый' },
+    { id: 'USED', name: 'Б/У' },
 ]
 export const GIFTLIST_AUTH = 'GIFTLIST_AUTH'
 export const GIFTLIST_REMEMBER = 'GIFTLIST_REMEMBER'

@@ -8,15 +8,15 @@ import { useDispatch } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
 
 import facebook from '../../assets/icons/FacebookUser.svg'
-import instagram from '../../assets/icons/Instagram.svg'
-import telegram from '../../assets/icons/Telegram.svg'
+import instagram from '../../assets/icons/grayInstagram.svg'
+import telegram from '../../assets/icons/grayTelegram.svg'
 import vkontakte from '../../assets/icons/VKUser.svg'
 import Button from '../../components/ui/Button'
 import ViewsDatePicker from '../../components/ui/datePicker/ViewsDatePicker'
 import ImagePicker from '../../components/ui/ImagePicker'
 import Input from '../../components/ui/Input'
 import SizePopup from '../../components/ui/SizePopup'
-import Textarea from '../../components/ui/TextArea'
+import Textarea from '../../components/ui/Textarea'
 import { profileActions2, profileGet } from '../../store/slices/ProfileActions'
 import { optionsSize, options } from '../../utils/constants/constants'
 
@@ -51,6 +51,7 @@ const Profile = () => {
     }
     const onChangePhoto = (photo) => {
         setBasicInformation({ ...basicInformation, photo })
+        console.log(photo)
     }
 
     const allValueHandler = (e) => {
@@ -70,7 +71,7 @@ const Profile = () => {
                 console.log(res)
             })
     }, [])
-    const img = basicInformation.photo?.name ? null : basicInformation?.photo
+    // const img = basicInformation.photo?.name ? null : basicInformation?.photo
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -89,7 +90,7 @@ const Profile = () => {
     return (
         <ProfileContainer onSubmit={submitHandler}>
             <div>
-                <ImagePicker newFile={img} onChange={onChangePhoto} />
+                <ImagePicker onChange={onChangePhoto} />
             </div>
             <ProfileDiv>
                 <SizeText>Основная информация</SizeText>
@@ -312,6 +313,7 @@ const ProfileContainer = styled('form')`
     margin-left: 20px;
     padding: 12px;
     display: flex;
+    margin-top: 100px;
 `
 const ProfileDiv = styled('div')`
     margin-top: -11px;

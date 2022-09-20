@@ -84,6 +84,7 @@ export default MenuAccaunt
 
 const AccauntProfile = styled('div')`
     display: flex;
+    cursor: pointer;
 `
 const MenuMui = styled('div')`
     width: 200px;
@@ -91,6 +92,7 @@ const MenuMui = styled('div')`
     display: flex;
     align-items: center;
     margin-left: 24px;
+    cursor: pointer;
     p {
         margin-left: 6px;
     }
@@ -101,6 +103,7 @@ const MenuItem = styled('div')`
     height: 44px;
     font-family: 'Inter', sans-serif;
     align-items: center;
+    cursor: pointer;
     p {
         margin-left: 10px;
         font-family: 'Inter', sans-serif;

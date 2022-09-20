@@ -8,8 +8,8 @@ import { useDispatch } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
 
 import facebook from '../../assets/icons/FacebookUser.svg'
-import instagram from '../../assets/icons/Instagram.svg'
-import telegram from '../../assets/icons/Telegram.svg'
+import instagram from '../../assets/icons/grayInstagram.svg'
+import telegram from '../../assets/icons/grayTelegram.svg'
 import vkontakte from '../../assets/icons/VKUser.svg'
 import Button from '../../components/ui/Button'
 import ViewsDatePicker from '../../components/ui/datePicker/ViewsDatePicker'
@@ -17,7 +17,7 @@ import ImagePicker from '../../components/ui/ImagePicker'
 import Input from '../../components/ui/Input'
 import Notification from '../../components/ui/notification/Notification'
 import SizePopup from '../../components/ui/SizePopup'
-import Textarea from '../../components/ui/TextArea'
+import Textarea from '../../components/ui/Textarea'
 import { editPost, profileGet } from '../../store/slices/ProfileActions'
 import { optionsSize, options } from '../../utils/constants/constants'
 
@@ -70,7 +70,7 @@ const UserProfile = () => {
             setBasicInformation({
                 firstName: response?.firstName,
                 lastName: response?.lastName,
-                city: response?.userInfo.city,
+                city: response?.city,
                 email: response?.email,
                 phoneNumber: response?.userInfo.phoneNumber,
                 clothingSize: response?.userInfo.clothingSize,
@@ -331,6 +331,7 @@ const ProfileContainer = styled('form')`
     margin-left: 20px;
     padding: 12px;
     display: flex;
+    margin-top: 100px;
 `
 const ProfileDiv = styled('div')`
     margin-top: -11px;

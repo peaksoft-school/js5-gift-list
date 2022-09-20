@@ -44,12 +44,12 @@ export const profileActions2 = ({
                     vkLink: basicInformation.vkLink,
                 },
             })
-            showSuccessMessage('SUCCESS')
+            showSuccessMessage('Успешно добавлено')
             dispatch(profileGet())
             navigate()
             return response
         } catch (error) {
-            showErrorMessage('ERROR')
+            showErrorMessage('Вышла ошибка!')
 
             throw new Error('Что-то пошло не так')
         }
@@ -112,14 +112,14 @@ export const editPost = ({ id, basicInformation, dateOfBirth, navigate }) => {
                     vkLink: basicInformation.vkLink,
                 },
             })
-            showSuccessMessage('SUCCESS')
+            showSuccessMessage('Успешно редактирован!')
 
             dispatch(profileGet())
             navigate()
 
             return response
         } catch {
-            showErrorMessage('ERROR')
+            showErrorMessage('Вышла ошибка!')
 
             throw new Error('Что-то пошло не так')
         }
@@ -133,11 +133,10 @@ export const passwordPost = ({ allPassword, setError, setChangePassword }) => {
                 method: 'POST',
                 body: allPassword,
             })
-            showSuccessMessage('SUCCESS')
+            showSuccessMessage('пароль изменен ')
             setChangePassword(false)
             console.log(response)
         } catch (error) {
-            showErrorMessage('ERROR')
             setError('старый пароль  не правильный')
         }
     }

@@ -50,12 +50,12 @@ export const LandingPage = () => {
             <WhiteSection>
                 <Content>
                     <Div>
-                        <Statistic number="100 К+" name="Пользователей" />
+                        <Statistic number="100К+" name="Пользователей" />
                         <Statistic number="10 К+" name="Размещенных подарков" />
                         <Statistic number="15 К+" name="Подаренных подарков" />
                         <Statistic
                             number="9 К+"
-                            name="Реализованной благотворительной помощи"
+                            name="Благотворительной помощи"
                         />
                     </Div>
                     <AdvantagePage advant={advant} />
@@ -112,9 +112,6 @@ export const LandingPage = () => {
         </div>
     )
 }
-// const BoxContainer = styled.div`
-//     width: ;
-// `
 const team = [
     { job: 'Катя, ведущий дизайнер TailGroup', photo: designer },
     { job: 'Марина, маркетолог Headers Market', photo: market },
@@ -227,7 +224,6 @@ const Contacts = styled.div`
         justify-content: space-between;
         width: 116px;
         height: 22px;
-        // padding-top: 10px;
         & img {
             cursor: pointer;
         }

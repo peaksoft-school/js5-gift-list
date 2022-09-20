@@ -6,25 +6,48 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 
-import deleteIcon from '../../assets/icons/deleteIcon.svg'
-import editIcon from '../../assets/icons/editIcon.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-const navigation = [
-    { icon: editIcon, title: 'Редактировать', id: '1' },
-    { icon: deleteIcon, title: 'удалить', id: '2' },
-]
-
 export default function GiftCard(props) {
-    const { variant, image, nameGift, avatar, holiday, date, toBook, onClick } =
-        props
+    const {
+        variant,
+        image,
+        nameGift,
+        avatarBooked,
+        holiday,
+        date,
+        isBooked,
+        id,
+        navigation,
+        navigateToInnerPage,
+        idOfOwnerUser,
+    } = props
+
+    const isMyId = () => {
+        const booked = (
+            <SpanAvatar>
+                <StyledAvatar src={avatarBooked} alt="avatar" />
+                {isBooked?.userId === idOfOwnerUser
+                    ? 'Вы забронировали'
+                    : 'Забронирован'}
+            </SpanAvatar>
+        )
+        const pending = 'В ожидании'
+        if (isBooked) {
+            return booked
+        }
+        if (!isBooked) {
+            return pending
+        }
+        return booked
+    }
     return (
-        <StyledCard variants={variant}>
+        <StyledCard onClick={navigateToInnerPage} variants={variant}>
             <StyledCardMedia
                 variants={variant}
                 component="img"
                 image={image}
-                alt="green iguana"
+                alt={nameGift}
             />
             <Wrapper>
                 <StyledCardContentFirst variants={variant}>
@@ -34,11 +57,10 @@ export default function GiftCard(props) {
                 <StyledCardContentSecond variants={variant}>
                     <StyledDate variants={variant}>{date}</StyledDate>
                     <WrapperToBooking variants={variant}>
-                        <StyledAvatar src={avatar} alt="avatar" />
-                        <StyledText>{toBook}</StyledText>
+                        <StyledText>{isMyId()}</StyledText>
                     </WrapperToBooking>
                     <WrapperMeatBalls variants={variant}>
-                        <MeatBalls navigations={navigation} onClick={onClick} />
+                        <MeatBalls navigations={navigation} id={id} />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>
             </Wrapper>
@@ -61,16 +83,22 @@ const StyledAvatar = styled(Avatar)`
     width: 20px;
     height: 20px;
     margin-right: 10px;
+    display: inline-flex;
+`
+const SpanAvatar = styled('span')`
+    display: flex;
 `
 const StyledCard = styled(Card)(({ variants }) => ({
     ...(variants === 'board' && {
         width: '349px',
         height: '250px',
+        cursor: 'pointer',
     }),
     ...(variants === 'list' && {
         display: 'flex',
         width: '533px',
         height: '134px',
+        cursor: 'pointer',
     }),
 }))
 const Wrapper = styled('div')``
@@ -98,8 +126,9 @@ const StyledCardContentFirst = styled(CardContent)(({ variants }) => ({
 const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
     display: 'grid',
     ...(variants === 'board' && {
-        gridTemplateColumns: '80px 190px 10px',
+        gridTemplateColumns: '80px 194px 10px',
         padding: '10px 16px 0 16px',
+        textAlign: 'end',
     }),
     ...(variants === 'list' && {
         width: '335px',

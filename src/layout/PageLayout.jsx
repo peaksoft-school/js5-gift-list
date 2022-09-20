@@ -44,23 +44,22 @@ export const PageLayout = () => {
         </ContainerWrapper>
     )
 }
-
 const ContainerWrapper = styled('div')`
     width: 100%;
     margin: 0 auto;
 `
 const ContentWrapper = styled('div')`
-    margin-top: 100px;
-    min-height: 50vh;
+    margin-top: 30px;
+    /* min-height: 50vh; */
 `
 const Box = styled('div')`
     position: relative;
     margin: 0 auto;
-    width: 1146px;
+    width: 100%;
 `
 const Layout = styled('div')`
     display: grid;
-    grid-template-columns: 284px 1067px;
+    grid-template-columns: 293px auto;
 `
 const SideBar = styled('div')`
     background: linear-gradient(180deg, #8639b5 0%, #092056 100%);
@@ -95,12 +94,10 @@ const NavbarLink = styled(NavLink)`
     font-family: 'Inter', sans-serif;
     align-items: center;
     margin-top: 4px;
-
     div {
         display: flex;
         align-items: center;
         font-family: 'Inter', sans-serif;
-
         & :first-of-type {
             align-self: center;
         }
@@ -108,7 +105,6 @@ const NavbarLink = styled(NavLink)`
             margin-left: 15px;
         }
     }
-
     &.active {
         display: flex;
         letter-spacing: 0.01em;
@@ -117,13 +113,11 @@ const NavbarLink = styled(NavLink)`
         height: 50px;
         text-decoration: none;
         font-family: 'Inter', sans-serif;
-
         border-radius: 8px;
         position: relative;
         z-index: 10;
         div {
             display: flex;
-
             color: white;
         }
     }

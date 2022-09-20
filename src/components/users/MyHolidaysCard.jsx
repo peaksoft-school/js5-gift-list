@@ -1,45 +1,86 @@
 import * as React from 'react'
 
 import { Card, CardMedia, styled } from '@mui/material'
+import { useDispatch } from 'react-redux'
 
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
+import defaultimage from '../../assets/images/placeholder.webp'
+import {
+    deleteHoliday,
+    getHolidayById,
+} from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
-export default function MyHolidaysCard({ img, title, date }) {
+const WITHMEATBALLS = 'WITHMEATBALLS'
+
+export default function MyHolidaysCard({
+    id,
+    img,
+    title,
+    date,
+    onOpen,
+    getId,
+    navigate,
+    variant,
+}) {
+    const dispatch = useDispatch()
     const navigations = [
         {
             id: '1',
             icon: editIcon,
             title: 'Редактировать',
-            clickItem: () => {},
+            clickItem: () => {
+                onOpen(id)
+                getId(id)
+                dispatch(getHolidayById(id))
+            },
         },
-        { id: '2', icon: deleteIcon, title: 'Удалить', clickItem: () => {} },
+        {
+            id: '2',
+            icon: deleteIcon,
+            title: 'Удалить',
+            clickItem: () => {
+                dispatch(deleteHoliday({ id, link: img }))
+            },
+        },
     ]
-
+    const image = {
+        image: img,
+    }
+    if (!img) {
+        image.image = defaultimage
+    }
     return (
-        <StyledCard>
-            <StyledCardMedia alt="green iguana" image={img} />
+        <StyledCard onClick={navigate}>
+            <StyledCardMedia alt={title} image={image.image} />
             <HolidayTitleDiv>
                 <HolidayTitle>{title}</HolidayTitle>
             </HolidayTitleDiv>
             <StyledFooter>
                 <StyledDate>{date}</StyledDate>
-                <MeatBalls navigations={navigations} />
+                {variant === WITHMEATBALLS && (
+                    <MeatBallsWrapper onClick={(e) => e.stopPropagation()}>
+                        <MeatBalls navigations={navigations} />
+                    </MeatBallsWrapper>
+                )}
             </StyledFooter>
         </StyledCard>
     )
 }
+const MeatBallsWrapper = styled('div')`
+    width: auto;
+`
 const StyledCard = styled(Card)`
     box-sizing: border-box;
-    width: 349px;
-    height: 250px;
+    width: 100%;
+    height: 38vh;
     border-radius: 8px;
     padding: 16px;
 `
 const StyledCardMedia = styled(CardMedia)`
-    width: 317px;
-    height: 149px;
+    width: 100%;
+    height: 67%;
     border-radius: 6px;
 `
 const HolidayTitleDiv = styled('div')`
