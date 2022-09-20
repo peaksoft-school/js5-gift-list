@@ -8,14 +8,16 @@ import cancelBooking from '../../assets/icons/cancelBooking.svg'
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import block from '../../assets/icons/toBook.svg'
 import BookedWishesCard from '../../components/ui/BookedWishesCard'
-import {
-    toBlockGifts,
-    toUnBlockGifts,
-} from '../../store/slices/admin/charityAction'
+// import {
+//     toBlockGifts,
+//     toUnBlockGifts,
+// } from '../../store/slices/admin/charityAction'
 import {
     deleteComplaintAction,
     giftsComplaintsAction,
+    toBlockGiftAction,
     toBlockWishAction,
+    unBlockGiftAction,
     unBlockWishAction,
     wishesComplaintsAction,
     // getAllComplaintsAction,
@@ -106,16 +108,20 @@ export const Complaints = () => {
         },
     ]
     function toBlockWishHandler(id) {
-        dispatch(toBlockWishAction(id))
+        console.log(id)
+        dispatch(toBlockWishAction({ id, dispatch }))
     }
     function unBlockWishHandler(id) {
-        dispatch(unBlockWishAction(id))
+        console.log(id)
+        dispatch(unBlockWishAction({ id, dispatch }))
     }
     function toBlockGiftHandler(id) {
-        dispatch(toBlockGifts(id))
+        console.log(id)
+        dispatch(toBlockGiftAction(id))
     }
     function unBlockGiftHandler(id) {
-        dispatch(toUnBlockGifts(id))
+        console.log(id)
+        dispatch(unBlockGiftAction(id))
     }
     const deleteComplaintHandler = (complaintId) => {
         dispatch(deleteComplaintAction({ complaintId, dispatch }))
@@ -136,17 +142,13 @@ export const Complaints = () => {
                         {giftComplaints?.map((el) => (
                             <BookedWishesCard
                                 key={el?.gift?.giftId}
-                                id={el?.gift?.complaints.map(
-                                    (el) => el?.complaintId
-                                )}
+                                // id={el?.gift?.complaints.map(
+                                //     (el) => el?.complaintId
+                                // )}
+                                id={el?.gift?.giftId}
                                 giftName={el?.gift?.name}
                                 date={el?.gift?.createdAt}
                                 img={el?.gift?.photo}
-                                navigation={
-                                    el?.gift.isBlock === false
-                                        ? toBlockGift
-                                        : unBlockGift
-                                }
                                 text="причина жалобы"
                                 complaintUser={el?.gift?.complaints.map(
                                     (el) => el?.fromUser?.photo
@@ -158,8 +160,13 @@ export const Complaints = () => {
                                 avatar={el?.ownerUser?.photo}
                                 status={el?.gift?.isBlock}
                                 onClick={() => {
-                                    goToInnerPage(el?.gift.giftId)
+                                    goToInnerPage(el?.gift?.giftId)
                                 }}
+                                navigation={
+                                    el?.gift?.isBlock === false
+                                        ? toBlockGift
+                                        : unBlockGift
+                                }
                             />
                         ))}
                     </Container>
@@ -175,9 +182,10 @@ export const Complaints = () => {
                             {wishComplaints?.map((el) => (
                                 <BookedWishesCard
                                     key={el?.wish?.wishId}
-                                    id={el?.wish?.complaints.map(
-                                        (el) => el?.complaintId
-                                    )}
+                                    // id={el?.wish?.complaints.map(
+                                    //     (el) => el?.complaintId
+                                    // )}
+                                    id={el?.wish?.wishId}
                                     giftName={el?.userWish?.wishName}
                                     holiday={el?.wish?.holiday?.name}
                                     date={el?.wish?.wishDate}

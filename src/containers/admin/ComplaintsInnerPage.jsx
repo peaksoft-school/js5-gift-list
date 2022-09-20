@@ -9,6 +9,10 @@ import Button from '../../components/ui/Button'
 import {
     getGiftAction,
     getWishAction,
+    toBlockGiftAction,
+    toBlockWishAction,
+    unBlockGiftAction,
+    unBlockWishAction,
 } from '../../store/slices/complaintsAction'
 
 const ComplaintsInnerPage = () => {
@@ -98,8 +102,37 @@ const ComplaintsInnerPage = () => {
         }
         return null
     }
-    const isBlockHandler = () => {
-        dispatch()
+    function isBlockTitle() {
+        if (gift?.isBlock === false) {
+            return 'Заблокировать'
+        }
+        if (gift?.isBlock === true) {
+            return 'Разблокировать'
+        }
+        if (wish?.isBlock === false) {
+            return 'Заблокировать'
+        }
+        if (wish?.isBlock === true) {
+            return 'Разблокировать'
+        }
+        return null
+    }
+    const isBlockHandler = (id) => {
+        if (gift?.isBlock === false) {
+            console.log('gift block')
+            return dispatch(toBlockGiftAction(id))
+        }
+        if (gift?.isBlock === true) {
+            console.log('gift unBlock', id)
+            return dispatch(unBlockGiftAction(id))
+        }
+        if (wish?.isBlock === false) {
+            return dispatch(toBlockWishAction({ id, dispatch }))
+        }
+        if (wish?.isBlock === true) {
+            return dispatch(unBlockWishAction({ id, dispatch }))
+        }
+        return null
     }
     return (
         <div>
@@ -185,9 +218,7 @@ const ComplaintsInnerPage = () => {
                     <WrapperButtons>
                         {complaint()}
                         <div>
-                            <Button onClick={isBlockHandler}>
-                                Заблокировать
-                            </Button>
+                            <Button>{isBlockTitle()}</Button>
                         </div>
                     </WrapperButtons>
                 </WrapperDiv>

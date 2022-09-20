@@ -62,18 +62,18 @@ export const getGiftAction = createAsyncThunk(
 
 export const toBlockWishAction = createAsyncThunk(
     'blockWish/blockWishAction',
-    async (id, { dispatch }) => {
+    async (obj) => {
         try {
-            console.log(id)
+            console.log('wish')
             const response = await appFetch({
                 method: 'PUT',
-                url: `api/admin/blockWish/${id}`,
+                url: `api/admin/blockWish/${obj.id}`,
             })
-            dispatch(giftsComplaintsAction)
-            dispatch(wishesComplaintsAction)
-            dispatch(getGiftAction)
-            dispatch(getWishAction)
-            console.log(response)
+            // obj.dispatch(giftsComplaintsAction)
+            obj.dispatch(wishesComplaintsAction)
+            // obj.dispatch(getGiftAction)
+            // obj.dispatch(getWishAction)
+            showSuccessMessage('Успешно заблокирован!')
             return response
         } catch (error) {
             return showErrorMessage('Что-то пошло не так')
@@ -83,18 +83,17 @@ export const toBlockWishAction = createAsyncThunk(
 
 export const unBlockWishAction = createAsyncThunk(
     'unBlockWish/unBlockWishAction',
-    async (id, { dispatch }) => {
+    async (obj) => {
         try {
-            console.log(id)
+            console.log('wish')
             const response = await appFetch({
                 method: 'PUT',
-                url: `api/admin/unBlockWish/${id}`,
+                url: `api/admin/unBlockWish/${obj.id}`,
             })
-            dispatch(giftsComplaintsAction)
-            dispatch(wishesComplaintsAction)
-            dispatch(getGiftAction)
-            dispatch(getWishAction)
-            console.log(response)
+            // obj.dispatch(giftsComplaintsAction)
+            obj.dispatch(wishesComplaintsAction)
+            // obj.dispatch(getGiftAction)
+            // obj.dispatch(getWishAction)
             showSuccessMessage('Успешно разблокирован!')
             return response
         } catch (error) {
@@ -113,9 +112,10 @@ export const toBlockGiftAction = createAsyncThunk(
                 url: `api/admin/blockGift/${id}`,
             })
             dispatch(giftsComplaintsAction)
-            dispatch(wishesComplaintsAction)
-            dispatch(getGiftAction)
-            dispatch(getWishAction)
+            // dispatch(wishesComplaintsAction)
+            // dispatch(getGiftAction)
+            // dispatch(getWishAction)
+            showSuccessMessage('Успешно заблокирован!')
             console.log(response)
             return response
         } catch (error) {
@@ -128,17 +128,16 @@ export const unBlockGiftAction = createAsyncThunk(
     'unBlockGift/unBlockGiftAction',
     async (id, { dispatch }) => {
         try {
-            console.log(id)
             const response = await appFetch({
                 method: 'PUT',
                 url: `api/admin/unBlockGift/${id}`,
             })
             dispatch(giftsComplaintsAction)
-            dispatch(wishesComplaintsAction)
+            // dispatch(wishesComplaintsAction)
             dispatch(getGiftAction)
-            dispatch(getWishAction)
-            console.log(response)
+            // dispatch(getWishAction)
             showSuccessMessage('Успешно разблокирован!')
+            console.log(response)
             return response
         } catch (error) {
             return showErrorMessage('Что-то пошло не так')
