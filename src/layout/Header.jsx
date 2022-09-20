@@ -96,7 +96,7 @@ export const Header = () => {
 export default Header
 
 const Headers = styled('header')`
-    width: 100%;
+    width: 80%;
     height: 86px;
     display: flex;
     align-items: center;
@@ -111,7 +111,7 @@ const WarningSpan = styled('span')`
     margin-left: 30px;
 `
 const InputDiv = styled('div')`
-    width: 60%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 `

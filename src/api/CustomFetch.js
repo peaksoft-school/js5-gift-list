@@ -8,8 +8,8 @@ import { URL_BASE } from '../utils/constants/Url'
 
 export const appFetch = async (data) => {
     const { authSlice } = store.getState()
-    console.log(data)
     try {
+        console.log(data)
         const requestOptions = {
             method: data.method || 'GET',
             headers: authSlice.user.jwt
@@ -29,7 +29,6 @@ export const appFetch = async (data) => {
         if (!response.ok) {
             throw new Error(response.message)
         }
-        // console.log(response)
 
         return response.json()
     } catch (error) {

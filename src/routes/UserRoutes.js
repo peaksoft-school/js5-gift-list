@@ -17,6 +17,7 @@ import EditWishCardPage from '../containers/EditWishCardPage'
 import FriendProfilePage from '../containers/FriendProfilePage'
 import { FriendsPage } from '../containers/FriendsPage'
 import HolidayCardInnerPage from '../containers/HolidayCardInnerPage'
+import HomePageWishCard from '../containers/HomePageWishCard'
 import InnerPageWishCard from '../containers/InnerPageWishCard'
 import EditProfile from '../containers/profile/EditProfile'
 import Profile from '../containers/profile/Profile'
@@ -31,6 +32,7 @@ const UserRoutes = () => {
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
                 <Route path="/" element={<Navigate replace to="/lenta" />} />
                 <Route path="/lenta" element={<Lenta />} />
+                <Route path="/lenta/:wishId" element={<HomePageWishCard />} />
                 <Route path="/friends" element={<FriendsPage />} />
                 <Route
                     path="/friends/:userId"

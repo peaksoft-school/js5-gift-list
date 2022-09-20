@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 import deleteIcon from '../assets/icons/deleteIcon.svg'
 import editIcon from '../assets/icons/editIcon.svg'
+import NotHolidayImage from '../assets/icons/notHoliday.png'
 import GiftCard from '../components/users/GiftCard'
 import {
     deleteWishGift,
@@ -15,6 +16,11 @@ import {
 import { getHoliday } from '../store/slices/HolidayActions'
 import { getHolidayWish } from '../store/slices/HolidayGiftsActions'
 
+const Image = (props) => {
+    const { alt, ...otherProps } = props
+
+    return <img alt={alt} {...otherProps} />
+}
 const HolidayCardInnerPage = () => {
     const { holidayGifts } = useParams()
     const dispatch = useDispatch()
@@ -52,33 +58,50 @@ const HolidayCardInnerPage = () => {
             <HolidayTitle>
                 <Title>{nameHoliday[0]?.name}</Title>
             </HolidayTitle>
-            <GiftCardDiv>
-                {holidayUserGifts?.holidayUserGifts?.holidayUserGifts?.map(
-                    (el) => {
-                        return (
-                            <GiftCard
-                                key={el.wish.wishId}
-                                id={el.wish.wishId}
-                                date={el.wish.wishDate}
-                                variant="board"
-                                nameGift={el.wish.wishName}
-                                holiday={el.wish.holiday.name}
-                                image={el.wish.photo}
-                                toBook={el.wish.booking}
-                                navigation={navigation}
-                            />
-                        )
-                    }
-                )}
-            </GiftCardDiv>
+            {holidayUserGifts?.holidayUserGifts?.holidayUserGifts.length ? (
+                <GiftCardDiv>
+                    {holidayUserGifts?.holidayUserGifts?.holidayUserGifts?.map(
+                        (el) => {
+                            return (
+                                <GiftCard
+                                    key={el.wish.wishId}
+                                    id={el.wish.wishId}
+                                    date={el.wish.wishDate}
+                                    variant="board"
+                                    nameGift={el.wish.wishName}
+                                    holiday={el.wish.holiday.name}
+                                    image={el.wish.photo}
+                                    toBook={el.wish.booking}
+                                    navigation={navigation}
+                                />
+                            )
+                        }
+                    )}
+                </GiftCardDiv>
+            ) : (
+                <NotFound>
+                    <Image src={NotHolidayImage} alt="photo" />
+                    <p style={{ textAlign: 'center' }}>
+                        Еще нет желаний связанных с этим праздником
+                    </p>
+                </NotFound>
+            )}
         </HolidayInnerDiv>
     )
 }
 
 export default HolidayCardInnerPage
 
+const NotFound = styled('p')`
+    position: absolute;
+    top: 100px;
+    text-align: center;
+    left: 0;
+    right: 0;
+    font-size: x-large;
+`
 const HolidayInnerDiv = styled('div')`
-    padding-top: 20px;
+    padding-top: 90px;
     margin-left: 20px;
     margin-right: 40px;
 `

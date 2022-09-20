@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 import { InputLabel } from '@mui/material'
-import moment from 'moment'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
@@ -60,17 +59,15 @@ const UserProfile = () => {
         })
     }
     const dateChangeHandler = (date) => {
-        const newDate = moment(date).format('YYYY-MM-DD')
-        setDateOfBirth(newDate)
+        setDateOfBirth(date)
     }
     useEffect(() => {
         const fetchData = async () => {
             const response = await dispatch(profileGet()).unwrap()
-            console.log(response)
             setBasicInformation({
                 firstName: response?.firstName,
                 lastName: response?.lastName,
-                city: response?.city,
+                city: response?.userInfo.city,
                 email: response?.email,
                 phoneNumber: response?.userInfo.phoneNumber,
                 clothingSize: response?.userInfo.clothingSize,
@@ -107,7 +104,11 @@ const UserProfile = () => {
     return (
         <ProfileContainer onSubmit={submitHandler}>
             <div>
-                <ImagePicker newFile={img} onChange={onChangePhoto} />
+                <ImagePicker
+                    newFile={img}
+                    id="editProfile"
+                    onChange={onChangePhoto}
+                />
             </div>
             <ProfileDiv>
                 <SizeText>Основная информация</SizeText>

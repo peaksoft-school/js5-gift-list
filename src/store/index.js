@@ -11,6 +11,7 @@ import friendProfileSlice from './slices/friendProfileSlice'
 import { requestToFriendSlice, friendsSlice } from './slices/friendTabSlice'
 import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
 import HolidaySlice from './slices/HolidaySlice'
+import HomePageSlice from './slices/HomePageSlice'
 import getUserSlice from './slices/mainSearchSlise'
 import profileSlice from './slices/ProfileSlice'
 
@@ -27,6 +28,7 @@ export const store = configureStore({
         holidayUserGifts: HolidayGiftsSlice.reducer,
         wishCard: AddWishCardSlice.reducer,
         bookedCards: bookedPageSlice.reducer,
+        homePageWishes: HomePageSlice.reducer,
         usersCard: usersCardSlice.reducer,
         searching: charitySearching.reducer,
     },

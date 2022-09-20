@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
 import { InputLabel } from '@mui/material'
-import moment from 'moment'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
@@ -51,7 +50,6 @@ const Profile = () => {
     }
     const onChangePhoto = (photo) => {
         setBasicInformation({ ...basicInformation, photo })
-        console.log(photo)
     }
 
     const allValueHandler = (e) => {
@@ -61,8 +59,7 @@ const Profile = () => {
         })
     }
     const dateChangeHandler = (date) => {
-        const newDate = moment(date).format('YYYY-MM-DD')
-        setDateOfBirth(newDate)
+        setDateOfBirth(date)
     }
     useEffect(() => {
         dispatch(profileGet())
@@ -71,7 +68,7 @@ const Profile = () => {
                 console.log(res)
             })
     }, [])
-    // const img = basicInformation.photo?.name ? null : basicInformation?.photo
+    const img = basicInformation.photo?.name ? null : basicInformation?.photo
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -90,7 +87,11 @@ const Profile = () => {
     return (
         <ProfileContainer onSubmit={submitHandler}>
             <div>
-                <ImagePicker onChange={onChangePhoto} />
+                <ImagePicker
+                    newFile={img}
+                    onChange={onChangePhoto}
+                    id="profile"
+                />
             </div>
             <ProfileDiv>
                 <SizeText>Основная информация</SizeText>

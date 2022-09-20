@@ -77,7 +77,6 @@ export const profileGet = createAsyncThunk(
     }
 )
 export const editPost = ({ id, basicInformation, dateOfBirth, navigate }) => {
-    console.log(basicInformation.photo)
     return async (dispatch) => {
         const formData = new FormData()
         try {
@@ -120,7 +119,6 @@ export const editPost = ({ id, basicInformation, dateOfBirth, navigate }) => {
             return response
         } catch {
             showErrorMessage('Вышла ошибка!')
-
             throw new Error('Что-то пошло не так')
         }
     }
