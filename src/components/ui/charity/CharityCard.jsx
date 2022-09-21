@@ -38,7 +38,7 @@ export default function CharityCard(props) {
                 alt="green iguana"
             />
             <StyledCardContentFirst>
-                <StyledAvatar alt="Cindy Baker" src={props.data.avatar} />
+                <StyledAvatar alt="Cindy Baker" src={props.avatar} />
                 <UserName>{props.userName}</UserName>
             </StyledCardContentFirst>
             <NameGift>
@@ -55,15 +55,25 @@ export default function CharityCard(props) {
                         src={props.bookedUser?.photo}
                     />
                     <StyledText>
-                        {props.data.booking == null
+                        {props.data.booking === null
                             ? 'в ожидании'
                             : 'забронирован'}
                     </StyledText>
-                    {props.data.booking == null && (
-                        <MeatBalls navigations={notReserved} id={props.id} />
+                    {props.data.booking === null && (
+                        <MeatDiv onClick={(e) => e.stopPropagation()}>
+                            <MeatBalls
+                                navigations={notReserved}
+                                id={props.id}
+                            />
+                        </MeatDiv>
                     )}
                     {props.bookedUser?.userId === userId && (
-                        <MeatBalls navigations={reservedByMe} id={props.id} />
+                        <MeatDiv onClick={(e) => e.stopPropagation()}>
+                            <MeatBalls
+                                navigations={reservedByMe}
+                                id={props.id}
+                            />
+                        </MeatDiv>
                     )}
                     {props.data.booking !== null && ''}
                 </Wrapper>
@@ -71,18 +81,21 @@ export default function CharityCard(props) {
         </StyledCard>
     )
 }
+const MeatDiv = styled('div')``
 const StyledCard = styled(MuiCard)(() => ({
-    // width: '97%',
-    // margin: '10px',
-    // // height: '42vh',
-    // boxSizing: 'border-box',
-    width: '100%',
-    height: '42vh',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    boxSizing: 'border-box',
+    background: '#FFFFFF',
+    border: '1px solid #FFFFFF',
+    borderRadius: '8px',
+    // height: '42vh',
     // borderRadius: '8px',
     // padding: '16px',
     // marginTop: '24px',
-    display: 'flex',
-    flexDirection: 'column',
+    // display: 'flex',
+    // flexDirection: 'column',
 }))
 const cursor = {
     cursor: 'pointer',
@@ -119,12 +132,11 @@ const StyledCardContentFirst = styled(CardContent)(() => ({
     gridTemplateColumns: '48px 168px 101px',
 }))
 const StyledCardContentSecond = styled(CardContent)(() => ({
-    height: '20px',
-    padding: '10px',
     width: 'auto',
     margin: '0px 10px',
     display: 'flex',
     alignItems: 'center',
+    alignContent: 'flex-end',
     justifyContent: 'space-between',
 }))
 const StyledCardMedia = styled(CardMedia)(() => ({

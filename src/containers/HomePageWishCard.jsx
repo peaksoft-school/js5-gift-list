@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import BreadCrumbs from '../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../components/ui/Button'
 import { deleteWishGift } from '../store/slices/AddWishCardActions'
 import {
@@ -35,13 +36,19 @@ const HomePageWishCard = () => {
     const cancelBook = () => {
         dispatch(cancelBookingWish({ id: singleWish?.wish.wishId, dispatch }))
     }
-
+    const pathTranslate = {
+        lenta: 'Лента',
+        [wishId]: singleWish?.wish?.wishName,
+    }
     return (
         <WrapperContent>
-            <p style={{ display: 'flex' }}>
+            <BreadCrumbsDiv>
+                <BreadCrumbs translate={pathTranslate} />
+            </BreadCrumbsDiv>
+            {/* <p style={{ display: 'flex' }}>
                 Лента
                 <h4 style={{ margin: '0' }}> / {singleWish?.wish?.wishName}</h4>
-            </p>
+            </p> */}
             <MainDiv>
                 <WrapperDiv>
                     <Img src={singleWish?.wish?.photo} alt="image" />
@@ -115,6 +122,10 @@ const HomePageWishCard = () => {
 }
 export default HomePageWishCard
 
+const BreadCrumbsDiv = styled.div`
+    margin-top: 40px;
+    margin-bottom: 30px;
+`
 const But = styled.div`
     & button {
         width: auto;

@@ -8,6 +8,7 @@ import {
     toBookCharity,
     toCancelCharity,
 } from '../../../store/slices/GiftActions'
+import BreadCrumbs from '../breadCrumbs/BreadCrumbs'
 import Button from '../Button'
 
 const InnerPage = (props) => {
@@ -33,97 +34,127 @@ const InnerPage = (props) => {
     const blockOrUnBlock = props.data?.gift?.isBlock
         ? () => props.onClickUnBlock(props.data?.gift?.giftId)
         : () => props.onClickBlock(props.data?.gift?.giftId)
-
+    const styleForCard = {
+        display: 'flex',
+        marginLeft: '0px',
+        maxWidth: 'auto',
+        maxHeight: '871px',
+        // margin: '30px',
+        padding: '20px',
+        // width: '90%',
+        backgroundColor: '#ffffff',
+        borderRadius: '10px',
+    }
+    const pathTranslate = {
+        charity: 'Благотворительность',
+        my: 'Мои подарки',
+        [props.data?.gift.giftId]: props.data.gift?.name,
+    }
     return (
-        <div style={styleForCard}>
-            <Img src={props.data.gift?.photo} alt="image" />
-            <WrapperDiv>
-                <User>
-                    <StyledAvatar
-                        src={props.data.ownerUser?.photo}
-                        alt="avatar"
-                    />
-                    <UserName>
-                        {props.data.ownerUser?.firstName}{' '}
-                        {props.data.ownerUser?.lastName}
-                    </UserName>
+        <div>
+            <BreadCrumbsDiv>
+                <BreadCrumbs translate={pathTranslate} />
+            </BreadCrumbsDiv>
+            <div style={styleForCard}>
+                <Img src={props.data.gift?.photo} alt="image" />
+                <WrapperDiv>
+                    <User>
+                        <StyledAvatar
+                            src={props.data.ownerUser?.photo}
+                            alt="avatar"
+                        />
+                        <UserName>
+                            {props.data.ownerUser?.firstName}{' '}
+                            {props.data.ownerUser?.lastName}
+                        </UserName>
 
-                    <ToBooking>
-                        {' '}
-                        {props.data.gift?.booking === null
-                            ? 'в ожидании'
-                            : 'забронирован'}
-                    </ToBooking>
-                </User>
-                <StyledH1>{props.data.gift?.name}</StyledH1>
-                <Styledp>{props.data.gift?.description}</Styledp>
-                <WrapperNameGiftAndDate>
-                    <NameGift>Категория:</NameGift>
-                    <DateGift>Состояние:</DateGift>
-                </WrapperNameGiftAndDate>
-                <WrapperPropsGiftAndDate>
-                    <NameGiftProps>
-                        {props.data.gift?.category?.name}
-                    </NameGiftProps>
-                    <DateGiftProps>
-                        {props.data.gift?.status === 'USED' ? 'Б/У' : 'Новый'}
-                    </DateGiftProps>
-                </WrapperPropsGiftAndDate>
-                <WrapperNameGiftAndDate>
-                    <NameGift>Подкатегория:</NameGift>
-                    <DateGift>Дата добавления:</DateGift>
-                </WrapperNameGiftAndDate>
-                <WrapperPropsGiftAndDate>
-                    <NameGiftProps>
-                        {props.data.gift?.subCategory?.name}
-                    </NameGiftProps>
-                    <DateGiftProps>{props.data?.gift?.createdAt}</DateGiftProps>
-                </WrapperPropsGiftAndDate>
-                {/* --------------------------------------------- */}
-                <WrapperButtons>
-                    {props.my && (
-                        <>
-                            <Button onClick={deleteCharity} variant="outlined">
-                                Удалить
+                        <ToBooking>
+                            {' '}
+                            {props.data.gift?.booking === null
+                                ? 'в ожидании'
+                                : 'забронирован'}
+                        </ToBooking>
+                    </User>
+                    <StyledH1>{props.data.gift?.name}</StyledH1>
+                    <Styledp>{props.data.gift?.description}</Styledp>
+                    <WrapperNameGiftAndDate>
+                        <NameGift>Категория:</NameGift>
+                        <DateGift>Состояние:</DateGift>
+                    </WrapperNameGiftAndDate>
+                    <WrapperPropsGiftAndDate>
+                        <NameGiftProps>
+                            {props.data.gift?.category?.name}
+                        </NameGiftProps>
+                        <DateGiftProps>
+                            {props.data.gift?.status === 'USED'
+                                ? 'Б/У'
+                                : 'Новый'}
+                        </DateGiftProps>
+                    </WrapperPropsGiftAndDate>
+                    <WrapperNameGiftAndDate>
+                        <NameGift>Подкатегория:</NameGift>
+                        <DateGift>Дата добавления:</DateGift>
+                    </WrapperNameGiftAndDate>
+                    <WrapperPropsGiftAndDate>
+                        <NameGiftProps>
+                            {props.data.gift?.subCategory?.name}
+                        </NameGiftProps>
+                        <DateGiftProps>
+                            {props.data?.gift?.createdAt}
+                        </DateGiftProps>
+                    </WrapperPropsGiftAndDate>
+                    {/* --------------------------------------------- */}
+                    <WrapperButtons>
+                        {props.my && (
+                            <ButtonsDiv>
+                                <ButtonBorderNone
+                                    onClick={deleteCharity}
+                                    variant="outlined"
+                                >
+                                    Удалить
+                                </ButtonBorderNone>
+                                <Button onClick={link}>Редактировать</Button>
+                            </ButtonsDiv>
+                        )}
+                        {props.notMy && (
+                            <But>
+                                {props.data?.gift?.booking === null && (
+                                    <Button onClick={reserve}>
+                                        Забронировать
+                                    </Button>
+                                )}
+                                {props.data?.bookedUser?.userId === id && (
+                                    <Button onClick={cancelBook}>
+                                        Отменить бронь
+                                    </Button>
+                                )}
+                                {props.data?.gift?.booking !== null && ''}
+                            </But>
+                        )}
+                        {props.admin && (
+                            <Button onClick={blockOrUnBlock}>
+                                {isBlocked}
                             </Button>
-                            <Button onClick={link}>Редактировать</Button>
-                        </>
-                    )}
-                    {props.notMy && (
-                        <But>
-                            {props.data?.gift?.booking === null && (
-                                <Button onClick={reserve}>Забронировать</Button>
-                            )}
-                            {props.data?.bookedUser?.userId === id && (
-                                <Button onClick={cancelBook}>
-                                    Отменить бронь
-                                </Button>
-                            )}
-                            {props.data?.gift?.booking !== null && ''}
-                        </But>
-                    )}
-                    {props.admin && (
-                        <Button onClick={blockOrUnBlock}>{isBlocked}</Button>
-                    )}
-                </WrapperButtons>
-            </WrapperDiv>
+                        )}
+                    </WrapperButtons>
+                </WrapperDiv>
+            </div>
         </div>
     )
 }
 export default InnerPage
+
+const BreadCrumbsDiv = styled.div`
+    margin-top: 60px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+`
 const But = styled.div`
     & button {
         width: auto;
     }
 `
-const styleForCard = {
-    display: 'flex',
-    margin: '30px',
-    padding: '20px',
-    width: '1086px',
-    backgroundColor: '#ffffff',
-    borderRadius: '10px',
-}
+
 const Img = styled('img')`
     width: 343px;
     height: 343px;
@@ -131,14 +162,13 @@ const Img = styled('img')`
 `
 const WrapperDiv = styled('div')`
     padding-left: 20px;
-    padding-top: 50px;
-    /* width: 100%; */
 `
 const User = styled('div')`
     align-items: center;
     display: grid;
-    grid-template-columns: 48px 500px 135px;
+    grid-template-columns: 48px 450px 140px;
     margin-bottom: 14px;
+    width: 93%;
 `
 const StyledAvatar = styled(Avatar)`
     width: 36px;
@@ -160,23 +190,27 @@ const WrapperNameGiftAndDate = styled('div')`
     display: grid;
     grid-template-columns: 211px 472px;
     margin-bottom: 6px;
+    width: 95%;
 `
 const NameGift = styled('div')`
     color: #5c5c5c;
     font-family: 'Inter';
     font-weight: 400;
     font-size: 14px;
+    width: 95%;
 `
 const DateGift = styled('div')`
     color: #5c5c5c;
     font-family: 'Inter';
     font-weight: 400;
     font-size: 14px;
+    width: 95%;
 `
 const WrapperPropsGiftAndDate = styled('div')`
     display: grid;
     grid-template-columns: 211px 472px;
     margin-bottom: 20px;
+    width: 95%;
 `
 const NameGiftProps = styled('div')`
     color: #0ba360;
@@ -184,6 +218,7 @@ const NameGiftProps = styled('div')`
     font-weight: 400;
     font-size: 16px;
     line-height: 130%;
+    width: 95%;
 `
 const DateGiftProps = styled('div')`
     font-family: 'Inter';
@@ -193,22 +228,33 @@ const DateGiftProps = styled('div')`
     line-height: 130%;
 `
 const StyledH1 = styled('h1')`
+    width: 0;
     color: #3774d0;
     font-size: 24px;
     font-weight: 500;
+    width: 95%;
 `
 const Styledp = styled('h1')`
     font-family: 'Inter';
     font-weight: 400;
     font-size: 16px;
     margin-bottom: 50px;
-    width: 683px;
+    width: 90%;
 `
 const WrapperButtons = styled('div')`
     display: flex;
+    padding-top: 40px;
+    padding-right: 0px;
+    margin-right: 40px;
     justify-content: flex-end;
     align-items: center;
-    & button {
-        margin: 15px;
-    }
+`
+const ButtonsDiv = styled.div`
+    /* padding-right: 20px; */
+    display: flex;
+    /* justify-content: space-between; */
+    /* width: 380px; */
+`
+const ButtonBorderNone = styled(Button)`
+    border: none;
 `

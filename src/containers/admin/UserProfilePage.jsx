@@ -16,6 +16,7 @@ import { ReactComponent as Telegram } from '../../assets/icons/telegram.svg'
 import blockIcon from '../../assets/icons/toBook.svg'
 import { ReactComponent as Wk } from '../../assets/icons/vkFriendProfile.svg'
 import BookedGiftsCard from '../../components/ui/BookedGiftsCard'
+import BreadCrumbs from '../../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../../components/ui/Button'
 import GiftCard from '../../components/users/GiftCard'
 import MyHolidaysCard from '../../components/users/MyHolidaysCard'
@@ -123,12 +124,16 @@ function UserProfilePage() {
     const blockOrUnBlockUser = userProfile.isBlock
         ? toUnBlockUserHandler
         : toBlockUserHandler
+    const pathTranslate = {
+        users: 'Пользователи',
+        [userId]: `${userProfile?.firstName} ${userProfile.lastName}`,
+    }
     return (
         <ContainerDiv>
             <div>
                 <RouteTitle>
                     <RouteNameTitle>
-                        /{userProfile?.firstName} {userProfile.lastName}
+                        <BreadCrumbs translate={pathTranslate} />
                     </RouteNameTitle>
                 </RouteTitle>
             </div>

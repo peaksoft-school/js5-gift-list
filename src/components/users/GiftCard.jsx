@@ -59,7 +59,10 @@ export default function GiftCard(props) {
                     <WrapperToBooking variants={variant}>
                         <StyledText>{isMyId()}</StyledText>
                     </WrapperToBooking>
-                    <WrapperMeatBalls variants={variant}>
+                    <WrapperMeatBalls
+                        variants={variant}
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <MeatBalls navigations={navigation} id={id} />
                     </WrapperMeatBalls>
                 </StyledCardContentSecond>

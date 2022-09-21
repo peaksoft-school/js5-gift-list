@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 import EditCharity from '../components/ui/charity/EditCharity'
 import EditMyCharity from '../components/ui/charity/editMyCharity'
@@ -28,6 +28,7 @@ const UserRoutes = () => {
         <Routes>
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
                 <Route path="/lenta" element={<Lenta />} />
+                <Route path="/" element={<Navigate to="/lenta" />} />
                 <Route path="/lenta/:wishId" element={<HomePageWishCard />} />
                 <Route path="/friends" element={<FriendsPage />} />
                 <Route
@@ -57,9 +58,9 @@ const UserRoutes = () => {
                     path="/:editId/edit_charity"
                     element={<EditMyCharity />}
                 />
-                <Route path="/:id/innerPage" element={<CharityInnerPage />} />
+                <Route path="/charity/:id" element={<CharityInnerPage />} />
                 <Route
-                    path="/:myId/my_charity"
+                    path="/charity/my/:id"
                     element={<CharityMyInnerPage />}
                 />
             </Route>

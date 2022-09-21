@@ -10,6 +10,7 @@ import {
     getSubCategory,
     postCharity,
 } from '../../../store/slices/GiftActions'
+import BreadCrumbs from '../breadCrumbs/BreadCrumbs'
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
 import Notification from '../notification/Notification'
@@ -43,12 +44,23 @@ export default function EditCharity() {
         dispatch(getSubCategory({ id, setSubCategory }))
     }
     const img = allvalue?.photo ? null : allvalue.photo
+
+    // const styleForCard = {
+    //     margin: '118px 30px 30px 20px',
+    //     width: '100%',
+    // }
+    const pathTranslate = {
+        charity: 'Благотворительность',
+        add_charity: 'Добавление вещи',
+    }
     return (
-        <div style={styleForCard}>
+        // < style={styleForCard}>
+        <BreadCrumbsDiv>
+            <BreadCrumbs translate={pathTranslate} />
             <Notification />
-            breadCrambs
             <Anketa onSubmit={submitHandler}>
                 <ImagePicker
+                    id="1"
                     onChange={(file) => {
                         setallvalue({
                             ...allvalue,
@@ -135,18 +147,21 @@ export default function EditCharity() {
                     </Buttons>
                 </Container>
             </Anketa>
-        </div>
+        </BreadCrumbsDiv>
     )
 }
-const styleForCard = {
-    margin: '30px auto',
-    width: '100%',
-}
+
 const Questionaire = styled('div')`
     display: flex;
     justify-content: space-between;
     width: 808px;
     border-radius: 10px;
+`
+const BreadCrumbsDiv = styled('div')`
+    margin-top: 110px;
+    & > :nth-child(1) {
+        margin-left: 30px;
+    }
 `
 const InputLabelstyle = {
     display: 'flex',
@@ -181,11 +196,11 @@ const TextAreaStyle = {
 const Anketa = styled('form')`
     display: flex;
     justify-content: space-around;
-    width: 1086px;
+    width: 90%;
     border-radius: 10px;
-    margin: 30px auto;
+    margin: 30px 30px 30px 30px;
     padding: 20px;
-    height: 871px;
+    height: 100%;
     background-color: white;
 `
 const Title = styled('h1')`
