@@ -64,7 +64,7 @@ export default function BookedWishesCard({
 }
 
 const StatusDiv = styled('div')`
-    opacity: ${(props) => (props.status === 'true' ? '0.6' : '1')};
+    opacity: ${(props) => (props.status === true ? '0.6' : '1')};
     cursor: pointer;
 `
 const StyledCard = styled(MuiCard)`

@@ -19,7 +19,6 @@ export default function BookedGiftsCard({
     id,
     toInnerPage,
 }) {
-    console.log('start')
     const statusGift = status === 'USED' ? 'Б/У' : 'новый'
     return (
         <StyledCard onClick={toInnerPage}>

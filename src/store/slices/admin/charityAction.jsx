@@ -59,7 +59,6 @@ export const getGiftsById = createAsyncThunk(
 export const toBlockGifts = createAsyncThunk(
     'toBlock/toBlockGifts',
     async (id, { dispatch }) => {
-        console.log(id)
         try {
             const response = await appFetch({
                 method: 'PUT',
@@ -68,7 +67,6 @@ export const toBlockGifts = createAsyncThunk(
             showSuccessMessage('Успешно заблокирован!')
             dispatch(getCharitiesWithFilter())
             dispatch(getGiftsById(id))
-            console.log(response)
             return response
         } catch (error) {
             return showErrorMessage('Что-то пошло не так')
