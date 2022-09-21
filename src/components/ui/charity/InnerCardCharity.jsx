@@ -30,7 +30,7 @@ const InnerPage = (props) => {
     }
     const isBlocked = props.data?.gift?.isBlock
         ? 'Разблокировать'
-        : 'Заблокировать'
+        : 'Блокировать'
     const blockOrUnBlock = props.data?.gift?.isBlock
         ? () => props.onClickUnBlock(props.data?.gift?.giftId)
         : () => props.onClickBlock(props.data?.gift?.giftId)
@@ -45,15 +45,20 @@ const InnerPage = (props) => {
         backgroundColor: '#ffffff',
         borderRadius: '10px',
     }
-    const pathTranslate = {
+    const pathTranslate1 = {
         charity: 'Благотворительность',
         my: 'Мои подарки',
-        [props.data?.gift.giftId]: props.data.gift?.name,
+        [props?.data?.gift?.giftId]: props?.data.gift?.name,
     }
+    const pathTranslate2 = {
+        charityAdmin: 'Благотворительность',
+        [props?.data?.gift?.giftId]: props?.data.gift?.name,
+    }
+    const adminOrUsers = props.admin ? pathTranslate2 : pathTranslate1
     return (
         <div>
             <BreadCrumbsDiv>
-                <BreadCrumbs translate={pathTranslate} />
+                <BreadCrumbs translate={adminOrUsers} />
             </BreadCrumbsDiv>
             <div style={styleForCard}>
                 <Img src={props.data.gift?.photo} alt="image" />

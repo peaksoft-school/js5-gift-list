@@ -22,7 +22,7 @@ export const friendsSlice = createSlice({
     reducers: {},
     extraReducers: {
         [getFriendsAction.fulfilled]: (state, action) => {
-            state.allUsers = action.payload
+            state.friends = action.payload
             state.status = 'success'
         },
     },

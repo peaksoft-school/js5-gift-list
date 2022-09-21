@@ -48,7 +48,7 @@ export const RolePaths = {
         },
         {
             pathName: 'Благотворительность',
-            path: '/charity',
+            path: '/charityAdmin',
             icon: <Charity />,
         },
         {

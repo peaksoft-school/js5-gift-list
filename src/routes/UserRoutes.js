@@ -27,6 +27,7 @@ const UserRoutes = () => {
     return (
         <Routes>
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
+                <Route path="/" element={<Navigate to="/lenta" />} />
                 <Route path="/lenta" element={<Lenta />} />
                 <Route path="/" element={<Navigate to="/lenta" />} />
                 <Route path="/lenta/:wishId" element={<HomePageWishCard />} />

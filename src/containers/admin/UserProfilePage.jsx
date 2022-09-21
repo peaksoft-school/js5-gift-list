@@ -36,7 +36,7 @@ function UserProfilePage() {
     const blockWishOption = [
         {
             icon: blockIcon,
-            title: 'Заблокировать',
+            title: 'Блокировать',
             id: '1',
             clickItem: (id) => {
                 toBlockWishHandler(id)
@@ -56,7 +56,7 @@ function UserProfilePage() {
     const blockGiftOption = [
         {
             icon: blockIcon,
-            title: 'Заблокировать',
+            title: 'Блокировать',
             id: '1',
             clickItem: (id) => {
                 toBlockGiftHandler(id)
@@ -78,6 +78,7 @@ function UserProfilePage() {
     const [showMoreCharityCard, setShowMoreCharityCard] = useState(false)
 
     const { userProfile } = useSelector((state) => state.usersCard)
+    // console.log(userProfile)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getUserProfileWithId(id))
@@ -300,7 +301,7 @@ function UserProfilePage() {
             <StyledCardDiv>
                 {userProfile?.wishes?.slice(0, wichIsShowWish).map((el) => {
                     return (
-                        <Div key={el.wish.wishId}>
+                        <Div status={el.wish.isBlock} key={el.wish.wishId}>
                             <GiftCard
                                 variant="board"
                                 id={el.wish?.wishId}
@@ -344,7 +345,6 @@ function UserProfilePage() {
                                     date={el.holidayDate}
                                     title={el.name}
                                     img={el.photo}
-                                    variant="withoutMeatBalls"
                                 />
                             </WrapperHolidayCard>
                         )
@@ -367,6 +367,7 @@ function UserProfilePage() {
                     {userProfile?.gifts?.slice(0, wichIsShowGift).map((el) => {
                         return (
                             <BookedGiftsCard
+                                status={el.gift.isBlock}
                                 id={el.gift?.giftId}
                                 key={el.gift?.giftId}
                                 nameGift={el.gift?.name}
@@ -501,6 +502,7 @@ const WrapperHolidayCard = styled('div')`
     padding-bottom: 20px;
 `
 const Div = styled('div')`
+    opacity: ${(props) => (props.status === true ? '0.5' : '1')};
     margin: 1%;
     width: 30%;
     margin-top: 20px;

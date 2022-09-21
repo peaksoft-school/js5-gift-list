@@ -45,22 +45,17 @@ export default function EditCharity() {
     }
     const img = allvalue?.photo ? null : allvalue.photo
 
-    // const styleForCard = {
-    //     margin: '118px 30px 30px 20px',
-    //     width: '100%',
-    // }
     const pathTranslate = {
         charity: 'Благотворительность',
         add_charity: 'Добавление вещи',
     }
     return (
-        // < style={styleForCard}>
         <BreadCrumbsDiv>
             <BreadCrumbs translate={pathTranslate} />
             <Notification />
             <Anketa onSubmit={submitHandler}>
                 <ImagePicker
-                    id="1"
+                    id="charity"
                     onChange={(file) => {
                         setallvalue({
                             ...allvalue,
