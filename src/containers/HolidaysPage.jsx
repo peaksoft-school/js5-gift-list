@@ -68,18 +68,18 @@ const HolidaysPage = () => {
     }
     return (
         <HolidayCardDiv>
-            {holiday.holiday.length && (
-                <TitleButtonWrapper>
-                    <NamePage>Мои праздники</NamePage>
-                    <Button
-                        startIcon={<PlusIcon />}
-                        variant="addButton"
-                        onClick={openAddModalHandler}
-                    >
-                        Добавить праздник
-                    </Button>
-                </TitleButtonWrapper>
-            )}
+            {/* {holiday.holiday.length && ( */}
+            <TitleButtonWrapper>
+                <NamePage>Мои праздники</NamePage>
+                <Button
+                    startIcon={<PlusIcon />}
+                    variant="addButton"
+                    onClick={openAddModalHandler}
+                >
+                    Добавить праздник
+                </Button>
+            </TitleButtonWrapper>
+            {/* )} */}
             <AddHolidayModal
                 name="add"
                 onOpen={openAddModalHandler}

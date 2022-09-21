@@ -21,7 +21,7 @@ export default function BookedGiftsCard({
 }) {
     const statusGift = status === 'USED' ? 'Б/У' : 'новый'
     return (
-        <StyledCard onClick={toInnerPage}>
+        <StyledCard status={status} onClick={toInnerPage}>
             <StyledCardContentFirst>
                 <Div>
                     <StyledAvatar alt="Cindy Baker" src={avatar} />
@@ -36,7 +36,7 @@ export default function BookedGiftsCard({
             </Div>
             <StyledCardMedia component="img" image={img} alt="green iguana" />
 
-            <StyledCardContentSecond>
+            <StyledCardContentSecond onClick={(e) => e.stopPropagation()}>
                 <StyledDate>{date}</StyledDate>
                 <MeatBalls navigations={navigation} id={id} />
             </StyledCardContentSecond>
@@ -49,6 +49,7 @@ const StyledCard = styled(MuiCard)`
     height: 31%;
     margin: 1%;
     padding: 1%;
+    opacity: ${(props) => (props.status === true ? '0.5' : '1')};
 `
 
 const StyledAvatar = styled(Avatar)`

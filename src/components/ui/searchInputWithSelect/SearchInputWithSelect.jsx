@@ -18,7 +18,7 @@ const SearchInputwithSelect = ({
         searchInput: '',
         state: '',
         category: '',
-        subCategory: '',
+        subCategory: null,
         country: '',
     })
 

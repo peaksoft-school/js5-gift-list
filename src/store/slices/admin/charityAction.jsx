@@ -42,12 +42,25 @@ export const getCharitiesWithFilter = createAsyncThunk(
         }
     }
 )
+export const getAdminCharitiesWithFilter = createAsyncThunk(
+    'charities/getCharitiesWithFilter',
+    async (requestSetting) => {
+        try {
+            const response = await appFetch({
+                url: `api/admin/filter?${requestSetting}`,
+            })
+            return response
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+)
 export const getGiftsById = createAsyncThunk(
     'giftById/getGiftsById',
     async (id) => {
         try {
             const response = await appFetch({
-                url: `api/gifts/${id}`,
+                url: `api/admin/gift/${id}`,
             })
             return response
         } catch (error) {
@@ -65,7 +78,7 @@ export const toBlockGifts = createAsyncThunk(
                 url: `api/admin/blockGift/${id}`,
             })
             showSuccessMessage('Успешно заблокирован!')
-            dispatch(getCharitiesWithFilter())
+            dispatch(getAdminCharitiesWithFilter())
             dispatch(getGiftsById(id))
             return response
         } catch (error) {
@@ -82,7 +95,7 @@ export const toUnBlockGifts = createAsyncThunk(
                 url: `api/admin/unBlockGift/${id}`,
             })
             showSuccessMessage('Успешно разблокирован!')
-            dispatch(getCharitiesWithFilter())
+            dispatch(getAdminCharitiesWithFilter())
             dispatch(getGiftsById(id))
             return response
         } catch (error) {

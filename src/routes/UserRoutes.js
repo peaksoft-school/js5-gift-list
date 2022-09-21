@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 import EditCharity from '../components/ui/charity/EditCharity'
 import EditMyCharity from '../components/ui/charity/editMyCharity'
@@ -27,6 +27,7 @@ const UserRoutes = () => {
     return (
         <Routes>
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
+                <Route path="/" element={<Navigate to="/lenta" />} />
                 <Route path="/lenta" element={<Lenta />} />
                 <Route path="/lenta/:wishId" element={<HomePageWishCard />} />
                 <Route path="/friends" element={<FriendsPage />} />

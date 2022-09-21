@@ -29,7 +29,7 @@ const InnerPage = (props) => {
     }
     const isBlocked = props.data?.gift?.isBlock
         ? 'Разблокировать'
-        : 'Заблокировать'
+        : 'Блокировать'
     const blockOrUnBlock = props.data?.gift?.isBlock
         ? () => props.onClickUnBlock(props.data?.gift?.giftId)
         : () => props.onClickBlock(props.data?.gift?.giftId)
