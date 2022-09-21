@@ -6,21 +6,27 @@ import { getFriendProfileAction } from './friendProfileAction'
 
 export const requestsToFriendAction = createAsyncThunk(
     'requestToFriend/getRequestToFriendAction',
-    async (setRequestToFriend) => {
-        const response = await appFetch({
-            url: `api/users/friends/requests`,
-        })
-        setRequestToFriend(response)
-        return response
+    async () => {
+        try {
+            const response = await appFetch({
+                url: `api/users/friends/requests`,
+            })
+            return response
+        } catch (error) {
+            throw new Error('Что-то пошло не так')
+        }
     }
 )
 
 export const getFriendsAction = createAsyncThunk(
     'friends/getAllUsersAction',
-    async (setUser) => {
-        const response = await appFetch({ url: `api/users/friends` })
-        setUser(response)
-        return response
+    async () => {
+        try {
+            const response = await appFetch({ url: `api/users/friends` })
+            return response
+        } catch (error) {
+            throw new Error('Что-то пошло не так')
+        }
     }
 )
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { styled } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,28 +11,20 @@ import {
 
 export const FriendsPage = () => {
     const dispatch = useDispatch()
-    const [friends, setFriends] = useState()
-    const [requestToFriend, setRequestToFriend] = useState()
-    const store = useSelector((state) => state.users.friends)
-    const requestToFriendData = useSelector(
-        (state) => state.users.requestToFriend
+
+    const friends = useSelector((state) => state.friends.friends)
+    const requestToFriend = useSelector(
+        (state) => state.requestToFriend.requestToFriend
     )
 
     useEffect(() => {
-        dispatch(getFriendsAction(setFriends)).unwrap()
+        dispatch(getFriendsAction()).unwrap()
     }, [])
 
     useEffect(() => {
-        setFriends(store)
-    }, [store])
-
-    useEffect(() => {
-        dispatch(requestsToFriendAction(setRequestToFriend)).unwrap()
+        dispatch(requestsToFriendAction()).unwrap()
     }, [])
 
-    useEffect(() => {
-        setRequestToFriend(requestToFriendData)
-    }, [requestToFriendData])
     return (
         <MainDiv>
             <StyledMainTitle>Друзья</StyledMainTitle>
@@ -44,6 +36,9 @@ export const FriendsPage = () => {
                     />
                 )}
             </StyledDivTab>
+            {friends?.length <= 0 && requestToFriend?.length <= 0 && (
+                <NotFoundH4>У вас еще нет друзей</NotFoundH4>
+            )}
         </MainDiv>
     )
 }
@@ -51,7 +46,7 @@ export const FriendsPage = () => {
 const MainDiv = styled('div')`
     width: 1086px;
     height: 1224px;
-    margin-top: 113px;
+    margin-top: 110px;
     margin-left: 20px;
     background-color: #f4f6f6;
 `
@@ -70,4 +65,8 @@ const StyledMainTitle = styled('span')`
 `
 const StyledDivTab = styled('div')`
     margin-left: 10px;
+`
+const NotFoundH4 = styled('h4')`
+    display: flex;
+    justify-content: center;
 `
