@@ -49,6 +49,7 @@ export default function EditCharity() {
             breadCrambs
             <Anketa onSubmit={submitHandler}>
                 <ImagePicker
+                    id="charity"
                     onChange={(file) => {
                         setallvalue({
                             ...allvalue,

@@ -8,6 +8,7 @@ import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg'
 import MainSearchInput from '../components/ui/MainSearchInput'
 import SearchInputWithSelect from '../components/ui/searchInputWithSelect/SearchInputWithSelect'
 import {
+    getAdminCharitiesWithFilter,
     getCategories,
     getCharitiesWithFilter,
     getSubCategories,
@@ -20,7 +21,7 @@ import MenuAccaunt from './MenuAccaount'
 export const Header = () => {
     const navigate = useNavigate()
     const [value, setValue] = useState('')
-    const [categoryId, setIdCategory] = useState('')
+    const [categoryId, setIdCategory] = useState()
     const dispatch = useDispatch()
     const location = useLocation()
     const { options } = useSelector((state) => state.users)
@@ -28,14 +29,15 @@ export const Header = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     useEffect(() => {
         dispatch(getCategories())
+        dispatch(getAdminCharitiesWithFilter('search=all'))
         dispatch(getCharitiesWithFilter('search=all'))
     }, [])
     useEffect(() => {
+        if (location.pathname === '/charityAdmin') {
+            dispatch(getAdminCharitiesWithFilter(searchParams.toString()))
+        }
         dispatch(getCharitiesWithFilter(searchParams.toString()))
     }, [searchParams.toString()])
-    useEffect(() => {
-        dispatch(getSubCategories(categoryId))
-    }, [categoryId])
 
     const valueChangeHandler = (e) => {
         setValue(e.target.value)
@@ -57,6 +59,7 @@ export const Header = () => {
         if (e.category) {
             setSearchParams({ ...searchParams, categoryId: e.category })
             searchParams.categoryId = e.category
+            dispatch(getSubCategories(e.category))
             setIdCategory(e.category)
         }
         if ((e.category, e.subCategory)) {
@@ -64,10 +67,47 @@ export const Header = () => {
             searchParams.subCategoryId = e.subCategory
         }
     }
+    const is = () => {
+        if (location.pathname === '/charityAdmin') {
+            return (
+                <SearchInputWithSelect
+                    showSubCategory={categoryId}
+                    onChange={getIdCategory}
+                    categories={searching.categories}
+                    stateOption={array}
+                    subCategories={searching.subCategories}
+                />
+            )
+        }
+        if (location.pathname === '/charity') {
+            return (
+                <SearchInputWithSelect
+                    showSubCategory={categoryId}
+                    onChange={getIdCategory}
+                    categories={searching.categories}
+                    stateOption={array}
+                    subCategories={searching.subCategories}
+                />
+            )
+        }
+        if (location.pathname) {
+            return (
+                <MainSearchInput
+                    options={options}
+                    onChange={valueChangeHandler}
+                    value={value}
+                    onClick={searchResultOptionSelecHandler}
+                    stopPropagationHandler={stopPropagationHandler}
+                />
+            )
+        }
+        return location.pathname
+    }
     return (
         <Headers>
             <InputDiv>
-                {location.pathname === '/charity' ? (
+                {is()}
+                {/* {location.pathname === '/charity' ? (
                     <SearchInputWithSelect
                         showSubCategory={categoryId}
                         onChange={getIdCategory}
@@ -83,7 +123,7 @@ export const Header = () => {
                         onClick={searchResultOptionSelecHandler}
                         stopPropagationHandler={stopPropagationHandler}
                     />
-                )}
+                )} */}
             </InputDiv>
             <WarningSpan>
                 <WarningIcon />

@@ -10,9 +10,10 @@ const UserCard = ({
     id,
     onClick,
     option,
+    status,
 }) => {
     return (
-        <StyledContainer id={id} onClick={onClick}>
+        <StyledContainer status={status} id={id} onClick={onClick}>
             <StyledAvatar src={img} alt="photo" />
             <StyledNameOfFriend>
                 {firstName} {lastName}
@@ -32,7 +33,11 @@ const UserCard = ({
 }
 export default UserCard
 
-const StyledContainer = styled('div')(() => ({
+const StyledContainer = styled('div')(({ status }) => ({
+    ...(status === true && {
+        opacity: '0.4',
+    }),
+    // opacity: '0.6',
     borderRadius: '8px',
     boxSizing: 'border-box',
     display: 'flex',

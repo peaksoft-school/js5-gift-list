@@ -18,6 +18,7 @@ import Notification from '../../ui/notification/Notification'
 const CharityUser = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state.addCharity)
+    const { charities } = useSelector((state) => state.searching)
     const navigate = useNavigate()
     const link = (b) => {
         navigate(`${b}`)
@@ -36,7 +37,7 @@ const CharityUser = () => {
         navigate(`/${id}/my_charity`)
     }
     return (
-        <div>
+        <Div>
             <Notification />
             <Header>
                 <div>
@@ -56,7 +57,7 @@ const CharityUser = () => {
                 <Button onClick={addCharity}>+ Добавить подарок</Button>
             </Header>
             <CardList>
-                {state.data?.map((el) => (
+                {charities?.map((el) => (
                     <CharityCard
                         icon={toBook}
                         clickItem={(id) => dispatch(toBookCharity(id))}
@@ -74,10 +75,13 @@ const CharityUser = () => {
                     />
                 ))}
             </CardList>
-        </div>
+        </Div>
     )
 }
 export default CharityUser
+const Div = styled('div')`
+    margin-top: 110px;
+`
 const CardList = styled.div`
     min-width: 1086px;
     margin: 30px 20px;

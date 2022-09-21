@@ -30,7 +30,7 @@ export const UsersPage = () => {
     const unBlockOption = [
         {
             icon: unBlockIcon,
-            title: 'Разблокировать',
+            title: 'Блокировать',
             id: '3',
             clickItem: (id) => {
                 unBlockingUser(id)
@@ -55,6 +55,7 @@ export const UsersPage = () => {
             <WrapperCards>
                 {users.map((el) => (
                     <UserCard
+                        status={el.isBlock}
                         key={el.id}
                         id={el.id}
                         img={el.photo}
