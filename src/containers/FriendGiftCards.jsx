@@ -23,7 +23,6 @@ function FriendGiftCards({ gifts, idOfOwnerUser }) {
     const [complaintId, setcomplaintId] = useState('')
     const [openModal, setOpenModal] = useState(false)
     const { bookedUser } = gifts
-    console.log(bookedUser)
 
     const options = useMemo(() => checkOwnBook(), [userId])
 

@@ -8,10 +8,6 @@ import cancelBooking from '../../assets/icons/cancelBooking.svg'
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import block from '../../assets/icons/toBook.svg'
 import BookedWishesCard from '../../components/ui/BookedWishesCard'
-// import {
-//     toBlockGifts,
-//     toUnBlockGifts,
-// } from '../../store/slices/admin/charityAction'
 import {
     deleteComplaintAction,
     giftsComplaintsAction,
@@ -20,7 +16,6 @@ import {
     unBlockGiftAction,
     unBlockWishAction,
     wishesComplaintsAction,
-    // getAllComplaintsAction,
 } from '../../store/slices/complaintsAction'
 
 const WITHBOTTOMTITLE = 'WITHBOTTOMTITLE'
@@ -30,12 +25,9 @@ export const Complaints = () => {
     const giftComplaints = useSelector(
         (state) => state.giftComplaints.complaintOnGifts
     )
-    // console.log(giftComplaints)
     const wishComplaints = useSelector(
         (state) => state.wishesComplaints.complaintOnWishes
     )
-    console.log(wishComplaints)
-    console.log(giftComplaints)
     useEffect(() => {
         dispatch(giftsComplaintsAction())
     }, [])
@@ -108,19 +100,15 @@ export const Complaints = () => {
         },
     ]
     function toBlockWishHandler(id) {
-        console.log(id)
         dispatch(toBlockWishAction({ id, dispatch }))
     }
     function unBlockWishHandler(id) {
-        console.log(id)
         dispatch(unBlockWishAction({ id, dispatch }))
     }
     function toBlockGiftHandler(id) {
-        console.log(id)
         dispatch(toBlockGiftAction(id))
     }
     function unBlockGiftHandler(id) {
-        console.log(id)
         dispatch(unBlockGiftAction(id))
     }
     const deleteComplaintHandler = (complaintId) => {
@@ -142,9 +130,6 @@ export const Complaints = () => {
                         {giftComplaints?.map((el) => (
                             <BookedWishesCard
                                 key={el?.gift?.giftId}
-                                // id={el?.gift?.complaints.map(
-                                //     (el) => el?.complaintId
-                                // )}
                                 id={el?.gift?.giftId}
                                 giftName={el?.gift?.name}
                                 date={el?.gift?.createdAt}
@@ -154,7 +139,7 @@ export const Complaints = () => {
                                     (el) => el?.fromUser?.photo
                                 )}
                                 variant={WITHBOTTOMTITLE}
-                                complaintBorder="orange"
+                                ComplaintBorder="orange"
                                 firstName={el?.ownerUser?.firstName}
                                 lastName={el?.ownerUser?.lastName}
                                 avatar={el?.ownerUser?.photo}
@@ -182,16 +167,13 @@ export const Complaints = () => {
                             {wishComplaints?.map((el) => (
                                 <BookedWishesCard
                                     key={el?.wish?.wishId}
-                                    // id={el?.wish?.complaints.map(
-                                    //     (el) => el?.complaintId
-                                    // )}
                                     id={el?.wish?.wishId}
                                     giftName={el?.userWish?.wishName}
                                     holiday={el?.wish?.holiday?.name}
                                     date={el?.wish?.wishDate}
                                     img={el?.wish?.photo}
                                     navigation={
-                                        el?.wish.isBlock === false
+                                        el?.wish?.isBlock === false
                                             ? toBlockWish
                                             : unBlockWish
                                     }
@@ -200,7 +182,7 @@ export const Complaints = () => {
                                         (el) => el?.fromUser?.photo
                                     )}
                                     variant={WITHBOTTOMTITLE}
-                                    complaintBorder="orange"
+                                    ComplaintBorder="orange"
                                     firstName={el?.ownerUser?.firstName}
                                     lastName={el?.ownerUser?.lastName}
                                     avatar={el?.ownerUser?.photo}
@@ -219,9 +201,7 @@ export const Complaints = () => {
 }
 
 const ComplainCardTitle = styled('p')`
-    /* display: inline; */
     padding: 20px;
-    /* margin-bottom: 30px; */
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -231,8 +211,6 @@ const ComplainCardTitle = styled('p')`
     align-items: center;
     letter-spacing: 0.2px;
     color: #020202;
-    /* border-bottom: 4px solid #fd5200; */
-    /* color: #fd5200; */
 `
 const Div = styled('div')`
     width: 94%;
@@ -245,15 +223,3 @@ const Container = styled('div')`
     grid-column-gap: 20px;
     grid-row-gap: 40px;
 `
-// const ComplaintTitle = styled('div')`
-//     font-family: 'Inter';
-//     font-style: normal;
-//     font-weight: 500;
-//     font-size: 20px;
-//     line-height: 24px;
-//     display: flex;
-//     align-items: center;
-//     letter-spacing: 0.2px;
-//     color: #020202;
-//     margin-bottom: 31px;
-// `

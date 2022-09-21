@@ -15,7 +15,7 @@ import {
     unBlockWishAction,
 } from '../../store/slices/complaintsAction'
 
-const ComplaintsInnerPage = () => {
+const ComplaintInnerPage = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
 
@@ -26,16 +26,19 @@ const ComplaintsInnerPage = () => {
     useEffect(() => {
         dispatch(getGiftAction(id))
     }, [id])
-    const giftData = useSelector((state) => state.complaintGift.complaintGift)
-    const wishData = useSelector((state) => state.complaintWish.complaintWish)
-    // console.log(giftData)
-    // console.log(wishData)
-    const wish = wishData?.wish
-    const { ownerUser } = wishData
-    const { bookedUser } = wishData
-    const gift = giftData?.gift
-    const giftOwnerUser = giftData?.ownerUser
-    const giftBookeduser = giftData?.bookedUser
+
+    const complaintGift = useSelector(
+        (state) => state.complaintGift.complaintGift
+    )
+    const complaintWish = useSelector(
+        (state) => state.complaintWish.complaintWish
+    )
+    const { wish } = complaintWish
+    const { ownerUser } = complaintWish
+    const { bookedUser } = complaintWish
+    const { gift } = complaintGift
+    const giftOwnerUser = complaintGift?.ownerUser
+    const giftBookeduser = complaintGift?.bookedUser
 
     const avatarBookedUser = () => {
         if (bookedUser) {
@@ -46,6 +49,7 @@ const ComplaintsInnerPage = () => {
         }
         return null
     }
+
     const titleIsBooked = () => {
         if (bookedUser) {
             return 'Забронирован'
@@ -55,11 +59,12 @@ const ComplaintsInnerPage = () => {
         }
         return 'В ожидании'
     }
+
     function complaint() {
         if (gift?.complaints) {
             return gift?.complaints?.map((el) => {
                 return (
-                    <>
+                    <div key={el?.complaintId}>
                         <Avatar
                             src={el?.fromUser?.photo}
                             alt={el?.fromUser?.firstName}
@@ -70,14 +75,14 @@ const ComplaintsInnerPage = () => {
                             <span>{el?.fromUser?.lastName}</span>
                         </UserComplainedName>
                         <ComplainText>{el?.text}</ComplainText>
-                    </>
+                    </div>
                 )
             })
         }
         if (wish?.complaints) {
             return wish?.complaints.map((el) => {
                 return (
-                    <>
+                    <div key={el?.complaintId}>
                         <Avatar
                             src={el?.fromUser?.photo}
                             alt={el?.fromUser?.firstName}
@@ -87,12 +92,13 @@ const ComplaintsInnerPage = () => {
                             <span>{el?.fromUser?.lastName}</span>
                         </UserComplainedName>
                         <ComplainText>{el?.text}</ComplainText>
-                    </>
+                    </div>
                 )
             })
         }
         return null
     }
+
     function isUsedOrNew() {
         if (gift?.status === 'USED') {
             return 'Б/У'
@@ -102,38 +108,52 @@ const ComplaintsInnerPage = () => {
         }
         return null
     }
-    function isBlockTitle() {
-        if (gift?.isBlock === false) {
-            return 'Заблокировать'
-        }
-        if (gift?.isBlock === true) {
-            return 'Разблокировать'
-        }
-        if (wish?.isBlock === false) {
-            return 'Заблокировать'
-        }
-        if (wish?.isBlock === true) {
-            return 'Разблокировать'
-        }
-        return null
+
+    const toBlockGiftHandler = (id) => {
+        dispatch(toBlockGiftAction(id))
     }
+    const unBlockGiftHandler = (id) => {
+        dispatch(unBlockGiftAction(id))
+    }
+    const toBlockWishHandler = (id) => {
+        dispatch(toBlockWishAction(id))
+    }
+    const unBlockWishHandler = (id) => {
+        dispatch(unBlockWishAction(id))
+    }
+
     const isBlockHandler = (id) => {
         if (gift?.isBlock === false) {
-            console.log('gift block')
-            return dispatch(toBlockGiftAction(id))
+            return (
+                <Button onClick={() => toBlockGiftHandler(id)}>
+                    Блокировать
+                </Button>
+            )
         }
         if (gift?.isBlock === true) {
-            console.log('gift unBlock', id)
-            return dispatch(unBlockGiftAction(id))
+            return (
+                <Button onClick={() => unBlockGiftHandler(id)}>
+                    Разблокировать
+                </Button>
+            )
         }
         if (wish?.isBlock === false) {
-            return dispatch(toBlockWishAction({ id, dispatch }))
+            return (
+                <Button onClick={() => toBlockWishHandler(id)}>
+                    Блокировать
+                </Button>
+            )
         }
         if (wish?.isBlock === true) {
-            return dispatch(unBlockWishAction({ id, dispatch }))
+            return (
+                <Button onClick={() => unBlockWishHandler(id)}>
+                    Разблокировать
+                </Button>
+            )
         }
         return null
     }
+
     return (
         <div>
             <RouteTitle>
@@ -217,16 +237,14 @@ const ComplaintsInnerPage = () => {
                     </WrapperPropsGiftAndDate>
                     <WrapperButtons>
                         {complaint()}
-                        <div>
-                            <Button>{isBlockTitle()}</Button>
-                        </div>
+                        <div>{isBlockHandler(id)}</div>
                     </WrapperButtons>
                 </WrapperDiv>
             </div>
         </div>
     )
 }
-export default ComplaintsInnerPage
+export default ComplaintInnerPage
 
 const styleForCard = {
     display: 'flex',

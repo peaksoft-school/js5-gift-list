@@ -18,7 +18,7 @@ export default function BookedWishesCard({
     navigation,
     img,
     id,
-    complaintBorder,
+    ComplaintBorder,
     status,
     text,
     complaintUser,
@@ -27,7 +27,7 @@ export default function BookedWishesCard({
 }) {
     return (
         <StatusDiv onClick={onClick} status={status}>
-            <StyledCard complaintBorder={complaintBorder}>
+            <StyledCard complaintBorder={ComplaintBorder}>
                 <StyledCardContentFirst>
                     <Div>
                         <StyledAvatar alt="Cindy Baker" src={avatar} />
