@@ -50,7 +50,6 @@ const FriendProfilePage = () => {
         (state) => state.friend
     )
     const friendId = useSelector((state) => state.friend.friend.id)
-
     useEffect(() => {
         if (userId) {
             dispatch(getFriendProfileAction(userId))
@@ -317,7 +316,7 @@ const FriendProfilePage = () => {
                     )
                 })}
             </StyledCardDiv>
-            {gifts.length > 0 ? (
+            {gifts?.length > 0 ? (
                 <MainCardTitle>Благотворительность</MainCardTitle>
             ) : (
                 ''
@@ -332,10 +331,10 @@ const FriendProfilePage = () => {
 
             <div>
                 <StyledCardDiv>
-                    {gifts.slice(0, wichIsShowGift).map((gifts) => {
+                    {gifts?.slice(0, wichIsShowGift).map((gifts) => {
                         return (
                             <FriendGiftCards
-                                key={gifts.gift?.giftId}
+                                key={gifts?.gift?.giftId}
                                 gifts={gifts}
                                 idOfOwnerUser={idOfOwnerUser}
                             />

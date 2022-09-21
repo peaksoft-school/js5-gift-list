@@ -1,12 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import addCharity from './slices/AddCharity'
-// eslint-disable-next-line import/no-cycle
 import { AddWishCardSlice } from './slices/addWishCardSlice'
+// eslint-disable-next-line import/no-cycle
 import charitySearching from './slices/admin/charitySlice'
 import usersCardSlice from './slices/admin/usersPageSlice'
 import { authSlice } from './slices/AuthSlice'
 import bookedPageSlice from './slices/bookedPageSlice'
+import {
+    getComlaintWishSlice,
+    getComplaintGiftSlice,
+    giftsComplaintsSlice,
+    wishesComplaintsSlice,
+} from './slices/complaintsSlice'
 import friendProfileSlice from './slices/friendProfileSlice'
 import { requestToFriendSlice, friendsSlice } from './slices/friendTabSlice'
 import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
@@ -26,6 +32,10 @@ export const store = configureStore({
         holidayUserGifts: HolidayGiftsSlice.reducer,
         wishCard: AddWishCardSlice.reducer,
         bookedCards: bookedPageSlice.reducer,
+        giftComplaints: giftsComplaintsSlice.reducer,
+        wishesComplaints: wishesComplaintsSlice.reducer,
+        complaintWish: getComlaintWishSlice.reducer,
+        complaintGift: getComplaintGiftSlice.reducer,
         homePageWishes: HomePageSlice.reducer,
         usersCard: usersCardSlice.reducer,
         searching: charitySearching.reducer,
