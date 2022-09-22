@@ -42,6 +42,7 @@ export const deleteComplaintAction = createAsyncThunk(
 export const getWishAction = createAsyncThunk(
     'complaintWish/getWishAction',
     async (wishId, { dispatch }) => {
+        console.log(wishId)
         const response = await appFetch({
             url: `api/complaints/wish/${wishId}`,
         })
@@ -53,6 +54,7 @@ export const getWishAction = createAsyncThunk(
 export const getGiftAction = createAsyncThunk(
     'complaintGift/getGiftAction',
     async (giftId, { dispatch }) => {
+        console.log(giftId)
         const response = await appFetch({
             url: `api/complaints/gift/${giftId}`,
         })

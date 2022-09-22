@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import BreadCrumbs from '../../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../../components/ui/Button'
 import {
     getGiftAction,
@@ -13,18 +14,21 @@ import {
 } from '../../store/slices/admin/complaintsAction'
 
 const ComplaintGiftInnerPage = () => {
-    const { id } = useParams()
+    const { giftId } = useParams()
+    console.log(giftId)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getGiftAction(id))
-    }, [id])
+        dispatch(getGiftAction(giftId))
+    }, [giftId])
 
     const complaintGift = useSelector(
         (state) => state.complaintGift.complaintGift
     )
 
     const { gift } = complaintGift
+    console.log(complaintGift)
+    console.log(gift?.giftId)
     const giftOwnerUser = complaintGift?.ownerUser
     const giftBookeduser = complaintGift?.bookedUser
 
@@ -82,17 +86,17 @@ const ComplaintGiftInnerPage = () => {
         dispatch(unBlockGiftAction(id))
     }
 
-    const isBlockHandler = (id) => {
+    const isBlockHandler = (giftId) => {
         if (gift?.isBlock === false) {
             return (
-                <Button onClick={() => toBlockGiftHandler(id)}>
+                <Button onClick={() => toBlockGiftHandler(giftId)}>
                     Блокировать
                 </Button>
             )
         }
         if (gift?.isBlock === true) {
             return (
-                <Button onClick={() => unBlockGiftHandler(id)}>
+                <Button onClick={() => unBlockGiftHandler(giftId)}>
                     Разблокировать
                 </Button>
             )
@@ -100,12 +104,15 @@ const ComplaintGiftInnerPage = () => {
 
         return null
     }
-
+    const pathTranslate = {
+        complaints: 'Жалобы',
+        // gift: 'подарки',
+        [giftId]: gift?.name,
+    }
     return (
-        <div>
+        <div style={{ marginTop: '118px' }}>
             <RouteTitle>
-                Жалобы/
-                <RouteNameTitle>{gift?.name}</RouteNameTitle>
+                <BreadCrumbs translate={pathTranslate} />
             </RouteTitle>
             <div style={styleForCard}>
                 <Img src={gift?.photo} alt={gift?.wishName} />
@@ -171,7 +178,7 @@ const ComplaintGiftInnerPage = () => {
                     </WrapperPropsGiftAndDate>
                     <WrapperButtons>
                         {complaint()}
-                        <div>{isBlockHandler(id)}</div>
+                        <div>{isBlockHandler(giftId)}</div>
                     </WrapperButtons>
                 </WrapperDiv>
             </div>
@@ -312,12 +319,4 @@ const RouteTitle = styled('p')`
     font-size: 14px;
     line-height: 17px;
     color: #b4b4b4;
-`
-const RouteNameTitle = styled('span')`
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
 `

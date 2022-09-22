@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import BreadCrumbs from '../../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../../components/ui/Button'
 import {
     getWishAction,
@@ -13,17 +14,20 @@ import {
 } from '../../store/slices/admin/complaintsAction'
 
 const ComplaintWishInnerPage = () => {
-    const { id } = useParams()
+    const { wishId } = useParams()
+    console.log(wishId)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getWishAction(id))
-    }, [])
+        dispatch(getWishAction(wishId))
+    }, [wishId])
 
     const complaintWish = useSelector(
         (state) => state.complaintWish.complaintWish
     )
+    console.log(complaintWish)
     const { wish } = complaintWish
+    console.log(wish?.name)
     const { ownerUser } = complaintWish
     const { bookedUser } = complaintWish
 
@@ -72,29 +76,33 @@ const ComplaintWishInnerPage = () => {
         dispatch(unBlockWishAction(id))
     }
 
-    const isBlockHandler = (id) => {
+    const isBlockHandler = (wishId) => {
         if (wish?.isBlock === false) {
             return (
-                <Button onClick={() => toBlockWishHandler(id)}>
+                <Button onClick={() => toBlockWishHandler(wishId)}>
                     Блокировать
                 </Button>
             )
         }
         if (wish?.isBlock === true) {
             return (
-                <Button onClick={() => unBlockWishHandler(id)}>
+                <Button onClick={() => unBlockWishHandler(wishId)}>
                     Разблокировать
                 </Button>
             )
         }
         return null
     }
+    const pathTranslate = {
+        complaints: 'Жалобы',
+        wish: 'Желания',
+        [wishId]: wish?.wishName,
+    }
 
     return (
-        <div>
+        <div style={{ marginTop: '100px' }}>
             <RouteTitle>
-                Жалобы/
-                <RouteNameTitle>{wish?.wishName}</RouteNameTitle>
+                <BreadCrumbs translate={pathTranslate} />
             </RouteTitle>
             <div style={styleForCard}>
                 <Img src={wish?.photo} alt={wish?.wishName} />
@@ -126,7 +134,7 @@ const ComplaintWishInnerPage = () => {
                     </WrapperPropsGiftAndDate>
                     <WrapperButtons>
                         {complaint()}
-                        <div>{isBlockHandler(id)}</div>
+                        <div>{isBlockHandler(wishId)}</div>
                     </WrapperButtons>
                 </WrapperDiv>
             </div>
@@ -262,12 +270,4 @@ const RouteTitle = styled('p')`
     font-size: 14px;
     line-height: 17px;
     color: #b4b4b4;
-`
-const RouteNameTitle = styled('span')`
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
 `

@@ -45,7 +45,7 @@ const CreatingMailingList = (props) => {
             <form onSubmit={submitHandler}>
                 <ModalChildDiv>
                     <AddTitle>Создание рассылки</AddTitle>
-                    <ImagePicker onChange={onChangeImageValue} />
+                    <ImagePicker id="mailing" onChange={onChangeImageValue} />
                     <InModalChildDiv>
                         <LabelInputDiv>
                             <label htmlFor="Заголовок">Заголовок</label>

@@ -131,11 +131,12 @@ export const addtoMyWish = createAsyncThunk(
                 url: `api/wish/add/${obj.id}`,
             })
             showSuccessMessage('Успешно добавлено')
-            dispatch(getWishAction())
             obj.dispatch(getFriendProfileAction(obj.userId))
+            dispatch(getWishAction())
             return response
         } catch (error) {
-            throw new Error(showErrorMessage('Не удалось добавить'))
+            showErrorMessage('Не удалось добавить')
+            throw new Error(error)
         }
     }
 )
