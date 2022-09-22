@@ -4,8 +4,9 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 
 import Error from '../components/ui/Error'
 import { CharityPage } from '../containers/admin/CharityPage'
-import ComplaintInnerPage from '../containers/admin/ComplaintInnerPage'
+import ComplaintGiftInnerPage from '../containers/admin/ComplaintGiftInnerPage'
 import { Complaints } from '../containers/admin/Complaints'
+import ComplaintWishInnerPage from '../containers/admin/ComplaitWishInnerPage'
 import InnerPageCharity from '../containers/admin/InnerPageCharity'
 import { Mailing } from '../containers/admin/Mailing'
 import UserProfilePage from '../containers/admin/UserProfilePage'
@@ -23,8 +24,12 @@ const AdminRoutes = () => {
                 <Route path="/complaints" element={<Complaints />} />
                 <Route path="/charity_users" element={<CharityPage />} />
                 <Route
-                    path="/complaints/:id"
-                    element={<ComplaintInnerPage />}
+                    path="/complaints/:giftId"
+                    element={<ComplaintGiftInnerPage />}
+                />
+                <Route
+                    path="/complaints/wish/:wishId"
+                    element={<ComplaintWishInnerPage />}
                 />
                 <Route path="/mailing" element={<Mailing />} />
                 <Route path="/charityAdmin" element={<CharityPage />} />
