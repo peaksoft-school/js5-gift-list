@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+import { Avatar } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -28,28 +29,31 @@ const CharityUser = () => {
         dispatch(getMyCharity())
     }, [])
     const clickCard = (id) => {
-        navigate(`/${id}/innerPage`)
+        navigate(`/charity/${id}`)
     }
     const addCharity = () => {
         navigate('/charity/add_charity')
     }
     const clickmyCharity = (id) => {
-        navigate(`/${id}/my_charity`)
+        console.log(id)
+        navigate(`/charity/my/${id}`)
     }
     return (
-        <Div>
+        <CharityDiv>
             <Notification />
             <Header>
                 <div>
                     <h2>Благотворительность</h2>
                     <Img>
                         {state.myCharity?.map((el) => (
-                            <img
+                            <StyledAvatar
                                 key={el.gift.giftId}
                                 src={el.gift.photo}
                                 alt="my charities"
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => clickmyCharity(el.gift.giftId)}
+                                onClick={() => {
+                                    clickmyCharity(el.gift.giftId)
+                                }}
                             />
                         ))}
                     </Img>
@@ -63,6 +67,7 @@ const CharityUser = () => {
                         clickItem={(id) => dispatch(toBookCharity(id))}
                         cancelBooking={(id) => dispatch(toCancelCharity(id))}
                         userName={el.ownerUser.firstName}
+                        avatar={el.ownerUser.photo}
                         bookedUser={el?.bookedUser}
                         key={el.gift.giftId}
                         data={el.gift}
@@ -71,16 +76,17 @@ const CharityUser = () => {
                             clickCard(el.gift.giftId)
                         }}
                         id={el.gift.giftId}
-                        onClickImg={() => link(`/${el.id}/innerPage`)}
+                        onClickImg={() => link(`/charity/${el.id}`)}
                     />
                 ))}
             </CardList>
-        </Div>
+        </CharityDiv>
     )
 }
 export default CharityUser
-const Div = styled('div')`
-    margin-top: 110px;
+
+const CharityDiv = styled.div`
+    margin-top: 118px;
 `
 const CardList = styled.div`
     min-width: 1086px;
@@ -93,7 +99,7 @@ const CardList = styled.div`
 `
 const Header = styled.div`
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     width: inherit;
     margin: 5px 20px;
     padding: 0px;
@@ -110,6 +116,10 @@ const Header = styled.div`
     & div {
         display: flex;
         justify-content: flex-start;
+        align-items: center;
+        & > h2 {
+            margin-right: 28px;
+        }
     }
     & h2 {
         font-family: 'Inter';
@@ -122,15 +132,21 @@ const Header = styled.div`
         letter-spacing: 0.2px;
         color: #020202;
     }
-    & img {
+    /* & img {
         border-radius: 50%;
         width: 35px;
         height: 35px;
         margin: 5px 3px;
-    }
+    } */
+`
+const StyledAvatar = styled(Avatar)`
+    /* overflow: hidden; */
+    background-color: #fafafa;
 `
 const Img = styled.div`
     display: flex;
     flex-wrap: wrap;
     max-width: 80%;
+    gap: 16px;
+    /* overflow: hidden; */
 `

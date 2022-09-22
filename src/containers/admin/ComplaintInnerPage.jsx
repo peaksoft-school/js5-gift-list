@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import BreadCrumbs from '../../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../../components/ui/Button'
 import {
     getGiftAction,
@@ -153,12 +154,14 @@ const ComplaintInnerPage = () => {
         }
         return null
     }
-
+    const pathTranslate = {
+        complaints: 'Жалобы',
+        [id]: wish?.wishName || gift?.name,
+    }
     return (
-        <div>
+        <div style={{ marginTop: '118px' }}>
             <RouteTitle>
-                Жалобы/
-                <RouteNameTitle>{wish?.wishName || gift?.name}</RouteNameTitle>
+                <BreadCrumbs translate={pathTranslate} />
             </RouteTitle>
             <div style={styleForCard}>
                 <Img
@@ -378,12 +381,4 @@ const RouteTitle = styled('p')`
     font-size: 14px;
     line-height: 17px;
     color: #b4b4b4;
-`
-const RouteNameTitle = styled('span')`
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
 `

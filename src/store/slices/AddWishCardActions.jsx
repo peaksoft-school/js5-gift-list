@@ -71,7 +71,7 @@ export const deleteWishGift = createAsyncThunk(
             return deleteResponse
         } catch (error) {
             showErrorMessage('Что-то пошло не так')
-            throw new Error('Что-то пошло не так')
+            throw new Error(error)
         }
     }
 )

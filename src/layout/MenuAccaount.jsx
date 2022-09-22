@@ -99,6 +99,7 @@ const MenuItem = styled('div')`
     }
 `
 const MenuImg = styled('img')`
-    width: 12px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
 `

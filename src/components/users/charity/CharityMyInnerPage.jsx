@@ -9,10 +9,11 @@ import InnerPage from '../../ui/charity/InnerCardCharity'
 
 const CharityMyInnerPage = () => {
     const state = useSelector((state) => state.addCharity.single)
-    const { myId } = useParams()
+    const { id } = useParams()
+    console.log(id)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getSingleCharityById(myId))
+        dispatch(getSingleCharityById(id))
     }, [])
 
     return (

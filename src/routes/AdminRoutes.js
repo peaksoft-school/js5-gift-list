@@ -3,7 +3,6 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 import Error from '../components/ui/Error'
-import CharityUsers from '../components/users/charity/CharityUser'
 import { CharityPage } from '../containers/admin/CharityPage'
 import ComplaintInnerPage from '../containers/admin/ComplaintInnerPage'
 import { Complaints } from '../containers/admin/Complaints'
@@ -22,7 +21,7 @@ const AdminRoutes = () => {
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="users/:id" element={<UserProfilePage />} />
                 <Route path="/complaints" element={<Complaints />} />
-                <Route path="/charity_users" element={<CharityUsers />} />
+                <Route path="/charity_users" element={<CharityPage />} />
                 <Route
                     path="/complaints/:id"
                     element={<ComplaintInnerPage />}
