@@ -24,7 +24,7 @@ function FriendGiftCards({ gifts, idOfOwnerUser }) {
     const [openModal, setOpenModal] = useState(false)
     const { bookedUser } = gifts
 
-    const options = useMemo(() => checkOwnBook(), [bookedUser])
+    const options = useMemo(() => checkOwnBook(), [userId])
 
     function checkOwnBook() {
         const toBookGift = [
@@ -72,10 +72,10 @@ function FriendGiftCards({ gifts, idOfOwnerUser }) {
         if (bookedUser === null) {
             return toBookGift
         }
-        if (bookedUser.userId === idOfOwnerUser) {
+        if (bookedUser?.userId === idOfOwnerUser) {
             return cancelBookingGift
         }
-        if (bookedUser.userId !== idOfOwnerUser) {
+        if (bookedUser?.userId !== idOfOwnerUser) {
             return complainGift
         }
         return toBookGift

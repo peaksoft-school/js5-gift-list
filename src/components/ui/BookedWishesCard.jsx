@@ -18,39 +18,76 @@ export default function BookedWishesCard({
     navigation,
     img,
     id,
+    ComplaintBorder,
+    status,
+    text,
+    complaintUser,
+    variant,
+    onClick,
 }) {
     return (
-        <StyledCard>
-            <StyledCardContentFirst>
-                <Div>
-                    <StyledAvatar alt="Cindy Baker" src={avatar} />
-                    <UserName>
-                        {firstName} {lastName}
-                    </UserName>
-                </Div>
-                <StyledBirthday>{holiday}</StyledBirthday>
-            </StyledCardContentFirst>
-            <NameGift>{giftName}</NameGift>
-            <StyledCardMedia component="img" image={img} alt="green iguana" />
+        <StatusDiv onClick={onClick} status={status}>
+            <StyledCard complaintBorder={ComplaintBorder}>
+                <StyledCardContentFirst>
+                    <Div>
+                        <StyledAvatar alt="Cindy Baker" src={avatar} />
+                        <UserName>
+                            {firstName} {lastName}
+                        </UserName>
+                    </Div>
+                    <StyledBirthday>{holiday}</StyledBirthday>
+                </StyledCardContentFirst>
+                <NameGift>{giftName}</NameGift>
+                <StyledCardMedia
+                    component="img"
+                    image={img}
+                    alt="green iguana"
+                />
 
-            <StyledCardContentSecond>
-                <StyledDate>{date}</StyledDate>
-                <MeatBalls navigations={navigation} id={id} />
-            </StyledCardContentSecond>
-        </StyledCard>
+                <StyledCardContentSecond>
+                    <StyledDate>{date}</StyledDate>
+                    {variant === 'WITHBOTTOMTITLE' && (
+                        <div style={{ display: 'flex' }}>
+                            {' '}
+                            <StyledComplainAvatar
+                                alt="Cindy Baker"
+                                src={complaintUser}
+                            />
+                            <span>{text}</span>
+                        </div>
+                    )}
+                    <DivMeatBalls onClick={(event) => event.stopPropagation()}>
+                        {' '}
+                        <MeatBalls navigations={navigation} id={id} />
+                    </DivMeatBalls>
+                </StyledCardContentSecond>
+            </StyledCard>
+        </StatusDiv>
     )
 }
 
+const DivMeatBalls = styled('span')``
+const StatusDiv = styled('div')`
+    opacity: ${(props) => (props.status === true ? '0.6' : '1')};
+    cursor: pointer;
+`
 const StyledCard = styled(MuiCard)`
-    width: 29%;
-    height: 31%;
+    width: 95%;
+    height: 100%;
     margin: 1%;
     padding: 1%;
+    border: ${(props) =>
+        props.complaintBorder === 'orange' ? '1px solid #FD5200' : ''};
 `
 
 const StyledAvatar = styled(Avatar)`
     width: 36px;
     height: 36px;
+    margin-right: 10px;
+`
+const StyledComplainAvatar = styled(Avatar)`
+    width: 20px;
+    height: 20px;
     margin-right: 10px;
 `
 const UserName = styled('h1')`
@@ -74,7 +111,7 @@ const Div = styled('div')`
 
 const StyledCardContentSecond = styled('div')`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     margin: 10px 15px 0 0px;
 `

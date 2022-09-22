@@ -22,7 +22,7 @@ export const getUserProfileWithId = createAsyncThunk(
     async (id) => {
         try {
             const response = await appFetch({
-                url: `api/admin/${id}`,
+                url: `api/admin/user/${id}`,
             })
             return response
         } catch (error) {

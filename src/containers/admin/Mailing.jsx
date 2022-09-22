@@ -45,4 +45,8 @@ const TitleMailing = styled('p')`
 `
 const Container = styled('div')`
     margin-left: 20px;
+    margin-top: 100px;
+    button {
+        width: 200px;
+    }
 `

@@ -10,6 +10,7 @@ import facebook from '../../assets/icons/FacebookUser.svg'
 import instagram from '../../assets/icons/grayInstagram.svg'
 import telegram from '../../assets/icons/grayTelegram.svg'
 import vkontakte from '../../assets/icons/VKUser.svg'
+import BreadCrumbs from '../../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../../components/ui/Button'
 import ViewsDatePicker from '../../components/ui/datePicker/ViewsDatePicker'
 import ImagePicker from '../../components/ui/ImagePicker'
@@ -74,9 +75,6 @@ const Profile = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault()
-        // const navigateToProfile = () => {
-        //     return navigate('/myprofile')
-        // }
 
         const result = await dispatch(
             profileActions({
@@ -84,225 +82,233 @@ const Profile = () => {
                 dateOfBirth,
             })
         )
-        console.log(result)
         if (result) {
             navigate('/myprofile')
         }
     }
+    const pathTranslate = {
+        myprofile: 'Профиль',
+        profile: 'Рассказать о себе',
+    }
     return (
-        <ProfileContainer onSubmit={submitHandler}>
-            <div>
-                <ImagePicker
-                    newFile={img}
-                    onChange={onChangePhoto}
-                    id="profile"
-                />
-            </div>
-            <ProfileDiv>
-                <SizeText>Основная информация</SizeText>
-                <InputsDiv>
-                    <InputLabel>
-                        Имя
-                        <Input
-                            defaultValue={firstName}
-                            name="firstName"
-                            onChange={allValueHandler}
-                            type="text"
-                            width="396px"
-                            height="35px"
-                            placeholder="Имя"
-                        />
-                    </InputLabel>
-                    <InputLabel>
-                        Фамилия
-                        <Input
-                            defaultValue={lastName}
-                            name="lastName"
-                            onChange={allValueHandler}
-                            width="396px"
-                            height="35px"
-                            type="text"
-                            placeholder="Фамилия"
-                        />
-                    </InputLabel>
-                </InputsDiv>
-                <InputsDiv>
-                    <InputLabel>
-                        Город
-                        <Input
-                            name="city"
-                            onChange={allValueHandler}
-                            width="396px"
-                            height="35px"
-                            type="text"
-                            placeholder="Город"
-                            defaultValue={userInfo?.city}
-                        />
-                    </InputLabel>
-                    <InputLabel>
-                        Дата рождения
-                        <ViewsDatePicker
-                            placeholder="Укажите дату рождения"
-                            value={dateOfBirth}
-                            onChange={dateChangeHandler}
-                        />
-                    </InputLabel>
-                </InputsDiv>
-                <InputsDiv>
-                    <InputLabel>
-                        Email
-                        <Input
-                            value={email}
-                            name="email"
-                            onChange={allValueHandler}
-                            width="396px"
-                            height="35px"
-                            placeholder={email}
-                            type="email"
-                            disabled
-                        />
-                    </InputLabel>
-                    <InputLabel>
-                        Номер телефона
-                        <Input
-                            name="phoneNumber"
-                            onChange={allValueHandler}
-                            width="396px"
-                            height="35px"
-                            type="number"
-                            placeholder="Введите номер телефона"
-                            defaultValue={userInfo?.phoneNumber}
-                        />
-                    </InputLabel>
-                </InputsDiv>
+        <div>
+            <BreadCrumbsDiv>
+                <BreadCrumbs translate={pathTranslate} />
+            </BreadCrumbsDiv>
+            <ProfileContainer onSubmit={submitHandler}>
                 <div>
-                    <SizeText>Размеры</SizeText>
-                    <SelectDiv>
-                        <WrapperSelect>
-                            <p>Размер одежды</p>
-                            <SizePopup
-                                valueHandler={popupValueHandler}
-                                options={optionsSize}
-                                placeholder={
-                                    userInfo?.clothingSize ||
-                                    'Выберите размер одежды'
-                                }
-                            />
-                        </WrapperSelect>
-
-                        <WrapperSelect2>
-                            <p>Размер обуви</p>
-                            <SizePopup
-                                valueHandler={popupChangeHandler}
-                                options={options}
-                                placeholder={
-                                    userInfo?.shoeSize ||
-                                    'Выберите размер обуви'
-                                }
-                            />
-                        </WrapperSelect2>
-                    </SelectDiv>
+                    <ImagePicker
+                        newFile={img}
+                        onChange={onChangePhoto}
+                        id="profile"
+                    />
                 </div>
-                <div>
-                    <SizeText>Интересы, хобби</SizeText>
-                    <DivTextArea>
-                        <InputLabel style={style}>
-                            Расскажите о своих интересах и хобби
+                <ProfileDiv>
+                    <SizeText>Основная информация</SizeText>
+                    <InputsDiv>
+                        <InputLabel>
+                            Имя
+                            <Input
+                                defaultValue={firstName}
+                                name="firstName"
+                                onChange={allValueHandler}
+                                type="text"
+                                width="396px"
+                                height="35px"
+                                placeholder="Имя"
+                            />
                         </InputLabel>
-
-                        <Textarea
-                            defaultValue={userInfo?.hobby}
-                            name="hobby"
-                            onChange={allValueHandler}
-                            placeholder="Пример: плавание, бег, танцы, чтение художественной литературы..."
-                        />
-                    </DivTextArea>
-                </div>
-                <div>
-                    <SizeText>Важно знать</SizeText>
-                    <DivTextArea>
-                        <InputLabel style={style}>
-                            О чем важно знать?
+                        <InputLabel>
+                            Фамилия
+                            <Input
+                                defaultValue={lastName}
+                                name="lastName"
+                                onChange={allValueHandler}
+                                width="396px"
+                                height="35px"
+                                type="text"
+                                placeholder="Фамилия"
+                            />
                         </InputLabel>
+                    </InputsDiv>
+                    <InputsDiv>
+                        <InputLabel>
+                            Город
+                            <Input
+                                name="city"
+                                onChange={allValueHandler}
+                                width="396px"
+                                height="35px"
+                                type="text"
+                                placeholder="Город"
+                                defaultValue={userInfo?.city}
+                            />
+                        </InputLabel>
+                        <InputLabel>
+                            Дата рождения
+                            <ViewsDatePicker
+                                placeholder="Укажите дату рождения"
+                                value={dateOfBirth}
+                                onChange={dateChangeHandler}
+                            />
+                        </InputLabel>
+                    </InputsDiv>
+                    <InputsDiv>
+                        <InputLabel>
+                            Email
+                            <Input
+                                value={email}
+                                name="email"
+                                onChange={allValueHandler}
+                                width="396px"
+                                height="35px"
+                                placeholder={email}
+                                type="email"
+                                disabled
+                            />
+                        </InputLabel>
+                        <InputLabel>
+                            Номер телефона
+                            <Input
+                                name="phoneNumber"
+                                onChange={allValueHandler}
+                                width="396px"
+                                height="35px"
+                                type="number"
+                                placeholder="Введите номер телефона"
+                                defaultValue={userInfo?.phoneNumber}
+                            />
+                        </InputLabel>
+                    </InputsDiv>
+                    <div>
+                        <SizeText>Размеры</SizeText>
+                        <SelectDiv>
+                            <WrapperSelect>
+                                <p>Размер одежды</p>
+                                <SizePopup
+                                    valueHandler={popupValueHandler}
+                                    options={optionsSize}
+                                    placeholder={
+                                        userInfo?.clothingSize ||
+                                        'Выберите размер одежды'
+                                    }
+                                />
+                            </WrapperSelect>
 
-                        <Textarea
-                            defaultValue={userInfo?.importantNote}
-                            name="importantNote"
-                            onChange={allValueHandler}
-                            placeholder="Пример: аллергия на синтетические материалы, непереносимость лактозы..."
-                        />
-                    </DivTextArea>
-                </div>
+                            <WrapperSelect2>
+                                <p>Размер обуви</p>
+                                <SizePopup
+                                    valueHandler={popupChangeHandler}
+                                    options={options}
+                                    placeholder={
+                                        userInfo?.shoeSize ||
+                                        'Выберите размер обуви'
+                                    }
+                                />
+                            </WrapperSelect2>
+                        </SelectDiv>
+                    </div>
+                    <div>
+                        <SizeText>Интересы, хобби</SizeText>
+                        <DivTextArea>
+                            <InputLabel style={style}>
+                                Расскажите о своих интересах и хобби
+                            </InputLabel>
 
-                <SizeText>Социальные сети</SizeText>
-                <DivSocial>
-                    <div>
-                        <IconText>Фейсбук</IconText>
-                        <SocialDiv>
-                            <img src={facebook} alt="" />
-                            <Input
-                                defaultValue={userInfo?.facebookLink}
-                                name="facebookLink"
+                            <Textarea
+                                defaultValue={userInfo?.hobby}
+                                name="hobby"
                                 onChange={allValueHandler}
-                                width="357px"
-                                height="35px"
-                                placeholder="Вставьте ссылку на фейсбук"
+                                placeholder="Пример: плавание, бег, танцы, чтение художественной литературы..."
                             />
-                        </SocialDiv>
+                        </DivTextArea>
                     </div>
                     <div>
-                        <IconText>В контакте </IconText>
-                        <SocialDiv>
-                            <img src={vkontakte} alt="" />
-                            <Input
-                                name="vkLink"
-                                defaultValue={userInfo?.vkLink}
+                        <SizeText>Важно знать</SizeText>
+                        <DivTextArea>
+                            <InputLabel style={style}>
+                                О чем важно знать?
+                            </InputLabel>
+
+                            <Textarea
+                                defaultValue={userInfo?.importantNote}
+                                name="importantNote"
                                 onChange={allValueHandler}
-                                width="357px"
-                                height="35px"
-                                placeholder="Вставьте ссылку на В контакте "
+                                placeholder="Пример: аллергия на синтетические материалы, непереносимость лактозы..."
                             />
-                        </SocialDiv>
+                        </DivTextArea>
                     </div>
-                </DivSocial>
-                <DivSocial>
-                    <div>
-                        <IconText>Инстаграм</IconText>
-                        <SocialDiv>
-                            <img src={instagram} alt="" />
-                            <Input
-                                name="instagramLink"
-                                onChange={allValueHandler}
-                                defaultValue={userInfo?.instagramLink}
-                                width="357px"
-                                height="35px"
-                                placeholder="Вставьте ссылку на инстаграм"
-                            />
-                        </SocialDiv>
-                    </div>
-                    <div>
-                        <IconText>Телеграм </IconText>
-                        <SocialDiv>
-                            <img src={telegram} alt="" />
-                            <Input
-                                name="telegramLink"
-                                onChange={allValueHandler}
-                                width="357px"
-                                defaultValue={userInfo?.telegramLink}
-                                height="35px"
-                                placeholder="Вставьте ссылку на телеграм "
-                            />
-                        </SocialDiv>
-                    </div>
-                </DivSocial>
-                <Buttons>
-                    <Button variant="outlined">отмена</Button>
-                    <Button type="submit" variant="contained">
-                        сохранить
-                    </Button>
-                </Buttons>
-            </ProfileDiv>
-        </ProfileContainer>
+
+                    <SizeText>Социальные сети</SizeText>
+                    <DivSocial>
+                        <div>
+                            <IconText>Фейсбук</IconText>
+                            <SocialDiv>
+                                <img src={facebook} alt="" />
+                                <Input
+                                    defaultValue={userInfo?.facebookLink}
+                                    name="facebookLink"
+                                    onChange={allValueHandler}
+                                    width="357px"
+                                    height="35px"
+                                    placeholder="Вставьте ссылку на фейсбук"
+                                />
+                            </SocialDiv>
+                        </div>
+                        <div>
+                            <IconText>В контакте </IconText>
+                            <SocialDiv>
+                                <img src={vkontakte} alt="" />
+                                <Input
+                                    name="vkLink"
+                                    defaultValue={userInfo?.vkLink}
+                                    onChange={allValueHandler}
+                                    width="357px"
+                                    height="35px"
+                                    placeholder="Вставьте ссылку на В контакте "
+                                />
+                            </SocialDiv>
+                        </div>
+                    </DivSocial>
+                    <DivSocial>
+                        <div>
+                            <IconText>Инстаграм</IconText>
+                            <SocialDiv>
+                                <img src={instagram} alt="" />
+                                <Input
+                                    name="instagramLink"
+                                    onChange={allValueHandler}
+                                    defaultValue={userInfo?.instagramLink}
+                                    width="357px"
+                                    height="35px"
+                                    placeholder="Вставьте ссылку на инстаграм"
+                                />
+                            </SocialDiv>
+                        </div>
+                        <div>
+                            <IconText>Телеграм </IconText>
+                            <SocialDiv>
+                                <img src={telegram} alt="" />
+                                <Input
+                                    name="telegramLink"
+                                    onChange={allValueHandler}
+                                    width="357px"
+                                    defaultValue={userInfo?.telegramLink}
+                                    height="35px"
+                                    placeholder="Вставьте ссылку на телеграм "
+                                />
+                            </SocialDiv>
+                        </div>
+                    </DivSocial>
+                    <Buttons>
+                        <Button variant="outlined">отмена</Button>
+                        <Button type="submit" variant="contained">
+                            сохранить
+                        </Button>
+                    </Buttons>
+                </ProfileDiv>
+            </ProfileContainer>
+        </div>
     )
 }
 
@@ -311,6 +317,10 @@ export default Profile
 const style = {
     fontSize: '12px',
 }
+const BreadCrumbsDiv = styled('div')`
+    margin-top: 100px;
+    margin-left: 20px;
+`
 const ProfileContainer = styled('form')`
     width: 1086px;
     height: 1262px;
@@ -319,7 +329,7 @@ const ProfileContainer = styled('form')`
     margin-left: 20px;
     padding: 12px;
     display: flex;
-    margin-top: 100px;
+    margin-top: 20px;
 `
 const ProfileDiv = styled('div')`
     margin-top: -11px;

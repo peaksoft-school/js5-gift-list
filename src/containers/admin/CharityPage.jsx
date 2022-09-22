@@ -43,7 +43,7 @@ export const CharityPage = () => {
         dispatch(toUnBlockGifts(id))
     }
     const toInnerPageById = (id) => {
-        navigate(`/charity/${id}`)
+        navigate(`/charityAdmin/${id}`)
     }
     return (
         <WrapperCharityPage>
@@ -57,7 +57,7 @@ export const CharityPage = () => {
                         giftName={el?.gift?.name}
                         firstName={el?.ownerUser?.firstName}
                         lastName={el?.ownerUser?.lastName}
-                        status={el?.gift?.status}
+                        status={el?.gift?.isBlock}
                         img={el?.gift?.photo}
                         navigation={
                             el.gift.isBlock ? optionUnBlock : optionBlock

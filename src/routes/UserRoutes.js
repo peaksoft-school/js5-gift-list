@@ -30,7 +30,7 @@ const UserRoutes = () => {
     return (
         <Routes>
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
-                <Route path="/" element={<Navigate replace to="/lenta" />} />
+                <Route path="/" element={<Navigate to="/lenta" />} />
                 <Route path="/lenta" element={<Lenta />} />
                 <Route path="/lenta/:wishId" element={<HomePageWishCard />} />
                 <Route path="/friends" element={<FriendsPage />} />
@@ -67,9 +67,9 @@ const UserRoutes = () => {
                     path="/:editId/edit_charity"
                     element={<EditMyCharity />}
                 />
-                <Route path="/:id/innerPage" element={<CharityInnerPage />} />
+                <Route path="/charity/:id" element={<CharityInnerPage />} />
                 <Route
-                    path="/:myId/my_charity"
+                    path="/charity/my/:id"
                     element={<CharityMyInnerPage />}
                 />
             </Route>
