@@ -4,14 +4,11 @@ import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { GIFTLIST_AUTH } from '../../utils/constants/constants'
 import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
-export const profileActions2 = ({
-    basicInformation,
-    dateOfBirth,
-    navigate,
-}) => {
-    return async (dispatch) => {
-        const formData = new FormData()
+export const profileActions = createAsyncThunk(
+    'profile/addProfile',
+    async function ({ basicInformation, dateOfBirth }, { dispatch }) {
         try {
+            const formData = new FormData()
             const responseFile = {}
             if (basicInformation.photo.name) {
                 formData.set('file', basicInformation.photo)
@@ -44,42 +41,48 @@ export const profileActions2 = ({
                     vkLink: basicInformation.vkLink,
                 },
             })
+            const local = JSON.parse(localStorage.getItem(GIFTLIST_AUTH))
+
+            localStorage.setItem(
+                GIFTLIST_AUTH,
+                JSON.stringify({
+                    ...local,
+                    firstName: basicInformation.firstName,
+                    lastName: basicInformation.lastName,
+                    photo: responseFile?.link.link,
+                })
+            )
             showSuccessMessage('Успешно добавлено')
             dispatch(profileGet())
-            navigate()
             return response
-        } catch (error) {
+        } catch {
             showErrorMessage('Вышла ошибка!')
 
             throw new Error('Что-то пошло не так')
         }
     }
-}
+)
 
 export const profileGet = createAsyncThunk(
     'profile/fetchProfile',
     async function () {
-        const local = JSON.parse(localStorage.getItem(GIFTLIST_AUTH))
         const user = await appFetch({
             url: 'api/users/profile/me',
         })
-        // dispatch(actionAuth.getuser(user))
-        localStorage.setItem(
-            GIFTLIST_AUTH,
-            JSON.stringify({
-                ...local,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                photo: user.photo,
-            })
-        )
         return user
     }
 )
-export const editPost = ({ id, basicInformation, dateOfBirth, navigate }) => {
-    return async (dispatch) => {
+export const editProfile = createAsyncThunk(
+    'edit/profile',
+    async function (
+        { id, basicInformation, dateOfBirth, navigate },
+        { dispatch }
+    ) {
         const formData = new FormData()
+
         try {
+            const local = JSON.parse(localStorage.getItem(GIFTLIST_AUTH))
+
             const responseFile = {}
             if (basicInformation.photo.name) {
                 formData.set('file', basicInformation.photo)
@@ -88,6 +91,10 @@ export const editPost = ({ id, basicInformation, dateOfBirth, navigate }) => {
                     body: formData,
                 })
             }
+            const updatedDateOfBirth = dateOfBirth
+                .split('.')
+                .reverse()
+                .join('-')
             const response = await appFetch({
                 url: `api/users/profile/edit/${id}`,
                 method: 'POST',
@@ -99,7 +106,7 @@ export const editPost = ({ id, basicInformation, dateOfBirth, navigate }) => {
                         ? responseFile.link.link
                         : basicInformation.photo,
                     city: basicInformation.city,
-                    dateOfBirth,
+                    dateOfBirth: updatedDateOfBirth,
                     phoneNumber: basicInformation.phoneNumber,
                     clothingSize: basicInformation.clothingSize,
                     shoeSize: basicInformation.shoeSize,
@@ -111,6 +118,15 @@ export const editPost = ({ id, basicInformation, dateOfBirth, navigate }) => {
                     vkLink: basicInformation.vkLink,
                 },
             })
+            localStorage.setItem(
+                GIFTLIST_AUTH,
+                JSON.stringify({
+                    ...local,
+                    firstName: basicInformation.firstName,
+                    lastName: basicInformation.lastName,
+                    photo: responseFile?.link.link,
+                })
+            )
             showSuccessMessage('Успешно редактирован!')
 
             dispatch(profileGet())
@@ -122,9 +138,11 @@ export const editPost = ({ id, basicInformation, dateOfBirth, navigate }) => {
             throw new Error('Что-то пошло не так')
         }
     }
-}
-export const passwordPost = ({ allPassword, setError, setChangePassword }) => {
-    return async () => {
+)
+
+export const passwordPost = createAsyncThunk(
+    'password/newPassword',
+    async ({ allPassword }) => {
         try {
             const response = await appFetch({
                 url: `api/users/profile/password`,
@@ -132,10 +150,10 @@ export const passwordPost = ({ allPassword, setError, setChangePassword }) => {
                 body: allPassword,
             })
             showSuccessMessage('пароль изменен ')
-            setChangePassword(false)
-            console.log(response)
+
+            return response
         } catch (error) {
-            setError('старый пароль  не правильный')
+            throw new Error('старый пароль  не правильный')
         }
     }
-}
+)

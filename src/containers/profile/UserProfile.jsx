@@ -102,45 +102,37 @@ const EditProfile = () => {
                         <>
                             <Text>Основная информация</Text>
                             <UniverDiv>
-                                {userInfo?.city ? (
+                                {userInfo?.city && (
                                     <div>
                                         <KeyText>Город:</KeyText>
                                         <ContentText>
                                             {userInfo?.city}
                                         </ContentText>
                                     </div>
-                                ) : (
-                                    ''
                                 )}
-                                {userInfo?.dateOfBirth ? (
+                                {userInfo?.dateOfBirth && (
                                     <div>
                                         <KeyText>Дата рождения:</KeyText>
                                         <ContentText>
                                             {userInfo?.dateOfBirth}
                                         </ContentText>
                                     </div>
-                                ) : (
-                                    ''
                                 )}
                             </UniverDiv>
                             <UniverDiv>
-                                {email ? (
+                                {email && (
                                     <div>
                                         <KeyText>Email:</KeyText>
                                         <ContentText>{email}</ContentText>
                                     </div>
-                                ) : (
-                                    ''
                                 )}
-                                {userInfo?.phoneNumber ? (
+                                {userInfo?.phoneNumber && (
                                     <div>
                                         <KeyText>Номер телефона:</KeyText>
                                         <ContentText>
                                             {userInfo?.phoneNumber}
                                         </ContentText>
                                     </div>
-                                ) : (
-                                    ''
                                 )}
                             </UniverDiv>
                         </>
@@ -151,25 +143,21 @@ const EditProfile = () => {
                         <>
                             <Text>Интересы, хобби</Text>
                             <UniverDiv>
-                                {userInfo?.hobby ? (
+                                {userInfo?.hobby && (
                                     <div>
                                         <KeyText>Интересы, хобби:</KeyText>
                                         <ContentText>
                                             {userInfo?.hobby}
                                         </ContentText>
                                     </div>
-                                ) : (
-                                    ''
                                 )}
-                                {userInfo?.importantNote ? (
+                                {userInfo?.importantNote && (
                                     <div>
                                         <KeyText>Важно знать:</KeyText>
                                         <ContentText>
                                             {userInfo?.importantNote}
                                         </ContentText>
                                     </div>
-                                ) : (
-                                    ''
                                 )}
                             </UniverDiv>
                         </>
@@ -180,25 +168,21 @@ const EditProfile = () => {
                         <>
                             <Text>Доп. инфа</Text>
                             <UniverDiv>
-                                {userInfo?.clothingSize ? (
+                                {userInfo?.clothingSize && (
                                     <div>
                                         <KeyText>Размер одежды:</KeyText>
                                         <ContentText>
                                             {userInfo?.clothingSize}
                                         </ContentText>
                                     </div>
-                                ) : (
-                                    ''
                                 )}
-                                {userInfo?.shoeSize ? (
+                                {userInfo?.shoeSize && (
                                     <div>
-                                        <KeyText>Размер одежды:</KeyText>
+                                        <KeyText>Размер обуви:</KeyText>
                                         <ContentText>
                                             {userInfo?.shoeSize}
                                         </ContentText>
                                     </div>
-                                ) : (
-                                    ''
                                 )}
                             </UniverDiv>
                         </>

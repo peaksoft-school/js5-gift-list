@@ -1,15 +1,9 @@
 import { store } from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
-// let store
-// export const injectStore = (_store) => {
-//     store = _store
-// }
-
 export const appFetch = async (data) => {
     const { authSlice } = store.getState()
     try {
-        console.log(data)
         const requestOptions = {
             method: data.method || 'GET',
             headers: authSlice.user.jwt
@@ -29,7 +23,6 @@ export const appFetch = async (data) => {
         if (!response.ok) {
             throw new Error(response.message)
         }
-
         return response.json()
     } catch (error) {
         throw new Error(error.message)
@@ -52,7 +45,7 @@ export const appFetchFile = async (config) => {
         }
         return response.json()
     } catch (error) {
-        return new Error(error.message)
+        throw new Error(error.message)
     }
 }
 // export const appFetchFile = async (photo) => {

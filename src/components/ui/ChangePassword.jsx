@@ -13,6 +13,7 @@ import InputPassword from './InputPassword'
 
 const ChangePassword = ({ setChangePassword }) => {
     const [error, setError] = useState('')
+
     const dispatch = useDispatch()
     const {
         value: passwordValue,
@@ -36,7 +37,7 @@ const ChangePassword = ({ setChangePassword }) => {
         inputBlurHandler: newPasswordBlurHandler2,
     } = useInput((value) => value === newPasswordValue && value.length >= 6)
 
-    const submitHandler = () => {
+    const submitHandler = async () => {
         if (!passwordIsValid && !newPasswordIsValid && !newPasswordIsValid2) {
             return
         }
@@ -44,7 +45,14 @@ const ChangePassword = ({ setChangePassword }) => {
             currentPassword: passwordValue,
             newPassword: newPasswordValue,
         }
-        dispatch(passwordPost({ allPassword, setError, setChangePassword }))
+        try {
+            const result = await dispatch(passwordPost(allPassword)).unwrap()
+            if (result) {
+                setChangePassword(false)
+            }
+        } catch {
+            setError('старый пароль  не правильный')
+        }
     }
     return (
         <BasicModal open onClose={() => setChangePassword(false)}>

@@ -17,7 +17,7 @@ import Input from '../../components/ui/Input'
 import Notification from '../../components/ui/notification/Notification'
 import SizePopup from '../../components/ui/SizePopup'
 import Textarea from '../../components/ui/Textarea'
-import { editPost, profileGet } from '../../store/slices/ProfileActions'
+import { editProfile, profileGet } from '../../store/slices/ProfileActions'
 import { optionsSize, options } from '../../utils/constants/constants'
 
 const UserProfile = () => {
@@ -93,7 +93,7 @@ const UserProfile = () => {
         }
 
         dispatch(
-            editPost({
+            editProfile({
                 id: userInfo.id,
                 basicInformation,
                 dateOfBirth,

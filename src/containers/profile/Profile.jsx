@@ -16,7 +16,7 @@ import ImagePicker from '../../components/ui/ImagePicker'
 import Input from '../../components/ui/Input'
 import SizePopup from '../../components/ui/SizePopup'
 import Textarea from '../../components/ui/Textarea'
-import { profileActions2, profileGet } from '../../store/slices/ProfileActions'
+import { profileActions, profileGet } from '../../store/slices/ProfileActions'
 import { optionsSize, options } from '../../utils/constants/constants'
 
 const Profile = () => {
@@ -43,7 +43,9 @@ const Profile = () => {
     })
     const navigate = useNavigate()
     const popupValueHandler = (data) => {
-        setBasicInformation({ ...basicInformation, clothingSize: data })
+        if (data > 0) {
+            setBasicInformation({ ...basicInformation, clothingSize: data })
+        }
     }
     const popupChangeHandler = (data) => {
         setBasicInformation({ ...basicInformation, shoeSize: data })
@@ -70,19 +72,22 @@ const Profile = () => {
     }, [])
     const img = basicInformation.photo?.name ? null : basicInformation?.photo
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault()
-        const navigateToProfile = () => {
-            return navigate('/myprofile')
-        }
+        // const navigateToProfile = () => {
+        //     return navigate('/myprofile')
+        // }
 
-        dispatch(
-            profileActions2({
+        const result = await dispatch(
+            profileActions({
                 basicInformation,
                 dateOfBirth,
-                navigate: navigateToProfile,
             })
         )
+        console.log(result)
+        if (result) {
+            navigate('/myprofile')
+        }
     }
     return (
         <ProfileContainer onSubmit={submitHandler}>
