@@ -19,11 +19,13 @@ import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
 import HolidaySlice from './slices/HolidaySlice'
 import HomePageSlice from './slices/HomePageSlice'
 import getUserSlice from './slices/mainSearchSlise'
+import profileSlice from './slices/ProfileSlice'
 
 export const store = configureStore({
     reducer: {
         holiday: HolidaySlice.reducer,
         authSlice: authSlice.reducer,
+        profileSlice: profileSlice.reducer,
         users: getUserSlice.reducer,
         friends: friendsSlice.reducer,
         requestToFriend: requestToFriendSlice.reducer,

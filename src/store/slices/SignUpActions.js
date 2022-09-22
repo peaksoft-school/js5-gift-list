@@ -17,6 +17,7 @@ export const signUp = ({ userData, setError }) => {
                 role: response.role,
                 firstName: response.firstName,
                 lastName: response.lastName,
+                email: response.email,
             }
             const json = JSON.stringify(users)
             localStorage.setItem(GIFTLIST_AUTH, json)
@@ -27,6 +28,7 @@ export const signUp = ({ userData, setError }) => {
                     role: response.role,
                     firstName: response.firstName,
                     lastName: response.lastName,
+                    email: response.email,
                 })
             )
         } catch (error) {

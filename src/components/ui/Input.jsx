@@ -10,6 +10,7 @@ const Input = forwardRef((props, ref) => {
         name,
         id,
         error,
+        defaultValue,
         onBlur,
         onChange,
         value,
@@ -27,6 +28,7 @@ const Input = forwardRef((props, ref) => {
             onChange={onChange}
             onBlur={onBlur}
             ref={ref}
+            defaultValue={defaultValue}
             value={value}
             width={width}
             height={height}

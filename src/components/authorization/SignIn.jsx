@@ -71,6 +71,7 @@ const SingIn = ({ setSignInState }) => {
                             type="email"
                             placeholder="Email"
                         />
+                        <ErrorValidation>{error}</ErrorValidation>
                         {emailIsValidHasError && (
                             <ErrorValidation>
                                 введите действительную электронную почту
@@ -87,7 +88,6 @@ const SingIn = ({ setSignInState }) => {
                             placeholder="Пароль"
                         />
                     </Div>
-                    <ErrorValidation>{error}</ErrorValidation>
 
                     <DivRemember onClick={() => setMemorize(!memorize)}>
                         <input type="checkbox" />

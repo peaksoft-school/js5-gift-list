@@ -3,16 +3,21 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import Menu from '@mui/material/Menu'
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state'
+import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux/es/exports'
+import { useNavigate } from 'react-router-dom'
 
 import { ReactComponent as Exit } from '../assets/icons/ExitIcon.svg'
 import { ReactComponent as Profile } from '../assets/icons/Profile.svg'
 import { ReactComponent as ProfileIcon } from '../assets/icons/ProfileIcon.svg'
 import { ReactComponent as Vector } from '../assets/icons/Vector.svg'
+import { profileGet } from '../store/slices/ProfileActions'
 
 import LogoutModal from './LogoutModal'
 
 const MenuAccaunt = () => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [logoutState, setLogoutState] = useState(false)
     const logoutHandler = () => {
         setLogoutState(true)
@@ -23,6 +28,12 @@ const MenuAccaunt = () => {
     const { firstName, photo, lastName } = useSelector(
         (state) => state.authSlice.user
     )
+
+    const profileNavigate = () => {
+        navigate('/myprofile')
+        dispatch(profileGet())
+    }
+
     return (
         <AccauntProfile>
             {logoutState && <LogoutModal neLogoutHandler={neLogoutHandler} />}
@@ -52,7 +63,7 @@ const MenuAccaunt = () => {
                                 <p>
                                     <ProfileIcon />
                                 </p>
-                                <p>Профиль</p>
+                                <p onClick={profileNavigate}>Профиль</p>
                             </MenuItem>
                             <MenuItem onClick={popupState.close}>
                                 <p>

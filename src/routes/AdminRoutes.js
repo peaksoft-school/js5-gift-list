@@ -18,7 +18,7 @@ const AdminRoutes = () => {
     return (
         <Routes>
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
-                <Route path="/" element={<Navigate to="/users" />} />
+                <Route path="/" element={<Navigate replace to="/users" />} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="users/:id" element={<UserProfilePage />} />
                 <Route path="/complaints" element={<Complaints />} />

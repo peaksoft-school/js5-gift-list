@@ -91,14 +91,13 @@ export default function SelectFilter(props) {
 //     margin-right: 7px;
 // `
 // const MenuItemButton = styled(MenuItem)`
-//     color: #8639b5;
+//     color: #8639B5;
 //     padding: 0 0 0 15px;
 // `
 const StyledInputLabel = styled(InputLabel)`
     padding: 10px 0 8px 0;
     color: #bfc0c4;
 `
-
 const Label = styled('label')`
     font-family: 'Inter', sans-serif;
     font-style: normal;
