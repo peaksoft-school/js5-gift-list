@@ -49,20 +49,24 @@ export default function BookedWishesCard({
                     {variant === 'WITHBOTTOMTITLE' && (
                         <div style={{ display: 'flex' }}>
                             {' '}
-                            <StyledAvatar
+                            <StyledComplainAvatar
                                 alt="Cindy Baker"
                                 src={complaintUser}
                             />
                             <span>{text}</span>
                         </div>
                     )}
-                    <MeatBalls navigations={navigation} id={id} />
+                    <DivMeatBalls onClick={(event) => event.stopPropagation()}>
+                        {' '}
+                        <MeatBalls navigations={navigation} id={id} />
+                    </DivMeatBalls>
                 </StyledCardContentSecond>
             </StyledCard>
         </StatusDiv>
     )
 }
 
+const DivMeatBalls = styled('span')``
 const StatusDiv = styled('div')`
     opacity: ${(props) => (props.status === true ? '0.6' : '1')};
     cursor: pointer;
@@ -79,6 +83,11 @@ const StyledCard = styled(MuiCard)`
 const StyledAvatar = styled(Avatar)`
     width: 36px;
     height: 36px;
+    margin-right: 10px;
+`
+const StyledComplainAvatar = styled(Avatar)`
+    width: 20px;
+    height: 20px;
     margin-right: 10px;
 `
 const UserName = styled('h1')`
@@ -102,7 +111,7 @@ const Div = styled('div')`
 
 const StyledCardContentSecond = styled('div')`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     margin: 10px 15px 0 0px;
 `

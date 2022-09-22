@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { appFetch } from '../../api/CustomFetch'
-import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
+import { appFetch } from '../../../api/CustomFetch'
+import { showErrorMessage, showSuccessMessage } from '../../../utils/helpers'
 
 export const giftsComplaintsAction = createAsyncThunk(
     'complaints/giftsComplaints',
@@ -23,14 +23,14 @@ export const wishesComplaintsAction = createAsyncThunk(
 )
 export const deleteComplaintAction = createAsyncThunk(
     'deleteComplaint/deleteComplaintAction',
-    async (obj) => {
+    async (complaintId, { dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'DELETE',
-                url: `api/complaints/${obj.complaintId}`,
+                url: `api/complaints/${complaintId}`,
             })
-            obj.dispatch(giftsComplaintsAction())
-            obj.dispatch(wishesComplaintsAction())
+            dispatch(giftsComplaintsAction())
+            dispatch(wishesComplaintsAction())
             showSuccessMessage('Успешно удален!')
             return response
         } catch (error) {
@@ -70,6 +70,7 @@ export const toBlockWishAction = createAsyncThunk(
                 url: `api/admin/blockWish/${id}`,
             })
             dispatch(getWishAction(id))
+            dispatch(wishesComplaintsAction())
             showSuccessMessage('Успешно заблокирован!')
             return response
         } catch (error) {

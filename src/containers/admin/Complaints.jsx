@@ -16,7 +16,7 @@ import {
     unBlockGiftAction,
     unBlockWishAction,
     wishesComplaintsAction,
-} from '../../store/slices/complaintsAction'
+} from '../../store/slices/admin/complaintsAction'
 
 const WITHBOTTOMTITLE = 'WITHBOTTOMTITLE'
 export const Complaints = () => {
@@ -100,10 +100,10 @@ export const Complaints = () => {
         },
     ]
     function toBlockWishHandler(id) {
-        dispatch(toBlockWishAction({ id, dispatch }))
+        dispatch(toBlockWishAction(id))
     }
     function unBlockWishHandler(id) {
-        dispatch(unBlockWishAction({ id, dispatch }))
+        dispatch(unBlockWishAction(id))
     }
     function toBlockGiftHandler(id) {
         dispatch(toBlockGiftAction(id))
@@ -112,10 +112,13 @@ export const Complaints = () => {
         dispatch(unBlockGiftAction(id))
     }
     const deleteComplaintHandler = (complaintId) => {
-        dispatch(deleteComplaintAction({ complaintId, dispatch }))
+        dispatch(deleteComplaintAction(complaintId))
     }
-    const goToInnerPage = (id) => {
-        navigate(`/complaints/${id}`)
+    const goToGiftInnerPage = (id) => {
+        navigate(`/complaints/gift/${id}`)
+    }
+    const goToWishInnerPage = (id) => {
+        navigate(`/complaints/wish/${id}`)
     }
     return (
         <Div>
@@ -145,7 +148,7 @@ export const Complaints = () => {
                                 avatar={el?.ownerUser?.photo}
                                 status={el?.gift?.isBlock}
                                 onClick={() => {
-                                    goToInnerPage(el?.gift?.giftId)
+                                    goToGiftInnerPage(el?.gift?.giftId)
                                 }}
                                 navigation={
                                     el?.gift?.isBlock === false
@@ -188,7 +191,7 @@ export const Complaints = () => {
                                     avatar={el?.ownerUser?.photo}
                                     status={el?.wish?.isBlock}
                                     onClick={() => {
-                                        goToInnerPage(el?.wish.wishId)
+                                        goToWishInnerPage(el?.wish.wishId)
                                     }}
                                 />
                             ))}

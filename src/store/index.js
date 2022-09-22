@@ -4,15 +4,15 @@ import addCharity from './slices/AddCharity'
 import { AddWishCardSlice } from './slices/addWishCardSlice'
 // eslint-disable-next-line import/no-cycle
 import charitySearching from './slices/admin/charitySlice'
-import usersCardSlice from './slices/admin/usersPageSlice'
-import { authSlice } from './slices/AuthSlice'
-import bookedPageSlice from './slices/bookedPageSlice'
 import {
     getComlaintWishSlice,
     getComplaintGiftSlice,
     giftsComplaintsSlice,
     wishesComplaintsSlice,
-} from './slices/complaintsSlice'
+} from './slices/admin/complaintsSlice'
+import usersCardSlice from './slices/admin/usersPageSlice'
+import { authSlice } from './slices/AuthSlice'
+import bookedPageSlice from './slices/bookedPageSlice'
 import friendProfileSlice from './slices/friendProfileSlice'
 import { requestToFriendSlice, friendsSlice } from './slices/friendTabSlice'
 import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
