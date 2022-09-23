@@ -11,6 +11,8 @@ import { useSelector } from 'react-redux'
 import addInMyGiftIcon from '../../assets/icons/addInMyGifts.svg'
 import cancelBooking from '../../assets/icons/cancelBooking.svg'
 import complaintIcon from '../../assets/icons/complaintss.svg'
+import deleteIcon from '../../assets/icons/deleteIcon.svg'
+import editIcon from '../../assets/icons/editIcon.svg'
 import toBookIcon from '../../assets/icons/toBook.svg'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
@@ -66,13 +68,13 @@ export default function Card(props) {
         ]
         const ownerDeleteEdit = [
             {
-                icon: toBookIcon,
+                icon: editIcon,
                 title: 'Редактировать',
                 id: '4',
                 clickItem: () => editCard(),
             },
             {
-                icon: addInMyGiftIcon,
+                icon: deleteIcon,
                 title: 'Удалить',
                 id: '5',
                 clickItem: () => deleteCard(),
@@ -220,8 +222,9 @@ export default function Card(props) {
                     alt="Cindy Baker"
                     src={photo}
                     variants={variant}
+                    onClick={navigateToUserProfile}
                 />
-                <UserDiv onClick={navigateToUserProfile}>
+                <UserDiv>
                     <UserName variants={variant}>
                         {userName} {lastName}
                     </UserName>
@@ -261,7 +264,9 @@ const StyledCard = styled(MuiCard)(({ variants }) => ({
     }),
 }))
 const StyledAvatar = styled(Avatar)(({ variants }) => ({
-    ...(variants === 'board' && {}),
+    ...(variants === 'board' && {
+        cursor: 'pointer',
+    }),
     ...(variants === 'list' && {
         width: '35px',
         height: '35px',
@@ -320,15 +325,15 @@ const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
     display: 'grid',
     padding: '0',
     ...(variants === 'board' && {
-        gridTemplateColumns: '80px 160px 10px',
+        gridTemplateColumns: '80px 165px 10px',
         gridTemplateRows: '0px',
-        margin: '23px 16px 0 16px',
+        margin: '15px 16px 0 16px',
     }),
     ...(variants === 'list' && {
-        gridTemplateColumns: '30px 240px 10px',
+        gridTemplateColumns: '30px 245px 10px',
         position: 'absolute',
         width: '20%',
-        top: '17vh',
+        top: '18.5vh',
         left: '24.5vh',
     }),
 }))
@@ -356,13 +361,13 @@ const NameGift = styled('span')(({ variants }) => ({
     fontStyle: 'normal',
     color: '#000000',
     ...(variants === 'board' && {
-        margin: '0 16px 10px 16px',
+        margin: '0 16px 20px 16px',
         order: '-1',
     }),
     ...(variants === 'list' && {
         position: 'absolute',
         left: '153px',
-        top: '70px',
+        top: '75px',
     }),
 }))
 const StyledDate = styled('p')(({ variants }) => ({

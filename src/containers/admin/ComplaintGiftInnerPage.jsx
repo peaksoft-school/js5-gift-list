@@ -5,45 +5,34 @@ import Avatar from '@mui/material/Avatar'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import BreadCrumbs from '../../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../../components/ui/Button'
 import {
     getGiftAction,
-    getWishAction,
     toBlockGiftAction,
-    toBlockWishAction,
     unBlockGiftAction,
-    unBlockWishAction,
-} from '../../store/slices/complaintsAction'
+} from '../../store/slices/admin/complaintsAction'
 
-const ComplaintInnerPage = () => {
-    const { id } = useParams()
+const ComplaintGiftInnerPage = () => {
+    const { giftId } = useParams()
+    console.log(giftId)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getWishAction(id))
-    }, [])
-
-    useEffect(() => {
-        dispatch(getGiftAction(id))
-    }, [id])
+        dispatch(getGiftAction(giftId))
+    }, [giftId])
 
     const complaintGift = useSelector(
         (state) => state.complaintGift.complaintGift
     )
-    const complaintWish = useSelector(
-        (state) => state.complaintWish.complaintWish
-    )
-    const { wish } = complaintWish
-    const { ownerUser } = complaintWish
-    const { bookedUser } = complaintWish
+
     const { gift } = complaintGift
+    console.log(complaintGift)
+    console.log(gift?.giftId)
     const giftOwnerUser = complaintGift?.ownerUser
     const giftBookeduser = complaintGift?.bookedUser
 
     const avatarBookedUser = () => {
-        if (bookedUser) {
-            return bookedUser.photo
-        }
         if (giftBookeduser) {
             return giftBookeduser.photo
         }
@@ -51,9 +40,6 @@ const ComplaintInnerPage = () => {
     }
 
     const titleIsBooked = () => {
-        if (bookedUser) {
-            return 'Забронирован'
-        }
         if (giftBookeduser) {
             return 'Забронирован'
         }
@@ -79,23 +65,7 @@ const ComplaintInnerPage = () => {
                 )
             })
         }
-        if (wish?.complaints) {
-            return wish?.complaints.map((el) => {
-                return (
-                    <div key={el?.complaintId}>
-                        <Avatar
-                            src={el?.fromUser?.photo}
-                            alt={el?.fromUser?.firstName}
-                        />
-                        <UserComplainedName>
-                            <span>{el?.fromUser?.firstName}</span>
-                            <span>{el?.fromUser?.lastName}</span>
-                        </UserComplainedName>
-                        <ComplainText>{el?.text}</ComplainText>
-                    </div>
-                )
-            })
-        }
+
         return null
     }
 
@@ -115,73 +85,46 @@ const ComplaintInnerPage = () => {
     const unBlockGiftHandler = (id) => {
         dispatch(unBlockGiftAction(id))
     }
-    const toBlockWishHandler = (id) => {
-        dispatch(toBlockWishAction(id))
-    }
-    const unBlockWishHandler = (id) => {
-        dispatch(unBlockWishAction(id))
-    }
 
-    const isBlockHandler = (id) => {
+    const isBlockHandler = (giftId) => {
         if (gift?.isBlock === false) {
             return (
-                <Button onClick={() => toBlockGiftHandler(id)}>
+                <Button onClick={() => toBlockGiftHandler(giftId)}>
                     Блокировать
                 </Button>
             )
         }
         if (gift?.isBlock === true) {
             return (
-                <Button onClick={() => unBlockGiftHandler(id)}>
+                <Button onClick={() => unBlockGiftHandler(giftId)}>
                     Разблокировать
                 </Button>
             )
         }
-        if (wish?.isBlock === false) {
-            return (
-                <Button onClick={() => toBlockWishHandler(id)}>
-                    Блокировать
-                </Button>
-            )
-        }
-        if (wish?.isBlock === true) {
-            return (
-                <Button onClick={() => unBlockWishHandler(id)}>
-                    Разблокировать
-                </Button>
-            )
-        }
+
         return null
     }
-
+    const pathTranslate = {
+        complaints: 'Жалобы',
+        // gift: 'подарки',
+        [giftId]: gift?.name,
+    }
     return (
-        <div>
+        <div style={{ marginTop: '118px' }}>
             <RouteTitle>
-                Жалобы/
-                <RouteNameTitle>{wish?.wishName || gift?.name}</RouteNameTitle>
+                <BreadCrumbs translate={pathTranslate} />
             </RouteTitle>
             <div style={styleForCard}>
-                <Img
-                    src={gift?.photo || wish?.photo}
-                    alt={wish?.wishName || gift?.wishName}
-                />
+                <Img src={gift?.photo} alt={gift?.wishName} />
                 <WrapperDiv>
                     <User>
                         <StyledAvatar
-                            src={ownerUser?.photo || giftOwnerUser?.photo}
-                            alt={
-                                ownerUser?.firstName || giftOwnerUser?.firstName
-                            }
+                            src={giftOwnerUser?.photo}
+                            alt={giftOwnerUser?.firstName}
                         />
                         <UserName>
-                            <span>
-                                {' '}
-                                {ownerUser?.firstName ||
-                                    giftOwnerUser?.firstName}
-                            </span>
-                            <span>
-                                {ownerUser?.lastName || giftOwnerUser?.lastName}
-                            </span>
+                            <span> {giftOwnerUser?.firstName}</span>
+                            <span>{giftOwnerUser?.lastName}</span>
                         </UserName>
                         <StyledToBookUserDiv>
                             <ToBookUserAvatar
@@ -191,8 +134,8 @@ const ComplaintInnerPage = () => {
                             <ToBooking>{titleIsBooked()}</ToBooking>
                         </StyledToBookUserDiv>
                     </User>
-                    <StyledH1>{wish?.wishName || gift?.wishName}</StyledH1>
-                    <Styledp>{wish?.description || gift?.description}</Styledp>
+                    <StyledH1>{gift?.wishName}</StyledH1>
+                    <Styledp>{gift?.description}</Styledp>
                     <WrapperNameGiftAndDate>
                         {gift?.category ? (
                             <>
@@ -231,20 +174,18 @@ const ComplaintInnerPage = () => {
                     </WrapperNameGiftAndDate>
                     <WrapperPropsGiftAndDate>
                         <NameGiftProps>{gift?.subCategory?.name}</NameGiftProps>
-                        <DateGiftProps>
-                            {wish?.wishDate || gift?.createdAt}
-                        </DateGiftProps>
+                        <DateGiftProps>{gift?.createdAt}</DateGiftProps>
                     </WrapperPropsGiftAndDate>
                     <WrapperButtons>
                         {complaint()}
-                        <div>{isBlockHandler(id)}</div>
+                        <div>{isBlockHandler(giftId)}</div>
                     </WrapperButtons>
                 </WrapperDiv>
             </div>
         </div>
     )
 }
-export default ComplaintInnerPage
+export default ComplaintGiftInnerPage
 
 const styleForCard = {
     display: 'flex',
@@ -378,12 +319,4 @@ const RouteTitle = styled('p')`
     font-size: 14px;
     line-height: 17px;
     color: #b4b4b4;
-`
-const RouteNameTitle = styled('span')`
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
 `

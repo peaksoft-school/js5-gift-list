@@ -1,11 +1,6 @@
 import { store } from '../store'
 import { URL_BASE } from '../utils/constants/Url'
 
-// let store
-// export const injectStore = (_store) => {
-//     store = _store
-// }
-
 export const appFetch = async (data) => {
     const { authSlice } = store.getState()
     try {
@@ -28,13 +23,12 @@ export const appFetch = async (data) => {
         if (!response.ok) {
             throw new Error(response.message)
         }
-        // console.log(response)
-
         return response.json()
     } catch (error) {
         throw new Error(error.message)
     }
 }
+
 export const appFetchFile = async (config) => {
     const { authSlice } = store.getState()
     try {

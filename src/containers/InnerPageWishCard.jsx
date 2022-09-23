@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
+import BreadCrumbs from '../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../components/ui/Button'
 import {
     deleteWishGift,
@@ -27,62 +28,79 @@ const InnerPageWishCard = () => {
         dispatch(deleteWishGift(wishListId))
         navigate('/wish_list')
     }
-
+    const pathTranslate = {
+        wish_list: 'Список желаний',
+        [wishListId]: dataWishCardWithId?.wish?.wishName,
+    }
     return (
-        <WrapperAll>
-            <Img src={dataWishCardWithId?.wish?.photo} alt="image" />
-            <WrapperDiv>
-                <User>
-                    <StyledAvatar
-                        src={dataWishCardWithId?.ownerUser?.photo}
-                        alt="avatar"
-                    />
-                    <UserName>
-                        {dataWishCardWithId?.ownerUser?.firstName}{' '}
-                        {dataWishCardWithId?.ownerUser?.lastName}
-                    </UserName>
-                    <ToBooking>
-                        {dataWishCardWithId?.bookedUser ? (
-                            <SpanAvatar>
-                                <AvatarToBooking
-                                    src={dataWishCardWithId?.bookedUser?.photo}
-                                />
-                                Забронирован
-                            </SpanAvatar>
-                        ) : (
-                            'В ожидании'
-                        )}
-                    </ToBooking>
-                </User>
-                <WrapperNameGiftAndDate>
-                    <NameGift>Название праздника:</NameGift>
-                    <DateGift>Дата праздника:</DateGift>
-                </WrapperNameGiftAndDate>
-                <WrapperPropsGiftAndDate>
-                    <NameGiftProps>
-                        {dataWishCardWithId?.wish?.holiday.name}
-                    </NameGiftProps>
-                    <DateGiftProps>
-                        {dataWishCardWithId?.wish?.wishDate}
-                    </DateGiftProps>
-                </WrapperPropsGiftAndDate>
-                <StyledH1>{dataWishCardWithId?.wish?.wishName}</StyledH1>
-                <Styledp>{dataWishCardWithId?.wish?.description} </Styledp>
-                <WrapperButtons>
-                    <Button variant="contained" onClick={toEditPage}>
-                        Редактировать
-                    </Button>
-                    <Button variant="contained" onClick={deleteGift}>
-                        Удалить
-                    </Button>
-                </WrapperButtons>
-            </WrapperDiv>
-        </WrapperAll>
+        <>
+            <BreadCrumbsDiv>
+                <BreadCrumbs translate={pathTranslate} />
+            </BreadCrumbsDiv>
+            <WrapperAll>
+                <Img src={dataWishCardWithId?.wish?.photo} alt="image" />
+                <WrapperDiv>
+                    <User>
+                        <StyledAvatar
+                            src={dataWishCardWithId?.ownerUser?.photo}
+                            alt="avatar"
+                        />
+                        <UserName>
+                            {dataWishCardWithId?.ownerUser?.firstName}{' '}
+                            {dataWishCardWithId?.ownerUser?.lastName}
+                        </UserName>
+                        <ToBooking>
+                            {dataWishCardWithId?.bookedUser ? (
+                                <SpanAvatar>
+                                    <AvatarToBooking
+                                        src={
+                                            dataWishCardWithId?.bookedUser
+                                                ?.photo
+                                        }
+                                    />
+                                    Забронирован
+                                </SpanAvatar>
+                            ) : (
+                                'В ожидании'
+                            )}
+                        </ToBooking>
+                    </User>
+                    <WrapperNameGiftAndDate>
+                        <NameGift>Название праздника:</NameGift>
+                        <DateGift>Дата праздника:</DateGift>
+                    </WrapperNameGiftAndDate>
+                    <WrapperPropsGiftAndDate>
+                        <NameGiftProps>
+                            {dataWishCardWithId?.wish?.holiday.name}
+                        </NameGiftProps>
+                        <DateGiftProps>
+                            {dataWishCardWithId?.wish?.wishDate}
+                        </DateGiftProps>
+                    </WrapperPropsGiftAndDate>
+                    <StyledH1>{dataWishCardWithId?.wish?.wishName}</StyledH1>
+                    <Styledp>{dataWishCardWithId?.wish?.description} </Styledp>
+                    <WrapperButtons>
+                        <Button variant="contained" onClick={toEditPage}>
+                            Редактировать
+                        </Button>
+                        <Button variant="contained" onClick={deleteGift}>
+                            Удалить
+                        </Button>
+                    </WrapperButtons>
+                </WrapperDiv>
+            </WrapperAll>
+        </>
     )
 }
 export default InnerPageWishCard
+
+const BreadCrumbsDiv = styled.div`
+    margin-top: 118px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+`
 const WrapperAll = styled('div')`
-    margin-top: 100px;
+    /* margin-top: 118px; */
     display: flex;
     padding: 20px;
     max-width: 1046px;

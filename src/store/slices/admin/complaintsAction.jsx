@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { appFetch } from '../../api/CustomFetch'
-import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
+import { appFetch } from '../../../api/CustomFetch'
+import { showErrorMessage, showSuccessMessage } from '../../../utils/helpers'
 
 export const giftsComplaintsAction = createAsyncThunk(
     'complaints/giftsComplaints',
@@ -23,14 +23,14 @@ export const wishesComplaintsAction = createAsyncThunk(
 )
 export const deleteComplaintAction = createAsyncThunk(
     'deleteComplaint/deleteComplaintAction',
-    async (obj) => {
+    async (complaintId, { dispatch }) => {
         try {
             const response = await appFetch({
                 method: 'DELETE',
-                url: `api/complaints/${obj.complaintId}`,
+                url: `api/complaints/${complaintId}`,
             })
-            obj.dispatch(giftsComplaintsAction())
-            obj.dispatch(wishesComplaintsAction())
+            dispatch(giftsComplaintsAction())
+            dispatch(wishesComplaintsAction())
             showSuccessMessage('Успешно удален!')
             return response
         } catch (error) {
@@ -42,6 +42,7 @@ export const deleteComplaintAction = createAsyncThunk(
 export const getWishAction = createAsyncThunk(
     'complaintWish/getWishAction',
     async (wishId, { dispatch }) => {
+        console.log(wishId)
         const response = await appFetch({
             url: `api/complaints/wish/${wishId}`,
         })
@@ -53,6 +54,7 @@ export const getWishAction = createAsyncThunk(
 export const getGiftAction = createAsyncThunk(
     'complaintGift/getGiftAction',
     async (giftId, { dispatch }) => {
+        console.log(giftId)
         const response = await appFetch({
             url: `api/complaints/gift/${giftId}`,
         })
@@ -70,6 +72,7 @@ export const toBlockWishAction = createAsyncThunk(
                 url: `api/admin/blockWish/${id}`,
             })
             dispatch(getWishAction(id))
+            dispatch(wishesComplaintsAction())
             showSuccessMessage('Успешно заблокирован!')
             return response
         } catch (error) {

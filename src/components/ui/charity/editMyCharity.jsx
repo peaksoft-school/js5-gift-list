@@ -75,7 +75,6 @@ export default function EditMyCharity() {
     return (
         <div style={styleForCard}>
             <Notification />
-            breadCrambs
             <Anketa onSubmit={submitHandler}>
                 {state && (
                     <ImagePicker

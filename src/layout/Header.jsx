@@ -67,6 +67,7 @@ export const Header = () => {
             searchParams.categoryId = e.category
             dispatch(getSubCategories(e.category))
             setIdCategory(e.category)
+            dispatch(getSubCategories(e.category))
         }
         if ((e.category, e.subCategory)) {
             setSearchParams({ ...searchParams, subCategoryId: e.subCategory })

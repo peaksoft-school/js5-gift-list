@@ -51,7 +51,6 @@ const ViewsDatePicker = ({ onChange, value, label, placeholder, width }) => {
 export default ViewsDatePicker
 
 const Div = styled('div')`
-    height: 56px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

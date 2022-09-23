@@ -3,10 +3,10 @@ import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 import Error from '../components/ui/Error'
-import CharityUsers from '../components/users/charity/CharityUser'
 import { CharityPage } from '../containers/admin/CharityPage'
-import ComplaintInnerPage from '../containers/admin/ComplaintInnerPage'
+import ComplaintGiftInnerPage from '../containers/admin/ComplaintGiftInnerPage'
 import { Complaints } from '../containers/admin/Complaints'
+import ComplaintWishInnerPage from '../containers/admin/ComplaitWishInnerPage'
 import InnerPageCharity from '../containers/admin/InnerPageCharity'
 import { Mailing } from '../containers/admin/Mailing'
 import UserProfilePage from '../containers/admin/UserProfilePage'
@@ -18,14 +18,18 @@ const AdminRoutes = () => {
     return (
         <Routes>
             <Route path={DEFAULT_ROUTES.INDEX.PATH} element={<PageLayout />}>
-                <Route path="/" element={<Navigate to="/users" />} />
+                <Route path="/" element={<Navigate replace to="/users" />} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="users/:id" element={<UserProfilePage />} />
                 <Route path="/complaints" element={<Complaints />} />
-                <Route path="/charity_users" element={<CharityUsers />} />
+                <Route path="/charity_users" element={<CharityPage />} />
                 <Route
-                    path="/complaints/:id"
-                    element={<ComplaintInnerPage />}
+                    path="/complaints/:giftId"
+                    element={<ComplaintGiftInnerPage />}
+                />
+                <Route
+                    path="/complaints/wish/:wishId"
+                    element={<ComplaintWishInnerPage />}
                 />
                 <Route path="/mailing" element={<Mailing />} />
                 <Route path="/charityAdmin" element={<CharityPage />} />

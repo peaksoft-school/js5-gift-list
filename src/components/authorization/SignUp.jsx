@@ -342,10 +342,10 @@
 //     height: 40px;
 // `
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { styled } from '@mui/material/styles'
-import { useDispatch } from 'react-redux/es/exports'
+import { useDispatch, useSelector } from 'react-redux/es/exports'
 import { useNavigate } from 'react-router-dom'
 
 import ExitIcon from '../../assets/icons/ExitModal.svg'
@@ -361,6 +361,7 @@ import InputPassword from '../ui/InputPassword'
 const SignUp = ({ setSignupState }) => {
     const [error, setError] = useState('')
     const [checkboxState, setCheckboxState] = useState(false)
+    const { jwt } = useSelector((state) => state.authSlice.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -432,9 +433,14 @@ const SignUp = ({ setSignupState }) => {
             dispatch(signUp({ userData, setError }))
         }
     }
+    useEffect(() => {
+        if (jwt) {
+            navigate('/lenta')
+        }
+    }, [])
+
     const googleHandler = () => {
         dispatch(googleAuthorization())
-        navigate('/lenta')
     }
     return (
         <BasicModal open onClose={signUpHandler}>
@@ -604,7 +610,6 @@ const GoogleDiv = styled('div')`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /* padding: 16px 10px; */
     gap: 16px;
     cursor: pointer;
     width: 482px;

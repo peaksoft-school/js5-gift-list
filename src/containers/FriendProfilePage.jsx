@@ -15,9 +15,10 @@ import { ReactComponent as GrayFacebook } from '../assets/icons/grayFacebook.svg
 import { ReactComponent as GrayInstagram } from '../assets/icons/grayInstagram.svg'
 import { ReactComponent as GrayTelegram } from '../assets/icons/grayTelegram.svg'
 import { ReactComponent as GrayVk } from '../assets/icons/grayVk.svg'
-import { ReactComponent as Instagram } from '../assets/icons/instagram.svg'
-import { ReactComponent as Telegram } from '../assets/icons/telegram.svg'
+import { ReactComponent as Instagram } from '../assets/icons/Instagram.svg'
+import { ReactComponent as Telegram } from '../assets/icons/Telegram.svg'
 import { ReactComponent as Vk } from '../assets/icons/vkFriendProfile.svg'
+import BreadCrumbs from '../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../components/ui/Button'
 import Notification from '../components/ui/notification/Notification'
 import MyHolidays from '../components/users/MyHolidaysCard'
@@ -127,17 +128,19 @@ const FriendProfilePage = () => {
             </ButtonDiv>
         )
     }
-
+    const pathTranslate = {
+        friends: friend.friendStatus === FRIEND ? 'Друзья' : 'Запросы в друзья',
+        [friendId]: `${friend?.firstName} ${friend?.lastName}`,
+    }
     return (
         <ContainerDiv>
-            <div>
-                <RouteTitle>
-                    {friend.friendStatus === FRIEND
+            <RouteTitle>
+                <BreadCrumbs translate={pathTranslate} />
+                {/* {friend.friendStatus === FRIEND
                         ? 'Друзья'
                         : 'Запросы в друзья'}
-                    <RouteNameTitle>/{friend?.firstName}</RouteNameTitle>
-                </RouteTitle>
-            </div>
+                    <RouteNameTitle>/{friend?.firstName}</RouteNameTitle> */}
+            </RouteTitle>
 
             <ContentDiv>
                 <div>
@@ -350,7 +353,8 @@ export default FriendProfilePage
 
 const ContainerDiv = styled('div')`
     width: 1086px;
-    margin: 0 auto;
+    margin-top: 118px;
+    /* margin: 0 auto; */
     padding: 0 auto;
     display: flex;
     flex-direction: column;
@@ -372,22 +376,17 @@ const InfoDiv = styled('div')`
     margin-top: 47px;
     margin-left: 40px;
 `
-const RouteTitle = styled('p')`
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #b4b4b4;
+const RouteTitle = styled('div')`
+    margin-bottom: 31px;
 `
-const RouteNameTitle = styled('span')`
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
-`
+// const RouteNameTitle = styled('span')`
+//     font-family: 'Inter', sans-serif;
+//     font-style: normal;
+//     font-weight: 500;
+//     font-size: 14px;
+//     line-height: 17px;
+//     color: #000000;
+// `
 
 const UserName = styled('div')`
     display: flex;

@@ -19,6 +19,9 @@ import { FriendsPage } from '../containers/FriendsPage'
 import HolidayCardInnerPage from '../containers/HolidayCardInnerPage'
 import HomePageWishCard from '../containers/HomePageWishCard'
 import InnerPageWishCard from '../containers/InnerPageWishCard'
+import EditProfile from '../containers/profile/EditProfile'
+import Profile from '../containers/profile/Profile'
+import UserProfile from '../containers/profile/UserProfile'
 import WishList from '../containers/WishList'
 import { PageLayout } from '../layout/PageLayout'
 import { DEFAULT_ROUTES } from '../utils/constants/constants'
@@ -36,6 +39,12 @@ const UserRoutes = () => {
                     element={<FriendProfilePage />}
                 />
                 <Route path="/bookeds" element={<Bookeds />} />
+                <Route
+                    path="/myprofile/edit_profile"
+                    element={<EditProfile />}
+                />
+                <Route path="/myprofile" element={<UserProfile />} />
+                <Route path="/myprofile/profile" element={<Profile />} />
                 <Route path="/wish_list" element={<WishList />} />
                 <Route
                     path="/wish_list/:wishListId"
@@ -58,9 +67,9 @@ const UserRoutes = () => {
                     path="/:editId/edit_charity"
                     element={<EditMyCharity />}
                 />
-                <Route path="/:id/innerPage" element={<CharityInnerPage />} />
+                <Route path="/charity/:id" element={<CharityInnerPage />} />
                 <Route
-                    path="/:myId/my_charity"
+                    path="/charity/my/:id"
                     element={<CharityMyInnerPage />}
                 />
             </Route>

@@ -76,6 +76,7 @@ const TextGift = styled('h2')`
     font-family: 'Inter', sans-serif;
     margin-bottom: 34px;
 `
+
 const NavbarWrapper = styled('div')``
 const NavWrapper = styled('nav')`
     color: white;

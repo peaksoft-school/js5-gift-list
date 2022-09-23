@@ -100,16 +100,14 @@ const HomePage = () => {
             <HolidayCardDiv>
                 <TitleButtonWrapper>
                     <NamePage>Лента</NamePage>
-                    {homePageWishes.length && (
-                        <IconDiv>
-                            <ButtonBoard onClick={boardChangeHandler}>
-                                <BoardIcons fill={formatCard} />
-                            </ButtonBoard>
-                            <ButtonList onClick={listChangeHandler}>
-                                <ListIcons fill={formatCard} />
-                            </ButtonList>
-                        </IconDiv>
-                    )}
+                    <IconDiv>
+                        <ButtonBoard onClick={boardChangeHandler}>
+                            <BoardIcons fill={formatCard} />
+                        </ButtonBoard>
+                        <ButtonList onClick={listChangeHandler}>
+                            <ListIcons fill={formatCard} />
+                        </ButtonList>
+                    </IconDiv>
                 </TitleButtonWrapper>
 
                 <CardDiv variant={formatCard}>
@@ -284,7 +282,7 @@ const CardDiv = styled('div')(({ variant }) => ({
         marginTop: '32px',
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-        gridTemplateRows: 'repeat(3, 320px)',
+        gridTemplateRows: 'repeat(6, 320px)',
         gridColumnGap: '19px',
         // paddingBottom: '0px',
         gridRowGap: '15px',
