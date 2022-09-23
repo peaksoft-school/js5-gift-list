@@ -10,7 +10,7 @@ import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
 import ImagePicker from '../components/ui/ImagePicker'
 import Input from '../components/ui/Input'
 import Select from '../components/ui/select/Select'
-import Textarea from '../components/ui/Textarea'
+import TextArea from '../components/ui/Textarea'
 import {
     getHolidaysToSelect,
     getWishWithId,
@@ -154,7 +154,7 @@ const EditWishCardPage = () => {
                         />
                     </DivDatePicker>
                 </WrapperSelects>
-                <Textarea
+                <TextArea
                     name="description"
                     label="Описание подарка"
                     value={wishGift.description}

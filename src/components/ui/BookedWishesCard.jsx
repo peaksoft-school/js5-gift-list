@@ -70,6 +70,7 @@ const DivMeatBalls = styled('span')``
 const StatusDiv = styled('div')`
     opacity: ${(props) => (props.status === true ? '0.6' : '1')};
     cursor: pointer;
+    /* width: 32%; */
 `
 const StyledCard = styled(MuiCard)`
     width: 95%;

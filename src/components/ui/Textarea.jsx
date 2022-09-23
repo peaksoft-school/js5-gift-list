@@ -8,6 +8,7 @@ function Textarea({
     name,
     onChange,
     label,
+    defaultValue,
     htmlFor,
     ...props
 }) {
@@ -20,13 +21,12 @@ function Textarea({
                 id={id}
                 placeholder={placeholder}
                 onChange={onChange}
+                defaultValue={defaultValue}
             />
         </div>
     )
 }
-
 export default Textarea
-
 const TextArea = styled('textarea')`
     width: 808px;
     height: 111px;
