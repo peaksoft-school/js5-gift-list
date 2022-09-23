@@ -23,7 +23,7 @@ function ListNotification(props) {
             return `добавил подарок "${props.wishOrGiftOrHolidayName}"`
         }
         if (props.notificationStatus === 'REQUEST_TO_FRIEND') {
-            return `Отправил запрос в друзья`
+            return `отправил запрос в друзья`
         }
         if (props.notificationStatus === 'COMPLAINT_TO_WISH') {
             return `пожаловался на "${props.wishOrGiftOrHolidayName}"`
