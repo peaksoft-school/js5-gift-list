@@ -60,8 +60,10 @@ const UserProfile = () => {
         })
     }
     const dateChangeHandler = (date) => {
-        setDateOfBirth(date)
+        setDateOfBirth(date.toLocaleDateString())
     }
+    console.log(dateOfBirth)
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await dispatch(profileGet()).unwrap()

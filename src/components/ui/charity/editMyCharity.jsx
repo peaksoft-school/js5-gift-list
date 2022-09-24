@@ -84,6 +84,7 @@ export default function EditMyCharity() {
                                 photo: file,
                             })
                         }}
+                        id={allvalue?.name}
                         newFile={img}
                     />
                 )}
