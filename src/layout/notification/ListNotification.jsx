@@ -28,18 +28,33 @@ function ListNotification(props) {
         if (props.notificationStatus === 'COMPLAINT_TO_WISH') {
             return `пожаловался на "${props.wishOrGiftOrHolidayName}"`
         }
+        if (props.notificationStatus === 'COMPLAINT_TO_GIFT') {
+            return `пожаловался на "${props.wishOrGiftOrHolidayName}"`
+        }
         if (props.notificationStatus === 'ADD_GIFT_BOOKING') {
             return `было забронировано ${userName}`
         }
 
         return statusNotif
     }
+    const isComplainWish =
+        props.notificationStatus === 'COMPLAINT_TO_WISH' ? userName : ''
+    const isAddWish = props.notificationStatus === 'ADD_WISH' ? userName : ''
+    const isAddHoliday =
+        props.notificationStatus === 'ADD_HOLIDAY' ? userName : ''
+    const isAddGift = props.notificationStatus === 'ADD_GIFT' ? userName : ''
+    const isComplainGift =
+        props.notificationStatus === 'COMPLAINT_TO_GIFT' ? userName : ''
     const isReguest =
         props.notificationStatus === 'REQUEST_TO_FRIEND' ? userName : ''
-    const isNameGift =
-        props.notificationStatus === 'ADD_WISH_BOOKING' || 'ADD_GIFT_BOOKING'
+    const isNameWish =
+        props.notificationStatus === 'ADD_WISH_BOOKING'
             ? props.wishOrGiftOrHolidayName
-            : userName
+            : ''
+    const isNameGift =
+        props.notificationStatus === 'ADD_GIFT_BOOKING'
+            ? props.wishOrGiftOrHolidayName
+            : ''
     const toProfileUser = () => {
         if (role !== 'ADMIN') {
             navigate(`/friends/${props.userId}`)
@@ -53,8 +68,14 @@ function ListNotification(props) {
             <Avatar src={props.photo} />
             <WrapperMessage>
                 <UserName>
+                    {isAddHoliday}
+                    {isAddGift}
+                    {isAddWish}
+                    {isComplainGift}
+                    {isComplainWish}
                     {isNameGift}
                     {isReguest}
+                    {isNameWish}
                 </UserName>
                 <Message>{statusNotif()} </Message>
                 <NotifDate>{props.createdAt} </NotifDate>
