@@ -32,7 +32,7 @@ export const signUp = ({ userData, setError }) => {
                 })
             )
         } catch (error) {
-            setError('этот аккаунт уже зарегистрирован')
+            setError('Этот аккаунт уже зарегистрирован')
         }
     }
 }

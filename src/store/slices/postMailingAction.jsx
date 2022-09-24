@@ -26,7 +26,7 @@ export const postMailingAction = createAsyncThunk(
             showSuccessMessage('Успешно добавлен')
             return response
         } catch (error) {
-            showErrorMessage('Вышла ошибка!')
+            showErrorMessage('Что то пошло не так!')
             throw new Error(error.message)
         }
     }

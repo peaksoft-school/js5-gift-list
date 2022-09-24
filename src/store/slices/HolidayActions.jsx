@@ -33,7 +33,7 @@ export const postHoliday = createAsyncThunk(
                 },
             })
             props.onClose()
-            showSuccessMessage('Успешно добавлен')
+            showSuccessMessage('Успешно добавлен!')
             dispatch(getHoliday())
             dispatch(getHolidaysToSelect())
             return response
@@ -82,10 +82,10 @@ export const putHoliday = createAsyncThunk(
             })
             dispatch(getHoliday())
             obj.onClose()
-            showSuccessMessage('Успешно изменен')
+            showSuccessMessage('Успешно изменен!')
             return response
         } catch (error) {
-            showErrorMessage('Вышла ошибка!')
+            showErrorMessage('Что то пошло не так!')
             throw new Error(error.message)
         }
     }
@@ -100,11 +100,11 @@ export const deleteHoliday = createAsyncThunk(
                 method: 'DELETE',
             })
             props.onClose()
-            showSuccessMessage('Успешное удаление')
+            showSuccessMessage('Успешное удален!')
             dispatch(getHoliday())
             return response
         } catch (error) {
-            showErrorMessage('Вышла ошибка')
+            showErrorMessage('Что то пошло не так!')
             throw new Error(error.message)
         }
     }

@@ -4,7 +4,6 @@ import { ReactComponent as Compolaints } from '../../assets/icons/complaintss.sv
 import { ReactComponent as Friends } from '../../assets/icons/friends.svg'
 import { ReactComponent as Lenta } from '../../assets/icons/Lenta.svg'
 import { ReactComponent as List } from '../../assets/icons/List.svg'
-import { ReactComponent as Mailinglist } from '../../assets/icons/mailing_list.svg'
 import { ReactComponent as MyHalidays } from '../../assets/icons/myPrazniki.svg'
 
 export const RolePaths = {
@@ -55,11 +54,6 @@ export const RolePaths = {
             pathName: 'Жалобы',
             path: '/complaints',
             icon: <Compolaints />,
-        },
-        {
-            pathName: 'Рассылка',
-            path: '/mailing',
-            icon: <Mailinglist />,
         },
     ],
 }

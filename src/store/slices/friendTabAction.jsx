@@ -13,7 +13,7 @@ export const requestsToFriendAction = createAsyncThunk(
             })
             return response
         } catch (error) {
-            throw new Error('Что-то пошло не так')
+            throw new Error('Что-то пошло не так!')
         }
     }
 )
@@ -25,7 +25,7 @@ export const getFriendsAction = createAsyncThunk(
             const response = await appFetch({ url: `api/users/friends` })
             return response
         } catch (error) {
-            throw new Error('Что-то пошло не так')
+            throw new Error('Что-то пошло не так!')
         }
     }
 )
