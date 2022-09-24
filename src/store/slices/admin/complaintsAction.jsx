@@ -34,7 +34,7 @@ export const deleteComplaintAction = createAsyncThunk(
             showSuccessMessage('Успешно удален!')
             return response
         } catch (error) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )
@@ -74,7 +74,7 @@ export const toBlockWishAction = createAsyncThunk(
             showSuccessMessage('Успешно заблокирован!')
             return response
         } catch (error) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )
@@ -92,7 +92,7 @@ export const unBlockWishAction = createAsyncThunk(
             showSuccessMessage('Успешно разблокирован!')
             return response
         } catch (error) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )
@@ -110,7 +110,7 @@ export const toBlockGiftAction = createAsyncThunk(
             showSuccessMessage('Успешно заблокирован!')
             return response
         } catch (error) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )
@@ -128,7 +128,7 @@ export const unBlockGiftAction = createAsyncThunk(
             showSuccessMessage('Успешно разблокирован!')
             return response
         } catch (error) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )

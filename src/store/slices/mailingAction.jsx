@@ -21,16 +21,16 @@ export const mailingAction = createAsyncThunk(
                 method: 'POST',
                 url: 'api/mailing/send',
                 body: {
-                    link: photo ? copy.photo : null,
+                    photo: photo ? copy.photo : null,
                     title: mailingTitle,
                     text: mailingText,
                 },
             })
             onClose()
-            showSuccessMessage('Успешно отправлен')
+            showSuccessMessage('Успешно отправлен!')
             return response
         } catch (error) {
-            showErrorMessage('Вышла ошибка!')
+            showErrorMessage('Что то пошло не так!')
             throw new Error(error.message)
         }
     }

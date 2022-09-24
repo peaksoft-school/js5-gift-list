@@ -54,7 +54,7 @@ export const googleAuthorization = (memorizee) => {
                 )
             }
         } catch (e) {
-            throw new Error('Что-то пошло не так')
+            throw new Error('Что-то пошло не так!')
         }
     }
 }

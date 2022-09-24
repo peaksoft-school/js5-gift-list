@@ -75,7 +75,7 @@ export const copmlainToWish = createAsyncThunk(
                 method: 'POST',
                 url: `api/complaints/wish/${obj.complaintId}?text=${obj.title}`,
             })
-            showSuccessMessage('Успешно отправлено')
+            showSuccessMessage('Успешно отправлен!')
             return response
         } catch (error) {
             return rejectWithValue(error)
@@ -91,7 +91,7 @@ export const copmlainToGift = createAsyncThunk(
                 method: 'POST',
                 url: `api/complaints/gift/${obj.complaintId}?text=${obj.title}`,
             })
-            showSuccessMessage('Успешно отправлено')
+            showSuccessMessage('Успешно отправлен!')
             return response
         } catch (error) {
             return rejectWithValue(error)
@@ -130,12 +130,12 @@ export const addtoMyWish = createAsyncThunk(
                 method: 'POST',
                 url: `api/wish/add/${obj.id}`,
             })
-            showSuccessMessage('Успешно добавлено')
+            showSuccessMessage('Успешно добавлен!')
             obj.dispatch(getFriendProfileAction(obj.userId))
             dispatch(getWishAction())
             return response
         } catch (error) {
-            showErrorMessage('Не удалось добавить')
+            showErrorMessage('Что то пошло не так!')
             throw new Error(error)
         }
     }

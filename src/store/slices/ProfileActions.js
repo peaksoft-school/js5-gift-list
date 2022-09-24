@@ -19,7 +19,6 @@ export const profileActions = createAsyncThunk(
                     body: formData,
                 })
             }
-
             const response = await appFetch({
                 url: 'api/users/profile/create',
                 method: 'POST',
@@ -44,7 +43,6 @@ export const profileActions = createAsyncThunk(
                 },
             })
             const local = JSON.parse(localStorage.getItem(GIFTLIST_AUTH))
-
             localStorage.setItem(
                 GIFTLIST_AUTH,
                 JSON.stringify({
@@ -59,12 +57,10 @@ export const profileActions = createAsyncThunk(
             return response
         } catch {
             showErrorMessage('Вышла ошибка!')
-
             throw new Error('Что-то пошло не так')
         }
     }
 )
-
 export const profileGet = createAsyncThunk(
     'profile/fetchProfile',
     async function () {
@@ -83,12 +79,10 @@ export const editProfile = createAsyncThunk(
         const formData = new FormData()
         try {
             const local = JSON.parse(localStorage.getItem(GIFTLIST_AUTH))
-
             const date = format(
                 parse(dateOfBirth, 'dd.mm.yyyy', new Date()),
                 'yyyy-mm-dd'
             )
-
             const responseFile = {}
             if (basicInformation.photo.name) {
                 formData.set('file', basicInformation.photo)
@@ -134,15 +128,13 @@ export const editProfile = createAsyncThunk(
             showSuccessMessage('Успешно редактирован!')
             dispatch(profileGet())
             navigate()
-
             return response
         } catch (error) {
-            showErrorMessage('Что-то пошло не так error')
-            throw new Error('Что-то пошло не так')
+            showErrorMessage('Что-то пошло не так!')
+            throw new Error('Что-то пошло не так!')
         }
     }
 )
-
 export const passwordPost = createAsyncThunk(
     'password/newPassword',
     async ({ allPassword }) => {
@@ -152,11 +144,10 @@ export const passwordPost = createAsyncThunk(
                 method: 'POST',
                 body: allPassword,
             })
-            showSuccessMessage('пароль изменен ')
-
+            showSuccessMessage('Пароль изменен! ')
             return response
         } catch (error) {
-            throw new Error('старый пароль  не правильный')
+            throw new Error('Старый пароль  не правильный!')
         }
     }
 )
