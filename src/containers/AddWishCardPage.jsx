@@ -9,7 +9,6 @@ import Button from '../components/ui/Button'
 import ViewsDatePicker from '../components/ui/datePicker/ViewsDatePicker'
 import ImagePicker from '../components/ui/ImagePicker'
 import Input from '../components/ui/Input'
-import Notification from '../components/ui/notification/Notification'
 import Select from '../components/ui/select/Select'
 import TextArea from '../components/ui/Textarea'
 import {
@@ -83,7 +82,6 @@ const AddWishCardPage = () => {
     }
     return (
         <WrapperAll onSubmit={postHandler}>
-            <Notification />
             <ImagePicker onChange={addImageGift} id="addWishes" />
             <WrapperEdit>
                 <H2>Добавление желаемого подарка</H2>

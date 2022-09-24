@@ -29,8 +29,6 @@ export const Complaints = () => {
         (state) => state.wishesComplaints.complaintOnWishes
     )
 
-    console.log(giftComplaints)
-    console.log(wishComplaints)
     useEffect(() => {
         dispatch(giftsComplaintsAction())
     }, [])
@@ -118,11 +116,9 @@ export const Complaints = () => {
         dispatch(deleteComplaintAction(complaintId))
     }
     const goToGiftInnerPage = (id) => {
-        console.log(id)
         navigate(`/complaints/${id}`)
     }
     const goToWishInnerPage = (id) => {
-        console.log(id)
         navigate(`/complaints/wish/${id}`)
     }
     return (

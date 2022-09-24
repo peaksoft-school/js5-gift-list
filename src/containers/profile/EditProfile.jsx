@@ -15,7 +15,6 @@ import Button from '../../components/ui/Button'
 import ViewsDatePicker from '../../components/ui/datePicker/ViewsDatePicker'
 import ImagePicker from '../../components/ui/ImagePicker'
 import Input from '../../components/ui/Input'
-import Notification from '../../components/ui/notification/Notification'
 import SizePopup from '../../components/ui/SizePopup'
 import TextArea from '../../components/ui/Textarea'
 import { editProfile, profileGet } from '../../store/slices/ProfileActions'
@@ -62,7 +61,6 @@ const UserProfile = () => {
     const dateChangeHandler = (date) => {
         setDateOfBirth(date.toLocaleDateString())
     }
-    console.log(dateOfBirth)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -326,7 +324,6 @@ const UserProfile = () => {
                         </Button>
                     </Buttons>
                 </ProfileDiv>
-                <Notification />
             </ProfileContainer>
         </Div>
     )

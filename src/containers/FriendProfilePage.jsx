@@ -20,7 +20,6 @@ import { ReactComponent as Telegram } from '../assets/icons/telegram.svg'
 import { ReactComponent as Vk } from '../assets/icons/vkFriendProfile.svg'
 import BreadCrumbs from '../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../components/ui/Button'
-import Notification from '../components/ui/notification/Notification'
 import MyHolidays from '../components/users/MyHolidaysCard'
 import {
     deleteFriendAction,
@@ -345,7 +344,6 @@ const FriendProfilePage = () => {
                     })}
                 </StyledCardDiv>
             </div>
-            <Notification />
         </ContainerDiv>
     )
 }

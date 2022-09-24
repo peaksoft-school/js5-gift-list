@@ -309,7 +309,7 @@ const StyledCardContentFirst = styled(CardContent)(({ variants }) => ({
     }),
     ...(variants === 'list' && {
         display: 'grid',
-        gridTemplateColumns: '43px 180px 101px',
+        gridTemplateColumns: '43px 180px 141px',
         padding: '0',
         margin: '16px 16px 0 0',
     }),
@@ -325,12 +325,12 @@ const StyledCardContentSecond = styled(CardContent)(({ variants }) => ({
     display: 'grid',
     padding: '0',
     ...(variants === 'board' && {
-        gridTemplateColumns: '80px 165px 10px',
+        gridTemplateColumns: '80px 205px 10px',
         gridTemplateRows: '0px',
         margin: '15px 16px 0 16px',
     }),
     ...(variants === 'list' && {
-        gridTemplateColumns: '30px 245px 10px',
+        gridTemplateColumns: '35px 305px 10px',
         position: 'absolute',
         width: '20%',
         top: '18.5vh',
@@ -366,7 +366,7 @@ const NameGift = styled('span')(({ variants }) => ({
     }),
     ...(variants === 'list' && {
         position: 'absolute',
-        left: '153px',
+        left: '183px',
         top: '75px',
     }),
 }))
@@ -379,7 +379,7 @@ const StyledDate = styled('p')(({ variants }) => ({
     margin: '0px',
     ...(variants === 'board' && {}),
     ...(variants === 'list' && {
-        marginLeft: '0px',
+        marginLeft: '25px',
     }),
 }))
 const StyledText = styled('span')`

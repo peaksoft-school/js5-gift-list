@@ -38,7 +38,7 @@ export const Header = () => {
     useEffect(() => {
         dispatch(getCategories())
         dispatch(getAdminCharitiesWithFilter('search=all'))
-        dispatch(getCharitiesWithFilter('search=all'))
+        dispatch(getCharitiesWithFilter('search=a'))
         dispatch(getAllNotifications())
     }, [])
 

@@ -8,7 +8,6 @@ import cacelBooking from '../assets/icons/cancelBooking.svg'
 import notFoundImg from '../assets/images/notFoundImg.svg'
 import BookedGiftsCard from '../components/ui/BookedGiftsCard'
 import BookedWishesCard from '../components/ui/BookedWishesCard'
-import Notification from '../components/ui/notification/Notification'
 import {
     addFriendsWishInMyWish,
     getBookedGifts,
@@ -109,6 +108,8 @@ const BookedPage = () => {
                         firstName={el.ownerUser.firstName}
                         lastName={el.ownerUser.lastName}
                         avatar={el.ownerUser.photo}
+                        width
+                        margin
                     />
                 ))}
             </WrapperCard>
@@ -147,7 +148,6 @@ const BookedPage = () => {
                         <h3>Вы пока не добавили желание!</h3>
                     </WrapperNotFoundImg>
                 )}
-                <Notification />
             </WrapperCard>
         </WrapperPage>
     )
@@ -168,13 +168,13 @@ const WrapperNotFoundImg = styled('div')`
 const NotFoundImg = styled('img')``
 
 const WrapperPage = styled('div')`
-    margin: 0 0 0 10px;
+    margin: 120px 0 0 10px;
     width: 98%;
 `
 const H1 = styled('h1')`
     font-family: 'Inter';
     font-style: normal;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 20px;
     line-height: 24px;
     margin-left: 15px;
@@ -188,7 +188,7 @@ const WrapperWishes = styled('div')`
 const H2 = styled('div')`
     font-family: 'Inter';
     font-style: normal;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 18px;
     line-height: 22px;
 `

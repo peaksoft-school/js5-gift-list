@@ -78,7 +78,6 @@ function UserProfilePage() {
     const [showMoreCharityCard, setShowMoreCharityCard] = useState(false)
 
     const { userProfile } = useSelector((state) => state.usersCard)
-    // console.log(userProfile)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getUserProfileWithId(id))

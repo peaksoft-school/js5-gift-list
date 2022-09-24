@@ -12,7 +12,6 @@ export const profileActions = createAsyncThunk(
         try {
             const formData = new FormData()
             const responseFile = {}
-            console.log(dateOfBirth)
             if (basicInformation.photo.name) {
                 formData.set('file', basicInformation.photo)
                 responseFile.link = await appFetchFile({

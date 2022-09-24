@@ -149,7 +149,7 @@ const WrapperNotFoundImg = styled('div')`
 `
 const NotFoundImg = styled('img')``
 const DivWishList = styled('div')`
-    margin: 100px 40px 0 20px;
+    margin: 120px 40px 0 20px;
 `
 
 const WrapperTop = styled('div')`
@@ -170,7 +170,7 @@ const WrapperTop = styled('div')`
 const H2 = styled('h2')`
     font-family: 'Inter', sans-serif;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 20px;
     line-height: 24px;
     display: flex;

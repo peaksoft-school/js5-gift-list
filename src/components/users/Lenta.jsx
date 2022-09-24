@@ -5,13 +5,11 @@ import styled from '@emotion/styled'
 // import styled from '@emotion/styled'
 
 import HomePage from '../../containers/HomePage'
-import Notification from '../ui/notification/Notification'
 
 export const Lenta = () => {
     return (
         <Div>
             <HomePage />
-            <Notification />
         </Div>
     )
 }

@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import Button from '../../components/ui/Button'
-import Notification from '../../components/ui/notification/Notification'
 
 import CreatingMailingList from './CreatingMailingList'
 
@@ -27,7 +26,6 @@ export const Mailing = () => {
                     onClose={closeMailingListHandler}
                 />
             )}
-            <Notification />
         </Container>
     )
 }
