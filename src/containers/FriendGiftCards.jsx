@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import cancelBooking from '../assets/icons/cancelBooking.svg'
 import complaintIcon from '../assets/icons/complaintss.svg'
 import toBookIcon from '../assets/icons/toBook.svg'
-import Notification from '../components/ui/notification/Notification'
 import CharityCards from '../components/users/CharityCards'
 import ReportModal from '../components/users/ReportModal'
 import {
@@ -116,7 +115,6 @@ function FriendGiftCards({ gifts, idOfOwnerUser }) {
                     onClick={sendComplainToGiftHandler}
                 />
             )}
-            <Notification />
             <div>
                 <CharityCards
                     id={gifts?.gift?.giftId}

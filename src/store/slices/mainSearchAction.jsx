@@ -9,3 +9,10 @@ export const mainSearchAction = createAsyncThunk(
         return response
     }
 )
+export const mainSearchInAdminAction = createAsyncThunk(
+    'users/mainSearchInAdminAction',
+    async (value) => {
+        const response = await appFetch({ url: `api/admin/search/${value}` })
+        return response
+    }
+)

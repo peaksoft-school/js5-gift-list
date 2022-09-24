@@ -13,7 +13,6 @@ import {
 import BreadCrumbs from '../breadCrumbs/BreadCrumbs'
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
-import Notification from '../notification/Notification'
 
 import SelectCharity from './SelectCharity'
 import TextFields from './TextField'
@@ -52,7 +51,6 @@ export default function EditCharity() {
     return (
         <BreadCrumbsDiv>
             <BreadCrumbs translate={pathTranslate} />
-            <Notification />
             <Anketa onSubmit={submitHandler}>
                 <ImagePicker
                     id="charity"

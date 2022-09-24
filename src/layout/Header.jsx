@@ -14,7 +14,10 @@ import {
     getCharitiesWithFilter,
     getSubCategories,
 } from '../store/slices/admin/charityAction'
-import { mainSearchAction } from '../store/slices/mainSearchAction'
+import {
+    mainSearchAction,
+    mainSearchInAdminAction,
+} from '../store/slices/mainSearchAction'
 import { getAllNotifications } from '../store/slices/NotificationsAction'
 import { array } from '../utils/constants/constants'
 
@@ -28,13 +31,14 @@ export const Header = () => {
     const [value, setValue] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
     const [categoryId, setIdCategory] = useState()
-    const { options } = useSelector((state) => state.users)
+    const { options, optionsAdmin } = useSelector((state) => state.users)
     const { searching, notification } = useSelector((state) => state)
+    const { role } = useSelector((state) => state.authSlice.user)
 
     useEffect(() => {
         dispatch(getCategories())
         dispatch(getAdminCharitiesWithFilter('search=all'))
-        dispatch(getCharitiesWithFilter('search=all'))
+        dispatch(getCharitiesWithFilter('search=a'))
         dispatch(getAllNotifications())
     }, [])
 
@@ -47,13 +51,21 @@ export const Header = () => {
 
     const valueChangeHandler = (e) => {
         setValue(e.target.value)
-        dispatch(mainSearchAction(e.target.value))
+        if (role !== 'ADMIN') {
+            dispatch(mainSearchAction(e.target.value))
+        } else {
+            dispatch(mainSearchInAdminAction(e.target.value))
+        }
     }
     const searchResultOptionSelecHandler = (id) => {
-        navigate(`/friends/${id}`)
+        if (role !== 'ADMIN') {
+            navigate(`/friends/${id}`)
+        } else {
+            navigate(`/users/${id}`)
+        }
         setValue('')
     }
-
+    const a = [{ name: 'пусто' }]
     const stopPropagationHandler = (event) => {
         event.stopPropagation()
     }
@@ -74,13 +86,14 @@ export const Header = () => {
             searchParams.subCategoryId = e.subCategory
         }
     }
+    const arrauSelect = searching.categories.length ? searching.categories : a
     const isWishSearchHandler = () => {
         if (location.pathname === '/charityAdmin') {
             return (
                 <SearchInputWithSelect
                     showSubCategory={categoryId}
                     onChange={getIdCategory}
-                    categories={searching.categories}
+                    categories={arrauSelect}
                     stateOption={array}
                     subCategories={searching.subCategories}
                 />
@@ -91,16 +104,27 @@ export const Header = () => {
                 <SearchInputWithSelect
                     showSubCategory={categoryId}
                     onChange={getIdCategory}
-                    categories={searching.categories}
+                    categories={arrauSelect}
                     stateOption={array}
                     subCategories={searching.subCategories}
                 />
             )
         }
-        if (location.pathname) {
+        if (role !== 'ADMIN') {
             return (
                 <MainSearchInput
                     options={options}
+                    onChange={valueChangeHandler}
+                    value={value}
+                    onClick={searchResultOptionSelecHandler}
+                    stopPropagationHandler={stopPropagationHandler}
+                />
+            )
+        }
+        if (role === 'ADMIN') {
+            return (
+                <MainSearchInput
+                    options={optionsAdmin}
                     onChange={valueChangeHandler}
                     value={value}
                     onClick={searchResultOptionSelecHandler}

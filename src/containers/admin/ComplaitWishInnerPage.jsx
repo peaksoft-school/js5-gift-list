@@ -15,7 +15,6 @@ import {
 
 const ComplaintWishInnerPage = () => {
     const { wishId } = useParams()
-    console.log(wishId)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -25,9 +24,7 @@ const ComplaintWishInnerPage = () => {
     const complaintWish = useSelector(
         (state) => state.complaintWish.complaintWish
     )
-    console.log(complaintWish)
     const { wish } = complaintWish
-    console.log(wish?.name)
     const { ownerUser } = complaintWish
     const { bookedUser } = complaintWish
 
@@ -69,7 +66,6 @@ const ComplaintWishInnerPage = () => {
     }
 
     const toBlockWishHandler = (id) => {
-        console.log(id)
         dispatch(toBlockWishAction(id))
     }
     const unBlockWishHandler = (id) => {

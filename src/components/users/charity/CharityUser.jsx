@@ -14,7 +14,6 @@ import {
 } from '../../../store/slices/GiftActions'
 import Button from '../../ui/Button'
 import CharityCard from '../../ui/charity/CharityCard'
-import Notification from '../../ui/notification/Notification'
 
 const CharityUser = () => {
     const dispatch = useDispatch()
@@ -35,12 +34,10 @@ const CharityUser = () => {
         navigate('/charity/add_charity')
     }
     const clickmyCharity = (id) => {
-        console.log(id)
         navigate(`/charity/my/${id}`)
     }
     return (
         <CharityDiv>
-            <Notification />
             <Header>
                 <div>
                     <h2>Благотворительность</h2>
@@ -123,8 +120,8 @@ const Header = styled.div`
     }
     & h2 {
         font-family: 'Inter';
-        font-style: normal;
-        font-weight: 500;
+        font-style: bold;
+        font-weight: 600;
         font-size: 20px;
         line-height: 24px;
         display: flex;
@@ -132,15 +129,8 @@ const Header = styled.div`
         letter-spacing: 0.2px;
         color: #020202;
     }
-    /* & img {
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        margin: 5px 3px;
-    } */
 `
 const StyledAvatar = styled(Avatar)`
-    /* overflow: hidden; */
     background-color: #fafafa;
 `
 const Img = styled.div`
@@ -148,5 +138,4 @@ const Img = styled.div`
     flex-wrap: wrap;
     max-width: 80%;
     gap: 16px;
-    /* overflow: hidden; */
 `

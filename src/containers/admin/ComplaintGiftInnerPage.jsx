@@ -15,7 +15,6 @@ import {
 
 const ComplaintGiftInnerPage = () => {
     const { giftId } = useParams()
-    console.log(giftId)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -27,8 +26,6 @@ const ComplaintGiftInnerPage = () => {
     )
 
     const { gift } = complaintGift
-    console.log(complaintGift)
-    console.log(gift?.giftId)
     const giftOwnerUser = complaintGift?.ownerUser
     const giftBookeduser = complaintGift?.bookedUser
 

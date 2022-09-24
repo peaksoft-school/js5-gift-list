@@ -24,9 +24,16 @@ export default function BookedWishesCard({
     complaintUser,
     variant,
     onClick,
+    width,
+    margin,
 }) {
     return (
-        <StatusDiv onClick={onClick} status={status}>
+        <StatusDiv
+            width={width}
+            margin={margin}
+            onClick={onClick}
+            status={status}
+        >
             <StyledCard complaintBorder={ComplaintBorder}>
                 <StyledCardContentFirst>
                     <Div>
@@ -70,13 +77,14 @@ const DivMeatBalls = styled('span')``
 const StatusDiv = styled('div')`
     opacity: ${(props) => (props.status === true ? '0.6' : '1')};
     cursor: pointer;
-    /* width: 32%; */
+    width: ${(props) => (props.width ? '30%' : '')};
+    margin: ${(props) => (props.margin ? '10px' : '')};
 `
 const StyledCard = styled(MuiCard)`
     width: 95%;
     height: 100%;
     margin: 1%;
-    padding: 1%;
+    padding: 2% 2% 0 2%;
     border: ${(props) =>
         props.complaintBorder === 'orange' ? '1px solid #FD5200' : ''};
 `
@@ -112,7 +120,7 @@ const Div = styled('div')`
 
 const StyledCardContentSecond = styled('div')`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     margin: 10px 15px 0 0px;
 `

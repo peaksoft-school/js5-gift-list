@@ -14,7 +14,6 @@ import {
 import { showErrorMessage } from '../../../utils/helpers'
 import Button from '../Button'
 import ImagePicker from '../ImagePicker'
-import Notification from '../notification/Notification'
 
 export default function EditMyCharity() {
     const navigate = useNavigate()
@@ -60,7 +59,6 @@ export default function EditMyCharity() {
                 await dispatch(
                     putCharity({ id: state?.gift.giftId, ...allvalue })
                 ).unwrap()
-                // console.log(response)
                 navigate('/charity')
             } catch (error) {
                 showErrorMessage('Не удалось изменить!')
@@ -74,7 +72,6 @@ export default function EditMyCharity() {
     const img = state?.gift.photo?.name ? null : state?.gift.photo
     return (
         <div style={styleForCard}>
-            <Notification />
             <Anketa onSubmit={submitHandler}>
                 {state && (
                     <ImagePicker

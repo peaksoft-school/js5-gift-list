@@ -5,6 +5,7 @@ const TextFields = (props) => {
         <InputLabel style={props.style}>
             {props.label}
             <TextField
+                autoComplete="off"
                 value={props.value}
                 onChange={props.onChange}
                 variant="outlined"
