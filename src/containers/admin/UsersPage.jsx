@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import unBlockIcon from '../../assets/icons/cancelBooking.svg'
+import mailIcon from '../../assets/icons/mail.svg'
 import blockIcon from '../../assets/icons/toBooking.svg'
+import Button from '../../components/ui/Button'
 import UserCard from '../../components/users/UserCard'
 import {
     getAllUsers,
@@ -13,10 +15,19 @@ import {
     toUnBlockUser,
 } from '../../store/slices/admin/usersPageAction'
 
+import CreatingMailingList from './CreatingMailingList'
+
 export const UsersPage = () => {
+    const [open, setOpen] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const { users } = useSelector((state) => state.usersCard)
+    const openHandler = () => {
+        setOpen(true)
+    }
+    const closeMailingListHandler = () => {
+        setOpen(false)
+    }
     const blockOption = [
         {
             icon: blockIcon,
@@ -51,7 +62,18 @@ export const UsersPage = () => {
     }
     return (
         <WrapperPage>
-            <H1>Пользователи</H1>
+            <MailingDiv>
+                <H1>Пользователи</H1>
+                <Button variant="outlined" onClick={openHandler}>
+                    <Img src={mailIcon} /> Отправить рассылку
+                </Button>
+                {open && (
+                    <CreatingMailingList
+                        open={open}
+                        onClose={closeMailingListHandler}
+                    />
+                )}
+            </MailingDiv>
             <WrapperCards>
                 {users.map((el) => (
                     <UserCard
@@ -84,4 +106,20 @@ const H1 = styled('h1')`
 const WrapperCards = styled('div')`
     display: flex;
     flex-wrap: wrap;
+`
+const MailingDiv = styled('div')`
+    display: flex;
+    justify-content: space-between;
+    margin-right: 74px;
+    button {
+        width: 258px;
+        height: 39px;
+        border: 1px solid #8639b5;
+        color: #8639b5;
+    }
+`
+const Img = styled.img`
+    margin-right: 10px;
+    width: 16px;
+    height: auto;
 `

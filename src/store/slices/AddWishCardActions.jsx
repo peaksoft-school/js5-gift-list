@@ -42,7 +42,7 @@ export const addGift = createAsyncThunk(
             dispatch(getWishGift())
             return responseAll
         } catch (e) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )
@@ -66,11 +66,11 @@ export const deleteWishGift = createAsyncThunk(
                 method: 'DELETE',
                 url: `api/wish/${id}`,
             })
-            showSuccessMessage('Успешно удалено')
+            showSuccessMessage('Успешно удален!')
             dispatch(getWishAction())
             return deleteResponse
         } catch (error) {
-            showErrorMessage('Что-то пошло не так')
+            showErrorMessage('Что-то пошло не так!')
             throw new Error(error)
         }
     }
@@ -119,7 +119,7 @@ export const putWishCard = createAsyncThunk(
             showSuccessMessage('Успешно редактирован!')
             return response
         } catch (error) {
-            throw new Error('Что-то пошло не так')
+            throw new Error('Что-то пошло не так!')
         }
     }
 )

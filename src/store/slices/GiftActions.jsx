@@ -26,7 +26,7 @@ export const postCharity = createAsyncThunk(
                     description: props.description,
                 },
             })
-            showSuccessMessage('Успешно добавлено!')
+            showSuccessMessage('Успешно добавлен!')
             dispatch(getCharity())
             dispatch(getMyCharity())
             return post
@@ -79,7 +79,7 @@ export const toBookCharity = createAsyncThunk(
             method: 'POST',
             url: `api/bookings/gift-create/${id}`,
         })
-        showSuccessMessage('Успешно забронировано!')
+        showSuccessMessage('Успешно забронирован!')
         dispatch(getCharity())
         dispatch(getMyCharity())
         dispatch(getSingleCharityById(id))

@@ -54,7 +54,7 @@ export const singInActions = ({ userData, setError, memorizee }) => {
                 })
             )
         } catch (error) {
-            setError('не правильный пароль или логин')
+            setError('Не правильный пароль или логин')
         }
     }
 }

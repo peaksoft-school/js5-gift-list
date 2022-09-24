@@ -46,11 +46,7 @@ export const FriendsPage = () => {
 const MainDiv = styled('div')`
     width: 1086px;
     height: 1224px;
-<<<<<<< HEAD
     margin-top: 118px;
-=======
-    margin-top: 110px;
->>>>>>> 60b6001138cf4ad9e55aa7644e887dabb2dce4e7
     margin-left: 20px;
     background-color: #f4f6f6;
 `

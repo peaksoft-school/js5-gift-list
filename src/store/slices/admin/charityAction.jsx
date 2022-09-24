@@ -64,7 +64,7 @@ export const getGiftsById = createAsyncThunk(
             })
             return response
         } catch (error) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )
@@ -82,7 +82,7 @@ export const toBlockGifts = createAsyncThunk(
             dispatch(getGiftsById(id))
             return response
         } catch (error) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )
@@ -99,7 +99,7 @@ export const toUnBlockGifts = createAsyncThunk(
             dispatch(getGiftsById(id))
             return response
         } catch (error) {
-            return showErrorMessage('Что-то пошло не так')
+            return showErrorMessage('Что-то пошло не так!')
         }
     }
 )

@@ -8,7 +8,6 @@ import ComplaintGiftInnerPage from '../containers/admin/ComplaintGiftInnerPage'
 import { Complaints } from '../containers/admin/Complaints'
 import ComplaintWishInnerPage from '../containers/admin/ComplaitWishInnerPage'
 import InnerPageCharity from '../containers/admin/InnerPageCharity'
-import { Mailing } from '../containers/admin/Mailing'
 import UserProfilePage from '../containers/admin/UserProfilePage'
 import { UsersPage } from '../containers/admin/UsersPage'
 import { PageLayout } from '../layout/PageLayout'
@@ -31,7 +30,6 @@ const AdminRoutes = () => {
                     path="/complaints/wish/:wishId"
                     element={<ComplaintWishInnerPage />}
                 />
-                <Route path="/mailing" element={<Mailing />} />
                 <Route path="/charityAdmin" element={<CharityPage />} />
                 <Route
                     path="/charityAdmin/:id"
