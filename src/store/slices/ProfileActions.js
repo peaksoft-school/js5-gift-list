@@ -1,4 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { parse } from 'date-fns'
+import format from 'date-fns/format'
 
 import { appFetch, appFetchFile } from '../../api/CustomFetch'
 import { GIFTLIST_AUTH } from '../../utils/constants/constants'
@@ -10,6 +12,7 @@ export const profileActions = createAsyncThunk(
         try {
             const formData = new FormData()
             const responseFile = {}
+            console.log(dateOfBirth)
             if (basicInformation.photo.name) {
                 formData.set('file', basicInformation.photo)
                 responseFile.link = await appFetchFile({
@@ -79,9 +82,13 @@ export const editProfile = createAsyncThunk(
         { dispatch }
     ) {
         const formData = new FormData()
-
         try {
             const local = JSON.parse(localStorage.getItem(GIFTLIST_AUTH))
+
+            const date = format(
+                parse(dateOfBirth, 'dd.mm.yyyy', new Date()),
+                'yyyy-mm-dd'
+            )
 
             const responseFile = {}
             if (basicInformation.photo.name) {
@@ -91,10 +98,6 @@ export const editProfile = createAsyncThunk(
                     body: formData,
                 })
             }
-            const updatedDateOfBirth = dateOfBirth
-                .split('.')
-                .reverse()
-                .join('-')
             const response = await appFetch({
                 url: `api/users/profile/edit/${id}`,
                 method: 'POST',
@@ -106,7 +109,7 @@ export const editProfile = createAsyncThunk(
                         ? responseFile.link.link
                         : basicInformation.photo,
                     city: basicInformation.city,
-                    dateOfBirth: updatedDateOfBirth,
+                    dateOfBirth: date,
                     phoneNumber: basicInformation.phoneNumber,
                     clothingSize: basicInformation.clothingSize,
                     shoeSize: basicInformation.shoeSize,
@@ -124,17 +127,18 @@ export const editProfile = createAsyncThunk(
                     ...local,
                     firstName: basicInformation.firstName,
                     lastName: basicInformation.lastName,
-                    photo: responseFile?.link.link,
+                    photo: basicInformation.photo.name
+                        ? responseFile.link.link
+                        : basicInformation.photo,
                 })
             )
             showSuccessMessage('Успешно редактирован!')
-
             dispatch(profileGet())
             navigate()
 
             return response
-        } catch {
-            showErrorMessage('Вышла ошибка!')
+        } catch (error) {
+            showErrorMessage('Что-то пошло не так error')
             throw new Error('Что-то пошло не так')
         }
     }
