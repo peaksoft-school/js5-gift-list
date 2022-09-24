@@ -91,7 +91,7 @@ const HolidaysPage = () => {
                 deleteHolidays={deleteHolidaysHandler}
                 id={locationId}
             />
-            {holiday.holiday.length < 0 ? (
+            {holiday.holiday.length ? (
                 <CardDiv>
                     {holiday?.holiday?.map((el) => {
                         return (

@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
+import { ReactComponent as NotifIsRead } from '../assets/icons/NotifIsRead.svg'
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg'
 import MainSearchInput from '../components/ui/MainSearchInput'
 import SearchInputWithSelect from '../components/ui/searchInputWithSelect/SearchInputWithSelect'
@@ -14,24 +15,29 @@ import {
     getSubCategories,
 } from '../store/slices/admin/charityAction'
 import { mainSearchAction } from '../store/slices/mainSearchAction'
+import { getAllNotifications } from '../store/slices/NotificationsAction'
 import { array } from '../utils/constants/constants'
 
 import MenuAccaunt from './MenuAccaount'
+import NotificationMenu from './notification/NotificationMenu'
 
 export const Header = () => {
     const navigate = useNavigate()
-    const [value, setValue] = useState('')
-    const [categoryId, setIdCategory] = useState()
     const dispatch = useDispatch()
     const location = useLocation()
-    const { options } = useSelector((state) => state.users)
-    const { searching } = useSelector((state) => state)
+    const [value, setValue] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
+    const [categoryId, setIdCategory] = useState()
+    const { options } = useSelector((state) => state.users)
+    const { searching, notification } = useSelector((state) => state)
+
     useEffect(() => {
         dispatch(getCategories())
         dispatch(getAdminCharitiesWithFilter('search=all'))
         dispatch(getCharitiesWithFilter('search=all'))
+        dispatch(getAllNotifications())
     }, [])
+
     useEffect(() => {
         if (location.pathname === '/charityAdmin') {
             dispatch(getAdminCharitiesWithFilter(searchParams.toString()))
@@ -68,7 +74,7 @@ export const Header = () => {
             searchParams.subCategoryId = e.subCategory
         }
     }
-    const is = () => {
+    const isWishSearchHandler = () => {
         if (location.pathname === '/charityAdmin') {
             return (
                 <SearchInputWithSelect
@@ -104,30 +110,35 @@ export const Header = () => {
         }
         return location.pathname
     }
+    const [anchorEl, setanchorEl] = useState(null)
+    const open = Boolean(anchorEl)
+    const handelClick = (e) => {
+        setanchorEl(e.currentTarget)
+    }
+    const onClose = () => {
+        setanchorEl(null)
+    }
     return (
         <Headers>
-            <InputDiv>
-                {is()}
-                {/* {location.pathname === '/charity' ? (
-                    <SearchInputWithSelect
-                        showSubCategory={categoryId}
-                        onChange={getIdCategory}
-                        categories={searching.categories}
-                        stateOption={array}
-                        subCategories={searching.subCategories}
+            <InputDiv>{isWishSearchHandler()}</InputDiv>
+            <WarningSpan>
+                <NotificationMenu
+                    menuItems={notification.allNotification}
+                    handleClose={onClose}
+                    open={open}
+                    anchorEl={anchorEl}
+                />
+                {notification.allNotification.length ? (
+                    <NotifIsRead
+                        style={styleWarningIcon}
+                        onClick={handelClick}
                     />
                 ) : (
-                    <MainSearchInput
-                        options={options}
-                        onChange={valueChangeHandler}
-                        value={value}
-                        onClick={searchResultOptionSelecHandler}
-                        stopPropagationHandler={stopPropagationHandler}
+                    <WarningIcon
+                        style={styleWarningIcon}
+                        onClick={handelClick}
                     />
-                )} */}
-            </InputDiv>
-            <WarningSpan>
-                <WarningIcon />
+                )}
             </WarningSpan>
             <MenuAccaunt />
         </Headers>
@@ -155,3 +166,6 @@ const InputDiv = styled('div')`
     display: flex;
     flex-direction: column;
 `
+const styleWarningIcon = {
+    cursor: 'pointer',
+}

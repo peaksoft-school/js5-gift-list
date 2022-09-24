@@ -19,6 +19,7 @@ import HolidayGiftsSlice from './slices/HolidayGiftsSlice'
 import HolidaySlice from './slices/HolidaySlice'
 import HomePageSlice from './slices/HomePageSlice'
 import getUserSlice from './slices/mainSearchSlise'
+import notificationsSlise from './slices/NotificationsSlice'
 import profileSlice from './slices/ProfileSlice'
 
 export const store = configureStore({
@@ -41,6 +42,7 @@ export const store = configureStore({
         homePageWishes: HomePageSlice.reducer,
         usersCard: usersCardSlice.reducer,
         searching: charitySearching.reducer,
+        notification: notificationsSlise.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

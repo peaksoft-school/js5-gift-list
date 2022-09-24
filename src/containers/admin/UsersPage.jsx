@@ -20,7 +20,7 @@ export const UsersPage = () => {
     const blockOption = [
         {
             icon: blockIcon,
-            title: 'Заблокировать',
+            title: ' Блокировать',
             id: '3',
             clickItem: (id) => {
                 blockingUser(id)
@@ -30,7 +30,7 @@ export const UsersPage = () => {
     const unBlockOption = [
         {
             icon: unBlockIcon,
-            title: 'Блокировать',
+            title: 'Разблокировать',
             id: '3',
             clickItem: (id) => {
                 unBlockingUser(id)

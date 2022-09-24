@@ -17,7 +17,7 @@ import ImagePicker from '../../components/ui/ImagePicker'
 import Input from '../../components/ui/Input'
 import Notification from '../../components/ui/notification/Notification'
 import SizePopup from '../../components/ui/SizePopup'
-import Textarea from '../../components/ui/Textarea'
+import TextArea from '../../components/ui/Textarea'
 import { editProfile, profileGet } from '../../store/slices/ProfileActions'
 import { optionsSize, options } from '../../utils/constants/constants'
 
@@ -234,7 +234,7 @@ const UserProfile = () => {
                                 Расскажите о своих интересах и хобби
                             </InputLabel>
 
-                            <Textarea
+                            <TextArea
                                 defaultValue={basicInformation?.hobby}
                                 name="hobby"
                                 onChange={allValueHandler}
@@ -249,7 +249,7 @@ const UserProfile = () => {
                                 О чем важно знать?
                             </InputLabel>
 
-                            <Textarea
+                            <TextArea
                                 defaultValue={basicInformation?.importantNote}
                                 name="importantNote"
                                 onChange={allValueHandler}
