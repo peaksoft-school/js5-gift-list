@@ -78,7 +78,6 @@ const FriendProfilePage = () => {
     const isShowMoreGiftHandler = () => {
         setShowMoreCharityCard(!showMoreCharityCard)
     }
-
     const holidayLength = holidays.length
     const wichIsShowHoliday = showMoreHolidayCard ? holidayLength : 3
     const whichTextHoliday = wichIsShowHoliday < 4 ? 'Смотреть все' : 'Скрыть'
