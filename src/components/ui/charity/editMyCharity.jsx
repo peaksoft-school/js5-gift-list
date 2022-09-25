@@ -199,7 +199,6 @@ export default function EditMyCharity() {
 }
 const styleForCard = {
     margin: '30px auto',
-    // width: '100%',
 }
 const Questionaire = styled('div')`
     display: flex;

@@ -198,6 +198,3 @@ const ButtonChoose = styled('button')`
         border: 1px solid #8639b5;
     }
 `
-// const PP = styled('p')`
-//     border: 1px solid #8639b5;
-// `

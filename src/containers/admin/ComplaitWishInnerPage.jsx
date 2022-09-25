@@ -139,10 +139,6 @@ const ComplaintWishInnerPage = () => {
 }
 export default ComplaintWishInnerPage
 
-// const ComplaintUserAvatar = styled(Avatar)`
-//     width: 40px;
-//     height: 40px;
-// `
 const styleForCard = {
     display: 'flex',
     margin: '30px',

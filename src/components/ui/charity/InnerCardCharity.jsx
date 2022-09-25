@@ -39,9 +39,7 @@ const InnerPage = (props) => {
         marginLeft: '0px',
         maxWidth: 'auto',
         maxHeight: '871px',
-        // margin: '30px',
         padding: '20px',
-        // width: '90%',
         backgroundColor: '#ffffff',
         borderRadius: '10px',
     }

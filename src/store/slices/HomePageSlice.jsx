@@ -34,5 +34,4 @@ const HomePageSlice = createSlice({
     },
 })
 
-// export const HomePageGifts = HomePageGiftsSlice.actions
 export default HomePageSlice

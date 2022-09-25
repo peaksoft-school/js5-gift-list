@@ -5,8 +5,6 @@ import { showErrorMessage, showSuccessMessage } from '../../utils/helpers'
 
 import { getWishAction } from './HomePageActions'
 
-// import { friendsAction } from './friendTabAction'
-
 export const getFriendProfileAction = createAsyncThunk(
     'friend/friendProfileAction',
     async (userId) => {
@@ -130,13 +128,14 @@ export const addtoMyWish = createAsyncThunk(
                 method: 'POST',
                 url: `api/wish/add/${obj.id}`,
             })
-            showSuccessMessage('Успешно добавлен!')
-            obj.dispatch(getFriendProfileAction(obj.userId))
+            if (obj.userId) {
+                dispatch(getFriendProfileAction(obj.userId))
+            }
             dispatch(getWishAction())
+            showSuccessMessage('Успешно добавлен!')
             return response
         } catch (error) {
-            showErrorMessage('Что то пошло не так!')
-            throw new Error(error)
+            return showErrorMessage('Что то пошло не так!')
         }
     }
 )

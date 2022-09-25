@@ -37,7 +37,6 @@ const StyledContainer = styled('div')(({ status }) => ({
     ...(status === true && {
         opacity: '0.4',
     }),
-    // opacity: '0.6',
     borderRadius: '8px',
     boxSizing: 'border-box',
     display: 'flex',
