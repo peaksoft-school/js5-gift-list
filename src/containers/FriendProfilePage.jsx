@@ -377,14 +377,6 @@ const InfoDiv = styled('div')`
 const RouteTitle = styled('div')`
     margin-bottom: 31px;
 `
-// const RouteNameTitle = styled('span')`
-//     font-family: 'Inter', sans-serif;
-//     font-style: normal;
-//     font-weight: 500;
-//     font-size: 14px;
-//     line-height: 17px;
-//     color: #000000;
-// `
 
 const UserName = styled('div')`
     display: flex;

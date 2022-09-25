@@ -541,19 +541,6 @@ const StyledCardActions = styled(CardActions)`
     display: flex;
     justify-content: space-evenly;
 `
-// const ButtonDiv = styled('div')`
-//     button {
-//         width: 197px;
-//         height: 39px;
-//         text-transform: none;
-//         font-family: 'Inter';
-//         font-style: normal;
-//         font-weight: 500;
-//         font-size: 16px;
-//         line-height: 19px;
-//         margin-bottom: 16px;
-//     }
-// `
 const InfoDiv = styled('div')`
     width: 284px;
     margin-top: 47px;

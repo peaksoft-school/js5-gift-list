@@ -86,14 +86,6 @@ export default function SelectFilter(props) {
         </div>
     )
 }
-// const Plus = styled('span')`
-//     font-size: 25px;
-//     margin-right: 7px;
-// `
-// const MenuItemButton = styled(MenuItem)`
-//     color: #8639B5;
-//     padding: 0 0 0 15px;
-// `
 const StyledInputLabel = styled(InputLabel)`
     padding: 10px 0 8px 0;
     color: #bfc0c4;

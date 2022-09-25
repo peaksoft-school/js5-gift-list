@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 import styled from '@emotion/styled'
-// import moment from 'moment'
-// import { format, parse } from 'date-fns'
 import { useDispatch } from 'react-redux'
 
 import BasicModal from '../components/ui/BasicModal'

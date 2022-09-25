@@ -90,12 +90,6 @@ const StyledCard = styled(MuiCard)(() => ({
     background: '#FFFFFF',
     border: '1px solid #FFFFFF',
     borderRadius: '8px',
-    // height: '42vh',
-    // borderRadius: '8px',
-    // padding: '16px',
-    // marginTop: '24px',
-    // display: 'flex',
-    // flexDirection: 'column',
 }))
 const cursor = {
     cursor: 'pointer',

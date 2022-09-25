@@ -14,7 +14,7 @@ function ListNotification(props) {
             return `добавил желаемый подарок "${props.wishOrGiftOrHolidayName}"`
         }
         if (props.notificationStatus === 'ADD_HOLIDAY') {
-            return 'добавил новый праздник'
+            return `добавил новый праздник "${props.wishOrGiftOrHolidayName}"`
         }
         if (props.notificationStatus === 'ADD_WISH_BOOKING') {
             return `было забронировано ${userName}`

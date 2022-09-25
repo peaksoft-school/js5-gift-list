@@ -103,7 +103,6 @@ const ComplaintGiftInnerPage = () => {
     }
     const pathTranslate = {
         complaints: 'Жалобы',
-        // gift: 'подарки',
         [giftId]: gift?.name,
     }
     return (

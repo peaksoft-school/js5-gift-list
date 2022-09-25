@@ -25,7 +25,8 @@ const MenuAccaunt = () => {
     const neLogoutHandler = () => {
         setLogoutState(false)
     }
-    const { firstName, photo, lastName } = useSelector(
+
+    const { role, firstName, photo, lastName } = useSelector(
         (state) => state.authSlice.user
     )
 
@@ -59,12 +60,14 @@ const MenuAccaunt = () => {
                             </p>
                         </MenuMui>
                         <Menu {...bindMenu(popupState)}>
-                            <MenuItem onClick={popupState.close}>
-                                <p>
-                                    <ProfileIcon />
-                                </p>
-                                <p onClick={profileNavigate}>Профиль</p>
-                            </MenuItem>
+                            {role !== 'ADMIN' && (
+                                <MenuItem onClick={popupState.close}>
+                                    <p>
+                                        <ProfileIcon />
+                                    </p>
+                                    <p onClick={profileNavigate}>Профиль</p>
+                                </MenuItem>
+                            )}
                             <MenuItem onClick={popupState.close}>
                                 <p>
                                     <Exit />

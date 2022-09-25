@@ -5,11 +5,7 @@ import { useDispatch } from 'react-redux'
 
 import deleteIcon from '../../assets/icons/deleteIcon.svg'
 import editIcon from '../../assets/icons/editIcon.svg'
-import defaultimage from '../../assets/images/placeholder.webp'
-import {
-    // deleteHoliday,
-    getHolidayById,
-} from '../../store/slices/HolidayActions'
+import { getHolidayById } from '../../store/slices/HolidayActions'
 import MeatBalls from '../ui/meatBall/components/meatBalls'
 
 export default function MyHolidaysCard({
@@ -41,22 +37,15 @@ export default function MyHolidaysCard({
             icon: deleteIcon,
             title: 'Удалить',
             clickItem: (e) => {
-                // dispatch(deleteHoliday({ id, link: img }))
                 openDeleteModal(id)
                 getId(id)
                 e.stopPropagation()
             },
         },
     ]
-    const image = {
-        image: img,
-    }
-    if (!img) {
-        image.image = defaultimage
-    }
     return (
         <StyledCard onClick={navigate}>
-            <StyledCardMedia alt={title} image={image.image} />
+            <StyledCardMedia component="img" alt={title} image={img} />
             <HolidayTitleDiv>
                 <HolidayTitle>{title}</HolidayTitle>
             </HolidayTitleDiv>
