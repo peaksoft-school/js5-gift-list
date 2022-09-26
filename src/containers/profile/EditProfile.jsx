@@ -85,6 +85,9 @@ const UserProfile = () => {
         }
         fetchData()
     }, [])
+    const navigateOtmen = () => {
+        navigate('/myprofile')
+    }
     const img = basicInformation.photo?.name ? null : basicInformation?.photo
     const submitHandler = (e) => {
         e.preventDefault()
@@ -318,7 +321,9 @@ const UserProfile = () => {
                         </div>
                     </DivSocial>
                     <Buttons>
-                        <Button variant="outlined">Отмена</Button>
+                        <Button onClick={navigateOtmen} variant="outlined">
+                            отмена
+                        </Button>
                         <Button type="submit" variant="contained">
                             Сохранить
                         </Button>
