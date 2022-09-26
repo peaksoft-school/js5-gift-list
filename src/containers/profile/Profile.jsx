@@ -301,9 +301,9 @@ const Profile = () => {
                         </div>
                     </DivSocial>
                     <Buttons>
-                        <Button variant="outlined">отмена</Button>
+                        <Button variant="outlined">Отмена</Button>
                         <Button type="submit" variant="contained">
-                            сохранить
+                            Сохранить
                         </Button>
                     </Buttons>
                 </ProfileDiv>
