@@ -3,9 +3,14 @@ import { MenuItem, Select } from '@mui/material'
 export default function SelectCharity(props) {
     return (
         <Select
+            placeholder={props.placeholder}
             value={props.value}
             onChange={props.onChange}
             style={textFieldstyle}
+            displayEmpty
+            renderValue={
+                props.value !== '' ? undefined : () => `${props.placeholder}`
+            }
         >
             {props.data &&
                 props.data?.map((el) => (

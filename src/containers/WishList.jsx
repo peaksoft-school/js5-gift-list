@@ -34,7 +34,7 @@ const WishList = () => {
         },
         {
             icon: deleteIcon,
-            title: 'удалить',
+            title: 'Удалить',
             id: '2',
             clickItem: (id) => {
                 dispatch(deleteWishGift(id))
