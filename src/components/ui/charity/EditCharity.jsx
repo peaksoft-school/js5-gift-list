@@ -68,6 +68,7 @@ export default function EditCharity() {
                         <div>
                             <TextFields
                                 label=" Название подарка"
+                                placeholder="Введите название подарка"
                                 style={InputLabelstyle}
                                 value={allvalue.name}
                                 onChange={(e) => {
@@ -80,6 +81,7 @@ export default function EditCharity() {
                             />
                             <InputLabel>Категория</InputLabel>
                             <SelectCharity
+                                placeholder="Выберите категорию"
                                 onClick={getCategotyById}
                                 value={allvalue.categoryId}
                                 data={category}
@@ -96,6 +98,12 @@ export default function EditCharity() {
                             <InputLabel>Состояние</InputLabel>
                             <Select
                                 value={allvalue.status}
+                                displayEmpty
+                                renderValue={
+                                    allvalue.status !== ''
+                                        ? undefined
+                                        : () => 'Введите состояние'
+                                }
                                 onChange={(e) => {
                                     setallvalue({
                                         ...allvalue,
@@ -109,6 +117,7 @@ export default function EditCharity() {
                             </Select>
                             <InputLabel>Подкатегория</InputLabel>
                             <SelectCharity
+                                placeholder="Выберите подкатегорию"
                                 value={allvalue.subCategoryId}
                                 onChange={(e) => {
                                     setallvalue({
@@ -119,9 +128,10 @@ export default function EditCharity() {
                                 data={subCategory}
                             />
                         </div>
-                        {/* --------------------------------  --------------------- */}
+                        {/* ----------------------------------------------------*/}
                     </Questionaire>
                     <TextFields
+                        placeholder="Введите описание подарка"
                         style={TextAreaStyle}
                         label="Описание подарка"
                         value={allvalue.description}
@@ -133,9 +143,14 @@ export default function EditCharity() {
                         }}
                         propsstyle={styles}
                     />
-                    {/* -------------------------  --------------------- */}
+                    {/* ---------------------------------------------- */}
                     <Buttons>
-                        <Button variant="outlined">Отмена</Button>
+                        <Button
+                            variant="outlined"
+                            onClick={() => navigate('/charity')}
+                        >
+                            Отмена
+                        </Button>
                         <Button type="submit">Сохранить</Button>
                     </Buttons>
                 </Container>

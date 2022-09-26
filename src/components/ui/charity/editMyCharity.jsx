@@ -198,7 +198,7 @@ export default function EditMyCharity() {
     )
 }
 const styleForCard = {
-    margin: '30px auto',
+    margin: '120px 30px 0 0',
 }
 const Questionaire = styled('div')`
     display: flex;
@@ -222,7 +222,7 @@ const Buttons = styled('div')`
 const textFieldstyle = {
     width: '396px',
     height: '35px',
-    color: '#8D949E',
+    color: '#000',
     padding: '8px 18px',
     borderRadius: '6px',
     margin: '5px 0',

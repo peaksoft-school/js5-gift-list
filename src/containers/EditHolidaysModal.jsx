@@ -57,7 +57,11 @@ const EditHolidaysModal = (props) => {
         <BasicModal open={open} onClose={onClose}>
             <ModalChildDiv>
                 <AddTitle>Редактировать праздник</AddTitle>
-                <ImagePicker onChange={setPrevImage} newFile={newImage} />
+                <ImagePicker
+                    onChange={setPrevImage}
+                    newFile={newImage}
+                    id="edit"
+                />
                 <InModalChildDiv>
                     <LabelInputDiv>
                         <label htmlFor="Название праздника">

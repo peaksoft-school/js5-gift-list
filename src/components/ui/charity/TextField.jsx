@@ -5,6 +5,7 @@ const TextFields = (props) => {
         <InputLabel style={props.style}>
             {props.label}
             <TextField
+                placeholder={props.placeholder}
                 autoComplete="off"
                 value={props.value}
                 onChange={props.onChange}

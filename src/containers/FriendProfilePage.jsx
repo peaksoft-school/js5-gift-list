@@ -8,7 +8,7 @@ import {
     styled,
 } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { ReactComponent as Facebook } from '../assets/icons/facebookFriendProfilePage.svg'
 import { ReactComponent as GrayFacebook } from '../assets/icons/grayFacebook.svg'
@@ -20,6 +20,7 @@ import { ReactComponent as Telegram } from '../assets/icons/telegram.svg'
 import { ReactComponent as Vk } from '../assets/icons/vkFriendProfile.svg'
 import BreadCrumbs from '../components/ui/breadCrumbs/BreadCrumbs'
 import Button from '../components/ui/Button'
+import ChangePassword from '../components/ui/ChangePassword'
 import MyHolidays from '../components/users/MyHolidaysCard'
 import {
     deleteFriendAction,
@@ -43,8 +44,10 @@ const FriendProfilePage = () => {
     const [showMoreWishCard, setShowMoreWishCard] = useState(false)
     const [showMoreHolidayCard, setShowMoreHolidayCard] = useState(false)
     const [showMoreCharityCard, setShowMoreCharityCard] = useState(false)
+    const [changePassword, setChangePassword] = useState(false)
     const idOfOwnerUser = useSelector((state) => state.authSlice.user.id)
     const { userId } = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { friend, userInfo, gifts, holidays, wishes } = useSelector(
         (state) => state.friend
@@ -78,6 +81,13 @@ const FriendProfilePage = () => {
     const isShowMoreGiftHandler = () => {
         setShowMoreCharityCard(!showMoreCharityCard)
     }
+
+    const editProfileHandler = () => {
+        navigate('/myprofile/edit_profile')
+    }
+    const changePasswordHandler = () => {
+        setChangePassword(true)
+    }
     const holidayLength = holidays.length
     const wichIsShowHoliday = showMoreHolidayCard ? holidayLength : 3
     const whichTextHoliday = wichIsShowHoliday < 4 ? 'Смотреть все' : 'Скрыть'
@@ -89,6 +99,18 @@ const FriendProfilePage = () => {
     const whichIsTextGift = wichIsShowGift < 4 ? 'Смотреть все' : 'Скрыть'
 
     const renderButtons = () => {
+        if (friend.friendStatus === NOT_FRIEND && friend.id === idOfOwnerUser) {
+            return (
+                <ButtonDiv>
+                    <Button variant="contained" onClick={editProfileHandler}>
+                        Редактировать
+                    </Button>
+                    <Button variant="outlined" onClick={changePasswordHandler}>
+                        Сменить пароль
+                    </Button>
+                </ButtonDiv>
+            )
+        }
         if (friend.friendStatus === FRIEND) {
             return (
                 <ButtonDiv>
@@ -132,6 +154,9 @@ const FriendProfilePage = () => {
     }
     return (
         <ContainerDiv>
+            {changePassword && (
+                <ChangePassword setChangePassword={setChangePassword} />
+            )}
             <RouteTitle>
                 <BreadCrumbs translate={pathTranslate} />
                 {/* {friend.friendStatus === FRIEND

@@ -325,7 +325,7 @@ const UserProfile = () => {
                             отмена
                         </Button>
                         <Button type="submit" variant="contained">
-                            сохранить
+                            Сохранить
                         </Button>
                     </Buttons>
                 </ProfileDiv>

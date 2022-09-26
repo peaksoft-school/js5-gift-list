@@ -215,6 +215,7 @@ const WrapperSelects = styled('div')`
     }
 `
 const DivSelect = styled('div')`
+    margin-top: -7px;
     width: 396px;
     div {
         height: 35px;
